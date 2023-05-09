@@ -13,3 +13,5 @@ function extractDocx() {
     })
     .done();
 }
+
+module.exports= extractDocx()
