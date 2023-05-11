@@ -31,46 +31,44 @@
             document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
         }
 
+        // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+                document.getElementById("main-page-nav").style.padding = "0.5rem 0";
+                document.getElementById("main-page-brand").style.fontSize="20px";
+                document.getElementById("sphere-container").style.zIndex = "10";
+                window.setTimeout(function(){
+                    document.getElementById("main-page-brand").style.all="unset";
+                    document.getElementById("main-page-brand").style.transition="0.2s";
+                }, 150);
+            } 
+            else {
+                window.setTimeout(function(){
+                    document.getElementById("main-page-nav").style.padding = "0.5rem 0 30vh 0rem";
+                    document.getElementById("main-page-brand").style.cssText=`
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0%;
+                    transform: translate(-50%, 10%);
+                    font-size: 128px;
+                    letter-spacing: 20px;
+                    text-transform: uppercase;
+                    `;
+                    document.getElementById("sphere-container").style.zIndex = "2000";
+                }, 200);
+            }
+        }
+        
     </script>
 
 </head>
 <body>
-    <!-- Sidebar -->
-  <nav id="sidebarMenu" class="d-lg-block sidebar">
-    <div class="sidebar-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/gptzero.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GPTZero</div><div class="col-2 p-0">
-            <div class="checkbox">
-            <input type="checkbox" id="GPTZero-checkbox" checked>
-            <label for="GPTZero-checkbox"></label>
-        </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/writer.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Writer</div><div class="col-2 p-0"><div class="checkbox">
-            <input type="checkbox" id="Writer-checkbox" checked>
-            <label for="Writer-checkbox"></label>
-        </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/sapling.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Sapling AI</div><div class="col-2 p-0"><div class="checkbox">
-            <input type="checkbox" id="Sapling-checkbox" checked>
-            <label for="Sapling-checkbox"></label>
-        </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GLTR</div><div class="col-2 p-0"><div class="checkbox">
-            <input type="checkbox" id="GLTR-checkbox">
-            <label for="GLTR-checkbox"></label>
-        </div></div></div></div>
-
-        </div>
-        <div class="text-center">
-        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold">
-            Add API <i class="fa-solid fa-circle-plus"></i>
-        </button>
-    </div>
-    </div>
-  </nav>
-  <i id="left-bar-slider" class="fa-solid fa-angles-right fa-xl" onclick="sidebar_open()"></i>
-  <!-- Sidebar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav id="main-page-nav" class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold ms-4" href="index.html">
-                <img src="images/logo.png" alt="Logo" class="me-3">BotBuster
+                <img src="images/logo.png" alt="Logo" class="me-3"><span id="main-page-brand">BotBuster</span>
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -86,31 +84,77 @@
           </div>
         </div>
     </nav>
-    <main>
-        <div class="content">
-            <div class="options">
-                <a class="fw-bold" href="textarea.html">Text Area</a>
-                <a class="fw-bold" href="fileupload.html">File Upload</a>
-                <a class="active fw-bold" href="webscraper.html">Web Scraper</a>
-                <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
-            </div>
-            <form action="result.html">
-                <div class="form-outline">
-                    <label class="form-label" for="typeURL">Enter the URL of the webpage to webscrape</label>
-                    <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
-                        Submit
-                    </button>
-                    <button type="clear" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
+    <main style="background-color: #78A6C8;">
+        <div id="main-page-content">
+            <div id="sphere-container" class="col-12">
+                <div class="sphere">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-            </form>
-             <iframe src="https://twitter.com/nasa" title="W3Schools Free Online Web Tutorials"></iframe> 
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">When the Relativity Space Terran 1 rocket lit up the night sky as it launched this past March, it became the first 3D-printed rocket test of its kind. Learn about GRCop—an innovative, high strength material at the center of this breakthrough: <a href="https://t.co/gfZvGs9fnu">https://t.co/gfZvGs9fnu</a> <a href="https://t.co/EYfFJIhwfO">pic.twitter.com/EYfFJIhwfO</a></p>&mdash; NASA&#39;s Glenn Research Center (@NASAglenn) <a href="https://twitter.com/NASAglenn/status/1656290498313633792?ref_src=twsrc%5Etfw">May 10, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
-
+                <button id="find-out-more" type="button" class="btn fw-bold" onclick="window.location.href='textarea.html'">Find Out More <i class="fa-solid fa-circle-arrow-right"></i></button>
+                <p id="slogan" class="fw-bold">Comprehensive AI Detection</p>
+            </div>
+            <div class="row"  style="margin:0">
+                <div class="col-3">
+                    <div class="card">
+                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                            <div>
+                            <h3 class="card-title pt-2"><strong><a href="textarea.html">Text Area</a></strong></h3>
+                            <p>Manual detection of content through a text area input.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                            <div>
+                            <h3 class="card-title pt-2"><strong><a href="textarea.html">File Upload</a></strong></h3>
+                            <p>Upload a varitey of file types to extract content.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                            <div>
+                            <h3 class="card-title pt-2"><strong><a href="textarea.html">Web Scraper</a></strong></h3>
+                            <p>Extract content from articles and social media pages.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                            <div>
+                            <h3 class="card-title pt-2"><strong><a href="textarea.html">Settings</a></strong></h3>
+                            <p>Change configurations to alter how the functions work.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             

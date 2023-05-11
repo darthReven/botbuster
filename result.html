@@ -16,6 +16,8 @@
 
     <script src="https://kit.fontawesome.com/24dc174b82.js" crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <script>
         function sidebar_open() {
             document.getElementById("sidebarMenu").style.width = "100%";
@@ -31,6 +33,29 @@
             document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
         }
 
+        function percentageToHsl(percentage, hue0, hue1) {
+        var hue = ((percentage/100) * (hue1 - hue0)) + hue0;
+        return 'hsl(' + hue + ', 100%, 50%)';
+        }
+
+        $(document).ready(function() {
+            hue0 = 120
+            hue1 = 0  
+            const collection = document.getElementsByClassName("result-display");
+            for(let x = 0; x < collection.length; x++) {
+                console.log(collection[x].nodeName)
+                if(collection[x].nodeName == "INPUT") {
+                    new_colour = percentageToHsl(collection[x].value, hue0, hue1)
+                    document.querySelector("#result-display-" + String(x) + ":checked").style.background = String(new_colour)
+                    document.querySelector("#result-display-" + String(x) + ":checked").style.border = "0"
+                }
+                else {
+                    new_colour = percentageToHsl(collection[x].innerHTML, hue0, hue1)
+                    document.getElementById('result-display-' + String(x)).style.color = String(new_colour)
+                }
+            }
+        })
+        
     </script>
 
 </head>
@@ -39,30 +64,11 @@
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/gptzero.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GPTZero</div><div class="col-2 p-0">
-            <div class="checkbox">
-            <input type="checkbox" id="GPTZero-checkbox" checked>
-            <label for="GPTZero-checkbox"></label>
-        </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/writer.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Writer</div><div class="col-2 p-0"><div class="checkbox">
-            <input type="checkbox" id="Writer-checkbox" checked>
-            <label for="Writer-checkbox"></label>
-        </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/sapling.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Sapling AI</div><div class="col-2 p-0"><div class="checkbox">
-            <input type="checkbox" id="Sapling-checkbox" checked>
-            <label for="Sapling-checkbox"></label>
-        </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GLTR</div><div class="col-2 p-0"><div class="checkbox">
-            <input type="checkbox" id="GLTR-checkbox">
-            <label for="GLTR-checkbox"></label>
-        </div></div></div></div>
-
+        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/gptzero.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GPTZero</div><div class="col-2 p-0 text-center"><input class="form-check-input result-display" type="radio" name="tt" id="result-display-0" value="33" checked></div></div></div>
+        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/writer.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Writer</div><div class="col-2 p-0 text-center"><span id="result-display-1" class="result-display" value="50">50</span></div></div></div>
+        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/sapling.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Sapling AI</div><div class="col-2 p-0 text-center"><span id="result-display-2" class="result-display" value="83">83</span></div></div></div>
+        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GLTR</div><div class="col-2 p-0 text-center"><span id="result-display-3" class="result-display" value="20">10</span></div></div></div>
         </div>
-        <div class="text-center">
-        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold">
-            Add API <i class="fa-solid fa-circle-plus"></i>
-        </button>
-    </div>
     </div>
   </nav>
   <i id="left-bar-slider" class="fa-solid fa-angles-right fa-xl" onclick="sidebar_open()"></i>
@@ -91,25 +97,15 @@
             <div class="options">
                 <a class="fw-bold" href="textarea.html">Text Area</a>
                 <a class="fw-bold" href="fileupload.html">File Upload</a>
-                <a class="active fw-bold" href="webscraper.html">Web Scraper</a>
+                <a class="fw-bold" href="webscraper.html">Web Scraper</a>
                 <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
-            <form action="result.html">
-                <div class="form-outline">
-                    <label class="form-label" for="typeURL">Enter the URL of the webpage to webscrape</label>
-                    <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
-                        Submit
-                    </button>
-                    <button type="clear" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
+            <form>
+                <div class="form-group">
+                  <textarea class="form-control" id="text-area" rows="7" disabled>here</textarea>
                 </div>
             </form>
-             <iframe src="https://twitter.com/nasa" title="W3Schools Free Online Web Tutorials"></iframe> 
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">When the Relativity Space Terran 1 rocket lit up the night sky as it launched this past March, it became the first 3D-printed rocket test of its kind. Learn about GRCop—an innovative, high strength material at the center of this breakthrough: <a href="https://t.co/gfZvGs9fnu">https://t.co/gfZvGs9fnu</a> <a href="https://t.co/EYfFJIhwfO">pic.twitter.com/EYfFJIhwfO</a></p>&mdash; NASA&#39;s Glenn Research Center (@NASAglenn) <a href="https://twitter.com/NASAglenn/status/1656290498313633792?ref_src=twsrc%5Etfw">May 10, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
 
 
 

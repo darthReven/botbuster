@@ -91,25 +91,102 @@
             <div class="options">
                 <a class="fw-bold" href="textarea.html">Text Area</a>
                 <a class="fw-bold" href="fileupload.html">File Upload</a>
-                <a class="active fw-bold" href="webscraper.html">Web Scraper</a>
-                <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
+                <a class="fw-bold" href="webscraper.html">Web Scraper</a>
+                <a class="active fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
-            <form action="result.html">
-                <div class="form-outline">
-                    <label class="form-label" for="typeURL">Enter the URL of the webpage to webscrape</label>
-                    <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
-                        Submit
-                    </button>
-                    <button type="clear" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
-                </div>
+            <form>
+                <fieldset class="form-group">
+                    <h4>BotBuster Settings</h4>
+                    <div class="row">
+                        <h5>Text Area Settings</h5>
+                      <legend class="col-form-label col-sm-2 pt-0">Breakpoint</legend>
+                      <div class="col-sm-10 col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="text-area-settings" id="text-area-chopping-1" value="dynamic" checked>
+                          <label class="form-check-label" for="text-area-chopping-1">
+                            Dynamic
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="text-area-settings" id="text-area-chopping-2" value="paragraph">
+                          <label class="form-check-label" for="text-area-chopping-2">
+                            Paragraph
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="text-area-settings" id="text-area-chopping-3" value="sentence">
+                          <label class="form-check-label" for="text-area-chopping-3">
+                            Sentence
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <h5>File Upload Settings</h5>
+                        <legend class="col-form-label col-sm-2 pt-0">Breakpoint</legend>
+                        <div class="col-sm-10 col-md-4">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="file-upload-settings" id="file-upload-chopping-1" value="dynamic" checked>
+                            <label class="form-check-label" for="file-upload-chopping-1">
+                              Dynamic
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="file-upload-settings" id="file-upload-chopping-2" value="paragraph">
+                            <label class="form-check-label" for="file-upload-chopping-2">
+                              Paragraph
+                            </label>
+                          </div>
+                          <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="file-upload-settings" id="file-upload-chopping-3" value="sentence">
+                            <label class="form-check-label" for="file-upload-chopping-3">
+                              Sentence
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <h5>Web Scraper Settings</h5>
+                        <legend class="col-form-label col-sm-2 pt-0">Breakpoint</legend>
+                        <div class="col-sm-10 col-md-4">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="web-scraper-settings-1" id="web-scraper-chopping-1" value="dynamic" checked>
+                            <label class="form-check-label" for="web-scraper-chopping-1">
+                              Dynamic
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="web-scraper-settings-1" id="web-scraper-chopping-2" value="paragraph">
+                            <label class="form-check-label" for="web-scraper-chopping-2">
+                              Paragraph
+                            </label>
+                          </div>
+                          <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="web-scraper-settings-1" id="web-scraper-chopping-3" value="sentence" disabled>
+                            <label class="form-check-label" for="web-scraper-chopping-3">
+                              Sentence
+                            </label>
+                          </div>
+                        </div>
+                        <legend class="col-form-label col-sm-2 pt-0">Target Type</legend>
+                        <div class="col-sm-10 col-md-4">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="web-scraper-settings-2" id="web-scraper-type-1" value="article" checked>
+                            <label class="form-check-label" for="web-scraper-type-1">
+                              Articles
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="web-scraper-settings-2" id="web-scraper-type-2" value="socialmedia">
+                            <label class="form-check-label" for="web-scraper-type-2">
+                              Social Media
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                  </fieldset>
             </form>
-             <iframe src="https://twitter.com/nasa" title="W3Schools Free Online Web Tutorials"></iframe> 
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">When the Relativity Space Terran 1 rocket lit up the night sky as it launched this past March, it became the first 3D-printed rocket test of its kind. Learn about GRCop—an innovative, high strength material at the center of this breakthrough: <a href="https://t.co/gfZvGs9fnu">https://t.co/gfZvGs9fnu</a> <a href="https://t.co/EYfFJIhwfO">pic.twitter.com/EYfFJIhwfO</a></p>&mdash; NASA&#39;s Glenn Research Center (@NASAglenn) <a href="https://twitter.com/NASAglenn/status/1656290498313633792?ref_src=twsrc%5Etfw">May 10, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
 
 
 

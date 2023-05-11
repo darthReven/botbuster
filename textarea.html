@@ -30,7 +30,7 @@
             document.getElementById("left-bar-slider").style.margin = "0";
             document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
         }
-
+        
     </script>
 
 </head>
@@ -89,17 +89,16 @@
     <main>
         <div class="content">
             <div class="options">
-                <a class="fw-bold" href="textarea.html">Text Area</a>
+                <a class="active fw-bold" href="textarea.html">Text Area</a>
                 <a class="fw-bold" href="fileupload.html">File Upload</a>
-                <a class="active fw-bold" href="webscraper.html">Web Scraper</a>
+                <a class="fw-bold" href="webscraper.html">Web Scraper</a>
                 <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
             <form action="result.html">
-                <div class="form-outline">
-                    <label class="form-label" for="typeURL">Enter the URL of the webpage to webscrape</label>
-                    <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
-                  </div>
-                  <div class="text-center">
+                <div class="form-group">
+                  <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
+                </div>
+                <div class="text-center">
                     <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
                         Submit
                     </button>
@@ -108,8 +107,7 @@
                     </button>
                 </div>
             </form>
-             <iframe src="https://twitter.com/nasa" title="W3Schools Free Online Web Tutorials"></iframe> 
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">When the Relativity Space Terran 1 rocket lit up the night sky as it launched this past March, it became the first 3D-printed rocket test of its kind. Learn about GRCop—an innovative, high strength material at the center of this breakthrough: <a href="https://t.co/gfZvGs9fnu">https://t.co/gfZvGs9fnu</a> <a href="https://t.co/EYfFJIhwfO">pic.twitter.com/EYfFJIhwfO</a></p>&mdash; NASA&#39;s Glenn Research Center (@NASAglenn) <a href="https://twitter.com/NASAglenn/status/1656290498313633792?ref_src=twsrc%5Etfw">May 10, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
 
 
 
