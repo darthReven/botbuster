@@ -16,6 +16,9 @@
 
     <script src="https://kit.fontawesome.com/24dc174b82.js" crossorigin="anonymous"></script>
 
+    <!-- iframe bypass module import -->
+    <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+
     <script>
         function sidebar_open() {
             document.getElementById("sidebarMenu").style.width = "100%";
@@ -108,8 +111,8 @@
                     </button>
                 </div>
             </form>
-            <iframe src="https://www.straitstimes.com/sport/2023-sea-games-s-pore-clinch-historic-gold-in-e-sports-with-valorant-victory-after-indonesia-forfeit-grand-final" title="W3Schools Free Online Web Tutorials"></iframe>
-
+            <!-- <iframe src="" title="W3Schools Free Online Web Tutorials"></iframe> -->
+            <iframe is="x-frame-bypass" src="https://www.straitstimes.com/sport/2023-sea-games-s-pore-clinch-historic-gold-in-e-sports-with-valorant-victory-after-indonesia-forfeit-grand-final"></iframe>
 
 
             
