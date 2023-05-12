@@ -1,7 +1,0 @@
-having a back end config file for the code to process the different APIs
-
-
-changes:
-1. added config.json as a config file for backend
-2. deleted images from darthreven's original code
-3. moved error.html to front end folder

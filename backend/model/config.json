@@ -1,6 +1,5 @@
 {
     "APIs": {
-        "API Names": ["ChatGPT", "Writer", "Sapling AI"],
         "ChatGPT": {
             "target": "https://api.gptzero.me/v2/predict/text",
             "api_key": "25557bd559724b2aaef3c816a0631b31",
