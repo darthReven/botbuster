@@ -31,10 +31,11 @@ def checkText():
             full_results[f"{api_option}"] = results
     return jsonify(full_results)
 
+
 @app.route("/addapi", methods = ["POST"])
 def addApi():
     data = request.get_json()
-    
+
 
 #run the app
 if __name__ == "__main__":
