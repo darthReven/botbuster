@@ -4,7 +4,6 @@ import json
 class API:
     def __init__(self, json):
         self.target = json["target"]
-        self.api_key = json["api_key"]
         self.header = json["headers"]
         self.body = json["body"]
         self.body_key = json["body_key"]
@@ -25,7 +24,10 @@ class API:
         except:
             pass
 
-        
+    def verify_add_api(self, json):
+        pass
+
+# TEST CODES
 
 # with open("backend\model\config.json", "r") as config_file:
 #     config_data = json.load(config_file)
