@@ -2,7 +2,6 @@
     "APIs": {
         "ChatGPT": {
             "target": "https://api.gptzero.me/v2/predict/text",
-            "api_key": "25557bd559724b2aaef3c816a0631b31",
             "body_key": "document",
             "headers": {
                 "accept": "application/json",
@@ -15,7 +14,6 @@
         },
         "Writer": {
             "target": "https://enterprise-api.writer.com/content/organization/520409/detect",
-            "api_key": "OvHYORkICMve9i5mqxlOcEc8hZdLlFBqoR2PRjlsdwQDWmqPhFXKmojbgecpy0UoeD18kksoAHum54zU6c4PR7-HLfSUOrXu1wW4cKV0L3ZrzWFQDS5JdH1lE4flCFDK",
             "body_key": "input",
             "headers": {
                 "accept": "application/json",
@@ -28,7 +26,6 @@
         },
         "Sapling AI": {
             "target": "https://api.sapling.ai/api/v1/aidetect",
-            "api_key": "OY3XCOUYGA9HF0DVR9WDZMDKFIQ2C86N",
             "body_key": "text",
             "headers": {},
             "body": {
