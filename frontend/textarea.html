@@ -33,6 +33,40 @@
         
     </script>
 
+    <!-- function to send data to backend-->
+    <script>
+      async function postData() {
+        apis_called = []
+        if (document.getElementById("GPTZero-checkbox").checked == true) {
+          apis_called.push("GPTZero")
+        }
+        if (document.getElementById("Writer-checkbox").checked == true) {
+          apis_called.push("Writer")
+        }
+        if (document.getElementById("Sapling-checkbox").checked == true) {
+          apis_called.push("Sapling AI")
+        }
+        text = document.getElementById("text-area").value
+        const response = await fetch("http://localhost:6969/textarea", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            "list_of_apis": apis_called,
+            "text": text
+          })
+        }).then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          console.log(response.json())
+        })
+        return response.json(); 
+      }
+    </script>
+
 </head>
 <body>
     <!-- Sidebar -->
@@ -94,26 +128,20 @@
                 <a class="fw-bold" href="webscraper.html">Web Scraper</a>
                 <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
-            <form action="result.html">
                 <div class="form-group">
                   <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
+                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = postData()>
                         Submit
                     </button>
                     <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
                         <i class="fa-solid fa-arrows-rotate"></i>
                     </button>
                 </div>
-            </form>
 
-
-
-
-            
             <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted">
+  <footer class="text-center text-lg-start bg-white text-muted">
     <!-- Section: Social media -->
     
     <!-- Section: Links  -->
