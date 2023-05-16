@@ -1,8 +1,11 @@
 {
+    "highlight_score": 50,
+    "highlight_percent": 50,
     "APIs": {
-        "ChatGPT": {
+        "GPTZero": {
             "target": "https://api.gptzero.me/v2/predict/text",
             "body_key": "document",
+            "data_type": "string",
             "headers": {
                 "accept": "application/json",
                 "X-Api-Key": "25557bd559724b2aaef3c816a0631b31",
@@ -13,11 +16,12 @@
             }
         },
         "Writer": {
-            "target": "https://enterprise-api.writer.com/content/organization/520409/detect",
+            "target": "https://enterprise-api.writer.com/content/organization/531962/detect",
             "body_key": "input",
+            "data_type": "string",
             "headers": {
                 "accept": "application/json",
-                "Authorization": "OvHYORkICMve9i5mqxlOcEc8hZdLlFBqoR2PRjlsdwQDWmqPhFXKmojbgecpy0UoeD18kksoAHum54zU6c4PR7-HLfSUOrXu1wW4cKV0L3ZrzWFQDS5JdH1lE4flCFDK",
+                "Authorization": "O_mqEo7TCMMKGIdrl4hJHKYG5QYLL7p7x9RyUP-pk0ngex3XdPeNDTislKu_xYdsqmsWeFvT9bk4a0k72CqCtNQ1_T2_M8xss1K1nkd7m0Iwj08DbBqOVxuHjJmUE7dF",
                 "content-type": "application/json"
             },
             "body": {
@@ -27,11 +31,23 @@
         "Sapling AI": {
             "target": "https://api.sapling.ai/api/v1/aidetect",
             "body_key": "text",
+            "data_type": "string",
             "headers": {},
             "body": {
                 "key": "OY3XCOUYGA9HF0DVR9WDZMDKFIQ2C86N",
                 "text": "",
                 "sent_scores": true
+            }
+        },
+        "Hugging Face": {
+            "target": "https://piratexx-ai-content-detector.hf.space/run/predict",
+            "body_key": "data",
+            "data_type": "list",
+            "headers": {},
+            "body": {
+                "data": [
+                    ""
+                ]
             }
         }
     }
