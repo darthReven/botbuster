@@ -1,5 +1,6 @@
 import requests
 import json
+import asyncio
 
 class API:
     def __init__(self, json):
@@ -7,25 +8,23 @@ class API:
         self.header = json["headers"]
         self.body = json["body"]
         self.body_key = json["body_key"]
+        self.data_type = json["data_type"]
 
     #dynamic function for API calls
-    def api_call(self, text):
-        target = self.target
-        headers = self.header
-        body = self.body
-        
+    def api_call(self, text):        
         # add text to body
-        body[f"{self.body_key}"] = text
+        if self.data_type == "string":
+            self.body[f"{self.body_key}"] = text
+        elif self.data_type == "list":
+            self.body[f"{self.body_key}"] = [text]
         try:
-            response = requests.post(target, headers = headers, json  = body)
+            response = requests.post(self.target, headers = self.header, json  = self.body)
             #if wrong/missing key, code runs - writer gives error
             #if wrong url, code runs - writer gives a "None"
             return response.json()
         except:
+            return "Internal Server Error", 500
             pass
-
-    def verify_add_api(self, json):
-        pass
 
 # TEST CODES
 
