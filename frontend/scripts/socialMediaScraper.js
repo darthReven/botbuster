@@ -9,18 +9,18 @@ var websiteConfigs = {
 };
 
 // scraper
-const scrapeInfiniteScrollItems = async (page, configs, itemTargetCount) => {
+const scrapeInfiniteScrollItems = async (page, contentselector, itemTargetCount) => {
   await new Promise((resolve) => setTimeout(resolve, 2500));
   let items = [];
 
   while (itemTargetCount > items.length) {
-    items = await page.evaluate((configs) => {
+    items = await page.evaluate((contentselector) => {
       const selectedItems = [];
 
       const elements = Array.from(document.querySelectorAll("*"));
 
       for (const element of elements) {
-        for (const selector of configs["twitter"]) {
+        for (const selector of contentselector) {
           if (element.matches(selector)) {
             selectedItems.push(element);
             break;
@@ -29,7 +29,7 @@ const scrapeInfiniteScrollItems = async (page, configs, itemTargetCount) => {
       }
 
       return selectedItems.map((item) => item.innerText);
-    }, configs);
+    }, contentselector);
 
     previousHeight = await page.evaluate("document.body.scrollHeight");
     await page.evaluate("window.scrollTo(0, document.body.scrollHeight)");
@@ -43,7 +43,7 @@ const scrapeInfiniteScrollItems = async (page, configs, itemTargetCount) => {
 };
 
 // calling the scraper
-(async () => {
+async function scraper() {
   const browser = await puppeteer.launch({
     headless: false,
   });
@@ -51,8 +51,9 @@ const scrapeInfiniteScrollItems = async (page, configs, itemTargetCount) => {
   const page = await browser.newPage();
   await page.goto(pageurl);
 
-  const items = await scrapeInfiniteScrollItems(page, websiteConfigs, 5);
+  const items = await scrapeInfiniteScrollItems(page, websiteConfigs["twitter"], 5);
 
   console.log(items);
   browser.close();
-})();
+}
+ scraper()
