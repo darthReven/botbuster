@@ -1,5 +1,5 @@
 # importing libraries
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import json
 import asyncio 
@@ -50,6 +50,7 @@ def checkText():
     return jsonify(full_results)
     '''
     req = request.get_json()
+    print(request)
     list_of_apis = req["list_of_apis"]
     text = req["text"]
     full_results = {}
@@ -62,7 +63,7 @@ def checkText():
     except:
         print("Internal Server Error", 500)
     else:
-        return jsonify(full_results) 
+        return Response(response=json.dumps(full_results), status=200)
 
 
 # adding apis to system
@@ -89,5 +90,5 @@ if __name__ == "__main__":
         config_data = json.load(config_file)
         with open(API_FILE_PATH, "w") as add_api_file:
             add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
-    app.run(debug=True)
+    app.run("localhost", port = 6969, debug=True)
 
