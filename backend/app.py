@@ -75,19 +75,20 @@ def getapis():
         with open(API_FILE_PATH, "r") as api_data_file:
             api_data = json.load(api_data_file)
             for api in api_data.keys():
-                api_info[f"{api}"] = ""
+                api_info[f"{api}"] = []
     except:
         print("Internal Server Error", 500)
         return Response(response="Internal Server Error", status = 500)
     else:
         for api in api_info.keys():
             try: 
+                api_info[f"{api}"].append(api.lower().replace(" ", ""))
                 with open(CONFIG_FILE_PATH, "r") as config_data_file:
                     config_data = json.load(config_data_file)
                     api_logo_path = config_data["logos"][f"{api}"]
                     with open(f"{api_logo_path}", "rb") as image:
-                        api_info[f"{api}"]  = base64.b64encode(image.read()).decode("utf-8)")
-
+                        api_info[f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)"))
+                        
             except:
                 continue
             else: 
