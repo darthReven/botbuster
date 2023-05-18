@@ -1,6 +1,11 @@
 {
     "highlight_score": 50,
     "highlight_percent": 50,
+    "logos": {
+        "GPTZero": "backend/images/gptzero.png",
+        "Writer": "backend/images/writer.png",
+        "Sapling AI": "backend/images/sapling.png"
+    },
     "APIs": {
         "GPTZero": {
             "target": "https://api.gptzero.me/v2/predict/text",

@@ -16,55 +16,67 @@
 
     <script src="https://kit.fontawesome.com/24dc174b82.js" crossorigin="anonymous"></script>
 
-    <script>
-        function sidebar_open() {
-            document.getElementById("sidebarMenu").style.width = "100%";
-            document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
-            document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
-            document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
-        }
+    <!-- ajax import -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-        function sidebar_close() {
-            document.getElementById("sidebarMenu").style.width = "0%";
-            document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
-            document.getElementById("left-bar-slider").style.margin = "0";
-            document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
-        }
-        
-    </script>
-
-    <!-- function to send data to backend-->
     <script>
-      async function postData() {
-        apis_called = []
-        if (document.getElementById("GPTZero-checkbox").checked == true) {
-          apis_called.push("GPTZero")
-        }
-        if (document.getElementById("Writer-checkbox").checked == true) {
-          apis_called.push("Writer")
-        }
-        if (document.getElementById("Sapling-checkbox").checked == true) {
-          apis_called.push("Sapling AI")
-        }
-        text = document.getElementById("text-area").value
-        const response = await fetch("http://localhost:6969/textarea", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            "list_of_apis": apis_called,
-            "text": text
-          })
-        }).then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          console.log(response.json())
-        })
-        return response.json(); 
+      function sidebar_open() {
+          document.getElementById("sidebarMenu").style.width = "100%";
+          document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
+          document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
+          document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
       }
+
+      function sidebar_close() {
+          document.getElementById("sidebarMenu").style.width = "0%";
+          document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
+          document.getElementById("left-bar-slider").style.margin = "0";
+          document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
+      }
+
+      function checkText() {
+        var data = {
+          list_of_apis: [], 
+          text: ""
+        };
+        if (document.getElementById("GPTZero-checkbox").checked == true) {
+          data["list_of_apis"].push("GPTZero")
+        };
+        if (document.getElementById("Writer-checkbox").checked == true) {
+          data["list_of_apis"].push("Writer")
+        };
+        if (document.getElementById("Sapling-checkbox").checked == true) {
+          data["list_of_apis"].push("Sapling AI")
+        };
+        data["text"] = document.getElementById("text-area").value;
+        $.ajax({
+          url: `http://localhost:6969/checktext/`,
+          type: "POST",
+          data: JSON.stringify(data),
+          contentType: "application/json; charset = utf-8",
+          dataType: "json",
+          success: function(data, textStatus, xhr) {
+            console.log(data)
+          },
+          error: function(xhr, textStunlatus, err) {
+            console.log(err)
+          }
+        })
+      };
+      $(document).ready(function () {
+        $.ajax({
+          url: "http://localhost:6969/getapis/",
+          type: "GET",
+          contentType: "application/json; charset = utf-8",
+          dataType: "json",
+          success: function(data, textStatus, xhr) {
+            console.log(data)
+          },
+          error: function(xhr, textStunlatus, err) {
+            console.log(err)
+          }
+        })
+      });
     </script>
 
 </head>
@@ -82,7 +94,7 @@
             <input type="checkbox" id="Writer-checkbox" checked>
             <label for="Writer-checkbox"></label>
         </div></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/sapling.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Sapling AI</div><div class="col-2 p-0"><div class="checkbox">
+        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="https://localhost:6969/backend/images/sapling.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Sapling AI</div><div class="col-2 p-0"><div class="checkbox">
             <input type="checkbox" id="Sapling-checkbox" checked>
             <label for="Sapling-checkbox"></label>
         </div></div></div></div>
@@ -132,7 +144,7 @@
                   <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = postData()>
+                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
                         Submit
                     </button>
                     <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">

@@ -14,4 +14,4 @@ function extractDocx() {
     .done();
 }
 
-module.exports= extractDocx()
+module.exports = extractDocx()
