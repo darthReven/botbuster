@@ -1,20 +1,16 @@
 import asyncio
 import pyppeteer
+import re
 
 pageurl = "https://twitter.com/nasa"
 
 # dictionary storing the configurations for popular websites
 websiteConfigs = {
-    "twitter": [
-        "span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0",
-        "H1"
-    ],
-    "reddit": [
-        "H1",
-        "H2",
-        "H3",
-        "H4"
-    ]
+    "twitter": ["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0","H1"],
+
+    "reddit": ["H1","H2","H3","H4"],
+
+    "default":["H1","H2"]
 }
 
 # scraper
@@ -50,15 +46,24 @@ async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
 
 
 # calling the scraper
-async def scraper():
+async def scraper(websiteName):
     browser = await pyppeteer.launch(headless=False)
     page = await browser.newPage()
     await page.goto(pageurl)
 
-    items = await scrapeInfiniteScrollItems(page, websiteConfigs["twitter"], 5)
+    items = await scrapeInfiniteScrollItems(page, websiteConfigs[websiteName], 5)
 
     print(items)
     await browser.close()
 
+def identifyURL(providedURL):
+    keyList=dict.keys(websiteConfigs)
+    print(keyList)
+    for i in keyList:
+        x=re.search(i,providedURL)
+        if x:
+            return i
+    return "default"
 
-asyncio.get_event_loop().run_until_complete(scraper())
+website=identifyURL(pageurl)
+asyncio.get_event_loop().run_until_complete(scraper(website))
