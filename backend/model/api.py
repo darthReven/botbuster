@@ -1,6 +1,4 @@
 import requests
-import json
-import asyncio
 
 class API:
     def __init__(self, json):
