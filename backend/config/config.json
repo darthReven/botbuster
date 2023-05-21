@@ -1,10 +1,12 @@
 {
-    "highlight_score": 50,
-    "highlight_percent": 50,
+    "highlight_score": 70,
+    "highlight_percent": 70,
+    "logos_base_path": "images/",
     "logos": {
-        "GPTZero": "backend/images/gptzero.png",
-        "Writer": "backend/images/writer.png",
-        "Sapling AI": "backend/images/sapling.png"
+        "GPTZero": "gptzero.png",
+        "Writer": "writer.png",
+        "Sapling AI": "sapling.png",
+        "Hugging Face": "huggingface.png"
     },
     "APIs": {
         "GPTZero": {

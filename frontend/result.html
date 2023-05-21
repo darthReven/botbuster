@@ -39,21 +39,50 @@
         }
 
         $(document).ready(function() {
-            hue0 = 120
-            hue1 = 0  
-            const collection = document.getElementsByClassName("result-display");
-            for(let x = 0; x < collection.length; x++) {
-                console.log(collection[x].nodeName)
-                if(collection[x].nodeName == "INPUT") {
-                    new_colour = percentageToHsl(collection[x].value, hue0, hue1)
-                    document.querySelector("#result-display-" + String(x) + ":checked").style.background = String(new_colour)
-                    document.querySelector("#result-display-" + String(x) + ":checked").style.border = "0"
-                }
-                else {
-                    new_colour = percentageToHsl(collection[x].innerHTML, hue0, hue1)
-                    document.getElementById('result-display-' + String(x)).style.color = String(new_colour)
-                }
-            }
+            var apiinfo = JSON.parse(localStorage.getItem("api-info"))
+			var text = localStorage.getItem("text")
+			var results = JSON.parse(localStorage.getItem("results"))
+			console.log(apiinfo)
+			if (apiinfo == null || text == null || results == null) {
+				window.location.href='textarea.html'
+			}
+			$("#text-area").append(text)
+			for (i in Object.keys(results)) {
+				var api = Object.keys(results)[i]
+				$("#sidebar").append(`
+					<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[api][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${api}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[api][0]}-result" class="result-display" value="${results[api]}">${results[api]}</span></div></div></div>
+				`)
+				console.log(apiinfo[api])
+				if (apiinfo[api][1] != undefined){ 
+					const byteCharacters = atob(apiinfo[api][1]);
+					const byteNumbers = new Array(byteCharacters.length);
+					for (let i = 0; i < byteCharacters.length; i++) {
+						byteNumbers[i] = byteCharacters.charCodeAt(i);
+					}
+					const byteArray = new Uint8Array(byteNumbers);
+					document.getElementById(`${apiinfo[api][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
+				}
+				hue0 = 120
+				hue1 = 0
+				var resultelement = document.getElementById(`${apiinfo[api][0]}-result`)
+				new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
+				resultelement.style.color = String(new_colour)
+				// hue0 = 120
+				// hue1 = 0  
+				// const collection = document.getElementsByClassName("result-display");
+				// for(let x = 0; x < collection.length; x++) {
+					
+				// 	if(collection[x].nodeName == "INPUT") {
+				// 		new_colour = percentageToHsl(collection[x].value, hue0, hue1)
+				// 		document.querySelector("#result-display-" + String(x) + ":checked").style.background = String(new_colour)
+				// 		document.querySelector("#result-display-" + String(x) + ":checked").style.border = "0"
+				// 	}
+				// 	else {
+				// 		new_colour = percentageToHsl(collection[x].innerHTML, hue0, hue1)
+				// 		document.getElementById('result-display-' + String(x)).style.color = String(new_colour)
+				// 	}
+				// }
+			}
         })
         
     </script>
@@ -63,11 +92,7 @@
     <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/gptzero.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GPTZero</div><div class="col-2 p-0 text-center"><input class="form-check-input result-display" type="radio" name="tt" id="result-display-0" value="33" checked></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/writer.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Writer</div><div class="col-2 p-0 text-center"><span id="result-display-1" class="result-display" value="50">50</span></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" src="images/sapling.png"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">Sapling AI</div><div class="col-2 p-0 text-center"><span id="result-display-2" class="result-display" value="83">83</span></div></div></div>
-        <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">GLTR</div><div class="col-2 p-0 text-center"><span id="result-display-3" class="result-display" value="20">10</span></div></div></div>
+        <div class="list-group list-group-flush mx-3 mt-4" id = "sidebar">
         </div>
     </div>
   </nav>
@@ -102,7 +127,7 @@
             </div>
             <form>
                 <div class="form-group">
-                  <textarea class="form-control" id="text-area" rows="7" disabled>here</textarea>
+                  <textarea class="form-control" id="text-area" rows="7" disabled></textarea>
                 </div>
             </form>
 
