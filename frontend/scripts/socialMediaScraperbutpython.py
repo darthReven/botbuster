@@ -6,9 +6,9 @@ pageurl = "https://twitter.com/nasa"
 
 # dictionary storing the configurations for popular websites
 websiteConfigs = {
-    "twitter": ["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0","H1"],
+    "twitter.com": ["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0","H1"],
 
-    "reddit": ["H1","H2","H3","H4"],
+    "reddit.com": ["H1","H2","H3","H4"],
 
     "default":["H1","H2"]
 }
