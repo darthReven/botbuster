@@ -6,11 +6,9 @@ pageurl = "https://twitter.com/nasa"
 
 # dictionary storing the configurations for popular websites
 websiteConfigs = {
-    "twitter.com": ["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0","H1"],
-
-    "reddit.com": ["H1","H2","H3","H4"],
-
-    "default":["H1","H2"]
+    "twitter.com": ["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"],
+    "reddit.com": ["H1", "H2", "H3", "H4"],
+    "default": ["H1", "H2"]
 }
 
 # scraper
@@ -26,13 +24,12 @@ async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
             for (const element of elements) {
                 for (const selector of contentselector) {
                     if (element.matches(selector)) {
-                        selectedItems.push(element);
-                        break;
+                        selectedItems.push([selector, element.innerText]);
                     }
                 }
             }
 
-            return selectedItems.map((item) => item.innerText);
+            return selectedItems;
         }''', contentselector)
 
         previousHeight = await page.evaluate("document.body.scrollHeight")
@@ -52,18 +49,24 @@ async def scraper(websiteName):
     await page.goto(pageurl)
 
     items = await scrapeInfiniteScrollItems(page, websiteConfigs[websiteName], 5)
+    # print(items)
+    for item in items:
+        print("Selector:", item[0])
+        print("Element:", item[1])
+        print()
 
-    print(items)
     await browser.close()
 
+
 def identifyURL(providedURL):
-    keyList=dict.keys(websiteConfigs)
+    keyList = list(websiteConfigs.keys())
     print(keyList)
     for i in keyList:
-        x=re.search(i,providedURL)
+        x = re.search(i, providedURL)
         if x:
             return i
     return "default"
 
-website=identifyURL(pageurl)
+
+website = identifyURL(pageurl)
 asyncio.get_event_loop().run_until_complete(scraper(website))
