@@ -2,7 +2,7 @@ import asyncio
 import pyppeteer
 import re
 
-pageurl = "https://twitter.com/nasa"
+
 
 # dictionary storing the configurations for popular websites
 websiteConfigs = {
@@ -43,7 +43,7 @@ async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
 
 
 # calling the scraper
-async def scraper(websiteName):
+async def scraper(websiteName, pageurl):
     browser = await pyppeteer.launch(headless=False)
     page = await browser.newPage()
     await page.goto(pageurl)
@@ -60,13 +60,9 @@ async def scraper(websiteName):
 
 def identifyURL(providedURL):
     keyList = list(websiteConfigs.keys())
-    print(keyList)
     for i in keyList:
         x = re.search(i, providedURL)
         if x:
             return i
     return "default"
 
-
-website = identifyURL(pageurl)
-asyncio.get_event_loop().run_until_complete(scraper(website))

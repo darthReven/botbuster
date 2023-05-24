@@ -46,8 +46,8 @@
           return `rgb(${red}, ${green}, ${blue})`;
             }
 
-            $(document).ready(function() {
-                var apiinfo = JSON.parse(localStorage.getItem("api-info"))
+        $(document).ready(function() {
+          var apiinfo = JSON.parse(localStorage.getItem("api-info"))
           var text = localStorage.getItem("text")
           var results = JSON.parse(localStorage.getItem("results"))
           if (apiinfo == null || text == null || results == null) {

@@ -4,6 +4,15 @@ MAIN CODE FOR FINAL YEAR PROJECT BOTBUSTER
 install uvicorn, fastapi
 
 in command prompt, run "uvicorn main:botbuster --reload"
+
+libaries needed:
+uvicorn
+fastapi
+asyncio
+pyppeteer
+re
+json
+base64
 """
 
 # importing libraries
@@ -11,6 +20,7 @@ import json
 import base64
 from fastapi import FastAPI, HTTPException, Response, status 
 from fastapi.middleware.cors import CORSMiddleware
+import asyncio
 import pyppeteer
 
 # importing in-house code
@@ -149,20 +159,30 @@ def addApi(request: ds.addApi, response: Response):
 
 # getting webscraper data
 @botbuster.get("/webscraper/")
-async def webScraping():
-    try:
-        pageurl = "https://twitter.com/nasa"
-        website = sms.identifyUrl(pageurl)
-
-        browser = await pyppeteer.launch(headless=False)
+def webScraping():
+    async def scraper(website, pageurl):
+        browser = await pyppeteer.launch(headless=False,handleSIGINT=False,
+            handleSIGTERM=False,
+            handleSIGHUP=False)
         page = await browser.newPage()
         await page.goto(pageurl)
 
         items = await sms.scrapeInfiniteScrollItems(page, sms.websiteConfigs[website], 5)
-    except:
-        raise HTTPException (status_code = 500, details = "Internal Server Error")
-    else: 
+        # print(items)
+        for item in items:
+            print("Selector:", item[0])
+            print("Element:", item[1])
+            print()
+
+        await browser.close()
         return items
+    pageurl = "https://twitter.com/nasa"
+    website = sms.identifyURL(pageurl)
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    items = loop.run_until_complete(scraper(website, pageurl))
+    return items
+        
 
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:
