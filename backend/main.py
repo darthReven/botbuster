@@ -1,5 +1,9 @@
 """
 MAIN CODE FOR FINAL YEAR PROJECT BOTBUSTER
+
+install uvicorn, fastapi
+
+in command prompt, run "uvicorn main:botbuster --reload"
 """
 
 # importing libraries
@@ -7,14 +11,16 @@ import json
 import base64
 from fastapi import FastAPI, HTTPException, Response, status 
 from fastapi.middleware.cors import CORSMiddleware
+import pyppeteer
 
 # importing in-house code
 from model.api import API
 import model.datastructures as ds
+import model.socialMediaScraper as sms
 
 # Initialising constants 
 CONFIG_FILE_PATH = "config\config.json"
-API_FILE_PATH = "config\\api.json"
+API_FILE_PATH = "config\\apis.json"
 RESULTS_FILE_PATH = "config\\results.json"
 
 # set fastapi up
@@ -36,6 +42,8 @@ def checkText(request: ds.checkText):
     list_of_apis = request.dict()["list_of_apis"]
     text = request.dict()["text"]
     full_results = {}
+    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+        config_data = json.load(config_data_file)
     with open(API_FILE_PATH, "r") as api_data_file:
         api_data = json.load(api_data_file)
         for api_option in list_of_apis:
@@ -45,26 +53,56 @@ def checkText(request: ds.checkText):
             except:
                 full_results[f"{api_option}"] = "Error Detecting"
                 continue
-    path_to_general_score = {
-        "GPTZero": 'GPTZero.documents.0.completely_generated_prob',
-        "Writer": 'Writer.1.score',
-        "Sapling AI": 'Sapling AI.score',
-        "Hugging Face": 'Hugging Face.data.0.0.Fake'
-    } 
-    scores = {}
-    for api in list_of_apis:
-        path = path_to_general_score[api] 
-        results = full_results
+    scores = {
+        "general_score": {},
+        "sentence_score": []
+    }
+    for sentence in text.split("."):
+        sentence =  sentence.strip() + "."
+        if sentence == ".":
+            continue
+        scores["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
+    for api in list_of_apis: 
+        # checking for general score 
+        path = config_data["path_to_general_score"][api] 
+        results = full_results 
         for key in path.split('.'):
             try: 
                 if key.isnumeric():
                     key = int(key)
                 results = results[key]
-                scores[f"{api}"] = int(results * 100)
+                scores["general_score"][f"{api}"] = int(results * 100)
             except KeyError:
-                scores[f"{api}"] = "error getting score"     
+                scores["general_score"][f"{api}"] = "error getting score"     
             except:     
-                scores[f"{api}"] = "unknown error"
+                scores["general_score"][f"{api}"] = "unknown error"
+        # checking for sentence score
+        try:
+            path1 = config_data["path_to_sentence_score"][api][0]
+            path2 = config_data["path_to_sentence_score"][api][1]
+        except KeyError:
+            continue
+        else:
+            results = full_results # checking for sentence score
+            for key in path1.split("."):
+                try:
+                    if key.isnumeric():
+                        key = int(key)
+                    results = results[key]
+                except KeyError:
+                    break
+            for num in range(0, len(results)):
+                try: 
+                    for key in scores["sentence_score"][num].keys():
+                        if key == results[num]["sentence"] and results[num][path2] > 0.70:
+                            scores["sentence_score"][num][key]["api"].append(api)
+                            scores["sentence_score"][num][key]["highlight"] += 1/len(list_of_apis)
+                except:
+                    break
+            with open("config\\result.json", "w") as score_file:
+                score_file.write(json.dumps(full_results, indent = 4))
+            with open("config\scores.json", "w") as score_file:
+                score_file.write(json.dumps(scores, indent = 4))
     return scores
 
 @botbuster.get("/getapis/")
@@ -108,6 +146,23 @@ def addApi(request: ds.addApi, response: Response):
         with open(API_FILE_PATH, "w") as add_api_file:
             add_api_file.write(json.dumps(api_data, indent = 4))
             response.status_code = status.HTTP_204_NO_CONTENT
+
+# getting webscraper data
+@botbuster.get("/webscraper/")
+async def webScraping():
+    try:
+        pageurl = "https://twitter.com/nasa"
+        website = sms.identifyUrl(pageurl)
+
+        browser = await pyppeteer.launch(headless=False)
+        page = await browser.newPage()
+        await page.goto(pageurl)
+
+        items = await sms.scrapeInfiniteScrollItems(page, sms.websiteConfigs[website], 5)
+    except:
+        raise HTTPException (status_code = 500, details = "Internal Server Error")
+    else: 
+        return items
 
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:

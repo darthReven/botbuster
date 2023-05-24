@@ -8,6 +8,16 @@
         "Sapling AI": "sapling.png",
         "Hugging Face": "huggingface.png"
     },
+    "path_to_general_score": {
+        "GPTZero": "GPTZero.documents.0.completely_generated_prob",
+        "Writer": "Writer.1.score",
+        "Sapling AI": "Sapling AI.score",
+        "Hugging Face": "Hugging Face.data.0.0.Fake"
+    } ,
+    "path_to_sentence_score": {
+        "GPTZero": ["GPTZero.documents.0.sentences", "generated_prob"],
+        "Sapling AI": ["Sapling AI.sentence_scores", "score"]
+    },
     "APIs": {
         "GPTZero": {
             "target": "https://api.gptzero.me/v2/predict/text",
@@ -41,7 +51,7 @@
             "data_type": "string",
             "headers": {},
             "body": {
-                "key": "OY3XCOUYGA9HF0DVR9WDZMDKFIQ2C86N",
+                "key": "35QES5X9YA9BP03QW9CMLIZTUVZ6S4WU",
                 "text": "",
                 "sent_scores": true
             }

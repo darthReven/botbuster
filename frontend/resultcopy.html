@@ -34,72 +34,72 @@
         }
 
         function percentageToHsl(percentage, hue0, hue1) {
-			var hue = ((percentage/100) * (hue1 - hue0)) + hue0;
-			return 'hsl(' + hue + ', 100%, 50%)';
+            var hue = ((percentage/100) * (hue1 - hue0)) + hue0;
+            return 'hsl(' + hue + ', 100%, 50%)';
         }
 
-		function highlightText(fractionalValue) {
-			// Calculate the color based on the fractional value
-			const red = Math.round(255 - (fractionalValue * 100));
-			const green = Math.round(255 - (fractionalValue * 150));
-			const blue = Math.round(255 - (fractionalValue * 200));
-			return `rgb(${red}, ${green}, ${blue})`;
-        }
+        function highlightText(fractionalValue) {
+          // Calculate the color based on the fractional value
+          const red = Math.round(255 - (fractionalValue * 100));
+          const green = Math.round(255 - (fractionalValue * 150));
+          const blue = Math.round(255 - (fractionalValue * 200));
+          return `rgb(${red}, ${green}, ${blue})`;
+            }
 
-        $(document).ready(function() {
-            var apiinfo = JSON.parse(localStorage.getItem("api-info"))
-			var text = localStorage.getItem("text")
-			var results = JSON.parse(localStorage.getItem("results"))
-			if (apiinfo == null || text == null || results == null) {
-				window.location.href='textarea.html'
-			}
-			for (let i = 0; i < results["sentence_score"].length; i++) {
-				var sentence = Object.keys(results["sentence_score"][i])
-				if (results["sentence_score"][i][sentence]["highlight"] == 0) {
-					$("#text-area").append(`${sentence[0]}`)
-				} else {
-					$("#text-area").append(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
-					var colour = highlightText(results["sentence_score"][i][sentence]["highlight"])
-					var sentenceelement = document.getElementById(`sentence-${i}`)
-					sentenceelement.style.backgroundColor = String(colour)
-				}
-			}
-			for (i in Object.keys(results["general_score"])) {
-				var api = Object.keys(results["general_score"])[i]
-				$("#sidebar").append(`
-					<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[api][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${api}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[api][0]}-result" class="result-display" value="${results["general_score"][api]}">${results["general_score"][api]}</span></div></div></div>
-				`)
-				if (apiinfo[api][1] != undefined){ 
-					const byteCharacters = atob(apiinfo[api][1]);
-					const byteNumbers = new Array(byteCharacters.length);
-					for (let i = 0; i < byteCharacters.length; i++) {
-						byteNumbers[i] = byteCharacters.charCodeAt(i);
-					}
-					const byteArray = new Uint8Array(byteNumbers);
-					document.getElementById(`${apiinfo[api][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-				}
-				hue0 = 120
-				hue1 = 0
-				var resultelement = document.getElementById(`${apiinfo[api][0]}-result`)
-				new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
-				resultelement.style.color = String(new_colour)
-				// hue0 = 120
-				// hue1 = 0  
-				// const collection = document.getElementsByClassName("result-display");
-				// for(let x = 0; x < collection.length; x++) {
-					
-				// 	if(collection[x].nodeName == "INPUT") {
-				// 		new_colour = percentageToHsl(collection[x].value, hue0, hue1)
-				// 		document.querySelector("#result-display-" + String(x) + ":checked").style.background = String(new_colour)
-				// 		document.querySelector("#result-display-" + String(x) + ":checked").style.border = "0"
-				// 	}
-				// 	else {
-				// 		new_colour = percentageToHsl(collection[x].innerHTML, hue0, hue1)
-				// 		document.getElementById('result-display-' + String(x)).style.color = String(new_colour)
-				// 	}
-				// }
-			}
-        })
+            $(document).ready(function() {
+                var apiinfo = JSON.parse(localStorage.getItem("api-info"))
+          var text = localStorage.getItem("text")
+          var results = JSON.parse(localStorage.getItem("results"))
+          if (apiinfo == null || text == null || results == null) {
+            window.location.href='textarea.html'
+          }
+          for (let i = 0; i < results["sentence_score"].length; i++) {
+            var sentence = Object.keys(results["sentence_score"][i])
+            if (results["sentence_score"][i][sentence]["highlight"] == 0) {
+              $("#text-area").append(`${sentence[0]}`)
+            } else {
+              $("#text-area").append(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
+              var colour = highlightText(results["sentence_score"][i][sentence]["highlight"])
+              var sentenceelement = document.getElementById(`sentence-${i}`)
+              sentenceelement.style.backgroundColor = String(colour)
+            }
+          }
+          for (i in Object.keys(results["general_score"])) {
+            var api = Object.keys(results["general_score"])[i]
+            $("#sidebar").append(`
+              <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[api][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${api}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[api][0]}-result" class="result-display" value="${results["general_score"][api]}">${results["general_score"][api]}</span></div></div></div>
+            `)
+            if (apiinfo[api][1] != undefined){ 
+              const byteCharacters = atob(apiinfo[api][1]);
+              const byteNumbers = new Array(byteCharacters.length);
+              for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+              }
+              const byteArray = new Uint8Array(byteNumbers);
+              document.getElementById(`${apiinfo[api][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
+            }
+            hue0 = 120
+            hue1 = 0
+            var resultelement = document.getElementById(`${apiinfo[api][0]}-result`)
+            new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
+            resultelement.style.color = String(new_colour)
+            // hue0 = 120
+            // hue1 = 0  
+            // const collection = document.getElementsByClassName("result-display");
+            // for(let x = 0; x < collection.length; x++) {
+              
+            // 	if(collection[x].nodeName == "INPUT") {
+            // 		new_colour = percentageToHsl(collection[x].value, hue0, hue1)
+            // 		document.querySelector("#result-display-" + String(x) + ":checked").style.background = String(new_colour)
+            // 		document.querySelector("#result-display-" + String(x) + ":checked").style.border = "0"
+            // 	}
+            // 	else {
+            // 		new_colour = percentageToHsl(collection[x].innerHTML, hue0, hue1)
+            // 		document.getElementById('result-display-' + String(x)).style.color = String(new_colour)
+            // 	}
+            // }
+          }
+      })
         
     </script>
 
@@ -143,7 +143,21 @@
             </div>
             <form>
                 <div class="form-group">
-                  <div class="form-control" id="text-area" rows="7" disabled></div>
+                  <div class="form-control" id="text-area" rows="7" disabled>
+                    <mark style = "background-color: rgba(255,255,0,0);">This is sentence 1.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.1);">This is sentence 2.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.15);">This is sentence 2.5.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.2);">This is sentence 3.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.3);">This is sentence 4.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.4);">This is sentence 5.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.5);">This is sentence 6.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.6);">This is sentence 7.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.7);">This is sentence 8.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.8);">This is sentence 9.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,0.9);">This is sentence 10.</mark><br>
+                    <mark style = "background-color: rgba(255,255,0,1.0);">This is sentence 11.</mark><br>
+
+                  </div>
                 </div>
             </form>
 
