@@ -24,7 +24,7 @@ async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
             for (const element of elements) {
                 for (const selector of contentselector) {
                     if (element.matches(selector)) {
-                        selectedItems.push([selector, element.innerText]);
+                        selectedItems.push([selector.split('.')[0], element.innerText]);
                     }
                 }
             }

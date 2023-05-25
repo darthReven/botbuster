@@ -532,3 +532,33 @@ form {
     text-decoration: none;
     color: #3B7197;
 }
+
+.content-box {
+    border-width: 1px;
+    border-color: black;
+    border-radius: 15px;
+    resize: vertical;
+}
+
+.display {
+    overflow:auto;
+    border-style:double;
+    height:300px;
+}
+
+.content-box .row{
+    background-color: #E9EEF2;
+    margin: 0;
+    width: 100%;
+}
+
+
+.content-box .row .col-3 {
+    padding:0;
+}
+
+.content-box .row .col-9 {
+    padding:0;
+    border-left: solid #000;
+    border-width: 1px;
+}

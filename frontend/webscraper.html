@@ -16,9 +16,6 @@
 
     <script src="https://kit.fontawesome.com/24dc174b82.js" crossorigin="anonymous"></script>
 
-    <!-- iframe bypass module import -->
-    <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
-
     <!-- ajax import -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -36,6 +33,47 @@
 			document.getElementById("left-bar-slider").style.margin = "0";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
 		}
+        function get_elements() {
+            $.ajax({
+                url:"http://127.0.0.1:8000/webscraper/",
+                type: "GET",
+                contentType: "application/json; charset = utf-8",
+                dataType: "json",
+                success: function(data, textStatus, xhr) {
+                    console.log(data)
+                    update_content_box(data)
+                },
+                error: function(xhr, textStunlatus, err) {
+                	console.log(err)
+                }
+            })
+        }
+        function update_content_box(elements) {
+            $(".content-box").addClass("display");
+            content = `
+            <div class="row text-center">
+                <div class="col-3 px-3">
+                    Element
+                </div>
+                <div class="col-9 px-3">
+                    Content
+                </div>
+            </div>
+            `
+            for(item of elements) {
+                content += `
+                <div class="row">
+                    <div class="col-3 px-3 text-center">
+                        ${item[0]}
+                    </div>
+                    <div class="col-9 px-3" contenteditable>
+                        ${item[1]}
+                    </div>
+                </div>
+                `
+            }
+            $('.content-box').html(content);
+        }
         $(document).ready(function () {
             localStorage.clear()
             $.ajax({
@@ -119,19 +157,17 @@
                     <label class="form-label" for="typeURL">Enter the URL of the webpage to webscrape</label>
                     <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
                   </div>
+                  <div class="content-box my-4">
+                </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
+                    <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="get_elements()">
                         Submit
                     </button>
-                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="$('.content-box').html(''); $('.content-box').removeClass('display'); $('.content-box').height('0px');">
                         <i class="fa-solid fa-arrows-rotate"></i>
                     </button>
                 </div>
             </form>
-            <!-- <iframe src="" title="W3Schools Free Online Web Tutorials"></iframe> -->
-            <iframe is="x-frame-bypass" src="https://www.straitstimes.com/sport/2023-sea-games-s-pore-clinch-historic-gold-in-e-sports-with-valorant-victory-after-indonesia-forfeit-grand-final"></iframe>
-
-
             
             <!-- Footer -->
 <footer class="text-center text-lg-start bg-white text-muted">
