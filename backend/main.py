@@ -171,14 +171,24 @@ def webScraping():
         await page.goto(pageurl)
 
         items = await sms.scrapeInfiniteScrollItems(page, sms.websiteConfigs[website], 5)
-        # print(items)
+        uniqueItems = []
+        seenItems = set()
         for item in items:
+            itemTuple = tuple(item)
+            if itemTuple not in seenItems:
+                uniqueItems.append(item)
+                seenItems.add(itemTuple)
+
+        # print(items)
+        for item in uniqueItems:
             print("Selector:", item[0])
             print("Element:", item[1])
             print()
+        
 
         await browser.close()
-        return items
+        return uniqueItems
+    
     pageurl = "https://twitter.com/nasa"
     website = sms.identifyURL(pageurl)
     loop = asyncio.new_event_loop()
