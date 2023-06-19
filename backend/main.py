@@ -18,12 +18,13 @@ base64
 # importing libraries
 import json
 import base64
-from fastapi import FastAPI, HTTPException, Response, status ,UploadFile
+from fastapi import FastAPI, HTTPException, Response, status 
 from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import pyppeteer
 import textract
 from PyPDF2 import PdfFileReader
+from flask import request, jsonify
 
 # importing in-house code
 from model.api import API
@@ -33,7 +34,7 @@ import model.socialMediaScraper as sms
 # Initialising constants 
 CONFIG_FILE_PATH = "config\config.json"
 API_FILE_PATH = "config\\apis.json"
-RESULTS_FILE_PATH = "config\\results.json"
+RESULTS_FILE_PATH = "config\\result.json"
 
 # set fastapi up
 botbuster = FastAPI()
@@ -163,9 +164,12 @@ def addApi(request: ds.addApi, response: Response):
 @botbuster.get("/webscraper/")
 def webScraping():
     async def scraper(website, pageurl):
-        browser = await pyppeteer.launch(headless=False,handleSIGINT=False,
+        browser = await pyppeteer.launch(
+            headless=False,
+            handleSIGINT=False,
             handleSIGTERM=False,
-            handleSIGHUP=False)
+            handleSIGHUP=False
+        )
         page = await browser.newPage()
         await page.goto(pageurl)
 
@@ -179,12 +183,11 @@ def webScraping():
                 seenItems.add(itemTuple)
 
         # print(items)
-        for item in uniqueItems:
-            print("Selector:", item[0])
-            print("Element:", item[1])
-            print()
+        # for item in uniqueItems:
+        #     print("Selector:", item[0])
+        #     print("Element:", item[1])
+        #     print()
         
-
         await browser.close()
         return uniqueItems
     
@@ -196,25 +199,25 @@ def webScraping():
     return items
         
 #extracting text from user's file
-@botbuster.post('/extract')
-async def extract_text(file: UploadFile):
-    print('file extract called')
+@botbuster.post("/extract")
+def extract_text():
+    print('api has been called')
+    file = request.files['file']
     file_extension = file.filename.rsplit('.', 1)[1].lower()
 
     if file_extension == 'docx':
-        text = textract.process(file.file, method='python').decode('utf-8')
+        text = textract.process(file, method='python').decode('utf-8')
+        print(text)
     elif file_extension == 'pdf':
-        reader = PdfFileReader(file.file)
+        reader = PdfFileReader(file)
         text = ""
         for page in range(reader.getNumPages()):
             text += reader.getPage(page).extract_text()
     elif file_extension == 'txt':
-        text = file.file.read().decode('utf-8')
+        text = file.read().decode('utf-8')
     else:
-        return {'error': 'Unsupported file format'}
-
-    print(text)
-    return {'text': text}
+        return jsonify({'error': 'Unsupported file format'})
+    return jsonify({'text': text})
 
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:
