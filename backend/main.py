@@ -18,13 +18,12 @@ base64
 # importing libraries
 import json
 import base64
-from fastapi import FastAPI, HTTPException, Response, status 
+from fastapi import FastAPI, HTTPException, Response, status ,UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import pyppeteer
 import textract
 from PyPDF2 import PdfFileReader
-from flask import request, jsonify
 
 # importing in-house code
 from model.api import API
@@ -197,25 +196,26 @@ def webScraping():
     return items
         
 #extracting text from user's file
-@botbuster.post("/extract")
-def extract_text():
-    print('api has been called')
-    file = request.files['file']
+@botbuster.post('/extract')
+async def extract_text(file: UploadFile):
+    print('file extract called')
     file_extension = file.filename.rsplit('.', 1)[1].lower()
 
     if file_extension == 'docx':
-        text = textract.process(file, method='python').decode('utf-8')
-        print(text)
+        text = textract.process(file.file, method='python').decode('utf-8')
     elif file_extension == 'pdf':
-        reader = PdfFileReader(file)
+        reader = PdfFileReader(file.file)
         text = ""
         for page in range(reader.getNumPages()):
             text += reader.getPage(page).extract_text()
     elif file_extension == 'txt':
-        text = file.read().decode('utf-8')
+        text = file.file.read().decode('utf-8')
     else:
-        return jsonify({'error': 'Unsupported file format'})
-    return jsonify({'text': text})
+        return {'error': 'Unsupported file format'}
+
+    print(text)
+    return {'text': text}
+
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:
     config_data = json.load(config_file)

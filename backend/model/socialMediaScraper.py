@@ -44,10 +44,12 @@ async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
 
 # calling the scraper
 async def scraper(websiteName, pageurl):
+    # after testing, change headless to true in the below line
     browser = await pyppeteer.launch(headless=False)
     page = await browser.newPage()
     await page.goto(pageurl)
 
+    # the 5 here is the number of posts to scrape, may want to increase or decrease later
     items = await scrapeInfiniteScrollItems(page, websiteConfigs[websiteName], 5)
     # print(items)
     for item in items:
