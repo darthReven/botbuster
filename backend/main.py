@@ -198,6 +198,10 @@ def webScraping():
         items1 = loop.run_until_complete(scraper(website, pageurl))
         return items1
     
+    def checkURL(pageurl):
+        #put in the check url function to call the appropriate scraper e.g. social media scraper, forum scraper or generic scraper
+        print()
+
     pageurl = "https://twitter.com/nasa"
     items=callSMS(pageurl)
     return items
