@@ -9,7 +9,7 @@
         "Hugging Face": "huggingface.png"
     },
     "path_to_general_score": {
-        "GPTZero": "GPTZero.documents.0.completely_generated_prob",
+        "GPTZero": "GPTZero.documents.0.average_generated_prob",
         "Writer": "Writer.1.score",
         "Sapling AI": "Sapling AI.score",
         "Hugging Face": "Hugging Face.data.0.0.Fake"

@@ -1,107 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://kit.fontawesome.com/24dc174b82.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/24dc174b82.js" crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <script>
-        function sidebar_open() {
-            document.getElementById("sidebarMenu").style.width = "100%";
-            document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
-            document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
-            document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
+  <script>
+    function sidebar_open() {
+      document.getElementById("sidebarMenu").style.width = "100%";
+      document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
+      document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
+      document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
+    }
+    function sidebar_close() {
+      document.getElementById("sidebarMenu").style.width = "0%";
+      document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
+      document.getElementById("left-bar-slider").style.margin = "0";
+      document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
+    }
+    function percentageToHsl(percentage, hue0, hue1) {
+      var hue = ((percentage/100) * (hue1 - hue0)) + hue0;
+      return `hsl(${hue}, 100%, 50%)`;
+    }
+    function highlightText(fractionalValue) {
+      // Calculate the color based on the fractional value
+      const alpha = 0.1 + (0.7 * fractionalValue)
+      return `rgb(255, 255, 0, ${alpha})`;
+    }
+    $(document).ready(function() {
+      var apiinfo = JSON.parse(localStorage.getItem("api-info"))
+      var text = localStorage.getItem("text")
+      var results = JSON.parse(localStorage.getItem("results"))
+      if (apiinfo == null || text == null || results == null) {
+        window.location.href='textarea.html'
+      }
+      for (let i = 0; i < results["sentence_score"].length; i++) {
+        var sentence = Object.keys(results["sentence_score"][i])
+        if (results["sentence_score"][i][sentence]["highlight"] == 0) {
+          $("#text-area").append(`${sentence[0]}`)
+        } else {
+          $("#text-area").append(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
+          var colour = highlightText(results["sentence_score"][i][sentence]["highlight"])
+          var sentenceelement = document.getElementById(`sentence-${i}`)
+          sentenceelement.style.backgroundColor = String(colour)
         }
-
-        function sidebar_close() {
-            document.getElementById("sidebarMenu").style.width = "0%";
-            document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
-            document.getElementById("left-bar-slider").style.margin = "0";
-            document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
+      }
+      for (i in Object.keys(results["general_score"])) {
+        var api = Object.keys(results["general_score"])[i]
+        $("#sidebar").append(`
+          <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[api][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${api}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[api][0]}-result" class="result-display" value="${results["general_score"][api]}">${results["general_score"][api]}</span></div></div></div>
+        `)
+        if (apiinfo[api][1] != undefined){ 
+          const byteCharacters = atob(apiinfo[api][1]);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          document.getElementById(`${apiinfo[api][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
         }
-
-        function percentageToHsl(percentage, hue0, hue1) {
-			var hue = ((percentage/100) * (hue1 - hue0)) + hue0;
-			return 'hsl(' + hue + ', 100%, 50%)';
-        }
-
-		function highlightText(fractionalValue) {
-			// Calculate the color based on the fractional value
-			const red = Math.round(255 - (fractionalValue * 100));
-			const green = Math.round(255 - (fractionalValue * 150));
-			const blue = Math.round(255 - (fractionalValue * 200));
-			return `rgb(${red}, ${green}, ${blue})`;
-        }
-
-        $(document).ready(function() {
-            var apiinfo = JSON.parse(localStorage.getItem("api-info"))
-			var text = localStorage.getItem("text")
-			var results = JSON.parse(localStorage.getItem("results"))
-			if (apiinfo == null || text == null || results == null) {
-				window.location.href='textarea.html'
-			}
-			for (let i = 0; i < results["sentence_score"].length; i++) {
-				var sentence = Object.keys(results["sentence_score"][i])
-				if (results["sentence_score"][i][sentence]["highlight"] == 0) {
-					$("#text-area").append(`${sentence[0]}`)
-				} else {
-					$("#text-area").append(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
-					var colour = highlightText(results["sentence_score"][i][sentence]["highlight"])
-					var sentenceelement = document.getElementById(`sentence-${i}`)
-					sentenceelement.style.backgroundColor = String(colour)
-				}
-			}
-			for (i in Object.keys(results["general_score"])) {
-				var api = Object.keys(results["general_score"])[i]
-				$("#sidebar").append(`
-					<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[api][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${api}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[api][0]}-result" class="result-display" value="${results["general_score"][api]}">${results["general_score"][api]}</span></div></div></div>
-				`)
-				if (apiinfo[api][1] != undefined){ 
-					const byteCharacters = atob(apiinfo[api][1]);
-					const byteNumbers = new Array(byteCharacters.length);
-					for (let i = 0; i < byteCharacters.length; i++) {
-						byteNumbers[i] = byteCharacters.charCodeAt(i);
-					}
-					const byteArray = new Uint8Array(byteNumbers);
-					document.getElementById(`${apiinfo[api][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-				}
-				hue0 = 120
-				hue1 = 0
-				var resultelement = document.getElementById(`${apiinfo[api][0]}-result`)
-				new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
-				resultelement.style.color = String(new_colour)
-				// hue0 = 120
-				// hue1 = 0  
-				// const collection = document.getElementsByClassName("result-display");
-				// for(let x = 0; x < collection.length; x++) {
-					
-				// 	if(collection[x].nodeName == "INPUT") {
-				// 		new_colour = percentageToHsl(collection[x].value, hue0, hue1)
-				// 		document.querySelector("#result-display-" + String(x) + ":checked").style.background = String(new_colour)
-				// 		document.querySelector("#result-display-" + String(x) + ":checked").style.border = "0"
-				// 	}
-				// 	else {
-				// 		new_colour = percentageToHsl(collection[x].innerHTML, hue0, hue1)
-				// 		document.getElementById('result-display-' + String(x)).style.color = String(new_colour)
-				// 	}
-				// }
-			}
-        })
-        
-    </script>
+        hue0 = 120
+        hue1 = 0
+        var resultelement = document.getElementById(`${apiinfo[api][0]}-result`)
+        new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
+        resultelement.style.color = String(new_colour)
+      }
+    })
+  </script>
 
 </head>
 <body>
