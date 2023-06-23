@@ -188,12 +188,17 @@ def webScraping():
         await browser.close()
         return uniqueItems
     
+    def callSMS(pageurl):
+        website = sms.identifyURL(pageurl)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        items1 = loop.run_until_complete(scraper(website, pageurl))
+        return items1
+    
     pageurl = "https://twitter.com/nasa"
-    website = sms.identifyURL(pageurl)
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    items = loop.run_until_complete(scraper(website, pageurl))
+    items=callSMS(pageurl)
     return items
+    
         
 #extracting text from user's file
 @botbuster.post('/extract')

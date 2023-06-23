@@ -76,43 +76,53 @@
         });
         //sends file to backend api to extract
         $(document).on('change', '#formFile', function(event) {
-            console.log("the function has been summoned");
-            var file = event.target.files[0];
-            var fileInput =document.getElementById('formFile');
-            console.log(fileInput.value)
-            var filePath = fileInput.value;
-            var allowedExtensions =
-                    /(\.docx|\.pdf|\.txt)$/i;
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Invalid file type');
-                fileInput.value = '';
-                return false;
-            }
-            var formData=new FormData()
-            formData.append('file',file)
-            $(document).on('click','#submit-btn', function(){
-              $.ajax({
-                url: "http://127.0.0.1:8000/extract",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data, textStatus, xhr) {
-                    if (data.success) {
-                      var text =data.text
-                      localStorage.setItem('text', text)
-                      window.alert(text)
-                      // window.location.href='results.html'
-                    } else {
-                      window.alert("Error extracting data")
-                    }
-                }, error(xhr, textStatus, err) {
-                      console.log(err)
-                      window.alert("Error");
-                  }
-              })
-            })
-        }); 
+  console.log("the function has been summoned");
+  var file = event.target.files[0];
+  var fileInput = document.getElementById('formFile');
+  console.log(fileInput.value);
+  var filePath = fileInput.value;
+  var allowedExtensions = /(\.docx|\.pdf|\.txt)$/i;
+  if (!allowedExtensions.exec(filePath)) {
+    alert('Invalid file type');
+    fileInput.value = '';
+    return false;
+  }
+  var formData = new FormData();
+  formData.append('file', file);
+  
+  // Remove the click event handler for the submit button
+  // Use form submit event instead
+  $('#fileForm').on('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: "http://127.0.0.1:8000/extract",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data, textStatus, xhr) {
+        if (data.success) {
+          var text = data.text;
+          localStorage.setItem('text', text);
+          window.alert(text);
+          // window.location.href='results.html';
+        } else {
+          window.alert("Error extracting data");
+        }
+      },
+      error: function(xhr, textStatus, err) {
+        console.log(err);
+        window.alert("Error");
+      }
+    });
+  });
+
+  // Trigger form submission when the submit button is clicked
+  $(document).on('click', '#submit-btn', function() {
+    $('#fileForm').submit();
+  });
+});
+ 
     </script>
 
 </head>
@@ -159,17 +169,17 @@
                 <a class="fw-bold" href="webscraper.html">Web Scraper</a>
                 <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
-            <form>
+            <form id="fileForm">
                 <label for="formFile" class="form-label">Choose a file to upload</label>
-  <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt">
-  <div class="text-center">
-    <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
-        Submit
-    </button>
-    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
-        <i class="fa-solid fa-arrows-rotate"></i>
-    </button>
-</div>
+                <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt">
+                <div class="text-center">
+                  <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
+                      Submit
+                  </button>
+                  <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+                      <i class="fa-solid fa-arrows-rotate"></i>
+                  </button>
+                </div>
             </form>
 
 
