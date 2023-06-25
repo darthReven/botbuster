@@ -35,6 +35,8 @@
 		}
 
 		function checkText() {
+            $('#loading').show(); // Start loading
+            $('.btn[type="button"]').prop('disabled', true); // Disable submit
 			var data = {
 				list_of_apis: [], 
 				text: ""
@@ -55,16 +57,21 @@
 				contentType: "application/json; charset = utf-8",
 				dataType: "json",
 				success: function(data, textStatus, xhr) {
+                    $('#loading').hide(); // Hide loading
+                    $('.btn[type="button"]').prop('disabled', true); // Enable submit
 					localStorage.setItem("results", JSON.stringify(data))
 					window.location.href='result.html'
 				},
 				error: function(xhr, textStunlatus, err) {
+                    $('#loading').hide(); // Hide loading
+                    $('.btn[type="button"]').prop('disabled', true); // Enable submit
 					console.log(err)
 				}
 			})
 		};
 		$(document).ready(function () {
 			localStorage.clear()
+            $('#loading').show(); // Start loading
 			$.ajax({
                 url: "http://127.0.0.1:8000/getapis/",
                 type: "GET",
@@ -86,11 +93,13 @@
 							}
 							const byteArray = new Uint8Array(byteNumbers);
 							document.getElementById(`${data[key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-						}
+                            $('#loading').hide(); // Hide loading
+                        }
                     }
                     localStorage.setItem("api-info", JSON.stringify(data))
                 },
                 error: function(xhr, textStunlatus, err) {
+                    $('#loading').hide(); // Hide loading
                 	console.log(err)
                 }
             })
@@ -98,6 +107,9 @@
 	</script>
 </head>
 <body>
+    <div id="loading">
+        <img id="loading-image" src="images/spin_load.gif" alt="Loading..." />
+    </div>
     <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">

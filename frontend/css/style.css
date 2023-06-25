@@ -171,6 +171,9 @@ main {
     .sidebarimg {
         text-align: right;
     }
+    #sphere-container {
+        z-index:200;
+    }
   }
 
 .options {
@@ -535,7 +538,7 @@ form {
 
 .content-box {
     border-width: 1px;
-    border-color: black;
+    border-color: #ced4da;
     border-radius: 15px;
     resize: vertical;
 }
@@ -559,6 +562,35 @@ form {
 
 .content-box .row .col-9 {
     padding:0;
-    border-left: solid #000;
+    border-left: solid #ced4da;
     border-width: 1px;
 }
+
+.content-box:has(.row .col-9:focus)  {
+    border-color: #3B7197;
+    box-shadow: 0px 0px 2px 5px rgba(79,151,202,0.5);
+    border-radius:15px;
+}
+
+
+#loading {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    opacity: 0.7;
+    background-color: #fff;
+    z-index: 100000000000000000;
+  }
+  
+  #loading-image {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
