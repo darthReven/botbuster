@@ -44,6 +44,7 @@
         //getting available apis ajax
         $(document).ready(function () {
             localStorage.clear()
+            $('#loading').show(); // Start loading
             $.ajax({
                 url: "http://127.0.0.1:8000/getapis/",
                 type: "GET",
@@ -65,11 +66,13 @@
 							}
 							const byteArray = new Uint8Array(byteNumbers);
 							document.getElementById(`${data[key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-						}
+                            $('#loading').hide(); // Hide loading
+                        }
                     }
                     localStorage.setItem("api-info", JSON.stringify(data))
                 },
                 error: function(xhr, textStunlatus, err) {
+                    $('#loading').hide(); // Hide loading
                 	console.log(err)
                 }
             })
@@ -127,6 +130,9 @@
 
 </head>
 <body>
+    <div id="loading">
+        <img id="loading-image" src="images/spin_load.gif" alt="Loading..." />
+    </div>
     <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">

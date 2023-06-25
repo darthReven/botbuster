@@ -35,6 +35,7 @@
         window.onscroll = function() {scrollFunction()};
 
         function scrollFunction() {
+            window_width = window.screen.availWidth - (window.outerWidth - window.innerWidth) // For breakpoints (responsiveness)
             if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
                 document.getElementById("main-page-nav").style.padding = "0.5rem 0";
                 document.getElementById("main-page-brand").style.fontSize="20px";
@@ -46,13 +47,23 @@
             } 
             else {
                 window.setTimeout(function(){
-                    document.getElementById("main-page-nav").style.padding = "0.5rem 0 30vh 0rem";
+                    if( window_width < 768) {
+                        document.getElementById("main-page-nav").style.padding = "0.5rem 0 15vh 0rem";
+                        document.getElementById("main-page-brand").style.fontSize="52px";
+                    }
+                    else if( window_width < 992) {
+                        document.getElementById("main-page-nav").style.padding = "0.5rem 0 22vh 0rem";
+                        document.getElementById("main-page-brand").style.fontSize="92px";
+                    }
+                    else {
+                        document.getElementById("main-page-nav").style.padding = "0.5rem 0 30vh 0rem";
+                        document.getElementById("main-page-brand").style.fontSize="128px";
+                    }
                     document.getElementById("main-page-brand").style.cssText=`
                     position: absolute;
                     left: 50%;
                     bottom: 0%;
                     transform: translate(-50%, 10%);
-                    font-size: 128px;
                     letter-spacing: 20px;
                     text-transform: uppercase;
                     `;
@@ -114,7 +125,7 @@
                 <p id="slogan" class="fw-bold">Comprehensive AI Detection</p>
             </div>
             <div class="row"  style="margin:0">
-                <div class="col-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="card">
                         <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                             <div>
@@ -124,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="card">
                         <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                             <div>
@@ -134,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="card">
                         <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                             <div>
@@ -144,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="card">
                         <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                             <div>
