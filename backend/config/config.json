@@ -1,4 +1,46 @@
 {
+    "website_configs": {
+        "forums.hardwarezone.com.sg": {
+            "elements": ["h1.p-title-value","div.bbWrapper"],
+            "func": "gws"
+        },
+        "stackoverflow.com": {
+            "elements": ["p", "pre"],
+            "func": "gws"
+        },
+        "boards.4channel.org": {
+            "elements": ["blockquote.postMessage"],
+            "func": "gws"
+        },
+        "www.bbc.com": {
+            "elements": ["p.ssrcss-1q0x1qg-Paragraph eq5iqo00"],
+            "func": "gws"
+        },
+        "www.channelnewsasia.com": {
+            "elements": ["p","h2","h1.h1--page-title"],
+            "func": "gws"
+        },
+        "theindependent.sg": {
+            "elements": ["p","h2.tdb-title-text"],
+            "func": "gws"
+        },
+        "twitter.com": {
+            "elements": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0",""],
+            "func": "sms"
+        },
+        "reddit.com": {
+            "elements": ["","H1", "H2", "H3", "H4"],
+            "func": "sms"
+        },
+        "facebook.com": {
+            "elements": ["div.xc9qbxq","div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"],
+            "func": "sms"
+        },
+        "default": {
+            "elements": ["p","h1","h2","h3","h4","h5","h6"],
+            "func": "gws"
+        }
+    },
     "highlight_score": 70,
     "highlight_percent": 70,
     "logos_base_path": "images/",

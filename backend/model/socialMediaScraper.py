@@ -4,14 +4,10 @@ import re
 
 # dictionary storing the configurations for popular websites
 websiteConfigs = {
-    "twitter.com": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0",""],
-    "reddit.com": ["","H1", "H2", "H3", "H4"],
-    "facebook.com": ["div.xc9qbxq","div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"],
-    "default": ["H1", "H2"]
 }
 
 # scraper
-async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
+async def scrapeInfiniteScrollItems(page, contentSelector, itemTargetCount):
     await asyncio.sleep(2.5)
     items = []
 
@@ -29,7 +25,7 @@ async def scrapeInfiniteScrollItems(page, contentselector, itemTargetCount):
             }
 
             return selectedItems;
-        }''', contentselector)
+        }''', contentSelector)
 
         previousHeight = await page.evaluate("document.body.scrollHeight")
         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
@@ -55,22 +51,24 @@ async def delPopUp(page,websitename):
 
 
 # calling the scraper
-async def scraper(websiteName, pageurl):
-    browser = await pyppeteer.launch(headless=False)
+async def scraper(elements, pageUrl):
+    browser = await pyppeteer.launch(
+        headless=True,
+        handleSIGINT=False,
+        handleSIGTERM=False,
+        handleSIGHUP=False
+    )
     page = await browser.newPage()
-    await page.goto(pageurl)
-
-    await delPopUp(page,websiteName)
-    print('calling scroller')
-    items = await scrapeInfiniteScrollItems(page, websiteConfigs[websiteName], 5)
+    await page.goto(pageUrl)
+    items = await scrapeInfiniteScrollItems(page, elements, 5)
+    uniqueItems = []
+    seenItems = set()
+    for item in items:
+        itemTuple = tuple(item)
+        if itemTuple not in seenItems:
+            uniqueItems.append(item)
+            seenItems.add(itemTuple)
+    
     await browser.close()
-
-
-def identifyURLSMS(providedURL):
-    keyList = list(websiteConfigs.keys())
-    for i in keyList:
-        x = re.search(i, providedURL)
-        if x:
-            return i
-    return "default"
+    return uniqueItems
 

@@ -125,43 +125,43 @@
   </nav>
   <i id="left-bar-slider" class="fa-solid fa-angles-right fa-xl" onclick="sidebar_open()"></i>
   <!-- Sidebar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold ms-4" href="index.html">
-                <img src="images/logo.png" alt="Logo" class="me-3">BotBuster
-            </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold ms-4" href="index.html">
+          <img src="images/logo.png" alt="Logo" class="me-3">BotBuster
+        </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse ms-auto" id="navbarText">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <button type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
+              Home
           </button>
-          <div class="collapse navbar-collapse ms-auto" id="navbarText">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <button type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
-                    Home
-                </button>
-                <button id="get-started" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='textarea.html'">
-                    Get Started <i class="fa-solid fa-arrow-right"></i>
-                </button>
-          </div>
+          <button id="get-started" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='textarea.html'">
+              Get Started <i class="fa-solid fa-arrow-right"></i>
+          </button>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="content">
+        <div class="options">
+            <a class="active fw-bold" href="textarea.html">Text Area</a>
+            <a class="fw-bold" href="fileupload.html">File Upload</a>
+            <a class="fw-bold" href="webscraper.html">Web Scraper</a>
+            <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
         </div>
-    </nav>
-    <main>
-        <div class="content">
-            <div class="options">
-                <a class="active fw-bold" href="textarea.html">Text Area</a>
-                <a class="fw-bold" href="fileupload.html">File Upload</a>
-                <a class="fw-bold" href="webscraper.html">Web Scraper</a>
-                <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
-            </div>
-                <div class="form-group" style ="padding: 20px 100px">
-                  <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
-                        Submit
-                    </button>
-                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
+        <div class="form-group" style ="padding: 20px 100px">
+          <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
+                Submit
+            </button>
+            <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+                <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
                 </div>
 
             <!-- Footer -->

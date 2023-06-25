@@ -28,104 +28,95 @@
     <script src="scripts/docxExtract.js" type="module"></script>
 
     <script>
-        function sidebar_open() {
-            document.getElementById("sidebarMenu").style.width = "100%";
-            document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
-            document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
-            document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
-        }
-
-        function sidebar_close() {
-            document.getElementById("sidebarMenu").style.width = "0%";
-            document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
-            document.getElementById("left-bar-slider").style.margin = "0";
-            document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
-        }
-        //getting available apis ajax
-        $(document).ready(function () {
-            localStorage.clear()
-            $('#loading').show(); // Start loading
-            $.ajax({
-                url: "http://127.0.0.1:8000/getapis/",
-                type: "GET",
-                contentType: "application/json; charset = utf-8",
-                dataType: "json",
-                success: function(data, textStatus, xhr) {
-                    for (const key in data) {
-						$("#api-info").append(
-						`<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
-						<div class="checkbox">
-						<input type="checkbox" id="${data[key][0]}-checkbox" checked>
-						<label for="${data[key][0]}-checkbox"></label>
-						</div></div></div></div>`)
-						if (data[key][1] != undefined){ 
-							const byteCharacters = atob(data[key][1]);
-							const byteNumbers = new Array(byteCharacters.length);
-							for (let i = 0; i < byteCharacters.length; i++) {
-								byteNumbers[i] = byteCharacters.charCodeAt(i);
-							}
-							const byteArray = new Uint8Array(byteNumbers);
-							document.getElementById(`${data[key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-                            $('#loading').hide(); // Hide loading
-                        }
-                    }
-                    localStorage.setItem("api-info", JSON.stringify(data))
-                },
-                error: function(xhr, textStunlatus, err) {
-                    $('#loading').hide(); // Hide loading
-                	console.log(err)
-                }
-            })
-        });
-        //sends file to backend api to extract
-        $(document).on('change', '#formFile', function(event) {
-  console.log("the function has been summoned");
-  var file = event.target.files[0];
-  var fileInput = document.getElementById('formFile');
-  console.log(fileInput.value);
-  var filePath = fileInput.value;
-  var allowedExtensions = /(\.docx|\.pdf|\.txt)$/i;
-  if (!allowedExtensions.exec(filePath)) {
-    alert('Invalid file type');
-    fileInput.value = '';
-    return false;
-  }
-  var formData = new FormData();
-  formData.append('file', file);
-  
-  // Remove the click event handler for the submit button
-  // Use form submit event instead
-  $('#fileForm').on('submit', function(event) {
-    event.preventDefault();
-    $.ajax({
-      url: "http://127.0.0.1:8000/extract",
-      type: "POST",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(data, textStatus, xhr) {
-        if (data.success) {
-          var text = data.text;
-          localStorage.setItem('text', text);
-          window.alert(text);
-          // window.location.href='results.html';
-        } else {
-          window.alert("Error extracting data");
-        }
-      },
-      error: function(xhr, textStatus, err) {
-        console.log(err);
-        window.alert("Error");
+      function sidebar_open() {
+        document.getElementById("sidebarMenu").style.width = "100%";
+        document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
+        document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
+        document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
       }
-    });
-  });
-
-  // Trigger form submission when the submit button is clicked
-  $(document).on('click', '#submit-btn', function() {
-    $('#fileForm').submit();
-  });
-});
- 
+      function sidebar_close() {
+        document.getElementById("sidebarMenu").style.width = "0%";
+        document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
+        document.getElementById("left-bar-slider").style.margin = "0";
+        document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
+      }
+      //getting available apis ajax
+      $(document).ready(function () {
+        localStorage.clear()
+        $('#loading').show(); // Start loading
+        $.ajax({
+          url: "http://127.0.0.1:8000/getapis/",
+          type: "GET",
+          contentType: "application/json; charset = utf-8",
+          dataType: "json",
+          success: function(data, textStatus, xhr) {
+            for (const key in data) {
+              $("#api-info").append(
+              `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
+              <div class="checkbox">
+              <input type="checkbox" id="${data[key][0]}-checkbox" checked>
+              <label for="${data[key][0]}-checkbox"></label>
+              </div></div></div></div>`)
+              if (data[key][1] != undefined){ 
+                const byteCharacters = atob(data[key][1]);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                document.getElementById(`${data[key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
+                $('#loading').hide(); // Hide loading
+              }
+            }
+            localStorage.setItem("api-info", JSON.stringify(data))
+          },
+          error: function(xhr, textStunlatus, err) {
+            $('#loading').hide(); // Hide loading
+            console.log(err)
+          }
+        })
+      });
+      //sends file to backend api to extract
+      $(document).on('change', '#formFile', function(event) {
+        console.log("the function has been summoned");
+        var file = event.target.files[0];
+        var fileInput =document.getElementById('formFile');
+        console.log(fileInput.value)
+        var filePath = fileInput.value;
+        var allowedExtensions =
+          /(\.docx|\.pdf|\.txt)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+          window.alert('Invalid file type');
+          fileInput.value = '';
+          return false;
+        }
+        var formData = new FormData()
+        formData.append('file', file)
+        $(document).on('click','#submit-btn', function() {
+          $('#loading').show(); // Start loading
+          console.log("Function CALLED")
+          console.log(formData)
+          $.ajax({
+            url: "http://127.0.0.1:8000/extract",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data, textStatus, xhr) {
+              console.log("success")
+              console.log(data)
+              var text = data.text
+              $('#loading').hide(); // Hide loading
+              localStorage.setItem('text', text)
+            }, error(xhr, textStatus, err) {
+              console.log(err)
+              window.alert("Error");
+              
+              $('#loading').hide(); // Hide loading
+            }
+          })
+        })
+      }); 
     </script>
 
 </head>
@@ -169,24 +160,24 @@
     </nav>
     <main>
         <div class="content">
-            <div class="options">
-                <a class="fw-bold" href="textarea.html">Text Area</a>
-                <a class="active fw-bold" href="fileupload.html">File Upload</a>
-                <a class="fw-bold" href="webscraper.html">Web Scraper</a>
-                <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
+          <div class="options">
+            <a class="fw-bold" href="textarea.html">Text Area</a>
+            <a class="active fw-bold" href="fileupload.html">File Upload</a>
+            <a class="fw-bold" href="webscraper.html">Web Scraper</a>
+            <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
+          </div>
+          <div id="fileForm" class="form-group" style ="padding: 20px 100px">
+            <label for="formFile" class="form-label">Choose a file to upload</label>
+            <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt">
+            <div class="text-center">
+              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
+                Submit
+              </button>
+              <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+                <i class="fa-solid fa-arrows-rotate"></i>
+              </button>
             </div>
-            <form id="fileForm">
-                <label for="formFile" class="form-label">Choose a file to upload</label>
-                <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt">
-                <div class="text-center">
-                  <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn">
-                      Submit
-                  </button>
-                  <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
-                      <i class="fa-solid fa-arrows-rotate"></i>
-                  </button>
-                </div>
-            </form>
+          </div>
 
 
 
