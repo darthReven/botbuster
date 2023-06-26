@@ -168,8 +168,8 @@ def addApi(request: ds.addApi, response: Response):
 def webScraping():
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         websiteConfigs = json.load(config_data_file)["website_configs"]
-    pageurl = "https://theindependent.sg/news/singapore-news/"
-    # pageurl = "https://twitter.com/nasa"
+    # pageurl = "https://theindependent.sg/news/singapore-news/"
+    pageurl = "https://www.facebook.com/NASA/"
     # pageurl = "https://docs.python.org/3/library/urllib.parse.html"
     websiteName = urlparse(pageurl).netloc #getting the website name from the url
     print(websiteName)

@@ -3,8 +3,6 @@ import pyppeteer
 import re
 
 # dictionary storing the configurations for popular websites
-websiteConfigs = {
-}
 
 # scraper
 async def scrapeInfiniteScrollItems(page, contentSelector, itemTargetCount):
@@ -36,16 +34,16 @@ async def scrapeInfiniteScrollItems(page, contentSelector, itemTargetCount):
 
     return items
 
-async def delPopUp(page,websitename):
+async def delPopUp(page,popup):
     # await page.waitForSelector(websiteConfigs[websitename][0], {'visible': True})
     # await page.click(websiteConfigs[websitename][0])
     # print("after clicking")
     # div.x1i10hfl.x6umtig.x1b1mbwd.xaqea5y.xav7gou.x1ypdohk.xe8uvvx.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x16tdsg8.x1hl2dhg.xggy1nq.x87ps6o.x1lku1pv.x1a2a7pz.x6s0dn4.x14yjl9h.xudhj91.x18nykt9.xww2gxu.x972fbf.xcfux6l.x1qhh985.xm0m39n.x9f619.x78zum5.xl56j7k.xexx8yu.x4uap5.x18d9i69.xkhd6sd.x1n2onr6.xc9qbxq.x14qfxbe.x1qhmfi1
     try:
         # Replace the CSS selector with the appropriate selector for the pop-up element
-        await page.waitForSelector(websiteConfigs[websitename][0], {'timeout': 5000})
-        await page.click(websiteConfigs[websitename][0])
-        await page.waitForSelector(websiteConfigs[websitename][0], {'hidden': True, 'timeout': 5000})
+        await page.waitForSelector(popup[0], {'timeout': 5000})
+        await page.click(popup[0])
+        await page.waitForSelector(popup[0], {'hidden': True, 'timeout': 5000})
     except pyppeteer.errors.TimeoutError:
         pass  # Pop-up not found or already closed
 
@@ -53,13 +51,21 @@ async def delPopUp(page,websitename):
 # calling the scraper
 async def scraper(elements, pageUrl):
     browser = await pyppeteer.launch(
-        headless=True,
+        headless=False,
         handleSIGINT=False,
         handleSIGTERM=False,
         handleSIGHUP=False
     )
     page = await browser.newPage()
     await page.goto(pageUrl)
+
+    if(elements[0]==''):
+        elements.pop(0)
+    else:
+        await delPopUp(page,elements)
+        elements.pop(0)
+    
+    print(elements)
     items = await scrapeInfiniteScrollItems(page, elements, 5)
     uniqueItems = []
     seenItems = set()

@@ -32,7 +32,7 @@
             "elements": ["","H1", "H2", "H3", "H4"],
             "func": "sms"
         },
-        "facebook.com": {
+        "www.facebook.com": {
             "elements": ["div.xc9qbxq","div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"],
             "func": "sms"
         },
