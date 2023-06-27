@@ -176,8 +176,8 @@ def webScraping():
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         websiteConfigs = json.load(config_data_file)["website_configs"]
     # pageurl = "https://theindependent.sg/news/singapore-news/"
-    # pageurl = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
-    pageurl = "https://twitter.com/nasa"
+    pageurl = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
+    # pageurl = "https://twitter.com/nasa"
     # pageurl = "https://docs.python.org/3/library/urllib.parse.html"
     websiteName = urlparse(pageurl).netloc #getting the website name from the url
     print(websiteName)
