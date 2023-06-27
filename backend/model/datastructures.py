@@ -1,9 +1,12 @@
 from pydantic import BaseModel
 
-class checkText (BaseModel):
+class check_text (BaseModel):
     list_of_apis: list
     text: str
 
-class addApi (BaseModel):
+class add_api (BaseModel):
     api_details: dict
     api_name: str
+
+class web_scraper (BaseModel):
+    page_url:str

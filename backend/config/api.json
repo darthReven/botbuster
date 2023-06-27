@@ -56,14 +56,14 @@
             "data_type": "string",
             "headers": {},
             "body": {
-                "token": "YOUR_API_TOKEN_HERE",
+                "token": "NO_API_AVAIL",
                 "text": ""
             }
         }
     },
     "Hate Speech APIs": {
-        "Moderate Hate Speech Detector": {
-            "target": "https://api.moderatehatespeech.com/api/v1/moderate",
+        "Moderate Hate Speech": {
+            "target": "https://api.moderatehatespeech.com/api/v1/moderate/",
             "body_key": "text",
             "data_type": "string",
             "headers": {},

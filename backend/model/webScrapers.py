@@ -83,6 +83,7 @@ async def scraper(elements, pageUrl):
 def genericScraper(listOfElements: list, pageurl):
     sys.stdout.reconfigure(encoding='utf-8') #so that other languages can be printed
     response = requests.get(pageurl)
+    print(response.status_code)
     if response.status_code == 200: 
         soup = BeautifulSoup(response.content, 'html.parser')
     else:

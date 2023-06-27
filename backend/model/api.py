@@ -36,20 +36,3 @@ class API:
         #direct to virus total/phishing api
 
         pass
-
-# TEST CODES
-
-# with open("backend\model\config.json", "r") as config_file:
-#     config_data = json.load(config_file)
-
-#     API_names = config_data["APIs"]["API Names"]
-#     pass
-#     text = "hello this is a text to test the api call!"
-#     object = API(config_data["APIs"]["Writer"])
-#     results = object.api_call(text)
-#     print(results)
-
-    # for item in API_names:
-    #     object = API(config_data["APIs"][f"{item}"])
-    #     results = object.api_call(text)
-    #     print(results)
