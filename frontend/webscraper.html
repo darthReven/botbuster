@@ -36,7 +36,7 @@
         function get_elements() {
             $('#loading').show(); // Start loading
             $('.btn[type="button"]').prop('disabled', true); // Disable submit
-          
+            $('#submitBtn').prop('disabled', true); //Disable arrow submit button
             $.ajax({
                 url:"http://127.0.0.1:8000/webscraper/",
                 type: "GET",
@@ -97,14 +97,14 @@
             content =''
             for (let i = 0; i < num_of_elements; i++) {
                 content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements)">
-                    <label for="checkbox${unique[i]}">${unique[i]}</label>
+                    <label for="checkbox">${unique[i]}</label>
                 `}
             $('#fileForm').append(content)
             $('#fileForm').append(`<div class="text-center">
                     <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="get_elements()">
                         Submit
                     </button>
-                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="$('.content-box').html(''); $('.content-box').removeClass('display'); $('.content-box').height('0px');">
+                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="$('.content-box').html(''); $('.content-box').removeClass('display'); $('.content-box').height('0px');$('.checkboxed').remove();$('label').remove();$('#submitBtn').prop('disabled', false);">
                         <i class="fa-solid fa-arrows-rotate"></i>
                     </button>
                 </div>`)
