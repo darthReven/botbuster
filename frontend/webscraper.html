@@ -36,14 +36,15 @@
         function get_elements() {
             $('#loading').show(); // Start loading
             $('.btn[type="button"]').prop('disabled', true); // Disable submit
+          
             $.ajax({
                 url:"http://127.0.0.1:8000/webscraper/",
                 type: "GET",
                 contentType: "application/json; charset = utf-8",
                 dataType: "json",
                 success: function(data, textStatus, xhr) {
-                    console.log(data)
-                    update_content_box(data)
+                    elements = data
+                    update_content_box(elements)
                 },
                 error: function(xhr, textStunlatus, err) {
                 	console.log(err)
@@ -52,14 +53,21 @@
                 }
             })
         }
+
+
         function update_content_box(elements) {
+          unselectedElements = []
+          $("input:checkbox[name=checkbox]:not(:checked)").each(function(){
+              unselectedElements.push($(this).val());
+          });
+          console.log(unselectedElements);
             unique = []
-            for(item of elements) {
+            for(item of elements) { 
                 if(!unique.includes(item[0])) {
                     unique.push(item[0])
                 }
             }
-            console.log(unique)
+            num_of_elements = unique.length
             $(".content-box").addClass("display");
             content = `
             <div class="row text-center">
@@ -72,6 +80,7 @@
             </div>
             `
             for(item of elements) {
+              if(!unselectedElements.includes(item[0])) {
                 content += `
                 <div class="row">
                     <div class="col-3 px-3 text-center">
@@ -82,11 +91,27 @@
                     </div>
                 </div>
                 `
+              }
             }
             $('.content-box').html(content);
+            content =''
+            for (let i = 0; i < num_of_elements; i++) {
+                content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements)">
+                    <label for="checkbox${unique[i]}">${unique[i]}</label>
+                `}
+            $('#fileForm').append(content)
+            $('#fileForm').append(`<div class="text-center">
+                    <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="get_elements()">
+                        Submit
+                    </button>
+                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="$('.content-box').html(''); $('.content-box').removeClass('display'); $('.content-box').height('0px');">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
+                </div>`)
             $('#loading').hide(); // Hide loading
             $('.btn[type="button"]').prop('disabled', false); // Enable submit
         }
+        
         $(document).ready(function () {
 			localStorage.clear()
       $('#loading').show(); // Start loading
@@ -175,17 +200,25 @@
                 <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
             <div id="fileForm" class="form-group" style ="padding: 20px 100px">
+                    <style>
+                      .arrow-button {
+                        background-color: #BCBCBC;
+                        border: none;
+                        padding: 0.5rem 3rem ;
+                        cursor: pointer;
+                      }          
+                      .arrow-button i {
+                        color: black;
+                      }
+                    </style>
                     <label class="form-label" for="typeURL">Enter the URL of the webpage to webscrape</label>
-                    <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
+                    <div class="input-group">
+                      <input type="url" id="typeURL" class="form-control" placeholder="https://example.com"/>
+                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="get_elements()">
+                        <i class="fa-solid fa-arrow-right"></i>
+                      </button>
+                    </div>
                   <div class="content-box my-4">
-                </div>
-                  <div class="text-center">
-                    <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="get_elements()">
-                        Submit
-                    </button>
-                    <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="$('.content-box').html(''); $('.content-box').removeClass('display'); $('.content-box').height('0px');">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
                 </div>
             </div>
             
