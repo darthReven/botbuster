@@ -12,7 +12,7 @@ def test_create_item():
         json={
             "list_of_apis": ['Writer', 'Sapling AI', 'Hugging Face'],
             "text": "Singapore Polytechnic (SP) is a renowned institution offering a diverse range of diploma courses and fostering a culture of academic excellence, practical learning, and industry partnerships. With state-stry attachments to prepare graduates for successful careers. SP also encoof-the-art facilities and dedicated faculty, SP equips students with the skills and knowledge needed for their chosen fields. The institution emphasizes experiential learning, project-based education, and induurages innovation, entrepreneurship, and holistic development through its vibrant campus life and co-curricular activities. Overall, Singapore Polytechnic is a leading institution that provides a comprehensive and dynamic educational experience to shape the future professionals of Singapore."
-            },
+        },
     )
     assert response.status_code == 200
 

@@ -60,7 +60,7 @@
         "GPTZero": ["GPTZero.documents.0.sentences", "generated_prob"],
         "Sapling AI": ["Sapling AI.sentence_scores", "score"]
     },
-    "APIs": {
+    "AIGCD APIs": {
         "GPTZero": {
             "target": "https://api.gptzero.me/v2/predict/text",
             "body_key": "document",
@@ -109,5 +109,11 @@
                 ]
             }
         }
+    },
+    "misinfo APIs": {
+
+    },
+    "hate APIs": {
+        
     }
 }

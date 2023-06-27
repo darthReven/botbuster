@@ -23,10 +23,13 @@ import uvicorn
 import asyncio
 import pyppeteer
 import textract
-from fastapi import FastAPI, HTTPException, Response, status, UploadFile 
+import os
+from fastapi import FastAPI, HTTPException, Response, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Annotated
 from PyPDF2 import PdfFileReader
 from urllib.parse import urlparse
+from flask import request
 
 # importing in-house code
 from model.api import API
@@ -186,30 +189,32 @@ def webScraping():
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
     return items
-
-    
         
 #extracting text from user's file
 @botbuster.post("/extract")
 def extract_text(file: UploadFile):
-    file_extension = file.filename.rsplit('.', 1)[1].lower()
-    print(file.filename)
-    # try: 
-    if file_extension == 'docx':
-        text = textract.process(file.filename).decode('utf-8')
-    # elif file_extension == 'pdf':
-    #     reader = PdfFileReader(file)
-    #     text = ""
-    #     for page in range(reader.getNumPages()):
-    #         text += reader.getPage(page).extract_text()
-    elif file_extension == 'txt':
-        text = file.read().decode('utf-8')
-    else:
-        print('unsupported')
-        return HTTPException(status_code = 400, detail = "Unsupported File Type")
-    # except:
-    #     raise HTTPException(status_code = 500, detail = "Internal Server Error")
-    print(text)
+    try: 
+        file_extension = file.filename.rsplit('.', 1)[1].lower()
+        print(file.filename)
+        contents = file.file.read()
+        with open(f"temp.{file_extension}", 'wb') as f:
+            f.write(contents)
+        if file_extension == 'docx':
+            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+        elif file_extension == 'pdf':
+            reader = PdfFileReader(file)
+            text = ""
+            for page in range(reader.getNumPages()):
+                text += reader.getPage(page).extract_text()
+        elif file_extension == 'txt':
+            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+        else:
+            print('unsupported')
+            return HTTPException(status_code = 400, detail = "Unsupported File Type")
+    except:
+        raise HTTPException(status_code = 500, detail = "Internal Server Error")
+    finally:
+        os.remove(f"temp.{file_extension}")
     return {'text': text}
 
 if __name__ == "__main__":
@@ -217,5 +222,5 @@ if __name__ == "__main__":
     with open(CONFIG_FILE_PATH, "r") as config_file:
         config_data = json.load(config_file)
         with open(API_FILE_PATH, "w") as add_api_file:
-            add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
+            add_api_file.write(json.dumps(config_data["AIGCD APIs"], indent = 4))
     uvicorn.run(botbuster, host = "127.0.0.1", port = 8000)
