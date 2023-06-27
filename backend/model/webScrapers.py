@@ -1,10 +1,13 @@
+# social media scraper moduels
 import asyncio
 import pyppeteer
-import re
+# generic webscraper modules
+import requests
+from bs4 import BeautifulSoup
+import sys
+from fastapi import HTTPException
 
-# dictionary storing the configurations for popular websites
-
-# scraper
+# social media scraper
 async def scrapeInfiniteScrollItems(page, contentSelector, itemTargetCount):
     await asyncio.sleep(2.5)
     items = []
@@ -35,10 +38,6 @@ async def scrapeInfiniteScrollItems(page, contentSelector, itemTargetCount):
     return items
 
 async def delPopUp(page,popup):
-    # await page.waitForSelector(websiteConfigs[websitename][0], {'visible': True})
-    # await page.click(websiteConfigs[websitename][0])
-    # print("after clicking")
-    # div.x1i10hfl.x6umtig.x1b1mbwd.xaqea5y.xav7gou.x1ypdohk.xe8uvvx.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x16tdsg8.x1hl2dhg.xggy1nq.x87ps6o.x1lku1pv.x1a2a7pz.x6s0dn4.x14yjl9h.xudhj91.x18nykt9.xww2gxu.x972fbf.xcfux6l.x1qhh985.xm0m39n.x9f619.x78zum5.xl56j7k.xexx8yu.x4uap5.x18d9i69.xkhd6sd.x1n2onr6.xc9qbxq.x14qfxbe.x1qhmfi1
     try:
         # Replace the CSS selector with the appropriate selector for the pop-up element
         await page.waitForSelector(popup[0], {'timeout': 5000})
@@ -78,3 +77,31 @@ async def scraper(elements, pageUrl):
     await browser.close()
     return uniqueItems
 
+
+
+
+# generic webscraper
+def genericScraper(listOfElements: list, pageurl):
+    sys.stdout.reconfigure(encoding='utf-8') #so that other languages can be printed
+    response = requests.get(pageurl)
+    if response.status_code == 200: 
+        soup = BeautifulSoup(response.content, 'html.parser')
+    else:
+        raise HTTPException(status_code = 400, detail = "Target website could not be scraped due to errors on that website, please check the URL again.")
+    extractedText = []
+    for element in listOfElements:
+        if "." in element:
+            splitElement = element.split(".", 1)
+            elementType = splitElement[0]
+            elementClass = splitElement[1]
+            elements = soup.find_all(elementType, class_= elementClass)
+            for element in elements:
+                text = element.get_text(strip=True)
+                extractedText.append([elementType, text]) 
+        else:
+            elementType = element
+            elements = soup.find_all(elementType)
+            for element in elements:
+                text = element.get_text(strip=True)
+                extractedText.append([elementType, text]) 
+    return extractedText
