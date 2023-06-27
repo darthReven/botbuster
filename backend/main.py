@@ -17,19 +17,19 @@ python-multipart ** for form data (even though not imported)
 """
 
 # importing libraries
-import json
-import base64
-import uvicorn
-import asyncio
-import pyppeteer
-import textract
-import os
 from fastapi import FastAPI, HTTPException, Response, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Annotated
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 from urllib.parse import urlparse
-from flask import request
+from PIL import Image
+import json
+import base64
+import asyncio
+import textract
+import os
+import pytesseract
+import cv2
+import numpy as np
 
 # importing in-house code
 from model.api import API
@@ -67,8 +67,9 @@ def checkText(request: ds.checkText):
     with open(API_FILE_PATH, "r") as api_data_file:
         api_data = json.load(api_data_file)
         for api_option in list_of_apis:
+            print(api_option)
             try:
-                results = API(api_data[f"{api_option}"]).api_call(text)
+                results = API(api_data["AIGCD APIs"][f"{api_option}"]).api_call(text)
                 full_results[f"{api_option}"] = results
             except:
                 full_results[f"{api_option}"] = "Error Detecting"
@@ -123,6 +124,7 @@ def checkText(request: ds.checkText):
             #     score_file.write(json.dumps(full_results, indent = 4))
             # with open("config\scores.json", "w") as score_file:
             #     score_file.write(json.dumps(scores, indent = 4))
+            print(scores)
     return scores
 
 @botbuster.get("/getapis/")
@@ -175,10 +177,10 @@ def addApi(request: ds.addApi, response: Response):
 def webScraping():
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         websiteConfigs = json.load(config_data_file)["website_configs"]
-    # pageurl = "https://theindependent.sg/news/singapore-news/"
-    pageurl = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
+    # pageurl = "https://theindependent.sg/employer-says-she-brought-in-her-own-maid-at-800-instead-of-spending-5k-on-an-agent-with-8-month-loan-for-helper/"
+    # pageurl = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
     # pageurl = "https://twitter.com/nasa"
-    # pageurl = "https://docs.python.org/3/library/urllib.parse.html"
+    pageurl = "https://docs.python.org/3/library/urllib.parse.html"
     websiteName = urlparse(pageurl).netloc #getting the website name from the url
     print(websiteName)
     scrapingData = websiteConfigs.get(f"{websiteName}", websiteConfigs["default"])
@@ -198,6 +200,17 @@ def webScraping():
 #extracting text from user's file
 @botbuster.post("/extract")
 def extract_text(file: UploadFile):
+    file_extension = file.filename.rsplit('.', 1)[1].lower()
+    print(file.filename)
+    contents = file.file.read()
+    with open(f"temp.{file_extension}", 'wb') as f:
+        f.write(contents)
+    image = np.array(Image.open(f"temp.{file_extension}"))
+    normalised_image = np.zeros((image.shape[0], image.shape[1]))
+    image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
+    image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
+    image = cv2.GaussianBlur(image, (1, 1), 0)
+    text = pytesseract.image_to_string(image)
     try: 
         file_extension = file.filename.rsplit('.', 1)[1].lower()
         print(file.filename)
@@ -207,8 +220,13 @@ def extract_text(file: UploadFile):
         if file_extension == 'docx':
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf':
-            reader = PdfFileReader(file)
+            reader = PdfReader(f"temp.{file_extension}") # creating a pdf reader object
             text = ""
+            for page_num in range (0, len(reader.pages)):
+                print(f'test {page_num} of {len(reader.pages)}')
+                page = reader.pages[page_num] # getting a specific page from the pdf file
+                page_content = page.extract_text() # extracting text from page
+                text += f"{page_content} \n"
             for page in range(reader.getNumPages()):
                 text += reader.getPage(page).extract_text()
         elif file_extension == 'txt':
@@ -220,7 +238,7 @@ def extract_text(file: UploadFile):
         raise HTTPException(status_code = 500, detail = "Internal Server Error")
     finally:
         os.remove(f"temp.{file_extension}")
-    return {'text': text}
+    return text
 
 
 # load baseline APIs to api.json file
@@ -228,4 +246,3 @@ with open(CONFIG_FILE_PATH, "r") as config_file:
     config_data = json.load(config_file)
     with open(API_FILE_PATH, "w") as add_api_file:
         add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
-        print("file loaded")

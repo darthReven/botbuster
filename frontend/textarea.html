@@ -43,15 +43,19 @@
 				list_of_apis: [], 
 				text: ""
 			};
-			var apiinfo = localStorage.getItem("api-info")
-			apiinfo = JSON.parse(apiinfo)
-			for (key in apiinfo) {
-				if (document.getElementById(`${apiinfo[key][0]}-checkbox`).checked == true) {
-					data["list_of_apis"].push(key)
-				};
-			}
+			var api_info = localStorage.getItem("api-info")
+			api_info = JSON.parse(api_info)
+            for(api_category in api_info) {
+                console.log(api_category)
+                for (key in api_info[api_category]) {
+                    if (document.getElementById(`${api_info[`${api_category}`][key][0]}-checkbox`).checked == true) {
+                        data["list_of_apis"].push(key)
+                    };
+                }
+            }
 			data["text"] = document.getElementById("text-area").value;
-			localStorage.setItem("text", data['text'])
+			localStorage.setItem("text", data['text'])
+      console.log(data)
 			$.ajax({
 				url: `http://127.0.0.1:8000/checktext/`,
 				type: "POST",
@@ -71,6 +75,8 @@
 				}
 			})
 		};
+
+    // gettting available apis ajax
 		$(document).ready(function () {
 			localStorage.clear()
       $('#loading').show(); // Start loading
