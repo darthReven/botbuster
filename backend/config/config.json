@@ -25,11 +25,11 @@
             "func": "gws"
         },
         "twitter.com": {
-            "elements": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0",""],
+            "elements": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"],
             "func": "sms"
         },
-        "reddit.com": {
-            "elements": ["","H1", "H2", "H3", "H4"],
+        "www.reddit.com": {
+            "elements": ["","H1", "H2", "H3", "H4","div","p"],
             "func": "sms"
         },
         "www.facebook.com": {
