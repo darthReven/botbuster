@@ -78,22 +78,25 @@
         contentType: "application/json; charset = utf-8",
         dataType: "json",
         success: function(data, textStatus, xhr) {
-          for (const key in data) {
-            $("#api-info").append(
-            `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
-            <div class="checkbox">
-            <input type="checkbox" id="${data[key][0]}-checkbox" checked>
-            <label for="${data[key][0]}-checkbox"></label>
-            </div></div></div></div>`)
-            if (data[key][1] != undefined){ 
-              const byteCharacters = atob(data[key][1]);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
+          for (const apiCategory in data) {
+            console.log(data[`${apiCategory}`])
+            for (const key in data[`${apiCategory}`]) {
+              $("#api-info").append(
+              `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${apiCategory}`][key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
+              <div class="checkbox">
+              <input type="checkbox" id="${data[`${apiCategory}`][key][0]}-checkbox" checked>
+              <label for="${data[`${apiCategory}`][key][0]}-checkbox"></label>
+              </div></div></div></div>`)
+              if (data[`${apiCategory}`][key][1] != undefined){ 
+                const byteCharacters = atob(data[`${apiCategory}`][key][1]);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                document.getElementById(`${data[`${apiCategory}`][key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
+                $('#loading').hide(); // Hide loading
               }
-              const byteArray = new Uint8Array(byteNumbers);
-              document.getElementById(`${data[key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-              $('#loading').hide(); // Hide loading
             }
           }
           localStorage.setItem("api-info", JSON.stringify(data))
