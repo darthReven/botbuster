@@ -111,7 +111,7 @@
         function appendCheckboxesAndButtons(unique) {
             content =''
             for (let i = 0; i < num_of_elements; i++) {
-                content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements)">
+                content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
                     <label for="checkbox">${unique[i]}</label>
                 `}
             $('#fileForm').append(content)
