@@ -23,10 +23,13 @@ import uvicorn
 import asyncio
 import pyppeteer
 import textract
-from fastapi import FastAPI, HTTPException, Response, status, UploadFile 
+import os
+from fastapi import FastAPI, HTTPException, Response, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Annotated
 from PyPDF2 import PdfFileReader
 from urllib.parse import urlparse
+from flask import request
 
 # importing in-house code
 from model.api import API
@@ -127,23 +130,26 @@ async def getapis():
     try: 
         with open(API_FILE_PATH, "r") as api_data_file:
             api_data = json.load(api_data_file)
-            for api in api_data.keys():
-                api_info[f"{api}"] = []
+            for api_category in api_data.keys():
+                api_info[f"{api_category}"] = {}
+                for api in api_data[f"{api_category}"].keys():
+                    api_info[f"{api_category}"][f"{api}"] = []
     except:
         print("Internal Server Error", 500)
     else:
-        for api in api_info.keys():
-            try:
-                api_info[f"{api}"].append(api.lower().replace(" ", "")) # sets this as a key for most html dynamic coding
-                with open(CONFIG_FILE_PATH, "r") as config_data_file:
-                    config_data = json.load(config_data_file)
-                    api_logo_path = config_data["logos_base_path"] + config_data["logos"][f"{api}"] # sets file path for the system to open
-                    with open(f"{api_logo_path}", "rb") as image:
-                        api_info[f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
-            except: # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
-                continue
-            else: # if no error, proceed to the next API in the loop
-                continue
+        for api_category in api_info.keys(): 
+            for api in api_info[f"{api_category}"]:
+                try:
+                    api_info[f"{api_category}"][f"{api}"].append(api.lower().replace(" ", "")) # sets this as a key for most html dynamic coding
+                    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+                        config_data = json.load(config_data_file)
+                        api_logo_path = config_data["logos_base_path"] + config_data["logos"][f"{api}"] # sets file path for the system to open
+                        with open(f"{api_logo_path}", "rb") as image:
+                            api_info[f"{api_category}"][f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
+                except: # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
+                    continue
+                else: # if no error, proceed to the next API in the loop
+                    continue
         return api_info
 
 # adding apis to system
@@ -187,36 +193,38 @@ def webScraping():
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
     return items
-
-    
         
 #extracting text from user's file
 @botbuster.post("/extract")
 def extract_text(file: UploadFile):
-    file_extension = file.filename.rsplit('.', 1)[1].lower()
-    print(file.filename)
-    # try: 
-    if file_extension == 'docx':
-        text = textract.process(file.filename).decode('utf-8')
-    # elif file_extension == 'pdf':
-    #     reader = PdfFileReader(file)
-    #     text = ""
-    #     for page in range(reader.getNumPages()):
-    #         text += reader.getPage(page).extract_text()
-    elif file_extension == 'txt':
-        text = file.read().decode('utf-8')
-    else:
-        print('unsupported')
-        return HTTPException(status_code = 400, detail = "Unsupported File Type")
-    # except:
-    #     raise HTTPException(status_code = 500, detail = "Internal Server Error")
-    print(text)
+    try: 
+        file_extension = file.filename.rsplit('.', 1)[1].lower()
+        print(file.filename)
+        contents = file.file.read()
+        with open(f"temp.{file_extension}", 'wb') as f:
+            f.write(contents)
+        if file_extension == 'docx':
+            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+        elif file_extension == 'pdf':
+            reader = PdfFileReader(file)
+            text = ""
+            for page in range(reader.getNumPages()):
+                text += reader.getPage(page).extract_text()
+        elif file_extension == 'txt':
+            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+        else:
+            print('unsupported')
+            return HTTPException(status_code = 400, detail = "Unsupported File Type")
+    except:
+        raise HTTPException(status_code = 500, detail = "Internal Server Error")
+    finally:
+        os.remove(f"temp.{file_extension}")
     return {'text': text}
 
-if __name__ == "__main__":
-    # load baseline APIs to api.json file
-    with open(CONFIG_FILE_PATH, "r") as config_file:
-        config_data = json.load(config_file)
-        with open(API_FILE_PATH, "w") as add_api_file:
-            add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
-    uvicorn.run(botbuster, host = "127.0.0.1", port = 8000)
+
+# load baseline APIs to api.json file
+with open(CONFIG_FILE_PATH, "r") as config_file:
+    config_data = json.load(config_file)
+    with open(API_FILE_PATH, "w") as add_api_file:
+        add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
+        print("file loaded")
