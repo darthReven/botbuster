@@ -39,40 +39,46 @@
     }
     //getting available apis ajax
     $(document).ready(function () {
-      localStorage.clear()
+			localStorage.clear()
       $('#loading').show(); // Start loading
-      $.ajax({
+			$.ajax({
         url: "http://127.0.0.1:8000/getapis/",
         type: "GET",
         contentType: "application/json; charset = utf-8",
         dataType: "json",
         success: function(data, textStatus, xhr) {
-          for (const key in data) {
-            $("#api-info").append(
-            `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
-            <div class="checkbox">
-            <input type="checkbox" id="${data[key][0]}-checkbox" checked>
-            <label for="${data[key][0]}-checkbox"></label>
-            </div></div></div></div>`)
-            if (data[key][1] != undefined){ 
-              const byteCharacters = atob(data[key][1]);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
+          for (const apiCategory in data) {
+            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
+            $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
+            console.log(data[`${apiCategory}`])
+            console.log(apiCategory.replace(/\s/g, '-'))
+            for (const key in data[`${apiCategory}`]) {
+              $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(
+              `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${apiCategory}`][key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
+              <div class="checkbox">
+              <input type="checkbox" id="${data[`${apiCategory}`][key][0]}-checkbox" checked>
+              <label for="${data[`${apiCategory}`][key][0]}-checkbox"></label>
+              </div></div></div></div>`)
+              if (data[`${apiCategory}`][key][1] != undefined){ 
+                const byteCharacters = atob(data[`${apiCategory}`][key][1]);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                document.getElementById(`${data[`${apiCategory}`][key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
+                $('#loading').hide(); // Hide loading
               }
-              const byteArray = new Uint8Array(byteNumbers);
-              document.getElementById(`${data[key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-              $('#loading').hide(); // Hide loading
             }
           }
           localStorage.setItem("api-info", JSON.stringify(data))
         },
-        error: function(xhr, textStunlatus, err) {
-          $('#loading').hide(); // Hide loading
-          console.log(err)
-        }
-      })
-    });
+          error: function(xhr, textStunlatus, err) {
+            $('#loading').hide(); // Hide loading
+            console.log(err)
+          }
+        })
+    }); 
     
     function checkFile() {
       $('#loading').show(); // Start loading
@@ -112,14 +118,11 @@
     <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4" id = "api-info">
-
         </div>
         <div class="text-center">
         <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold">
             Add API <i class="fa-solid fa-circle-plus"></i>
         </button>
-    </div>
     </div>
   </nav>
   <i id="left-bar-slider" class="fa-solid fa-angles-right fa-xl" onclick="sidebar_open()"></i>
