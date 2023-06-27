@@ -79,9 +79,6 @@ async def scraper(elements, pageUrl):
     await browser.close()
     return uniqueItems
 
-
-
-
 # generic webscraper
 def genericScraper(listOfElements: list, pageurl):
     sys.stdout.reconfigure(encoding='utf-8') #so that other languages can be printed

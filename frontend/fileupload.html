@@ -98,9 +98,9 @@
         processData: false,
         contentType: false,
         success: function (data, textStatus, xhr) {
-        $(".content-box").addClass("display");
-        $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
-        $(".content-box .row .col-12").append(`${data.text}`)
+          $(".content-box").addClass("display");
+          $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
+          $(".content-box .row .col-12").append(`${data.text}`)
           $('#loading').hide(); // Hide loading
           localStorage.setItem('text', data.text)
         }, error(xhr, textStatus, err) {

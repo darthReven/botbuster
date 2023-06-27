@@ -112,7 +112,16 @@
             }
         },
         "Misinformation APIs": {
-    
+            "Misinformation Placeholder": {
+                "target": "https://misinformation.com/api/v1/",
+                "body_key": "text",
+                "data_type": "string",
+                "headers": {},
+                "body": {
+                    "token": "YOUR_API_TOKEN_HERE",
+                    "text": ""
+                }
+            }
         },
         "Hate Speech APIs": {
             "Moderate Hate Speech Detector": {
@@ -121,7 +130,7 @@
                 "data_type": "string",
                 "headers": {},
                 "body": {
-                    "token": "YOUR_API_TOKEN_HERE",
+                    "token": "7a1a3e7a755bafa20f164ddcee16349a",
                     "text": ""
                 }
             }
