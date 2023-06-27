@@ -75,8 +75,6 @@
     });
     
     function checkFile() {
-      $("#text-area").remove()
-      $("#text-extracted").append(`<div class="form-control" id="text-area"></div>`)
       $('#loading').show(); // Start loading
       const formData = new FormData()
       if ($('#formFile').val() != '') {
@@ -94,10 +92,11 @@
         processData: false,
         contentType: false,
         success: function (data, textStatus, xhr) {
-          $("#text-area").append(`${data.text}`)
-          document.getElementById("text-extracted").style.display = "block"
+        $(".content-box").addClass("display");
+        $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
+        $(".content-box .row .col-12").append(`${data.text}`)
           $('#loading').hide(); // Hide loading
-          localStorage.setItem('text', text)
+          localStorage.setItem('text', data.text)
         }, error(xhr, textStatus, err) {
           $('#loading').hide(); // Hide loading
         }
@@ -154,7 +153,9 @@
           </div>
           <div id="fileForm" class="form-group" style ="padding: 20px 100px">
             <label for="formFile" class="form-label">Choose a file to upload</label>
-            <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt">
+            <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt" onChange="checkFile()">
+            <div class="content-box my-4">
+            </div>
             <div class="text-center">
               <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick="checkFile()">
                 Submit
@@ -162,9 +163,6 @@
               <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
                 <i class="fa-solid fa-arrows-rotate"></i>
               </button>
-            </div>
-            <div id="text-extracted" style="display:none">
-              <div class="form-control" id="text-area"></div>
             </div>
           </div>
 

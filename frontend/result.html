@@ -44,9 +44,9 @@
       var apiinfo = JSON.parse(localStorage.getItem("api-info"))
       var text = localStorage.getItem("text")
       var results = JSON.parse(localStorage.getItem("results"))
-      if (apiinfo == null || text == null || results == null) {
-        window.location.href='textarea.html'
-      }
+    //   if (apiinfo == null || text == null || results == null) {
+    //     window.location.href='textarea.html'
+    //   }
       for (let i = 0; i < results["sentence_score"].length; i++) {
         var sentence = Object.keys(results["sentence_score"][i])
         if (results["sentence_score"][i][sentence]["highlight"] == 0) {
@@ -121,7 +121,18 @@
             </div>
             <form>
                 <div class="form-group">
-                  <div class="form-control" id="text-area" rows="7" disabled></div>
+                  <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
+                    <span>
+                        <p>Aggregate Score</p>
+                        <h3>1/3</h3>
+                    </span>
+                    <div class="row">
+                        <div class="col-3">AI Generated<br>90%</div>
+                        <div class="col-3">Misinformation<br>90%</div>
+                        <div class="col-3">Hate Speech<br>90%</div>
+                        <div class="col-3">Repetition<br>90%</div>
+                    </div>
+                  </div>
                 </div>
             </form>
 

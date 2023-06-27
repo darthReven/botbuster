@@ -522,16 +522,17 @@ form {
     border-color: #ced4da;
     border-radius: 15px;
     resize: vertical;
+    background-color: #FFFFFF;
 }
 
 .display {
-    overflow:auto;
-    border-style:double;
-    height:300px;
+    overflow: auto;
+    border-style: double;
+    height: calc(100vh - 325px - 58px);
 }
 
 .content-box .row{
-    background-color: #E9EEF2;
+    background-color: #FFFFFF;
     margin: 0;
     width: 100%;
 }
@@ -548,6 +549,16 @@ form {
 }
 
 .content-box:has(.row .col-9:focus)  {
+    border-color: #3B7197;
+    box-shadow: 0px 0px 2px 5px rgba(79,151,202,0.5);
+    border-radius:15px;
+}
+
+.col-12[contenteditable] {
+    outline: 0px solid transparent;
+}
+
+.content-box:has(.row .col-12:focus)  {
     border-color: #3B7197;
     box-shadow: 0px 0px 2px 5px rgba(79,151,202,0.5);
     border-radius:15px;
