@@ -36,6 +36,7 @@ from model.api import API
 import model.datastructures as ds
 import model.socialMediaScraper as sms
 import model.genericWebScraper as gws
+import model.webScrapers as ws
 
 # Initialising constants 
 CONFIG_FILE_PATH = "config\config.json"
@@ -185,10 +186,10 @@ def webScraping():
     if scrapingData["func"] == "sms": # calling the social media scraper
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        items = loop.run_until_complete(sms.scraper(scrapingData["elements"], pageurl))
+        items = loop.run_until_complete(ws.scraper(scrapingData["elements"], pageurl))
         print(items)
     elif scrapingData["func"] == "gws": # calling the generic web scraper
-        items = gws.scraper(scrapingData["elements"], pageurl)
+        items = ws.genericScraper(scrapingData["elements"], pageurl)
         print(items)
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
