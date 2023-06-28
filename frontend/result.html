@@ -44,9 +44,9 @@
       var apiinfo = JSON.parse(localStorage.getItem("api-info"))
       var text = localStorage.getItem("text")
       var results = JSON.parse(localStorage.getItem("results"))
-    //   if (apiinfo == null || text == null || results == null) {
-    //     window.location.href='textarea.html'
-    //   }
+      if (apiinfo == null || text == null || results == null) {
+        window.location.href='textarea.html'
+      }
       for (let i = 0; i < results["sentence_score"].length; i++) {
         var sentence = Object.keys(results["sentence_score"][i])
         if (results["sentence_score"][i][sentence]["highlight"] == 0) {

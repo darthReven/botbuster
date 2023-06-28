@@ -19,10 +19,8 @@ def generateGraph(data):
                 score = data[apiCategory][key]
                 categoryScoreList[i][key] = score
             else:
-                finalScore.append(data[apiCategory][key])
-
-                    
-
+                finalScore.append(data[apiCategory][key])           
+    print(categoryList, finalScore)
     df = pd.DataFrame({'Category': categoryList,
                     'Scores': finalScore})
     

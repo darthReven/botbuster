@@ -40,9 +40,11 @@ import model.webScrapers as ws
 import model.graph as g
 
 # Initialising constants 
-CONFIG_FILE_PATH = "config\config.json"
-API_FILE_PATH = "config\\api.json"
-RESULTS_FILE_PATH = "config\\result.json"
+CONFIG_FILE_PATH = r"config\config.json"
+API_FILE_PATH = r"config\api.json"
+RESULTS_FILE_PATH = r"config\result.json"
+# setting file path to tesseract
+pytesseract.pytesseract.tesseract_cmd = r"Tesseract-OCR\tesseract.exe"
 
 # set fastapi up
 botbuster = FastAPI()
@@ -56,14 +58,15 @@ botbuster.add_middleware(
     allow_headers=["*"],
 )
 
+
 # writing endpoints
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
     list_of_apis = request.dict()["list_of_apis"]
     text = request.dict()["text"]
-    full_results = {}
-    scores = {
+    full_results = {} # create dictionary to store all results
+    scores = { # create dictionary to store all scores
         "general_score": {},
         "sentence_score": []
     }
@@ -143,7 +146,7 @@ def check_text(request: ds.check_text):
                 #     score_file.write(json.dumps(full_results, indent = 4))
                 # with open("config\scores.json", "w") as score_file:
                 #     score_file.write(json.dumps(scores, indent = 4))
-    
+    # print(scores["general_score"])
     g.generateGraph(scores["general_score"])
     return scores
 
@@ -196,20 +199,15 @@ def add_api(request: ds.add_api, response: Response):
 @botbuster.post("/webscraper/")
 def web_scraping(request: ds.web_scraper):
     page_url = request.dict()["page_url"]
-    print(page_url)
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
-    # page_url = "https://theindependent.sg/news/singapore-news/"
-    # page_url = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
-    # page_url = "https://twitter.com/nasa"
-    # page_url = "https://docs.python.org/3/library/urllib.parse.html"
     website_name = urlparse(page_url).netloc #getting the website name from the url
     scraping_data = website_configs.get(f"{website_name}", website_configs["default"])
 
     if scraping_data["func"] == "sms": # calling the social media scraper
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        items = loop.run_until_complete(sms.scraper(scraping_data["elements"], page_url))
+        items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
         items = ws.genericScraper(scraping_data["elements"], page_url)
     else: 
@@ -227,26 +225,21 @@ def extract_text(file: UploadFile):
         if file_extension == 'docx':
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf':
+            pass
             reader = PdfReader(f"temp.{file_extension}") # creating a pdf reader object
             text = ""
             for page_num in range (0, len(reader.pages)):
                 page = reader.pages[page_num] # getting a specific page from the pdf file
                 page_content = page.extract_text() # extracting text from page
                 text += f"{page_content} \n"
-            for page in range(reader.getNumPages()):
-                text += reader.getPage(page).extract_text()
-        # elif file_extension == "jpg":
-        #     file_extension = file.filename.rsplit('.', 1)[1].lower()
-        #     print(file.filename)
-        #     contents = file.file.read()
-        #     with open(f"temp.{file_extension}", 'wb') as f:
-        #         f.write(contents)
-        #     image = np.array(Image.open(f"temp.{file_extension}"))
-        #     normalised_image = np.zeros((image.shape[0], image.shape[1]))
-        #     image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
-        #     image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
-        #     image = cv2.GaussianBlur(image, (1, 1), 0)
-        #     text = pytesseract.image_to_string(image)
+        elif file_extension == "jpg":
+            print('test')
+            image = np.array(Image.open(f"temp.{file_extension}"))
+            normalised_image = np.zeros((image.shape[0], image.shape[1]))
+            image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
+            image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
+            image = cv2.GaussianBlur(image, (1, 1), 0)
+            text = pytesseract.image_to_string(image)
         elif file_extension == 'txt':
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         else:
@@ -257,16 +250,15 @@ def extract_text(file: UploadFile):
         os.remove(f"temp.{file_extension}")
     return text
 
+# getting graph data
+# @botbuster.post("/graph/")
+# def web_scraping(request: ds.gen_graph):
+#     general_score = request.dict()["general_score"]
+#     sentence_score = request.dict()["sentence_score"]
+#     g.generateGraph(general_score)
 
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:
     config_data = json.load(config_file)
     with open(API_FILE_PATH, "w") as add_api_file:
         add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
-
-# getting webscraper data
-# @botbuster.post("/graph/")
-# def web_scraping(request: ds.gen_graph):
-#     general_score = request.dict()["general_score"]
-#     sentence_score = request.dict()["sentence_score"]
-#     g.generateGraph(general_score)

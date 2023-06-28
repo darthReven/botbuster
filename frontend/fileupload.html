@@ -50,8 +50,6 @@
           for (const apiCategory in data) {
             $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
             $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
-            console.log(data[`${apiCategory}`])
-            console.log(apiCategory.replace(/\s/g, '-'))
             for (const key in data[`${apiCategory}`]) {
               $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(
               `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${apiCategory}`][key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
@@ -97,6 +95,7 @@
         processData: false,
         contentType: false,
         success: function (data, textStatus, xhr) {
+          console.log(data)
           $(".content-box").addClass("display");
           $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
           $(".content-box .row .col-12").append(`${data}`)
@@ -155,7 +154,7 @@
           </div>
           <div id="fileForm" class="form-group" style ="padding: 20px 100px">
             <label for="formFile" class="form-label">Choose a file to upload</label>
-            <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt" onChange="checkFile()">
+            <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt, .jpg" onChange="checkFile()">
             <div class="content-box my-4">
             </div>
             <div class="text-center">
