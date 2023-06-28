@@ -90,7 +90,6 @@
         window.alert("There is no file")
         return
       }
-      console.log( $('#formFile')[0].files[0])
       $.ajax({
         url: "http://127.0.0.1:8000/extract",
         type: "POST",
@@ -100,9 +99,9 @@
         success: function (data, textStatus, xhr) {
           $(".content-box").addClass("display");
           $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
-          $(".content-box .row .col-12").append(`${data.text}`)
+          $(".content-box .row .col-12").append(`${data}`)
           $('#loading').hide(); // Hide loading
-          localStorage.setItem('text', data.text)
+          localStorage.setItem('text', data)
         }, error(xhr, textStatus, err) {
           $('#loading').hide(); // Hide loading
         }

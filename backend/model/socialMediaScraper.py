@@ -50,13 +50,11 @@ async def delPopUp(page,popup):
 
 # calling the scraper
 async def scraper(elements, pageUrl):
-    executablePath='C:\Program Files\Google\Chrome\Application\chrome.exe'
     browser = await pyppeteer.launch(
         headless=False,
         handleSIGINT=False,
         handleSIGTERM=False,
-        handleSIGHUP=False,
-        executablePath=executablePath
+        handleSIGHUP=False
     )
     page = await browser.newPage()
     await page.goto(pageUrl)

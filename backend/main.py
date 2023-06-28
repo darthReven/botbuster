@@ -143,6 +143,8 @@ def check_text(request: ds.check_text):
                 #     score_file.write(json.dumps(full_results, indent = 4))
                 # with open("config\scores.json", "w") as score_file:
                 #     score_file.write(json.dumps(scores, indent = 4))
+    
+    g.generateGraph(scores["general_score"])
     return scores
 
 @botbuster.get("/getapis/")
@@ -207,7 +209,7 @@ def web_scraping(request: ds.web_scraper):
     if scraping_data["func"] == "sms": # calling the social media scraper
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
+        items = loop.run_until_complete(sms.scraper(scraping_data["elements"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
         items = ws.genericScraper(scraping_data["elements"], page_url)
     else: 
@@ -217,17 +219,6 @@ def web_scraping(request: ds.web_scraper):
 #extracting text from user's file
 @botbuster.post("/extract/")
 def extract_text(file: UploadFile):
-    file_extension = file.filename.rsplit('.', 1)[1].lower()
-    print(file.filename)
-    contents = file.file.read()
-    with open(f"temp.{file_extension}", 'wb') as f:
-        f.write(contents)
-    image = np.array(Image.open(f"temp.{file_extension}"))
-    normalised_image = np.zeros((image.shape[0], image.shape[1]))
-    image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
-    image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
-    image = cv2.GaussianBlur(image, (1, 1), 0)
-    text = pytesseract.image_to_string(image)
     try: 
         file_extension = file.filename.rsplit('.', 1)[1].lower()
         contents = file.file.read()
@@ -244,6 +235,18 @@ def extract_text(file: UploadFile):
                 text += f"{page_content} \n"
             for page in range(reader.getNumPages()):
                 text += reader.getPage(page).extract_text()
+        # elif file_extension == "jpg":
+        #     file_extension = file.filename.rsplit('.', 1)[1].lower()
+        #     print(file.filename)
+        #     contents = file.file.read()
+        #     with open(f"temp.{file_extension}", 'wb') as f:
+        #         f.write(contents)
+        #     image = np.array(Image.open(f"temp.{file_extension}"))
+        #     normalised_image = np.zeros((image.shape[0], image.shape[1]))
+        #     image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
+        #     image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
+        #     image = cv2.GaussianBlur(image, (1, 1), 0)
+        #     text = pytesseract.image_to_string(image)
         elif file_extension == 'txt':
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         else:
@@ -267,21 +270,3 @@ def web_scraping(request: ds.gen_graph):
     general_score = request.dict()["general_score"]
     sentence_score = request.dict()["sentence_score"]
     g.generateGraph(general_score)
-    # with open(CONFIG_FILE_PATH, "r") as config_data_file:
-    #     website_configs = json.load(config_data_file)["website_configs"]
-    # # page_url = "https://theindependent.sg/news/singapore-news/"
-    # # page_url = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
-    # # page_url = "https://twitter.com/nasa"
-    # # page_url = "https://docs.python.org/3/library/urllib.parse.html"
-    # website_name = urlparse(page_url).netloc #getting the website name from the url
-    # scraping_data = website_configs.get(f"{website_name}", website_configs["default"])
-
-    # if scraping_data["func"] == "sms": # calling the social media scraper
-    #     loop = asyncio.new_event_loop()
-    #     asyncio.set_event_loop(loop)
-    #     items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
-    # elif scraping_data["func"] == "gws": # calling the generic web scraper
-    #     items = ws.genericScraper(scraping_data["elements"], page_url)
-    # else: 
-    #     raise HTTPException (status_code = 500, detail = "Internal Server Error")
-    # return items
