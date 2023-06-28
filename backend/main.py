@@ -265,8 +265,8 @@ with open(CONFIG_FILE_PATH, "r") as config_file:
         add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
 
 # getting webscraper data
-@botbuster.post("/graph/")
-def web_scraping(request: ds.gen_graph):
-    general_score = request.dict()["general_score"]
-    sentence_score = request.dict()["sentence_score"]
-    g.generateGraph(general_score)
+# @botbuster.post("/graph/")
+# def web_scraping(request: ds.gen_graph):
+#     general_score = request.dict()["general_score"]
+#     sentence_score = request.dict()["sentence_score"]
+#     g.generateGraph(general_score)
