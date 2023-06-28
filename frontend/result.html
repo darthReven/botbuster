@@ -58,6 +58,13 @@
           sentenceelement.style.backgroundColor = String(colour)
         }
       }
+      numCategories = Object.keys(results["general_score"]).length
+      columnNumber = 12 / numCategories
+      if(columnNumber < 4) {
+        columnNumber = 4
+      }
+      threshold = 50 // HARDCODED (CHANGE LATER IN SETTINGS)
+      passedThershold = 0
       for (i in Object.keys(results["general_score"])) {
         var apiCategory = Object.keys(results["general_score"])[i]
         $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
@@ -83,6 +90,16 @@
                 resultelement.style.color = String(new_colour)
             }
         }
+        if(Object.keys(results["general_score"][apiCategory]).length === 0) {
+            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>NIL</div>`)
+        }
+        else {
+            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["general_score"][apiCategory]['overall_score']}%</div>`)
+            if (results["general_score"][apiCategory]['overall_score'] >= threshold) {
+                passedThershold += 1
+            }
+        }
+        $("#aggregate_score").html(`${passedThershold}/${numCategories}`)
       }
       $.ajax({
         url:"http://127.0.0.1:8000/graph/",
@@ -150,15 +167,11 @@
                   <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
                     <span>
                         <p>Aggregate Score</p>
-                        <h3>1/3</h3>
+                        <h3 id="aggregate_score">1/3</h3>
                     </span>
-                    <div class="embed-responsive embed-responsive-21by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
+                    <div class="embed-responsive embed-responsive-16by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
                     </div>
                     <div class="row">
-                        <div class="col-3">AI Generated<br>90%</div>
-                        <div class="col-3">Misinformation<br>90%</div>
-                        <div class="col-3">Hate Speech<br>90%</div>
-                        <div class="col-3">Repetition<br>90%</div>
                     </div>
                   </div>
                 </div>
