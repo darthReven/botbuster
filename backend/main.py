@@ -37,6 +37,7 @@ import model.datastructures as ds
 import model.socialMediaScraper as sms
 import model.genericWebScraper as gws
 import model.webScrapers as ws
+import model.graph as g
 
 # Initialising constants 
 CONFIG_FILE_PATH = "config\config.json"
@@ -214,7 +215,7 @@ def web_scraping(request: ds.web_scraper):
     return items
         
 #extracting text from user's file
-@botbuster.post("/extract")
+@botbuster.post("/extract/")
 def extract_text(file: UploadFile):
     file_extension = file.filename.rsplit('.', 1)[1].lower()
     print(file.filename)
@@ -259,3 +260,28 @@ with open(CONFIG_FILE_PATH, "r") as config_file:
     config_data = json.load(config_file)
     with open(API_FILE_PATH, "w") as add_api_file:
         add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
+
+# getting webscraper data
+@botbuster.post("/graph/")
+def web_scraping(request: ds.gen_graph):
+    general_score = request.dict()["general_score"]
+    sentence_score = request.dict()["sentence_score"]
+    g.generateGraph(general_score)
+    # with open(CONFIG_FILE_PATH, "r") as config_data_file:
+    #     website_configs = json.load(config_data_file)["website_configs"]
+    # # page_url = "https://theindependent.sg/news/singapore-news/"
+    # # page_url = "https://www.reddit.com/r/nasa/comments/14cna63/reddit_inc_is_intentionally_killing_off_3rdparty/"
+    # # page_url = "https://twitter.com/nasa"
+    # # page_url = "https://docs.python.org/3/library/urllib.parse.html"
+    # website_name = urlparse(page_url).netloc #getting the website name from the url
+    # scraping_data = website_configs.get(f"{website_name}", website_configs["default"])
+
+    # if scraping_data["func"] == "sms": # calling the social media scraper
+    #     loop = asyncio.new_event_loop()
+    #     asyncio.set_event_loop(loop)
+    #     items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
+    # elif scraping_data["func"] == "gws": # calling the generic web scraper
+    #     items = ws.genericScraper(scraping_data["elements"], page_url)
+    # else: 
+    #     raise HTTPException (status_code = 500, detail = "Internal Server Error")
+    # return items
