@@ -1,6 +1,7 @@
 # social media scraper moduels
 import asyncio
 import pyppeteer
+import os
 # generic webscraper modules
 import requests
 from bs4 import BeautifulSoup
