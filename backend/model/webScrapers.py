@@ -46,15 +46,27 @@ async def delPopUp(page,popup):
     except pyppeteer.errors.TimeoutError:
         pass  # Pop-up not found or already closed
 
+# find chrome path
+def getChromePath():
+    directories = ["C:\\Program Files", "C:\\Program Files (x86)"]
+
+    # Search for Chrome in Program Files directories
+    for file in directories:
+        chromePath = os.path.join(file, "Google", "Chrome", "Application", 'chrome.exe')
+        if os.path.isfile(chromePath):
+            return chromePath
+
+    return None
 
 # calling the scraper
 async def scraper(elements, pageUrl):
+    chromePath = getChromePath()
     browser = await pyppeteer.launch(
         headless=False,
         handleSIGINT=False,
         handleSIGTERM=False,
         handleSIGHUP=False,
-        executablePath='./chrome.exe'
+        executablePath=chromePath
     )
     page = await browser.newPage()
     await page.goto(pageUrl)
