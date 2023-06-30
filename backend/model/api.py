@@ -17,6 +17,7 @@ class API:
             self.body[f"{self.body_key}"] = [text]
         try:
             response = requests.post(self.target, headers = self.header, json  = self.body)
+            print(self.target, response)
             #if wrong/missing key, code runs - writer gives error
             #if wrong url, code runs - writer gives a "None"
         except:

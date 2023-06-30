@@ -30,6 +30,7 @@ import os
 import pytesseract
 import cv2
 import numpy as np
+import time
 
 # importing in-house code
 from model.api import API
@@ -65,6 +66,7 @@ botbuster.add_middleware(
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
+    start = time.perf_counter()
     list_of_apis = request.dict()["list_of_apis"]
     text = request.dict()["text"]
     full_results = {} # create dictionary to store all results
@@ -89,18 +91,66 @@ def check_text(request: ds.check_text):
             "score": 0,
             "num_apis": 0,
         }
-        
         try:
             results = API(api_data[f"{api_category}"][f"{api}"]).api_call(text)
             full_results[f"{api}"] = results
         except:
             full_results[f"{api}"] = "Error Detecting"
             continue
+        '''
+        # try:
+        #     # checking for general score 
+        #     path = config_data["path_to_general_score"][api] 
+        #     results = full_results 
+        #     for key in path.split('.'):
+        #         if key.isnumeric():
+        #             key = int(key)
+        #         try: 
+        #             results = results[key]
+        #             scores["general_score"][f"{api_category}"][f"{api}"] = round(float(results) * 100,1)
+        #             total_score[f"{api_category}"]["score"] += round(float(results) * 100,1)
+        #             total_score[f"{api_category}"]["num_apis"] += 1
+        #             final_score = total_score[f"{api_category}"]["score"]/total_score[f"{api_category}"]["num_apis"]
+        #             scores["general_score"][f"{api_category}"]["overall_score"] = round(final_score,1)
+        #             continue
+        #         except KeyError:
+        #             scores["general_score"][f"{api_category}"][f"{api}"] = "error getting score"     
+        #         except:     
+        #             scores["general_score"][f"{api_category}"][f"{api}"] = "unknown error"
+        #     # checking for sentence score
+        #     try:
+        #         path1 = config_data["path_to_sentence_score"][api][0]
+        #         path2 = config_data["path_to_sentence_score"][api][1]
+        #     except KeyError:
+        #         continue
+        #     else:
+        #         results = full_results # checking for sentence score
+        #         for key in path1.split("."):
+        #             try:
+        #                 if key.isnumeric():
+        #                     key = int(key)
+        #                 results = results[key]
+        #             except KeyError or TypeError:
+        #                 break
+        #             except:
+        #                 break
+        #         for num in range(0, len(results)):
+        #             try: 
+                        
+        #                 for key in scores["sentence_score"][num].keys():
+        #                     if key == results[num]["sentence"] and results[num][path2] > 0.70:
+        #                         scores["sentence_score"][num][key]["api"].append(api)
+        #                         scores["sentence_score"][num][key]["highlight"] += 1/len(list_of_apis)
+        #             except:
+        #                 break
+        # except:
+        #     continue
+        '''
     for api, api_category in list_of_apis: 
         try:
             # checking for general score 
             path = config_data["path_to_general_score"][api] 
-            results = full_results 
+            results = full_results
             for key in path.split('.'):
                 if key.isnumeric():
                     key = int(key)
@@ -144,11 +194,13 @@ def check_text(request: ds.check_text):
                         break
         except:
             continue
-            # with open("config\\result.json", "w") as score_file:
-                #     score_file.write(json.dumps(full_results, indent = 4))
-                # with open("config\scores.json", "w") as score_file:
-                #     score_file.write(json.dumps(scores, indent = 4))
-    graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
+    # with open("config\\result.json", "w") as score_file:
+    #     score_file.write(json.dumps(full_results, indent = 4))
+    # with open("config\scores.json", "w") as score_file:
+    #     score_file.write(json.dumps(scores, indent = 4))
+    # graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
+    end = time.perf_counter()
+    print(end - start)
     return scores
 
 @botbuster.get("/getapis/")
@@ -159,9 +211,7 @@ async def get_apis():
             api_data = json.load(api_data_file) # grabs all API data from API config file
             for api_category in api_data.keys():
                 api_info[f"{api_category}"] = {} # creates an empty dictionary for each category
-                for api in api_data[f"{api_category}"].keys():
-                    api_info[f"{api_category}"][f"{api}"] = [] # creates 
-                """
+                
                 for api in api_data[f"{api_category}"].keys():
                     api_info[f"{api_category}"][f"{api}"] = [api.lower().replace(" ", "")] # creates 
                     try: 
@@ -172,25 +222,9 @@ async def get_apis():
                                 api_info[f"{api_category}"][f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
                     except: 
                         continue # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
-                """
-                
-    except:
+    except Exception:
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
-    else:
-        for api_category in api_info.keys(): 
-            for api in api_info[f"{api_category}"]:
-                try:
-                    api_info[f"{api_category}"][f"{api}"].append(api.lower().replace(" ", "")) # sets this as a key for most html dynamic coding
-                    with open(CONFIG_FILE_PATH, "r") as config_data_file:
-                        config_data = json.load(config_data_file)
-                        api_logo_path = config_data["logos_base_path"] + config_data["logos"][f"{api}"] # sets file path for the system to open
-                        with open(f"{api_logo_path}", "rb") as image:
-                            api_info[f"{api_category}"][f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
-                except: # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
-                    continue
-                else: # if no error, proceed to the next API in the loop
-                    continue
-        return api_info
+    return api_info
 
 # adding apis to system
 @botbuster.post("/addapi/")
