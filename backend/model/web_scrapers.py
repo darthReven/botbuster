@@ -4,41 +4,41 @@ import pyppeteer
 import os
 # generic webscraper modules
 import requests
-from bs4 import BeautifulSoup
 import sys
+from bs4 import BeautifulSoup
 from fastapi import HTTPException
 
 # social media scraper
-async def scrapeInfiniteScrollItems(page, contentSelector, itemTargetCount):
+async def scrape_infinite_scroll_items(page, content_selector, item_target_count):
     await asyncio.sleep(2.5)
     items = []
 
-    while itemTargetCount > len(items):
-        selectedItems = await page.evaluate('''(contentselector) => {
-            const selectedItems = [];
+    while item_target_count > len(items):
+        selected_items = await page.evaluate('''(contentselector) => {
+            const selected_items = [];
             const elements = Array.from(document.querySelectorAll("*"));
 
             for (const element of elements) {
                 for (const selector of contentselector) {
                     if (element.matches(selector)) {
-                        selectedItems.push([selector.split('.')[0], element.innerText]);
+                        selected_items.push([selector.split('.')[0], element.innerText]);
                     }
                 }
             }
 
-            return selectedItems;
-        }''', contentSelector)
+            return selected_items;
+        }''', content_selector)
 
-        previousHeight = await page.evaluate("document.body.scrollHeight")
+        previous_height = await page.evaluate("document.body.scrollHeight")
         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        await page.waitForFunction(f'document.body.scrollHeight > {previousHeight}')
+        await page.waitForFunction(f'document.body.scrollHeight > {previous_height}')
         await asyncio.sleep(1)
 
-        items = selectedItems
+        items = selected_items
 
     return items
 
-async def delPopUp(page,popup):
+async def del_pop_up(page, popup):
     try:
         # Replace the CSS selector with the appropriate selector for the pop-up element
         await page.waitForSelector(popup[0], {'timeout': 5000})
@@ -48,72 +48,74 @@ async def delPopUp(page,popup):
         pass  # Pop-up not found or already closed
 
 # find chrome path
-def getChromePath():
+def get_chrome_path():
+    print("test")
     directories = ["C:\\Program Files", "C:\\Program Files (x86)"]
-
     # Search for Chrome in Program Files directories
     for file in directories:
-        chromePath = os.path.join(file, "Google", "Chrome", "Application", 'chrome.exe')
-        if os.path.isfile(chromePath):
-            return chromePath
-
+        chrome_path = os.path.join(file, "Google", "Chrome", "Application", 'chrome.exe')
+        if os.path.isfile(chrome_path):
+            print(chrome_path)
+            return chrome_path
     return None
 
 # calling the scraper
-async def scraper(elements, pageUrl):
-    chromePath = getChromePath()
+async def scraper(elements, page_url):
+    print("getting chrome path")
+    chrome_path = get_chrome_path()
+    print(chrome_path)
     browser = await pyppeteer.launch(
         headless=False,
         handleSIGINT=False,
         handleSIGTERM=False,
         handleSIGHUP=False,
-        executablePath=chromePath
+        executablePath=chrome_path
     )
     page = await browser.newPage()
-    await page.goto(pageUrl)
+    await page.goto(page_url)
 
     if(elements[0]==''):
         elements.pop(0)
     else:
-        await delPopUp(page,elements)
+        await del_pop_up(page, elements)
         elements.pop(0)
     
     print(elements)
-    items = await scrapeInfiniteScrollItems(page, elements, 5)
-    uniqueItems = []
-    seenItems = set()
+    items = await scrape_infinite_scroll_items(page, elements, 5)
+    unique_items = []
+    seen_items = set()
     for item in items:
-        itemTuple = tuple(item)
-        if itemTuple not in seenItems:
-            uniqueItems.append(item)
-            seenItems.add(itemTuple)
+        item_tuple = tuple(item)
+        if item_tuple not in seen_items:
+            unique_items.append(item)
+            seen_items.add(item_tuple)
     
     await browser.close()
-    return uniqueItems
+    return unique_items
 
 # generic webscraper
-def genericScraper(listOfElements: list, pageurl):
+def genericScraper(list_of_elements: list, page_url):
     sys.stdout.reconfigure(encoding='utf-8') #so that other languages can be printed
-    response = requests.get(pageurl)
+    response = requests.get(page_url)
     print(response.status_code)
     if response.status_code == 200: 
         soup = BeautifulSoup(response.content, 'html.parser')
     else:
         raise HTTPException(status_code = 400, detail = "Target website could not be scraped due to errors on that website, please check the URL again.")
-    extractedText = []
-    for element in listOfElements:
+    extracted_text = []
+    for element in list_of_elements:
         if "." in element:
-            splitElement = element.split(".", 1)
-            elementType = splitElement[0]
-            elementClass = splitElement[1]
-            elements = soup.find_all(elementType, class_= elementClass)
+            split_element = element.split(".", 1)
+            element_type = split_element[0]
+            element_class = split_element[1]
+            elements = soup.find_all(element_type, class_= element_class)
             for element in elements:
                 text = element.get_text(strip=True)
-                extractedText.append([elementType, text]) 
+                extracted_text.append([element_type, text]) 
         else:
-            elementType = element
-            elements = soup.find_all(elementType)
+            element_type = element
+            elements = soup.find_all(element_type)
             for element in elements:
                 text = element.get_text(strip=True)
-                extractedText.append([elementType, text]) 
-    return extractedText
+                extracted_text.append([element_type, text]) 
+    return extracted_text

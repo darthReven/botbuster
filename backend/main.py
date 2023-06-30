@@ -33,13 +33,15 @@ import numpy as np
 
 # importing in-house code
 from model.api import API
-import model.datastructures as ds
-import model.socialMediaScraper as sms
-import model.genericWebScraper as gws
-import model.webScrapers as ws
-import model.graph as g
+import model.data_structures as ds
+# import model.social_media_scraper as sms
+# import model.generic_web_scraper as gws
+import model.web_scrapers as ws
+import model.graph as graph
+import model.text as text
 
 # Initialising constants 
+# setting file paths for configuration files
 CONFIG_FILE_PATH = r"config\config.json"
 API_FILE_PATH = r"config\api.json"
 RESULTS_FILE_PATH = r"config\result.json"
@@ -67,17 +69,17 @@ def check_text(request: ds.check_text):
     text = request.dict()["text"]
     full_results = {} # create dictionary to store all results
     scores = { # create dictionary to store all scores
-        "general_score": {},
-        "sentence_score": []
+        "general_score": {}, # overall score for each API
+        "sentence_score": []  # keeping a score for each sentence   
     }
-    total_score = {}
+    total_score = {} # store score of each API before taking the average
     # change this to the text chunking functions
     for sentence in text.split("."):
         sentence =  sentence.strip() + "."
         if sentence == ".":
             continue
         scores["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
-    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+    with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     with open(API_FILE_PATH, "r") as api_data_file:
         api_data = json.load(api_data_file)
@@ -142,26 +144,38 @@ def check_text(request: ds.check_text):
                         break
         except:
             continue
-                # with open("config\\result.json", "w") as score_file:
+            # with open("config\\result.json", "w") as score_file:
                 #     score_file.write(json.dumps(full_results, indent = 4))
                 # with open("config\scores.json", "w") as score_file:
                 #     score_file.write(json.dumps(scores, indent = 4))
-    # print(scores["general_score"])
-    g.generateGraph(scores["general_score"])
+    graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
     return scores
 
 @botbuster.get("/getapis/")
 async def get_apis():
-    api_info = {}
+    api_info = {} 
     try: 
         with open(API_FILE_PATH, "r") as api_data_file:
-            api_data = json.load(api_data_file)
+            api_data = json.load(api_data_file) # grabs all API data from API config file
             for api_category in api_data.keys():
-                api_info[f"{api_category}"] = {}
+                api_info[f"{api_category}"] = {} # creates an empty dictionary for each category
                 for api in api_data[f"{api_category}"].keys():
-                    api_info[f"{api_category}"][f"{api}"] = []
+                    api_info[f"{api_category}"][f"{api}"] = [] # creates 
+                """
+                for api in api_data[f"{api_category}"].keys():
+                    api_info[f"{api_category}"][f"{api}"] = [api.lower().replace(" ", "")] # creates 
+                    try: 
+                        with open(CONFIG_FILE_PATH, "r") as config_data_file:
+                            config_data = json.load(config_data_file)
+                            api_logo_path = config_data["logos_base_path"] + config_data["logos"][f"{api}"] # sets file path for the system to open
+                            with open(f"{api_logo_path}", "rb") as image:
+                                api_info[f"{api_category}"][f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
+                    except: 
+                        continue # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
+                """
+                
     except:
-        print("Internal Server Error", 500)
+        raise HTTPException (status_code = 500, detail = "Internal Server Error")
     else:
         for api_category in api_info.keys(): 
             for api in api_info[f"{api_category}"]:
@@ -199,14 +213,13 @@ def add_api(request: ds.add_api, response: Response):
 @botbuster.post("/webscraper/")
 def web_scraping(request: ds.web_scraper):
     page_url = request.dict()["page_url"]
-    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+    with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
         website_configs = json.load(config_data_file)["website_configs"]
-    website_name = urlparse(page_url).netloc #getting the website name from the url
-    scraping_data = website_configs.get(f"{website_name}", website_configs["default"])
-
+    website_name = urlparse(page_url).netloc # getting the website name from the url
+    scraping_data = website_configs.get(f"{website_name}", website_configs["default"]) # extract the proper elements to scrape from the website, if website not in database, use default elements
     if scraping_data["func"] == "sms": # calling the social media scraper
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        loop = asyncio.new_event_loop() # creates a new event loop and 
+        asyncio.set_event_loop(loop) # set created loop as the active one
         items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
         items = ws.genericScraper(scraping_data["elements"], page_url)
@@ -218,36 +231,36 @@ def web_scraping(request: ds.web_scraper):
 @botbuster.post("/extract/")
 def extract_text(file: UploadFile):
     try: 
-        file_extension = file.filename.rsplit('.', 1)[1].lower()
-        contents = file.file.read()
+        file_extension = file.filename.rsplit('.', 1)[1].lower() #extracts file extension from file name
+        contents = file.file.read() # gets content of file out in bytes
         with open(f"temp.{file_extension}", 'wb') as f:
-            f.write(contents)
-        if file_extension == 'docx':
+            f.write(contents) # writes a temporary file with the same bytes
+        if file_extension == 'docx': # if it's docx file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
-        elif file_extension == 'pdf':
-            pass
+        elif file_extension == 'txt':  # if it's txt file
+            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+        elif file_extension == 'pdf': # if it's pdf file
             reader = PdfReader(f"temp.{file_extension}") # creating a pdf reader object
             text = ""
             for page_num in range (0, len(reader.pages)):
                 page = reader.pages[page_num] # getting a specific page from the pdf file
                 page_content = page.extract_text() # extracting text from page
                 text += f"{page_content} \n"
-        elif file_extension == "jpg":
-            print('test')
-            image = np.array(Image.open(f"temp.{file_extension}"))
+        elif file_extension == "jpg": # if it's image files
+            image = np.array(Image.open(f"temp.{file_extension}")) # create image
             normalised_image = np.zeros((image.shape[0], image.shape[1]))
+            # remove distractions in the photo using cv
             image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
             image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
             image = cv2.GaussianBlur(image, (1, 1), 0)
-            text = pytesseract.image_to_string(image)
-        elif file_extension == 'txt':
-            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+
+            text = pytesseract.image_to_string(image) # use pytesseract to extract text
         else:
             return HTTPException(status_code = 400, detail = "Unsupported File Type")
     except:
         raise HTTPException(status_code = 500, detail = "Internal Server Error")
     finally:
-        os.remove(f"temp.{file_extension}")
+        os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
     return text
 
 # getting graph data
