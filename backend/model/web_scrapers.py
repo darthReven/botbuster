@@ -95,27 +95,29 @@ async def scraper(elements, page_url):
 
 # generic webscraper
 def genericScraper(list_of_elements: list, page_url):
-    sys.stdout.reconfigure(encoding='utf-8') #so that other languages can be printed
+    sys.stdout.reconfigure(encoding='utf-8')  # so that other languages can be printed
     response = requests.get(page_url)
     print(response.status_code)
-    if response.status_code == 200: 
+    if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
     else:
-        raise HTTPException(status_code = 400, detail = "Target website could not be scraped due to errors on that website, please check the URL again.")
+        raise HTTPException(status_code=400, detail="Target website could not be scraped due to errors on that website, please check the URL again.")
     extracted_text = []
     for element in list_of_elements:
         if "." in element:
             split_element = element.split(".", 1)
             element_type = split_element[0]
             element_class = split_element[1]
-            elements = soup.find_all(element_type, class_= element_class)
-            for element in elements:
+            elements = soup.find_all(element_type, class_=element_class)
+            for index, element in enumerate(elements):
                 text = element.get_text(strip=True)
-                extracted_text.append([element_type, text]) 
+                extracted_text.append([element_type, text, index])
         else:
             element_type = element
             elements = soup.find_all(element_type)
-            for element in elements:
+            for index, element in enumerate(elements):
                 text = element.get_text(strip=True)
-                extracted_text.append([element_type, text]) 
+                extracted_text.append([element_type, text, index])
+    extracted_text.sort(key=lambda x: x[2])  # sort elements based on their order in the HTML
+    extracted_text = [[element_type, text] for element_type, text, _ in extracted_text] 
     return extracted_text
