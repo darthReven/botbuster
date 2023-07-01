@@ -71,7 +71,7 @@ def check_text(request: ds.check_text):
     text = request.dict()["text"]
     full_results = {} # create dictionary to store all results
     scores = { # create dictionary to store all scores
-        "general_score": {}, # overall score for each API
+        "general_score": {api_category : {} for api, api_category in list_of_apis}, # overall score for each API
         "sentence_score": []  # keeping a score for each sentence   
     }
     total_score = {} # store score of each API before taking the average
@@ -86,7 +86,7 @@ def check_text(request: ds.check_text):
     with open(API_FILE_PATH, "r") as api_data_file:
         api_data = json.load(api_data_file)
     for api, api_category in list_of_apis:
-        scores["general_score"][f"{api_category}"] = {}
+        # scores["general_score"][f"{api_category}"] = {}
         total_score[f"{api_category}"] = {
             "score": 0,
             "num_apis": 0,
@@ -97,75 +97,27 @@ def check_text(request: ds.check_text):
         except:
             full_results[f"{api}"] = "Error Detecting"
             continue
-        '''
-        # try:
-        #     # checking for general score 
-        #     path = config_data["path_to_general_score"][api] 
-        #     results = full_results 
-        #     for key in path.split('.'):
-        #         if key.isnumeric():
-        #             key = int(key)
-        #         try: 
-        #             results = results[key]
-        #             scores["general_score"][f"{api_category}"][f"{api}"] = round(float(results) * 100,1)
-        #             total_score[f"{api_category}"]["score"] += round(float(results) * 100,1)
-        #             total_score[f"{api_category}"]["num_apis"] += 1
-        #             final_score = total_score[f"{api_category}"]["score"]/total_score[f"{api_category}"]["num_apis"]
-        #             scores["general_score"][f"{api_category}"]["overall_score"] = round(final_score,1)
-        #             continue
-        #         except KeyError:
-        #             scores["general_score"][f"{api_category}"][f"{api}"] = "error getting score"     
-        #         except:     
-        #             scores["general_score"][f"{api_category}"][f"{api}"] = "unknown error"
-        #     # checking for sentence score
-        #     try:
-        #         path1 = config_data["path_to_sentence_score"][api][0]
-        #         path2 = config_data["path_to_sentence_score"][api][1]
-        #     except KeyError:
-        #         continue
-        #     else:
-        #         results = full_results # checking for sentence score
-        #         for key in path1.split("."):
-        #             try:
-        #                 if key.isnumeric():
-        #                     key = int(key)
-        #                 results = results[key]
-        #             except KeyError or TypeError:
-        #                 break
-        #             except:
-        #                 break
-        #         for num in range(0, len(results)):
-        #             try: 
-                        
-        #                 for key in scores["sentence_score"][num].keys():
-        #                     if key == results[num]["sentence"] and results[num][path2] > 0.70:
-        #                         scores["sentence_score"][num][key]["api"].append(api)
-        #                         scores["sentence_score"][num][key]["highlight"] += 1/len(list_of_apis)
-        #             except:
-        #                 break
-        # except:
-        #     continue
-        '''
-    for api, api_category in list_of_apis: 
-        try:
             # checking for general score 
+        try:
             path = config_data["path_to_general_score"][api] 
-            results = full_results
+            results = full_results 
             for key in path.split('.'):
                 if key.isnumeric():
                     key = int(key)
                 try: 
                     results = results[key]
                     scores["general_score"][f"{api_category}"][f"{api}"] = round(float(results) * 100,1)
+                    print(api)
+                    print(scores["general_score"][f"{api_category}"][f"{api}"])
                     total_score[f"{api_category}"]["score"] += round(float(results) * 100,1)
                     total_score[f"{api_category}"]["num_apis"] += 1
                     final_score = total_score[f"{api_category}"]["score"]/total_score[f"{api_category}"]["num_apis"]
                     scores["general_score"][f"{api_category}"]["overall_score"] = round(final_score,1)
-                    continue
+                except TypeError:
+                    continue  
                 except KeyError:
-                    scores["general_score"][f"{api_category}"][f"{api}"] = "error getting score"     
-                except:     
-                    scores["general_score"][f"{api_category}"][f"{api}"] = "unknown error"
+                    scores["general_score"][f"{api_category}"][f"{api}"] = "error getting score" 
+            print(scores)
             # checking for sentence score
             try:
                 path1 = config_data["path_to_sentence_score"][api][0]
