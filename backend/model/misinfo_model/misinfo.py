@@ -1,3 +1,6 @@
+# install the modules with 
+# pip install scikit-learn
+
 # Import Libraries
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
