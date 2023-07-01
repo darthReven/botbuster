@@ -14,7 +14,7 @@
             }
         },
         "Writer": {
-            "target": "https://enterprise-api.writer.com/content/organization/531962/detect",
+            "target": "https://enterprise-api.writer.com/content/organization/561977/detect",
             "body_key": "input",
             "data_type": "string",
             "headers": {

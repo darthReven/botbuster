@@ -2,51 +2,48 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import pandas as pd
 
-def generateGraph(data):
-    finalScore = []
-    categoryList = []
-    categoryScoreList = []
-    print(data)
-    for i, apiCategory in enumerate(data):
-        print(categoryList)
-        print(finalScore)
-        categoryList.append(apiCategory)
-        categoryScoreList.append({})
-        if(bool(data[apiCategory]) == False):
-            finalScore.append(0)
-        for key in data[apiCategory]:
+def generate_graph(data):
+    final_score = []
+    category_list = []
+    category_score_list = []
+    for i, api_category in enumerate(data):
+        category_list.append(api_category)
+        category_score_list.append({})
+        if (not bool(data[api_category])):
+            final_score.append(0)
+        for key in data[api_category]:
             if key != "overall_score":
-                score = data[apiCategory][key]
-                categoryScoreList[i][key] = score
+                score = data[api_category][key]
+                category_score_list[i][key] = score
             else:
-                finalScore.append(data[apiCategory][key])           
-    print(categoryList, finalScore)
-    df = pd.DataFrame({'Category': categoryList,
-                    'Scores': finalScore})
+                final_score.append(data[api_category][key])
+    df = pd.DataFrame({'Category': category_list,
+                    'Scores': final_score})
     
+    # scores are current hard coded
     colors = ['green' if score <= 50 else
             'yellow' if score <= 75 else
             'red' for score in df['Scores']]
     
     fig = go.Figure(data = go.Bar(x = df['Category'], y = df['Scores'], 
-                customdata = categoryScoreList,
+                customdata = category_score_list,
                 marker = dict(color = colors)))
     
-    hoverTemplate = 'Individual Scores:<br>%{customdata}<extra></extra>'
-    customHoverData = []
+    hover_template = 'Individual Scores:<br>%{customdata}<extra></extra>'
+    custom_hover_data = []
     for category in fig.data[0].customdata:
-        formattedData = []
+        formatted_data = []
         for key, value in category.items():
             if type(value) is int or type(value) is float:
                 score_color = '🟢' if value <= 50 else '🟡' if value <= 75 else '🔴'
-                formattedData.append(f"{score_color} <b>{key}</b>: {str(value)}")
+                formatted_data.append(f"{score_color} <b>{key}</b>: {str(value)}")
             else:
-                formattedData.append(f"⚪<br>{key}</b>: {str(value)}")
-        customHoverData.append(["<br>".join(formattedData)])
+                formatted_data.append(f"⚪<br>{key}</b>: {str(value)}")
+        custom_hover_data.append(["<br>".join(formatted_data)])
 
     fig.update_traces(hoverlabel = {'namelength': 0, 'bgcolor': 'white'}, 
-                  hovertemplate = hoverTemplate,
-                  customdata = customHoverData,
+                  hovertemplate = hover_template,
+                  customdata = custom_hover_data,
                   width = 0.5)
     
     fig.update_layout(title = 'Results Graph',

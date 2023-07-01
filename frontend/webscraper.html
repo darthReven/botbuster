@@ -20,6 +20,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
   <script>
+    counter = 0
+    function num_of_submissions(){
+      counter+=1
+    }
 		function sidebar_open() {
 			document.getElementById("sidebarMenu").style.width = "100%";
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
@@ -48,7 +52,21 @@
         dataType: "json",
         success: function(data, textStatus, xhr) {
           elements = data
-          update_content_box(elements,'')
+          unique = []
+          for(item of elements) { 
+            if(!unique.includes(item[0])) {
+                unique.push(item[0])
+            }
+          }
+          num_of_elements = unique.length
+          if (counter > 1){
+            changeCheckbox(num_of_elements)
+            update_content_box(elements,'<input type="checkbox" class="checkboxed" name="checkbox"',num_of_elements)
+          }
+          else {
+            update_content_box(elements,'',num_of_elements)
+          }
+          
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
         },
@@ -62,12 +80,12 @@
     }
         
        
-    function update_content_box(elements,content) {
+    function update_content_box(elements,content,num_of_elements) {
       if (content.includes('<input type="checkbox" class="checkboxed" name="checkbox"')) {
         gettingElements()
       } else {
         gettingElements()
-        appendCheckboxesAndButtons(unique)
+        appendCheckbox(num_of_elements)
       }
       
       content = `
@@ -104,18 +122,20 @@
       $("input:checkbox[name=checkbox]:not(:checked)").each(function(){
           unselectedElements.push($(this).val());
       });
-      console.log(unselectedElements);
-        unique = []
-        for(item of elements) { 
-            if(!unique.includes(item[0])) {
-                unique.push(item[0])
-            }
-        }
-        num_of_elements = unique.length
+      // console.log(unselectedElements);
+      //   unique = []
+      //   for(item of elements) { 
+      //       if(!unique.includes(item[0])) {
+      //           unique.push(item[0])
+      //       }
+      //   }
+      //   num_of_elements = unique.length
         $(".content-box").addClass("display");
     }
-        
-    function appendCheckboxesAndButtons(unique) {
+    
+
+    function appendCheckbox(num_of_elements) {
+      console.log("noo")
       content =''
       for (let i = 0; i < num_of_elements; i++) {
         content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
@@ -123,16 +143,42 @@
         `}
       $('#fileForm').append(content)
       $('#fileForm').append(`<div class="text-center">
-            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="get_elements()">
+            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="num_of_submissions();get_elements()">
                 Submit
             </button>
-            <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="$('.content-box').html(''); $('.content-box').removeClass('display'); $('.content-box').height('0px');$('.checkboxed').remove();$('label').remove();$('#submitBtn').prop('disabled', false);">
+            <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="location.reload()">
                 <i class="fa-solid fa-arrows-rotate"></i>
             </button>
         </div>`
       )
     }
 
+    function changeCheckbox(num_of_elements) {
+      if (counter > 1){
+      $('.checkboxed').remove();
+      $('label').remove();
+      $('.btn').not('#submitBtn').remove();
+    
+      content =''
+      for (let i = 0; i < num_of_elements; i++) {
+        content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
+          <label for="checkbox">${unique[i]}</label>
+        `}
+      $('#fileForm').append(content)
+      $('#fileForm').append(`<div class="text-center">
+            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="num_of_submissions();get_elements()">
+                Submit
+            </button>
+            <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="location.reload()">
+                <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+        </div>`
+      )
+      }
+      else{ 
+        appendCheckbox(num_of_elements)
+    }}
+    
     $(document).ready(function () {
 			localStorage.clear()
       $('#loading').show(); // Start loading
@@ -235,7 +281,7 @@
                     <label class="form-label" for="type_url">Enter the URL of the webpage to webscrape</label>
                     <div class="input-group">
                       <input type="url" id="type_url" class="form-control" placeholder="https://example.com"/>
-                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="get_elements()">
+                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();get_elements();">
                         <i class="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
