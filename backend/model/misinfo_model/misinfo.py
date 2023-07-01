@@ -40,11 +40,11 @@ count_train = count_vectorizer.fit_transform(X_train)
 count_test = count_vectorizer.transform(X_test)
 
 # Ensemble with Hyperparam Tuning
-clf1 = LogisticRegression(random_state=3101)
-clf1.fit(count_train, y_train)
+model = LogisticRegression(random_state=3101)
+model.fit(count_train, y_train)
 
 # calculating accuracy of model
-predictions = clf1.predict(count_test)
+predictions = model.predict(count_test)
 from sklearn.metrics import accuracy_score
 # Calculate accuracy
 accuracy = accuracy_score(y_test, predictions)
