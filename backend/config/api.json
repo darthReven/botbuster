@@ -59,6 +59,16 @@
                 "token": "NO_API_AVAIL",
                 "text": ""
             }
+        },
+        "Misinformation Placeholder 2": {
+            "target": "https://misinformation.com/api/v1/",
+            "body_key": "text",
+            "data_type": "string",
+            "headers": {},
+            "body": {
+                "token": "NO_API_AVAIL",
+                "text": ""
+            }
         }
     },
     "Hate Speech APIs": {
@@ -69,6 +79,16 @@
             "headers": {},
             "body": {
                 "token": "7a1a3e7a755bafa20f164ddcee16349a",
+                "text": ""
+            }
+        },
+        "Hate Placeholder 2": {
+            "target": "https://misinformation.com/api/v1/",
+            "body_key": "text",
+            "data_type": "string",
+            "headers": {},
+            "body": {
+                "token": "NO_API_AVAIL",
                 "text": ""
             }
         }
