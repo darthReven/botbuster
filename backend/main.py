@@ -39,13 +39,13 @@ import model.data_structures as ds
 # import model.generic_web_scraper as gws
 import model.web_scrapers as ws
 import model.graph as graph
-import model.text as text
+import model.text as text_utils
 
 # Initialising constants 
 # setting file paths for configuration files
 CONFIG_FILE_PATH = r"config\config.json"
 API_FILE_PATH = r"config\api.json"
-RESULTS_FILE_PATH = r"config\result.json"
+RESULTS_FILE_PATH = r"config\results.json"
 # setting file path to tesseract
 pytesseract.pytesseract.tesseract_cmd = r"Tesseract-OCR\tesseract.exe"
 
@@ -74,24 +74,34 @@ def check_text(request: ds.check_text):
         "sentence_score": []  # keeping a score for each sentence   
     }
     total_score = {} # store score of each API before taking the average
+    with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
+        config_data = json.load(config_data_file)
+    with open(API_FILE_PATH, "r") as api_data_file: # load in API data from api file
+        api_data = json.load(api_data_file)
     # change this to the text chunking functions
+    list_of_texts = text_utils.chunk(text, config_data["chunk_option"])
+    print("list of texts")
+    print(list_of_texts)
+    '''
     for sentence in text.split("."):
         sentence =  sentence.strip() + "."
         if sentence == ".":
             continue
         scores["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
-    with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
-        config_data = json.load(config_data_file)
-    with open(API_FILE_PATH, "r") as api_data_file: # load in API data from api file
-        api_data = json.load(api_data_file)
+    '''
+    
     for api, api_category in list_of_apis: # loop through all APIs
         total_score[f"{api_category}"] = {
             "score": 0,
             "num_apis": 0,
         }
         try:
-            results = API(api_data[f"{api_category}"][f"{api}"]).api_call(text)
-            full_results[f"{api}"] = results
+            full_results[f"{api}"] = {}
+            for num, text in enumerate(list_of_texts):
+                for sentence in text_utils.chunk_by_sentences(text[0]):
+                    scores["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
+                results = API(api_data[f"{api_category}"][f"{api}"]).api_call(text[0])
+                full_results[f"{api}"][num] = results
         except Exception:
             full_results[f"{api}"] = "Error Detecting"
             continue
@@ -133,14 +143,17 @@ def check_text(request: ds.check_text):
                 for num in range(0, len(results)): # loop through each sentence of results
                     try: 
                         for key in scores["sentence_score"][num].keys():
-                            if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name
+                            # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
+                            if results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name
                                 scores["sentence_score"][num][key]["api"].append(api)
                                 scores["sentence_score"][num][key]["highlight"] += 1/len(total_score[f"{api_category}"]["num_apis"])
                     except:
                         break
         except:
             continue
-    graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
+    with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
+        results_file.write(json.dumps(full_results, indent=4))
+    # graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
     end = time.perf_counter()
     print(end - start)
     return scores
