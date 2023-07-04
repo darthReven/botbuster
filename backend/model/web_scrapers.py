@@ -7,6 +7,7 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 from fastapi import HTTPException
+from urllib.parse import urljoin
 
 # social media scraper
 async def scrape_infinite_scroll_items(page, content_selector, item_target_count):
@@ -96,28 +97,55 @@ async def scraper(elements, page_url):
 # generic webscraper
 def genericScraper(list_of_elements: list, page_url):
     sys.stdout.reconfigure(encoding='utf-8')  # so that other languages can be printed
-    response = requests.get(page_url)
-    print(response.status_code)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-    else:
-        raise HTTPException(status_code=400, detail="Target website could not be scraped due to errors on that website, please check the URL again.")
     extracted_text = []
-    for element in list_of_elements:
-        if "." in element:
-            split_element = element.split(".", 1)
-            element_type = split_element[0]
-            element_class = split_element[1]
-            elements = soup.find_all(element_type, class_=element_class)
-            for index, element in enumerate(elements):
-                text = element.get_text(strip=True)
-                extracted_text.append([element_type, text, index])
+    connected_pages = [page_url]
+    base_url = page_url.rstrip('/')
+    page_num = 2
+    while True:
+        page_url = f"{base_url}/page-{page_num}"
+        response = requests.get(page_url)
+        if response.status_code == 200:
+            # check if the URL has changed due to redirection
+            new_url = response.url
+            if new_url != page_url:
+                break  # break the loop if the URL remains the same after redirection
+            connected_pages.append(page_url)
+            page_num += 1
         else:
-            element_type = element
-            elements = soup.find_all(element_type)
-            for index, element in enumerate(elements):
-                text = element.get_text(strip=True)
-                extracted_text.append([element_type, text, index])
-    extracted_text.sort(key=lambda x: x[2])  # sort elements based on their order in the HTML
-    extracted_text = [[element_type, text] for element_type, text, _ in extracted_text] 
+            break
+
+    for page_url in connected_pages:
+        response = requests.get(page_url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            for element in list_of_elements:
+                if "." in element:
+                    split_element = element.split(".", 1)
+                    element_type = split_element[0]
+                    element_class = split_element[1]
+                    elements = soup.find_all(element_type, class_=element_class)
+                    for index, element in enumerate(elements):
+                        text = element.get_text(strip=True)
+                        extracted_text.append([element_type, text, index])
+                else:
+                    element_type = element
+                    elements = soup.find_all(element_type)
+                    for index, element in enumerate(elements):
+                        text = element.get_text(strip=True)
+                        extracted_text.append([element_type, text, index])
+            extracted_text.sort(key=lambda x: x[2] if len(x) > 2 else 0)  # sort elements based on their order in the HTML
+            extracted_text = [[element_type, text] for element_type, text, *_ in extracted_text] 
+        else:
+            raise HTTPException(status_code=400, detail="Target website could not be scraped due to errors on that website, please check the URL again.")
+    
+        
     return extracted_text
+
+
+
+
+    
+
+
+
+

@@ -24,14 +24,15 @@
     function num_of_submissions(){
       counter+=1
     }
-		function sidebar_open() {
+		
+    function sidebar_open() {
 			document.getElementById("sidebarMenu").style.width = "100%";
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
 			document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
 		}
-
-		function sidebar_close() {
+		
+    function sidebar_close() {
 			document.getElementById("sidebarMenu").style.width = "0%";
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
 			document.getElementById("left-bar-slider").style.margin = "0";
@@ -79,7 +80,6 @@
       })
     }
         
-       
     function update_content_box(elements,content,num_of_elements) {
       if (content.includes('<input type="checkbox" class="checkboxed" name="checkbox"')) {
         gettingElements()
@@ -132,10 +132,8 @@
       //   num_of_elements = unique.length
         $(".content-box").addClass("display");
     }
-    
 
     function appendCheckbox(num_of_elements) {
-      console.log("noo")
       content =''
       for (let i = 0; i < num_of_elements; i++) {
         content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
@@ -158,7 +156,6 @@
       $('.checkboxed').remove();
       $('label').remove();
       $('.btn').not('#submitBtn').remove();
-    
       content =''
       for (let i = 0; i < num_of_elements; i++) {
         content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
