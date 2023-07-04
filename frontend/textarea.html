@@ -22,7 +22,7 @@
 	<script>
 		function sidebar_open() {
 			document.getElementById("sidebarMenu").style.width = "100%";
-      document.getElementById("add-api").style.display = "inline-block"
+            document.getElementById("add-api").style.display = "inline-block"
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
 			document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
@@ -115,6 +115,14 @@
             console.log(err)
           }
         })
+        let inputTextArea = document.getElementById("text-area");
+        let characCount = document.getElementById("charac-count");
+        let wordCount = document.getElementById("word-count");
+        $("#text-area").on('change keyup paste' ,function() {
+            characCount.textContent = inputTextArea.value.length;
+            let txt = inputTextArea.value.trim();
+            wordCount.textContent = txt.split(/\s+/).filter((item) => item).length;
+        });
     }); 
 	</script>
 </head>
@@ -127,7 +135,7 @@
     <div class="sidebar-sticky">
         </div>
         <div class="text-center">
-        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold">
+        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold" onclick="window.location.href='addapi.html'">
             Add API <i class="fa-solid fa-circle-plus"></i>
         </button>
     </div>
@@ -156,6 +164,7 @@
   <main>
     <div class="content">
         <div class="options">
+            <a class="fw-bold" href="javascript:history.back()" id="back"><i class="fa-solid fa-arrow-left"></i></a>
             <a class="active fw-bold" href="textarea.html">Text Area</a>
             <a class="fw-bold" href="fileupload.html">File Upload</a>
             <a class="fw-bold" href="webscraper.html">Web Scraper</a>
@@ -171,6 +180,16 @@
             <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
                 <i class="fa-solid fa-arrows-rotate"></i>
             </button>
+            <div class="count">
+                <div>
+                  <p id="word-count">0</p>
+                  <p>Words</p>
+                </div>
+                <div>
+                  <p id="charac-count">0</p>
+                  <p>Characters</p>
+                </div>
+              </div>
                 </div>
 
             <!-- Footer -->

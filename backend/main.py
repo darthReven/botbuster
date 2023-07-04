@@ -252,6 +252,13 @@ def extract_text(file: UploadFile):
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
     return text
 
+# getting graph data
+@botbuster.post("/graph/")
+def web_scraping(request: ds.gen_graph):
+    general_score = request.dict()["general_score"]
+    sentence_score = request.dict()["sentence_score"]
+    graph.generate_graph(general_score)
+
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:
     config_data = json.load(config_file)

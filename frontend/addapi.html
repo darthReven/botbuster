@@ -76,6 +76,26 @@
         })
     }); 
     </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+        </script>
 
 </head>
 <body>
@@ -84,7 +104,7 @@
     <div class="sidebar-sticky">
         </div>
         <div class="text-center">
-        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold"  onclick="window.location.href='addapi.html'">
+        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold" onclick="window.location.href='addapi.html'">
             Add API <i class="fa-solid fa-circle-plus"></i>
         </button>
     </div>
@@ -119,99 +139,60 @@
                 <a class="fw-bold" href="webscraper.html">Web Scraper</a>
                 <a class="active fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
             </div>
-            <form>
-                <fieldset class="form-group">
+            <form class="needs-validation" novalidate>
+                <div class="form-group">
                     <div class="form-control p-5">
-                        <h4>BotBuster Settings</h4>
-                        <div class="row">
-                            <h5>Text Area Settings</h5>
-                        <legend class="col-form-label col-sm-2 pt-0">Breakpoint</legend>
-                        <div class="col-sm-10 col-md-4">
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="text-area-settings" id="text-area-chopping-1" value="dynamic" checked>
-                            <label class="form-check-label" for="text-area-chopping-1">
-                                Dynamic
-                            </label>
-                            </div>
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="text-area-settings" id="text-area-chopping-2" value="paragraph">
-                            <label class="form-check-label" for="text-area-chopping-2">
-                                Paragraph
-                            </label>
-                            </div>
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="text-area-settings" id="text-area-chopping-3" value="sentence">
-                            <label class="form-check-label" for="text-area-chopping-3">
-                                Sentence
-                            </label>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                            <h5>File Upload Settings</h5>
-                            <legend class="col-form-label col-sm-2 pt-0">Breakpoint</legend>
-                            <div class="col-sm-10 col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="file-upload-settings" id="file-upload-chopping-1" value="dynamic" checked>
-                                <label class="form-check-label" for="file-upload-chopping-1">
-                                Dynamic
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="file-upload-settings" id="file-upload-chopping-2" value="paragraph">
-                                <label class="form-check-label" for="file-upload-chopping-2">
-                                Paragraph
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="file-upload-settings" id="file-upload-chopping-3" value="sentence">
-                                <label class="form-check-label" for="file-upload-chopping-3">
-                                Sentence
-                                </label>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <h5>Web Scraper Settings</h5>
-                            <legend class="col-form-label col-sm-2 pt-0">Breakpoint</legend>
-                            <div class="col-sm-10 col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="web-scraper-settings-1" id="web-scraper-chopping-1" value="dynamic" checked>
-                                <label class="form-check-label" for="web-scraper-chopping-1">
-                                Dynamic
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="web-scraper-settings-1" id="web-scraper-chopping-2" value="paragraph">
-                                <label class="form-check-label" for="web-scraper-chopping-2">
-                                Paragraph
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="web-scraper-settings-1" id="web-scraper-chopping-3" value="sentence" disabled>
-                                <label class="form-check-label" for="web-scraper-chopping-3">
-                                Sentence
-                                </label>
-                            </div>
-                            </div>
-                            <legend class="col-form-label col-sm-2 pt-0">Target Type</legend>
-                            <div class="col-sm-10 col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="web-scraper-settings-2" id="web-scraper-type-1" value="article" checked>
-                                <label class="form-check-label" for="web-scraper-type-1">
-                                Articles
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="web-scraper-settings-2" id="web-scraper-type-2" value="socialmedia">
-                                <label class="form-check-label" for="web-scraper-type-2">
-                                Social Media
-                                </label>
-                            </div>
-                            </div>
-                        </div>
+                        <h4>Add API Details</h4>
+                            <div class="form-row mb-3">
+                                <label for="validationCustom01">Title</label>
+                                <input type="text" class="form-control" id="validationCustom01" placeholder="API Title" required>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">Category</label>
+                                <input type="text" class="form-control" name="product" placeholder="Category" list="existing_apis" required>
+                                <datalist id="existing_apis">
+                                  <option value="AIGCD APIs">AIGCD APIs</option>
+                                  <option value="Misinformation APIs">Misinformation APIs</option>
+                                  <option value="Hate Speech APIs">Hate Speech APIs</option>
+                                </datalist>                                
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">Target</label>
+                                <input type="text" class="form-control" id="validationCustom01" placeholder="https://example.com/API" required>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">Header</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='{&#10"accept": "application/json",&#10"Authorization": "Key",&#10"content-type": "application/json"&#10}' required></textarea>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">Body</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder='{&#10"text": "Input Text"&#10}' required></textarea>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
+                                    Submit
+                                </button>
+                                <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+                                    <i class="fa-solid fa-arrows-rotate"></i>
+                                </button>
+                                    </div>
                     </div>
-                  </fieldset>
+                  </div>
             </form>
 
 

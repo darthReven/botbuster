@@ -45,7 +45,7 @@
       var text = localStorage.getItem("text")
       var results = JSON.parse(localStorage.getItem("results"))
       if (apiinfo == null || text == null || results == null) {
-        window.location.href='textarea.html'
+        history.back()
       }
       for (let i = 0; i < results["sentence_score"].length; i++) {
         var sentence = Object.keys(results["sentence_score"][i])
@@ -101,23 +101,23 @@
         }
         $("#aggregate_score").html(`${passedThershold}/${numCategories}`)
       }
-      // $.ajax({
-      //   url:"http://127.0.0.1:8000/graph/",
-      //   type: "POST",
-      //   data: JSON.stringify(results),
-      //   contentType: "application/json; charset = utf-8",
-      //   dataType: "json",
-      //   success: function(data, textStatus, xhr) {
-      //       $('.embed-responsive-item').contentDocument.location.reload(true);
-      //     console.log('success')
-      //   },
-      //   error: function(xhr, textStunlatus, err) {
-      //     console.log(err)
-      //     $('#loading').hide(); // Hide loading
-      //     $('.btn[type="button"]').prop('disabled', false); // Enable submit
-      //     $('#submitBtn').prop('disabled', false); //Enable arrow submit button
-      //   }
-      // })
+      $.ajax({
+        url:"http://127.0.0.1:8000/graph/",
+        type: "POST",
+        data: JSON.stringify(results),
+        contentType: "application/json; charset = utf-8",
+        dataType: "json",
+        success: function(data, textStatus, xhr) {
+            $('.embed-responsive-item').contentDocument.location.reload(true);
+          console.log('success')
+        },
+        error: function(xhr, textStunlatus, err) {
+          console.log(err)
+          $('#loading').hide(); // Hide loading
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
+          $('#submitBtn').prop('disabled', false); //Enable arrow submit button
+        }
+      })
     })
   </script>
 
@@ -128,7 +128,7 @@
     <div class="sidebar-sticky">
         </div>
         <div class="text-center">
-        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold">
+        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold"  onclick="window.location.href='addapi.html'">
             Add API <i class="fa-solid fa-circle-plus"></i>
         </button>
     </div>
