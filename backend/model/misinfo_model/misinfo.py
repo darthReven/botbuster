@@ -17,17 +17,30 @@ import pandas as pd
 # %cd /content/drive/MyDrive/hackathon/
 
 # Read data, remove cv columns and fill NA with ''
-data = pd.read_csv("./train.csv")
-data = data[data.columns[:-2]]
-data = data.fillna('')
+# data = pd.read_csv("./train.csv")
+# data = pd.read_csv("./train2.csv")
+# data = data[data.columns[:-2]]
+# data = data.fillna('')
 
 # One-hot encode Target column (real=0, fake=1)
-data['label'] = pd.get_dummies(data.nlp_class)['fake']
+# data['label'] = pd.get_dummies(data.nlp_class)['fake']
+# data['label'] = pd.get_dummies(data.label)['Fake']
 
 # Join title, text and comments together
-data['combined'] = data['nlp_title'] + data['nlp_text'] + data['nlp_comments']
+# data['combined'] = data['nlp_title'] + data['nlp_text'] + data['nlp_comments']
+# data['combined'] = data['title'] + data['text']
 
-data.head()
+# data.head()
+trueData=pd.read_csv("True.csv")
+fakeData=pd.read_csv("Fake.csv")
+
+trueData['label']=1
+fakeData['label']=0
+
+data=pd.concat([trueData,fakeData])
+
+data = data.sample(10000, random_state=786).reset_index(drop=True)
+data['combined'] = data['title'] + data['text']
 
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(data['combined'], data.label, test_size=0.20, random_state=3101)
