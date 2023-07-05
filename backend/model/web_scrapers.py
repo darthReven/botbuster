@@ -100,20 +100,63 @@ def genericScraper(list_of_elements: list, page_url):
     extracted_text = []
     connected_pages = [page_url]
     base_url = page_url.rstrip('/')
-    page_num = 2
-    while True:
-        page_url = f"{base_url}/page-{page_num}"
-        response = requests.get(page_url)
-        if response.status_code == 200:
-            # check if the URL has changed due to redirection
-            new_url = response.url
-            if new_url != page_url:
-                break  # break the loop if the URL remains the same after redirection
-            connected_pages.append(page_url)
-            page_num += 1
-        else:
-            break
+    page = base_url.rsplit('/', 1)[-1] #find which page this is
+    if "page-" not in page: #if current page is the first page
+          # Check for connected pages starting from page 2
+            page_num = 2
+            while True:
+                page_url = f"{base_url}/page-{page_num}"
+                response = requests.get(page_url)
+                if response.status_code == 200:
+                    # Check if the URL has changed due to redirection
+                    new_url = response.url
+                    if new_url != page_url:
+                        break  # Break the loop if the URL remains the same after redirection
+                    connected_pages.append(page_url)
+                    page_num += 1
+                else:
+                    break
+    else:
+        base_url = page_url.rstrip('/')
+        first_page = base_url.rsplit('/', 1)[0] #get first page
+        
+        connected_pages.append(first_page)
+        page_num = int(page.rsplit('-', 1)[-1])+1
+        num_of_loops = 0
+        while True: #check for pages after current page
+                num_of_loops += 1 #to get the original page number later on
+                last_slash_index = base_url.rfind('/')
+                page_url = base_url[:last_slash_index]
+                page_url = f"{page_url}/page-{page_num}" #replace page number in url with the new one
+                response = requests.get(page_url)
+                if response.status_code == 200:
+                    # check if the URL has changed due to redirection
+                    new_url = response.url
+                    if new_url != page_url:
+                        page_num -= num_of_loops+1 #one page before original page number
+                        while True:
+                            last_slash_index = base_url.rfind('/')
+                            page_url = base_url[:last_slash_index]
+                            page_url = f"{page_url}/page-{page_num}" #replace page number in url with the new one
+                            response = requests.get(page_url)
+                            if response.status_code == 200:                              
+                                # check if the URL has changed due to redirection
+                                new_url = response.url
+                                if new_url != page_url:
+                                    break  # break the loop if the URL remains the same after redirection
+                                connected_pages.append(page_url)
+                                page_num -= 1                     
+                            else:
+                                break
+                        break
+                    connected_pages.append(page_url)
+                    page_num += 1
+                else:
+                    break
+    
+    connected_pages.sort(key=lambda x: (x,'page' not in x)) #sort according to page number
 
+#scraping starts here
     for page_url in connected_pages:
         response = requests.get(page_url)
         if response.status_code == 200:
