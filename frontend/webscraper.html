@@ -24,14 +24,15 @@
     function num_of_submissions(){
       counter+=1
     }
-		function sidebar_open() {
+		
+    function sidebar_open() {
 			document.getElementById("sidebarMenu").style.width = "100%";
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
 			document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
 		}
-
-		function sidebar_close() {
+		
+    function sidebar_close() {
 			document.getElementById("sidebarMenu").style.width = "0%";
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
 			document.getElementById("left-bar-slider").style.margin = "0";
@@ -79,7 +80,6 @@
       })
     }
         
-       
     function update_content_box(elements,content,num_of_elements) {
       if (content.includes('<input type="checkbox" class="checkboxed" name="checkbox"')) {
         gettingElements()
@@ -122,20 +122,10 @@
       $("input:checkbox[name=checkbox]:not(:checked)").each(function(){
           unselectedElements.push($(this).val());
       });
-      // console.log(unselectedElements);
-      //   unique = []
-      //   for(item of elements) { 
-      //       if(!unique.includes(item[0])) {
-      //           unique.push(item[0])
-      //       }
-      //   }
-      //   num_of_elements = unique.length
         $(".content-box").addClass("display");
     }
-    
 
     function appendCheckbox(num_of_elements) {
-      console.log("noo")
       content =''
       for (let i = 0; i < num_of_elements; i++) {
         content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
@@ -158,7 +148,6 @@
       $('.checkboxed').remove();
       $('label').remove();
       $('.btn').not('#submitBtn').remove();
-    
       content =''
       for (let i = 0; i < num_of_elements; i++) {
         content += ` <input type="checkbox" class="checkboxed" name="checkbox" value="${unique[i]}" checked onClick="update_content_box(elements,content)">
@@ -232,7 +221,7 @@
     <div class="sidebar-sticky">
         </div>
         <div class="text-center">
-        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold">
+        <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold" onclick="window.location.href='addapi.html'">
             Add API <i class="fa-solid fa-circle-plus"></i>
         </button>
     </div>
@@ -261,6 +250,7 @@
     <main>
         <div class="content">
             <div class="options">
+                <a class="fw-bold" href="javascript:history.back()" id="back"><i class="fa-solid fa-arrow-left"></i></a>
                 <a class="fw-bold" href="textarea.html">Text Area</a>
                 <a class="fw-bold" href="fileupload.html">File Upload</a>
                 <a class="active fw-bold" href="webscraper.html">Web Scraper</a>

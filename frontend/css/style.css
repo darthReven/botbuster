@@ -198,6 +198,12 @@ main {
     font-size: 15px;
 }
 
+.options #back {
+    color: black;
+    box-shadow: none;
+    font-size: 15px;
+}
+
 form {
     padding: 20px 100px;
 }
@@ -211,6 +217,24 @@ form {
     border-radius: 15px;
 }
   
+.count {
+    position: absolute;
+    display:inline-flex;
+    right:100px;
+    font-size:1vw;
+  }
+
+.count div {
+    display:inline-flex;
+}
+
+.count div:last-child {
+    margin-left:16px;
+}
+
+.count div p {
+    margin-left:8px;
+}
     .checkbox{
     display: block;
     }

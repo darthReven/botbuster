@@ -1,0 +1,86 @@
+{
+    "GPTZero": {
+        "0": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.00025959472986869514,
+                    "overall_burstiness": 0,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.11111110864197533,
+                            "num_sentences": 1,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 1,
+                            "sentence": "hello",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-06-30"
+        }
+    },
+    "Writer": {
+        "0": [
+            {
+                "label": "fake",
+                "score": 0.7374622225761414
+            },
+            {
+                "label": "real",
+                "score": 0.26253771781921387
+            }
+        ]
+    },
+    "Sapling AI": {
+        "0": {
+            "score": 0.13566899299621582,
+            "sentence_scores": [
+                {
+                    "score": NaN,
+                    "sentence": "hello"
+                }
+            ],
+            "text": "hello"
+        }
+    },
+    "Hugging Face": {
+        "0": {
+            "data": [
+                [
+                    {
+                        "Real": 0.5058364868164062,
+                        "Fake": 0.49416351318359375
+                    },
+                    [
+                        [
+                            0.5058364868164062,
+                            5
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.018779754638671875,
+            "average_duration": 1.0659367235180155
+        }
+    },
+    "Misinformation Placeholder": "Error Detecting",
+    "Misinformation Placeholder 2": "Error Detecting",
+    "Moderate Hate Speech": {
+        "0": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999150037765503"
+        }
+    },
+    "Hate Placeholder 2": "Error Detecting"
+}
