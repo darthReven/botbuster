@@ -45,7 +45,7 @@ import model.text as text_utils
 # setting file paths for configuration files
 CONFIG_FILE_PATH = r"config\config.json"
 API_FILE_PATH = r"config\api.json"
-RESULTS_FILE_PATH = r"config\results.json"
+RESULTS_FILE_PATH = r"config\result.json"
 # setting file path to tesseract
 pytesseract.pytesseract.tesseract_cmd = r"Tesseract-OCR\tesseract.exe"
 
@@ -252,12 +252,12 @@ def extract_text(file: UploadFile):
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
     return text
 
-# getting graph data
-@botbuster.post("/graph/")
-def web_scraping(request: ds.gen_graph):
-    general_score = request.dict()["general_score"]
-    sentence_score = request.dict()["sentence_score"]
-    graph.generate_graph(general_score)
+# # getting graph data
+# @botbuster.post("/graph/")
+# def web_scraping(request: ds.gen_graph):
+#     general_score = request.dict()["general_score"]
+#     sentence_score = request.dict()["sentence_score"]
+#     graph.generate_graph(general_score)
 
 # load baseline APIs to api.json file
 with open(CONFIG_FILE_PATH, "r") as config_file:
