@@ -45,7 +45,7 @@
             "score": 0.13566899299621582,
             "sentence_scores": [
                 {
-                    "score": NaN,
+                    "score": 0,
                     "sentence": "hello"
                 }
             ],
