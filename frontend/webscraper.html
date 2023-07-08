@@ -197,7 +197,9 @@
                 }
                 const byteArray = new Uint8Array(byteNumbers);
                 document.getElementById(`${data[`${apiCategory}`][key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-                $('#loading').hide(); // Hide loading
+                window.setTimeout(function(){
+                    $('#loading').hide(); // Hide loading
+                }, 250);
               }
             }
           }
@@ -238,7 +240,7 @@
           </button>
           <div class="collapse navbar-collapse ms-auto" id="navbarText">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <button type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
+                <button id="home" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
                     Home
                 </button>
                 <button id="get-started" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='textarea.html'">
@@ -259,10 +261,14 @@
             <div id="fileForm" class="form-group" style ="padding: 20px 100px">
                     <style>
                       .arrow-button {
-                        background-color: #BCBCBC;
-                        border: none;
+                        background-color: #E9ECEF;
+                        border: 1px solid #ced4da;;
                         padding: 0.5rem 3rem ;
                         cursor: pointer;
+                      }
+                      .arrow-button:hover {
+                        border: 1px solid #ced4da;
+                        background-color: #DDE0E3;
                       }          
                       .arrow-button i {
                         color: black;

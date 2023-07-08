@@ -1,22 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
+
 body {
-    font-family: 'Lato', sans-serif !important;
+    font-family: 'Ubuntu', sans-serif !important;
     background-color: #DEDEDE;
 }
 
 #main-page-nav {
-    padding: 0.5rem 0 30vh 0rem;
     transition:0.2s;
 }
 
 #main-page-brand {
-    position: absolute;
-    left: 50%;
-    bottom: 0%;
-    transform: translate(-50%, 10%);
-    font-size: 128px;
-    letter-spacing: 20px;
-    text-transform: uppercase;
-    transition:0.2s;
+    font-size: 20px;
 }
 
 .navbar {
@@ -29,6 +23,16 @@ body {
       0 8px 8px hsl(0deg 0% 0% / 0.075),
       0 16px 16px hsl(0deg 0% 0% / 0.075)
     ;
+}
+
+.navbar-brand {
+    font-family: 'Lato', sans-serif;
+    transition: ease 0.25s;
+}
+
+.navbar-brand:hover {
+    color: #313638!important;
+    font-size:22px;
 }
 
 .navbar-brand img {
@@ -46,6 +50,9 @@ body {
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
     width: 25%;
     z-index: 99;
+    animation: fadeInAnimation ease 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 .list-group-item {
@@ -91,6 +98,15 @@ body {
 
 #add-api {
     background-color: #E9EEF2;
+    transition: ease 0.15s; 
+}
+
+#add-api:hover {
+    background: #E9EEF2;
+    box-shadow: 0px 0px 0px #cdd1d5,
+                0px 0px 0px #ffffff,
+                inset 6px 6px 11px #cbcfd3,
+                inset -6px -6px 11px #ffffff;
 }
 
 .form-btn {
@@ -101,6 +117,18 @@ body {
     box-shadow:
         4px 4px 4px hsl(0deg 0% 0% / 0.075),
         -4px -4px 4px hsla(0, 0%, 100%, 0.42)
+    ;
+}
+
+.form-btn:hover {
+    text-decoration: none !important;
+    color: #E9EEF2 !important;
+    border-radius: 15px !important;
+    background-color: #4A8DB7 !important;
+    box-shadow: 0px 0px 0px hsl(0deg 0% 0% / 0.075),
+                0px 0px 0px hsla(0, 0%, 100%, 0.42),
+                inset 6px 6px 12px #407b9f,
+                inset -6px -6px 12px #549fcf;
     ;
 }
 
@@ -122,7 +150,16 @@ body {
         4px 4px 4px hsl(0deg 0% 0% / 0.055),
         -4px -4px 4px hsla(0, 0%, 100%, 0.12)
     ;
+    transition: ease 1.5s;
 }
+
+[type=reset]:hover {
+    box-shadow: 0px 0px 0px #cdd1d5,
+                0px 0px 0px #ffffff,
+                inset 5px 5px 15px #cfd4d7,
+                inset -5px -5px 15px #ffffff;  
+}
+
 
 /*
 .result-display {
@@ -132,12 +169,37 @@ body {
 }
 */
 
+#home {
+    background: #E9EEF2;
+    box-shadow:  7px 7px 14px #cdd1d5,
+                -7px -7px 14px #ffffff;
+    transition: ease 0.15s;  
+}
+
+#home:hover {
+    background: #E9EEF2;
+    box-shadow: 0px 0px 0px #cdd1d5,
+                0px 0px 0px #ffffff,
+                inset 5px 5px 15px #cfd4d7,
+                inset -5px -5px 15px #ffffff;   
+}
+
+
 #get-started {
     color: #E9EEF2 !important;
     background-color: #3B7197;
-    box-shadow:
-        4px 4px 4px hsla(200, 42%, 35%, 0.40),
-        -4px -4px 4px hsla(0, 0%, 100%, 0.22)
+    box-shadow: 4px 4px 4px hsla(200, 42%, 35%, 0.40),
+                -4px -4px 4px hsla(0, 0%, 100%, 0.22)
+    ;
+    transition: ease 0.15s;  
+}
+
+#get-started:hover {
+    background-color: #3B7197;
+    box-shadow: 0px 0px 0px hsla(200, 42%, 35%, 0.40),
+                0px 0px 0px hsla(0, 0%, 100%, 0.22),
+                inset 6px 6px 11px #2c5470,
+                inset -6px -6px 11px #4a8ebe;
     ;
 }
 
@@ -151,6 +213,9 @@ main {
     position:absolute;
     left:25%;
     width:75%;
+    animation: fadeInAnimation ease 0.3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 #main-page-content {
@@ -188,20 +253,34 @@ main {
 }
 
 .options .active {
-	color: #3B7179;
+	color: #075384;
     box-shadow: inset 0 -3px 0 #3B7197;
 }
 
+.options a:hover:not(.active) {
+    box-shadow: inset 0 -3px 0 #4A80D0;
+}
+
 .options #settings {
-    color: black;
+    color: #313638;
     box-shadow: none;
     font-size: 15px;
 }
 
 .options #back {
-    color: black;
+    color: #313638;
     box-shadow: none;
     font-size: 15px;
+}
+
+.options #settings:hover {
+    color: black;
+    font-size: 17px;
+}
+
+.options #back:hover {
+    color: black;
+    font-size: 17px;
 }
 
 form {
@@ -327,7 +406,7 @@ form {
 }
 
 .sphere:hover {
-	animation-play-state: paused;
+	cursor: default;
 }
 
 @keyframes spin {
@@ -652,14 +731,8 @@ form {
 
 /* Responsiveness */
 @media only screen and (max-width: 991.5px) {
-    #main-page-brand {
-        font-size: 92px;
-    }
     #sphere-container {
         z-index: 200 !important;
-    }
-    #main-page-nav {
-        padding: 0.5rem 0 22vh 0rem;
     }
     .sphere {
         margin-top: 130px;
@@ -683,16 +756,36 @@ form {
     .sidebarimg {
         text-align: right;
     }
-    #main-page-brand {
-        font-size: 52px;
-    }
-    #main-page-nav {
-        padding: 0.5rem 0 15vh 0rem;
-    }
     #add-api {
         display: none;
     }
     .sphere {
         margin-top: 70px;
     }
+}
+
+/* Animations */
+.tracking-in-expand{-webkit-animation:tracking-in-expand .7s cubic-bezier(.215,.61,.355,1.000) both;animation:tracking-in-expand .7s cubic-bezier(.215,.61,.355,1.000) both}
+@-webkit-keyframes tracking-in-expand{0%{letter-spacing:-.5em;opacity:0}40%{opacity:.6}100%{opacity:1}}@keyframes tracking-in-expand{0%{letter-spacing:-.5em;opacity:0}40%{opacity:.6}100%{opacity:1}}
+
+.fade-in-bck{-webkit-animation:fade-in-bck .6s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in-bck 0.9s cubic-bezier(.39,.575,.565,1.000) both}
+@-webkit-keyframes fade-in-bck{0%{-webkit-transform:translateZ(80px);transform:translateZ(80px);opacity:0}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}@keyframes fade-in-bck{0%{-webkit-transform:translateZ(80px);transform:translateZ(80px);opacity:0}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}
+
+
+.fade-in-bck-simple{-webkit-animation:fade-in-bck-simple .6s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in-bck-simple 0.5s cubic-bezier(.39,.575,.565,1.000) both}
+@-webkit-keyframes fade-in-bck-simple{0%{-webkit-transform:translateZ(80px);transform:translateZ(80px);opacity:0}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}@keyframes fade-in-bck-simple{0%{-webkit-transform:translateZ(80px);transform:translateZ(80px);opacity:0}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}
+
+.fade-in-bck-load{-webkit-animation:fade-in-bck-load .2s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in-bck-load .2s cubic-bezier(.39,.575,.565,1.000) both}
+@-webkit-keyframes fade-in-bck-load{0%{-webkit-transform:translateZ(80px);transform:translateZ(80px);opacity:0}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}@keyframes fade-in-bck-load{0%{-webkit-transform:translateZ(80px);transform:translateZ(80px);opacity:0}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}
+
+.fade-out-bck-load{-webkit-animation:fade-out-bck-load .7s cubic-bezier(.25,.46,.45,.94) both;animation:fade-out-bck-load .7s cubic-bezier(.25,.46,.45,.94) both}
+@-webkit-keyframes fade-out-bck-load{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}@keyframes fade-out-bck-load{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
 }

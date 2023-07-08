@@ -104,7 +104,10 @@
                 }
                 const byte_array = new Uint8Array(byte_numbers);
                 document.getElementById(`${data[`${api_category}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
-                $('#loading').hide(); // Hide loading
+                window.setTimeout(function(){
+                    $('#loading').hide(); // Hide loading
+                }, 250);
+                
               }
             }
           }
@@ -144,7 +147,7 @@
   <!-- Sidebar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold ms-4" href="index.html">
+        <a class="navbar-brand fw-bold ms-4 fade-in-bck-simple" href="index.html">
           <img src="images/logo.png" alt="Logo" class="me-3">BotBuster
         </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,10 +155,10 @@
       </button>
       <div class="collapse navbar-collapse ms-auto" id="navbarText">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <button type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
+          <button id="home" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold fade-in-bck-simple" onclick="window.location.href='index.html'">
               Home
           </button>
-          <button id="get-started" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='textarea.html'">
+          <button id="get-started" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold fade-in-bck-simple" onclick="window.location.href='textarea.html'">
               Get Started <i class="fa-solid fa-arrow-right"></i>
           </button>
       </div>

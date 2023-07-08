@@ -63,7 +63,9 @@
                 }
                 const byte_array = new Uint8Array(byte_numbers);
                 document.getElementById(`${data[`${api_category}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
-                $('#loading').hide(); // Hide loading
+                window.setTimeout(function(){
+                    $('#loading').hide(); // Hide loading
+                }, 250);
               }
             }
           }
@@ -121,7 +123,7 @@
           </button>
           <div class="collapse navbar-collapse ms-auto" id="navbarText">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <button type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
+                <button id="home" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='index.html'">
                     Home
                 </button>
                 <button id="get-started" type="button" class="btn btn-link px-5 py-2 me-4 navbar-btn fw-bold" onclick="window.location.href='textarea.html'">
