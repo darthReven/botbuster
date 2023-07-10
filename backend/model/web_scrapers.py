@@ -1,6 +1,7 @@
 # social media scraper moduels
 import asyncio
 import pyppeteer
+from pyppeteer import launch
 import os
 # generic webscraper modules
 import requests
@@ -64,13 +65,15 @@ def get_chrome_path():
 async def scraper(elements, page_url):
     print("getting chrome path")
     chrome_path = get_chrome_path()
-    print(chrome_path)
-    browser = await pyppeteer.launch(
+    cookies = os.path.join(os.getcwd(), 'scraper_cookies')
+    print(cookies)
+    browser = await launch(
         headless=False,
         handleSIGINT=False,
         handleSIGTERM=False,
         handleSIGHUP=False,
-        executablePath=chrome_path
+        executablePath=chrome_path,
+        userDataDir=cookies
     )
     page = await browser.newPage()
     await page.goto(page_url)
