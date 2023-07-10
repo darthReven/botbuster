@@ -211,7 +211,9 @@ def web_scraping(request: ds.web_scraper):
         asyncio.set_event_loop(loop) # set created loop as the active one
         items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
-        items = ws.genericScraper(scraping_data["elements"], page_url)
+        url = scraping_data["url"]
+        splitter = scraping_data["splitter"]
+        items = ws.genericScraper(scraping_data["elements"], page_url, url, splitter)
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
     return items

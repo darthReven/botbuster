@@ -95,17 +95,18 @@ async def scraper(elements, page_url):
     return unique_items
 
 # generic webscraper
-def genericScraper(list_of_elements: list, page_url):
+def genericScraper(list_of_elements: list, page_url, url, splitter):
     sys.stdout.reconfigure(encoding='utf-8')  # so that other languages can be printed
     extracted_text = []
     connected_pages = [page_url]
-    base_url = page_url.rstrip('/')
-    page = base_url.rsplit('/', 1)[-1] #find which page this is
-    if "page-" not in page: #if current page is the first page
+    base_url = page_url.rstrip(splitter)
+    page_param = page_url.rsplit(splitter, 1)[-1] #find which page this is
+    if "page" not in page_param: #if current page is the first page
           # Check for connected pages starting from page 2
             page_num = 2
             while True:
-                page_url = f"{base_url}/page-{page_num}"
+                page_param = url.replace("*",str(page_num))
+                page_url = f"{base_url}{splitter}{page_param}"
                 response = requests.get(page_url)
                 if response.status_code == 200:
                     # Check if the URL has changed due to redirection
@@ -113,21 +114,24 @@ def genericScraper(list_of_elements: list, page_url):
                     if new_url != page_url:
                         break  # Break the loop if the URL remains the same after redirection
                     connected_pages.append(page_url)
+                    page_num = int(page_num)
                     page_num += 1
+                  
                 else:
                     break
     else:
-        base_url = page_url.rstrip('/')
-        first_page = base_url.rsplit('/', 1)[0] #get first page
-        
+        base_url = page_url.rstrip(splitter)
+        first_page = base_url.rsplit(splitter, 1)[0] #get first page
         connected_pages.append(first_page)
-        page_num = int(page.rsplit('-', 1)[-1])+1
+        page_num_param = page_url.split(splitter)[-1]
+        page_num = "".join(filter(str.isdigit, page_num_param))
         num_of_loops = 0
         while True: #check for pages after current page
                 num_of_loops += 1 #to get the original page number later on
-                last_slash_index = base_url.rfind('/')
+                last_slash_index = base_url.rfind(splitter)
                 page_url = base_url[:last_slash_index]
-                page_url = f"{page_url}/page-{page_num}" #replace page number in url with the new one
+                page_param = url.replace("*",str(page_num))
+                page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
                 response = requests.get(page_url)
                 if response.status_code == 200:
                     # check if the URL has changed due to redirection
@@ -137,7 +141,8 @@ def genericScraper(list_of_elements: list, page_url):
                         while True:
                             last_slash_index = base_url.rfind('/')
                             page_url = base_url[:last_slash_index]
-                            page_url = f"{page_url}/page-{page_num}" #replace page number in url with the new one
+                            page_param = url.replace("*",str(page_num))
+                            page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
                             response = requests.get(page_url)
                             if response.status_code == 200:                              
                                 # check if the URL has changed due to redirection
@@ -145,16 +150,19 @@ def genericScraper(list_of_elements: list, page_url):
                                 if new_url != page_url:
                                     break  # break the loop if the URL remains the same after redirection
                                 connected_pages.append(page_url)
+                                page_num = int(page_num)
                                 page_num -= 1                     
                             else:
                                 break
                         break
                     connected_pages.append(page_url)
+                    page_num = int(page_num)
                     page_num += 1
                 else:
                     break
     
     connected_pages.sort(key=lambda x: (x,'page' not in x)) #sort according to page number
+    print(connected_pages)
 
 #scraping starts here
     for page_url in connected_pages:
@@ -180,8 +188,7 @@ def genericScraper(list_of_elements: list, page_url):
             extracted_text = [[element_type, text] for element_type, text, *_ in extracted_text] 
         else:
             raise HTTPException(status_code=400, detail="Target website could not be scraped due to errors on that website, please check the URL again.")
-    
-        
+   
     return extracted_text
 
 
