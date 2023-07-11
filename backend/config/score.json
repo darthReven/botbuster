@@ -1,0 +1,39 @@
+{
+    "overall_score": {
+        "AIGCD APIs": 0,
+        "Misinformation APIs": 0,
+        "Hate Speech APIs": 0
+    },
+    "1": {
+        "general_score": {
+            "AIGCD APIs": {
+                "GPTZero": 100.0,
+                "overall_score": 8.3,
+                "Writer": 8.3,
+                "Sapling AI": "error getting score"
+            },
+            "Misinformation APIs": {},
+            "Hate Speech APIs": {
+                "Moderate Hate Speech": 100.0,
+                "overall_score": 100.0
+            }
+        },
+        "sentence_score": []
+    },
+    "2": {
+        "general_score": {
+            "AIGCD APIs": {
+                "GPTZero": 0.0,
+                "overall_score": 27.4,
+                "Writer": 46.4,
+                "Sapling AI": "error getting score"
+            },
+            "Misinformation APIs": {},
+            "Hate Speech APIs": {
+                "Moderate Hate Speech": 100.0,
+                "overall_score": 100.0
+            }
+        },
+        "sentence_score": []
+    }
+}

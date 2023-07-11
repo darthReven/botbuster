@@ -7,11 +7,10 @@ var port = 3001;
 var app = express();
 
 app.use(function(req, res, next){
-    console.log(req.url);
-    console.log(req.method);
-    console.log(req.path);
-    console.log(req.query.id);
-
+    // console.log(req.url);
+    // console.log(req.method);
+    // console.log(req.path);
+    // console.log(req.query.id);
     if(req.method != "GET"){
         res.type('.html');
         var msg = "<html><body>This server only serves GET requests</body></html>";
@@ -22,11 +21,8 @@ app.use(function(req, res, next){
     }
 });
 
-
 app.use(serveStatic(__dirname+"/public"));
 
-
 app.listen(port, hostname, function(){
-
     console.log(`Server hosted at http://${hostname}:${port}`);
 });
