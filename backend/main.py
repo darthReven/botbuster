@@ -89,8 +89,6 @@ def check_text(request: ds.check_text):
         try:
             full_results[f"{api}"] = {}
             for num, text in enumerate(list_of_texts):
-                # for sentence in text_utils.chunk_by_sentences(text[0]):
-                #     temp_score["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
                 results = API(api_data[f"{api_category}"][f"{api}"]).api_call(text[0])
                 full_results[f"{api}"][num] = results
                 if api_num == 0:
@@ -98,6 +96,8 @@ def check_text(request: ds.check_text):
                         "general_score": {api_category : {} for api, api_category in list_of_apis},
                         "sentence_score": []  # keeping a score for each sentence  
                     }
+                    for sentence in text_utils.chunk_by_sentences(text[0]):
+                        scores[num + 1]["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
         except Exception:
             full_results[f"{api}"] = "Error Detecting"
             continue
@@ -105,6 +105,8 @@ def check_text(request: ds.check_text):
             # checking for general score 
             for req_num in full_results[f"{api}"].keys():
                 path = config_data["path_to_general_score"][api] # get the path
+                if api == "Hugging Face":
+                    print("test")
                 results = full_results # set the results to loop through
                 for key in path.split('.'): # loop through each key in the path to general score
                     if key == "num":
@@ -113,6 +115,8 @@ def check_text(request: ds.check_text):
                         key = int(key)
                     try: 
                         results = results[key] # try to path to the score
+                        if results == "Error Detecting":
+                            scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = "error detecting" 
                         scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = round(float(results) * 100,1) # appends general score to the dictionary
                         total_score[f"{api_category}"]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
                         total_score[f"{api_category}"]["num_apis"] += 1 # sums the number of APIs in the category
