@@ -99,15 +99,15 @@ def check_text(request: ds.check_text):
                     for sentence in text_utils.chunk_by_sentences(text[0]):
                         scores[num + 1]["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
         except Exception:
-            full_results[f"{api}"] = "Error Detecting"
+            full_results[f"{api}"][num] = "Error Detecting"
             continue
         try:
             # checking for general score 
             for req_num in full_results[f"{api}"].keys():
-                path = config_data["path_to_general_score"][api] # get the path
-                if api == "Hugging Face":
-                    print("test")
                 results = full_results # set the results to loop through
+                if results == "Error Detecting":
+                    scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = "error detecting" 
+                path = config_data["path_to_general_score"][api] # get the path
                 for key in path.split('.'): # loop through each key in the path to general score
                     if key == "num":
                         key = f"{req_num}"
@@ -115,8 +115,6 @@ def check_text(request: ds.check_text):
                         key = int(key)
                     try: 
                         results = results[key] # try to path to the score
-                        if results == "Error Detecting":
-                            scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = "error detecting" 
                         scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = round(float(results) * 100,1) # appends general score to the dictionary
                         total_score[f"{api_category}"]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
                         total_score[f"{api_category}"]["num_apis"] += 1 # sums the number of APIs in the category
@@ -220,7 +218,9 @@ def web_scraping(request: ds.web_scraper):
         asyncio.set_event_loop(loop) # set created loop as the active one
         items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
-        items = ws.genericScraper(scraping_data["elements"], page_url)
+        url = scraping_data.get("url", None)
+        splitter = scraping_data.get("splitter", None)
+        items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
     return items

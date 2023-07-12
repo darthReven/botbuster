@@ -155,9 +155,15 @@
             "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         }
     },
-    "Hugging Face": "Error Detecting",
-    "Misinformation Placeholder": "Error Detecting",
-    "Misinformation Placeholder 2": "Error Detecting",
+    "Hugging Face": {
+        "0": "Error Detecting"
+    },
+    "Misinformation Placeholder": {
+        "0": "Error Detecting"
+    },
+    "Misinformation Placeholder 2": {
+        "0": "Error Detecting"
+    },
     "Moderate Hate Speech": {
         "0": {
             "response": "Success",
@@ -170,5 +176,7 @@
             "confidence": "0.9999213218688965"
         }
     },
-    "Hate Placeholder 2": "Error Detecting"
+    "Hate Placeholder 2": {
+        "0": "Error Detecting"
+    }
 }
