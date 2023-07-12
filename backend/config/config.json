@@ -138,15 +138,21 @@
         },
         "www.bbc.com": {
             "elements": ["p.ssrcss-1q0x1qg-Paragraph eq5iqo00"],
-            "func": "gws"
+            "func": "gws",
+            "url": "",
+            "splitter": "/"
         },
         "www.channelnewsasia.com": {
             "elements": ["p","h2","h1.h1--page-title"],
-            "func": "gws"
+            "func": "gws",
+            "url": "",
+            "splitter": "/"
         },
         "theindependent.sg": {
             "elements": ["p","h2.tdb-title-text"],
-            "func": "gws"
+            "func": "gws",
+            "url": "",
+            "splitter": "/"
         },
         "twitter.com": {
             "elements": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"],
@@ -162,7 +168,9 @@
         },
         "default": {
             "elements": ["p","h1","h2","h3","h4","h5","h6","div","span"],
-            "func": "gws"
+            "func": "gws",
+            "url": "",
+            "splitter": "/"
         }
     }
 }
