@@ -107,15 +107,15 @@
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
     "path_to_general_score": {
-        "GPTZero": "GPTZero.documents.0.average_generated_prob",
-        "Writer": "Writer.1.score",
-        "Sapling AI": "Sapling AI.score",
-        "Hugging Face": "Hugging Face.data.0.0.Fake",
-        "Moderate Hate Speech": "Moderate Hate Speech.confidence"
+        "GPTZero": "GPTZero.num.documents.0.average_generated_prob",
+        "Writer": "Writer.num.1.score",
+        "Sapling AI": "Sapling AI.num.score",
+        "Hugging Face": "Hugging Face.num.data.0.0.Fake",
+        "Moderate Hate Speech": "Moderate Hate Speech.num.confidence"
     } ,
     "path_to_sentence_score": {
-        "GPTZero": ["GPTZero.documents.0.sentences", "generated_prob"],
-        "Sapling AI": ["Sapling AI.sentence_scores", "score"]
+        "GPTZero": ["GPTZero.num.documents.0.sentences", "generated_prob"],
+        "Sapling AI": ["Sapling AI.num.sentence_scores", "score"]
     },
     "website_configs": {
         "forums.hardwarezone.com.sg": {
