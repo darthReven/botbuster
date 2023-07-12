@@ -127,6 +127,12 @@
             wordCount.textContent = txt.split(/\s+/).filter((item) => item).length;
         });
     }); 
+    function resetCount (){
+        let characCount = document.getElementById("charac-count");
+        let wordCount = document.getElementById("word-count");
+        characCount.textContent = "0"
+        wordCount.textContent = "0"
+    }
 	</script>
 </head>
 <body>
@@ -173,14 +179,13 @@
             <a class="fw-bold" href="webscraper.html">Web Scraper</a>
             <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
         </div>
-        <div class="form-group" style ="padding: 20px 100px">
+        <form class="form-group" style ="padding: 20px 100px">
           <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
+            <div class="text-center">
+            <button type="submit" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
                 Submit
             </button>
-            <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+            <button type="reset" class="btn btn-link px-4 py-3 my-5 mx-2 fw-bold pull-right navbar-btn" onclick=resetCount()>
                 <i class="fa-solid fa-arrows-rotate"></i>
             </button>
             <div class="count">
@@ -194,6 +199,8 @@
                 </div>
               </div>
                 </div>
+        </form>
+        
 
             <!-- Footer -->
   <footer class="text-center text-lg-start bg-white text-muted">

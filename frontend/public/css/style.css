@@ -639,6 +639,10 @@ form {
     height: calc(100vh - 325px - 58px);
 }
 
+.hidden {
+    display: none;
+}
+
 .content-box .row{
     background-color: #FFFFFF;
     margin: 0;

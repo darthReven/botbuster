@@ -47,32 +47,32 @@
       if (apiinfo == null || text == null || results == null) {
         history.back()
       }
-      for (let i = 0; i < results["sentence_score"].length; i++) {
-        var sentence = Object.keys(results["sentence_score"][i])
-        if (results["sentence_score"][i][sentence]["highlight"] == 0) {
+      for (let i = 0; i < results["1"]["sentence_score"].length; i++) {
+        var sentence = Object.keys(results["1"]["sentence_score"][i])
+        if (results["1"]["sentence_score"][i][sentence]["highlight"] == 0) {
           $("#text-area").append(`${sentence[0]}`)
         } else {
           $("#text-area").append(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
-          var colour = highlightText(results["sentence_score"][i][sentence]["highlight"])
+          var colour = highlightText(results["1"]["sentence_score"][i][sentence]["highlight"])
           var sentenceelement = document.getElementById(`sentence-${i}`)
           sentenceelement.style.backgroundColor = String(colour)
         }
       }
-      numCategories = Object.keys(results["general_score"]).length
+      numCategories = Object.keys(results["1"]["general_score"]).length
       columnNumber = 12 / numCategories
       if(columnNumber < 4) {
         columnNumber = 4
       }
       threshold = 50 // HARDCODED (CHANGE LATER IN SETTINGS)
       passedThershold = 0
-      for (i in Object.keys(results["general_score"])) {
-        var apiCategory = Object.keys(results["general_score"])[i]
+      for (i in Object.keys(results["1"]["general_score"])) {
+        var apiCategory = Object.keys(results["1"]["general_score"])[i]
         $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
         $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
-        for (const key in results["general_score"][apiCategory]) {
+        for (const key in results["1"]["general_score"][apiCategory]) {
             if(key != "overall_score") {
                 $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`
-                <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["general_score"][apiCategory][key]}">${results["general_score"][apiCategory][key]}</span></div></div></div>`)
+                <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["1"]["general_score"][apiCategory][key]}">${results["1"]["general_score"][apiCategory][key]}</span></div></div></div>`)
                 if (apiinfo[`${apiCategory}`][key][1] != undefined){ 
                     const byte_characters = atob(apiinfo[`${apiCategory}`][key][1]);
                     const byte_numbers = new Array(byte_characters.length);
@@ -90,12 +90,12 @@
                 resultelement.style.color = String(new_colour)
             }
         }
-        if(Object.keys(results["general_score"][apiCategory]).length === 0) {
+        if(Object.keys(results["1"]["general_score"][apiCategory]).length === 0) {
             $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>NIL</div>`)
         }
         else {
-            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["general_score"][apiCategory]['overall_score']}%</div>`)
-            if (results["general_score"][apiCategory]['overall_score'] >= threshold) {
+            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["1"]["general_score"][apiCategory]['overall_score']}%</div>`)
+            if (results["1"]["general_score"][apiCategory]['overall_score'] >= threshold) {
                 passedThershold += 1
             }
         }

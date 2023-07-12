@@ -51,7 +51,7 @@ def generate_graph(data):
                     yaxis_title = 'Score',
                     yaxis_range=[0, 100])
     
-    pio.write_html(fig, file = '../frontend/graph.html', full_html = False)
+    pio.write_html(fig, file = '../../frontend/public/graph.html', full_html = False)
 
 
 
