@@ -98,7 +98,7 @@ async def scraper(elements, page_url):
     return unique_items
 
 # generic webscraper
-def genericScraper(list_of_elements: list, page_url, url, splitter):
+def generic_scraper(list_of_elements: list, page_url, url, splitter):
     sys.stdout.reconfigure(encoding='utf-8')  # so that other languages can be printed
     extracted_text = []
     connected_pages = [page_url]
