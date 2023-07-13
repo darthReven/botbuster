@@ -47,17 +47,42 @@
       if (apiinfo == null || text == null || results == null) {
         history.back()
       }
-      for (let i = 0; i < results["1"]["sentence_score"].length; i++) {
-        var sentence = Object.keys(results["1"]["sentence_score"][i])
-        if (results["1"]["sentence_score"][i][sentence]["highlight"] == 0) {
-          $("#text-area").append(`${sentence[0]}`)
-        } else {
-          $("#text-area").append(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
-          var colour = highlightText(results["1"]["sentence_score"][i][sentence]["highlight"])
-          var sentenceelement = document.getElementById(`sentence-${i}`)
-          sentenceelement.style.backgroundColor = String(colour)
+      content = `
+        <div class="row text-center">
+            <div class="col-3 px-3">
+                Categories
+            </div>
+            <div class="col-9 px-3">
+                Requests
+            </div>
+        </div>
+        `
+        for (let response = 1; response < Object.keys(results).length; response++) {
+            response_num = String(response)
+            textCollection = []
+            for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
+                var sentence = Object.keys(results[response_num]["sentence_score"][i])
+                if (results[response_num]["sentence_score"][i][sentence]["highlight"] == 0) {
+                textCollection.push(`${sentence[0]}`)
+                } else {
+                textCollection.push(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
+                var colour = highlightText(results[response_num]["sentence_score"][i][sentence]["highlight"])
+                var sentenceelement = document.getElementById(`sentence-${i}`)
+                sentenceelement.style.backgroundColor = String(colour)
+                }
+            }
+            console.log(textCollection)
+            content += `
+                <div class="row">
+                    <div class="col-3 px-3 text-center">
+                        temp: response ${response_num}
+                    </div>
+                    <div class="col-9 px-3">
+                        ${textCollection.join(' ')}
+                    </div>
+                </div>
+            `
         }
-      }
       numCategories = Object.keys(results["1"]["general_score"]).length
       columnNumber = 12 / numCategories
       if(columnNumber < 4) {
@@ -100,6 +125,7 @@
             }
         }
         $("#aggregate_score").html(`${passedThershold}/${numCategories}`)
+        $('.content-box').html(content);
       }
       // $.ajax({
       //   url:"http://127.0.0.1:8000/graph/",
@@ -165,13 +191,13 @@
             <form>
                 <div class="form-group">
                   <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
-                    <span>
-                        <p>Aggregate Score</p>
-                        <h3 id="aggregate_score">1/3</h3>
-                    </span>
+                    <div class="embed-responsive embed-responsive-16by9"><iframe src="gauge.html" class="embed-responsive-item"></iframe>
+                    </div>
                     <div class="embed-responsive embed-responsive-16by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
                     </div>
                     <div class="row">
+                    </div>
+                    <div class="content-box my-4">
                     </div>
                   </div>
                 </div>

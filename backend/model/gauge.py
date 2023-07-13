@@ -5,10 +5,10 @@ import pandas as pd
 df = pd.DataFrame({'Category': ['AI-Generated Content', 'Hate Speech', 'Misinformation'],
                    'Scores': [80, 90, 30]})
 
-representation = 100 / len(df)
-values = [0, 0, 0] # R, O, G
-labels = ['Flagged', 'Potential Flag', 'Unflagged']
-hoverText = [[], [], []]
+representation = 70 / len(df)
+values = [0, 0, 0, 30] # R, O, G
+labels = ['Flagged', 'Potential Flag', 'Unflagged', ' ']
+hoverText = [[], [], [], []]
 
 for i, row in df.iterrows():
     score = row['Scores']
@@ -25,7 +25,10 @@ for i, row in df.iterrows():
 
 hoverTextFormatted = []
 for category in hoverText:
-    hoverTextFormatted.append("<br>".join(category))
+    if len(category) != 0:
+        hoverTextFormatted.append("Category(s):<br>" + "<br>".join(category) + "<extra></extra>")
+    else:
+        hoverTextFormatted.append(None)
 
 fig = go.Figure(data = [go.Pie(
     values = values,
@@ -36,9 +39,21 @@ fig = go.Figure(data = [go.Pie(
     sort = False,
     direction = "clockwise",
     textinfo = "none",
-    hovertemplate = 'Category(s):<br>%{customdata}<extra></extra>',
+    hovertemplate = '%{customdata}',
     showlegend = True
 )])
+
+fig.add_annotation(
+    text = "<b>Flagged:</b> {}<br><b>Potential Flag:</b> {}<br><b>Unflagged:</b> {}".format(
+        len(df[df['Scores'] >= 75]),
+        len(df[(df['Scores'] >= 50) & (df['Scores'] < 75)]),
+        len(df[df['Scores'] < 50])
+    ),
+    x = 0.5,
+    y = 0.5,
+    font = dict(size=12),
+    showarrow = False
+)
 
 fig.update_traces(marker = dict(colors=['#D2411A', '#E5801A', '#A3D23C', 'white'],
                   line = dict(color = 'white', width = 5)),
@@ -47,8 +62,8 @@ fig.update_traces(marker = dict(colors=['#D2411A', '#E5801A', '#A3D23C', 'white'
 fig.update_layout(
     legend = dict(
         orientation = "h",
-        x = 0.5,
-        y = -0.05,
+        x = 0.52,
+        y = 0.13,
         xanchor = 'center',
         yanchor = 'top'
     )

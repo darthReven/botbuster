@@ -596,10 +596,17 @@ form {
     position:absolute;
     bottom:40px;
     right:40px;
-    background-color: white;
+    background-color: #E9EEF2;
     border-radius:100%;
     height:160px;
-    width:160px
+    width:160px;
+    transition: ease 0.15s;
+}
+
+#find-out-more:hover {
+    background: #E9EEF2;
+    box-shadow: inset 14px 14px 28px #cfd4d7,
+                inset -14px -14px 28px #ffffff;
 }
 
 #slogan {
