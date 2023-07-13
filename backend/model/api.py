@@ -19,9 +19,11 @@ class API:
             response = requests.post(self.target, headers = self.header, json  = self.body)
             #if wrong/missing key, code runs - writer gives error
             #if wrong url, code runs - writer gives a "None"
+            assert response.code == 200
         except:
             return "Internal Server Error", 500
         else:
+            print(response)
             return response.json()
 
     def api_check(self):
