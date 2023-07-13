@@ -85,7 +85,6 @@
         contentType: "application/json; charset = utf-8",
         dataType: "json",
         success: function(data, textStatus, xhr) {
-          console.log(data)
           for (const api_category in data) {
             $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${api_category.replace(/\s/g, '-')}">`)
             $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${api_category}</div>`)
