@@ -75,57 +75,64 @@ def check_text(request: ds.check_text):
     total_score = {} # store score of each API before taking the average
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
-    with open(API_FILE_PATH, "r") as api_data_file: # load in API data from api file
-        api_data = json.load(api_data_file)
     # change this to the text chunking functions
     list_of_texts = text_utils.chunk(text, config_data["chunk_option"])    
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
-        total_score[f"{api_category}"] = {
+        total_score[api_category] = {
             "score": 0,
             "num_apis": 0,
         }
         
         print(api_num, [api, api_category])
         try:
-            full_results[f"{api}"] = {}
+            full_results[api] = {}
             for num, text in enumerate(list_of_texts):
-                results = API(api_data[f"{api_category}"][f"{api}"]).api_call(text[0])
-                full_results[f"{api}"][num] = results
+                results = API(config_data["APIs"][api_category][api]).api_call(text[0])
+                full_results[api][num] = results
                 if api_num == 0:
                     scores[num + 1] = {
-                        "general_score": {api_category : {} for api, api_category in list_of_apis},
+                        "general_score": {api_category : {
+                            "description": config_data["APIs"][api_category]["description"],
+                            "score_type": config_data["APIs"][api_category]["score_type"]
+                        } for api, api_category in list_of_apis},
                         "sentence_score": []  # keeping a score for each sentence  
                     }
                     for sentence in text_utils.chunk_by_sentences(text[0]):
-                        scores[num + 1]["sentence_score"].append({f"{sentence}": {"highlight": 0, "api": []}})
+                        scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
         except Exception:
-            full_results[f"{api}"][num] = "Error Detecting"
+            full_results[api][num] = "Error Detecting"
             continue
         try:
             # checking for general score 
-            for req_num in full_results[f"{api}"].keys():
+            for req_num in full_results[api].keys():
+                print(f"test {api}")
                 results = full_results # set the results to loop through
                 if results == "Error Detecting":
-                    scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = "error detecting" 
+                    scores[req_num + 1]["general_score"][api_category][api] = "error detecting" 
                 path = config_data["path_to_general_score"][api] # get the path
                 for key in path.split('.'): # loop through each key in the path to general score
-                    if key == "num":
-                        key = f"{req_num}"
-                    if key.isnumeric(): # if the key is numerical, convert it to an int
+                    if str(key).isnumeric(): # if the key is numerical, convert it to an int
                         key = int(key)
+                    if key == "num":
+                        key = req_num
                     try: 
+                        print(key, results)
                         results = results[key] # try to path to the score
-                        scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = round(float(results) * 100,1) # appends general score to the dictionary
-                        total_score[f"{api_category}"]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
-                        total_score[f"{api_category}"]["num_apis"] += 1 # sums the number of APIs in the category
-                        final_score = total_score[f"{api_category}"]["score"]/total_score[f"{api_category}"]["num_apis"] # gets the average score of all the APIs in each category
-                        scores[req_num + 1]["general_score"][f"{api_category}"]["overall_score"] = round(final_score,1) # appends the average score
+                        scores[req_num + 1]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
+                        total_score[api_category]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
+                        total_score[api_category]["num_apis"] += 1 # sums the number of APIs in the category
+                        final_score = total_score[api_category]["score"]/total_score[api_category]["num_apis"] # gets the average score of all the APIs in each category
+                        scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
                     except TypeError: # Type error will occur if the loop hasn't reached the score
+                        print("type error")
                         continue  # continue to the next key in the loop
                     except KeyError: # If there is an error with the path
-                        scores[req_num + 1]["general_score"][f"{api_category}"][f"{api}"] = "error getting score" 
+                        print('key error')
+                        scores[req_num + 1]["general_score"][api_category][api] = "error getting score" 
                     except Exception: # catch all other errors
+                        print('exception')
                         continue
+                    
                 # checking for sentence score
                 try:
                     path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
@@ -137,7 +144,7 @@ def check_text(request: ds.check_text):
                     for key in path1.split("."): # loops through each key in the path to sentence scores
                         try:
                             if key == "num":
-                                key = f"{req_num}"
+                                key = req_num
                             if key.isnumeric(): # if the key is numerical, convert it to an int
                                 key = int(key)
                             results = results[key] # try to path to the score
@@ -149,11 +156,14 @@ def check_text(request: ds.check_text):
                                 # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
                                 if results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name
                                     scores[req_num]["sentence_score"][num][key]["api"].append(api)
-                                    scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[f"{api_category}"]["num_apis"])
+                                    scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
                         except:
                             break
-        except KeyError:
-            pass
+            # for req_num in scores.key():
+            #     if not str(req_num).isnumeric():
+            #         continue
+            #     if scores[req_num]["general_score"][api_category]
+                    
         except Exception:
             continue
     with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
@@ -172,16 +182,16 @@ async def get_apis():
         with open(API_FILE_PATH, "r") as api_data_file:
             api_data = json.load(api_data_file) # grabs all API data from API config file
             for api_category in api_data.keys(): # loops through the API categories
-                api_info[f"{api_category}"] = {} # creates an empty dictionary for each category
+                api_info[api_category] = {} # creates an empty dictionary for each category
                 
-                for api in api_data[f"{api_category}"].keys(): # loops through all API in each category 
-                    api_info[f"{api_category}"][f"{api}"] = [api.lower().replace(" ", "")] # creates 
+                for api in api_data[api_category].keys(): # loops through all API in each category 
+                    api_info[api_category][api] = [api.lower().replace(" ", "")] # creates 
                     try: 
                         with open(CONFIG_FILE_PATH, "r") as config_data_file:
                             config_data = json.load(config_data_file)
-                            api_logo_path = config_data["logos_base_path"] + config_data["logos"][f"{api}"] # sets file path for the system to open
-                            with open(f"{api_logo_path}", "rb") as image:
-                                api_info[f"{api_category}"][f"{api}"].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
+                            api_logo_path = config_data["logos_base_path"] + config_data["logos"][api] # sets file path for the system to open
+                            with open(api_logo_path, "rb") as image:
+                                api_info[api_category][api].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
                     except Exception: 
                         continue # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
     except Exception:
@@ -200,19 +210,19 @@ def add_api(request: ds.add_api, response: Response):
     else:
         with open(API_FILE_PATH, "r") as add_api_file:
             api_data = json.load(add_api_file)
-            api_data[f"{api_name}"] = req["api_details"]
+            api_data[api_name] = req["api_details"]
         with open(API_FILE_PATH, "w") as add_api_file:
             add_api_file.write(json.dumps(api_data, indent = 4))
             response.status_code = status.HTTP_204_NO_CONTENT
 
-# getting webscraper data
+# scraping websites data
 @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
 def web_scraping(request: ds.web_scraper):
     page_url = request.dict()["page_url"]
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
         website_configs = json.load(config_data_file)["website_configs"]
     website_name = urlparse(page_url).netloc # getting the website name from the url
-    scraping_data = website_configs.get(f"{website_name}", website_configs["default"]) # extract the proper elements to scrape from the website, if website not in database, use default elements
+    scraping_data = website_configs.get(website_name, website_configs["default"]) # extract the proper elements to scrape from the website, if website not in database, use default elements
     if scraping_data["func"] == "sms": # calling the social media scraper
         loop = asyncio.new_event_loop() # creates a new event loop and 
         asyncio.set_event_loop(loop) # set created loop as the active one
@@ -224,6 +234,19 @@ def web_scraping(request: ds.web_scraper):
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
     return items
+
+# get website scraping configurations
+@botbuster.get("/webscraper/settings/") # endpoint to retrieve the webscraping settings
+def get_webscraper_settings():
+    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+        website_configs = json.load(config_data_file)["website_configs"]
+    website_settings = {key: website_configs[key]["elements"] for key in website_configs.keys()}
+    return website_settings
+
+# save web scraping settings
+@botbuster.post("/webscraper/settings/")
+def save_webscraper_settings():
+    pass
         
 # extracting text from user's file
 @botbuster.post("/extract/") # endpoint #4 scraping data from files

@@ -21,8 +21,9 @@ def test_create_item():
 
 def check_sms():
     response = client.get(
-        "/webscraper/"
+        "/webscraper/settings"
     )
+    print("test")
     assert response.status_code == 200
 
 check_sms()
