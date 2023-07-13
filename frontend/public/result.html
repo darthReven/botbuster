@@ -95,7 +95,7 @@
         $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
         $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
         for (const key in results["1"]["general_score"][apiCategory]) {
-            if(key != "overall_score") {
+            if(key != "overall_score" && key != "description" && key != "score_type") {
                 $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`
                 <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["1"]["general_score"][apiCategory][key]}">${results["1"]["general_score"][apiCategory][key]}</span></div></div></div>`)
                 if (apiinfo[`${apiCategory}`][key][1] != undefined){ 

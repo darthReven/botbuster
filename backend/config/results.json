@@ -1,6 +1,8 @@
 {
     "GPTZero": {
-        "0": "Error Detecting"
+        "0": {
+            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+        }
     },
     "Writer": {
         "0": {
@@ -27,23 +29,11 @@
             "text": "test"
         }
     },
-    "Hugging Face": {
-        "0": "Error Detecting"
-    },
-    "Misinformation Placeholder": {
-        "0": "Error Detecting"
-    },
-    "Misinformation Placeholder 2": {
-        "0": "Error Detecting"
-    },
     "Moderate Hate Speech": {
         "0": {
             "response": "Success",
             "class": "normal",
             "confidence": "0.9997310042381287"
         }
-    },
-    "Hate Placeholder 2": {
-        "0": "Error Detecting"
     }
 }

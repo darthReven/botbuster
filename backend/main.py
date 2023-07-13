@@ -84,24 +84,25 @@ def check_text(request: ds.check_text):
         }
         
         print(api_num, [api, api_category])
-        try:
-            full_results[api] = {}
-            for num, text in enumerate(list_of_texts):
+        # try:
+        full_results[api] = {}
+        for num, text in enumerate(list_of_texts):
+            if api != "score_type" and api != "description":
                 results = API(config_data["APIs"][api_category][api]).api_call(text[0])
                 full_results[api][num] = results
-                if api_num == 0:
-                    scores[num + 1] = {
-                        "general_score": {api_category : {
-                            "description": config_data["APIs"][api_category]["description"],
-                            "score_type": config_data["APIs"][api_category]["score_type"]
-                        } for api, api_category in list_of_apis},
-                        "sentence_score": []  # keeping a score for each sentence  
-                    }
-                    for sentence in text_utils.chunk_by_sentences(text[0]):
-                        scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
-        except Exception:
-            full_results[api][num] = "Error Detecting"
-            continue
+            if api_num == 0:
+                scores[num + 1] = {
+                    "general_score": {api_category : {
+                        "description": config_data["APIs"][api_category]["description"],
+                        "score_type": config_data["APIs"][api_category]["score_type"]
+                    } for api, api_category in list_of_apis},
+                    "sentence_score": []  # keeping a score for each sentence  
+                }
+                for sentence in text_utils.chunk_by_sentences(text[0]):
+                    scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
+        # except Exception:
+        #     full_results[api][num] = "Error Detecting"
+        #     continue
         try:
             # checking for general score 
             for req_num in full_results[api].keys():
@@ -116,7 +117,6 @@ def check_text(request: ds.check_text):
                     if key == "num":
                         key = req_num
                     try: 
-                        print(key, results)
                         results = results[key] # try to path to the score
                         scores[req_num + 1]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
                         total_score[api_category]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
@@ -124,7 +124,6 @@ def check_text(request: ds.check_text):
                         final_score = total_score[api_category]["score"]/total_score[api_category]["num_apis"] # gets the average score of all the APIs in each category
                         scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
                     except TypeError: # Type error will occur if the loop hasn't reached the score
-                        print("type error")
                         continue  # continue to the next key in the loop
                     except KeyError: # If there is an error with the path
                         print('key error')
