@@ -169,7 +169,7 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
                     break
     
     connected_pages.sort(key=lambda x: (x,'page' not in x)) #sort according to page number
-    print(connected_pages)
+    # print(connected_pages)
 
 #scraping starts here
     for page_url in connected_pages:

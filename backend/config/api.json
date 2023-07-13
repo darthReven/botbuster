@@ -76,8 +76,8 @@
         }
     },
     "Hate Speech APIs": {
-        "description": "Probability that text is misinformation",
-        "score_type": "Continuous",
+        "description": "Percentage of APIs flagging text as hate speech",
+        "score_type": "Discrete",
         "Moderate Hate Speech": {
             "target": "https://api.moderatehatespeech.com/api/v1/moderate/",
             "body_key": "text",
@@ -85,16 +85,6 @@
             "headers": {},
             "body": {
                 "token": "7a1a3e7a755bafa20f164ddcee16349a",
-                "text": ""
-            }
-        },
-        "Expert AI": {
-            "target": "https://misinformation.com/api/v1/",
-            "body_key": "text",
-            "data_type": "string",
-            "headers": {},
-            "body": {
-                "token": "NO_API_AVAIL",
                 "text": ""
             }
         }

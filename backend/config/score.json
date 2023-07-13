@@ -1,6 +1,7 @@
 {
     "overall_score": {
         "AIGCD APIs": 0,
+        "Misinformation APIs": 0,
         "Hate Speech APIs": 0
     },
     "1": {
@@ -10,23 +11,129 @@
                 "score_type": "Continuous",
                 "GPTZero": "error getting score",
                 "Writer": "error getting score",
-                "Sapling AI": 37.3,
-                "overall_score": 37.3
+                "Sapling AI": 21.0,
+                "overall_score": 23.5,
+                "Hugging Face": 26.0
+            },
+            "Misinformation APIs": {
+                "description": "Probability that text is misinformation",
+                "score_type": "Continuous"
             },
             "Hate Speech APIs": {
-                "description": "Probability that text is misinformation",
-                "score_type": "Continuous",
-                "Moderate Hate Speech": 100.0,
-                "overall_score": 100.0
+                "description": "Percentage of APIs flagging text as hate speech",
+                "score_type": "Discrete",
+                "Moderate Hate Speech": 0.0,
+                "overall_score": 0.0
             }
         },
         "sentence_score": [
             {
-                "test": {
+                "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "SP also places great emphasis on innovation and entrepreneurship.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            },
+            {
+                "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures.": {
                     "highlight": 0,
                     "api": []
                 }
             }
+        ],
+        "flags": [
+            "Potentially Flagged by AIGCD APIs"
+        ]
+    },
+    "2": {
+        "general_score": {
+            "AIGCD APIs": {
+                "description": "Probability that text is generated by AI",
+                "score_type": "Continuous",
+                "Writer": "error getting score",
+                "Hugging Face": 85.0,
+                "overall_score": 44.0
+            },
+            "Misinformation APIs": {
+                "description": "Probability that text is misinformation",
+                "score_type": "Continuous"
+            },
+            "Hate Speech APIs": {
+                "description": "Percentage of APIs flagging text as hate speech",
+                "score_type": "Discrete",
+                "Moderate Hate Speech": 0.0,
+                "overall_score": 0.0
+            }
+        },
+        "sentence_score": [
+            {
+                "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape.": {
+                    "highlight": 0,
+                    "api": []
+                }
+            }
+        ],
+        "flags": [
+            "Potentially Flagged by AIGCD APIs"
         ]
     }
 }

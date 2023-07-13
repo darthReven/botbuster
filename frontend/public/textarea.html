@@ -47,13 +47,16 @@
 			api_info = JSON.parse(api_info)
       for(api_category in api_info) {
         for (key in api_info[api_category]) {
-          if (document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).checked == true) {
-            let category = document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).className
-              data["list_of_apis"].push([key, category])
-          };
+          if (key != "description" && key != "score_type") {
+            if (document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).checked == true) {
+              let category = document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).className
+                data["list_of_apis"].push([key, category])
+            };
+          }
         }
       }
 			data["text"] = document.getElementById("text-area").value;
+      console.log(data)
 			localStorage.setItem("text", data['text'])
 			$.ajax({
 				url: `http://127.0.0.1:8000/checktext/`,
