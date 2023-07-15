@@ -47,7 +47,6 @@ def predictText(text):
     probabilities = misinfo_model.predict_proba(text)
     # print the probability of the text being fake
     prediction = probabilities[0][1]
-    print(prediction)
     return prediction
     # predictions = model.predict(count_test)
     # from sklearn.metrics import accuracy_score
