@@ -55,18 +55,8 @@
         "Misinformation APIs": {
             "description": "Probability that text is misinformation",
             "score_type": "Continuous",
-            "Misinformation Placeholder": {
-                "target": "https://misinformation.com/api/v1/",
-                "body_key": "text",
-                "data_type": "string",
-                "headers": {},
-                "body": {
-                    "token": "NO_API_AVAIL",
-                    "text": ""
-                }
-            },
-            "Misinformation Placeholder 2": {
-                "target": "https://misinformation.com/api/v1/",
+            "In-house Model": {
+                "target": "http://localhost:8001/predict/",
                 "body_key": "text",
                 "data_type": "string",
                 "headers": {},
@@ -93,7 +83,7 @@
     },
     "chunk_option": "sentences",
     "flagged_threshold": 80,
-    "potentially_flagged_threshold": 10,
+    "potentially_flagged_threshold": 25,
     "highlight_threshold": 70,
     "logos_base_path": "images/",
     "logos": {
@@ -108,7 +98,8 @@
         "Writer": "Writer.num.1.score",
         "Sapling AI": "Sapling AI.num.score",
         "Hugging Face": "Hugging Face.num.data.0.0.Fake",
-        "Moderate Hate Speech": "Moderate Hate Speech.num.class"
+        "Moderate Hate Speech": "Moderate Hate Speech.num.class",
+        "In-house Model": "In-house Model.num.prediction"
     } ,
     "path_to_sentence_score": {
         "GPTZero": ["GPTZero.num.documents.0.sentences", "generated_prob"],

@@ -54,18 +54,8 @@
     "Misinformation APIs": {
         "description": "Probability that text is misinformation",
         "score_type": "Continuous",
-        "Misinformation Placeholder": {
-            "target": "https://misinformation.com/api/v1/",
-            "body_key": "text",
-            "data_type": "string",
-            "headers": {},
-            "body": {
-                "token": "NO_API_AVAIL",
-                "text": ""
-            }
-        },
-        "Misinformation Placeholder 2": {
-            "target": "https://misinformation.com/api/v1/",
+        "In-house Model": {
+            "target": "http://localhost:8001/predict/",
             "body_key": "text",
             "data_type": "string",
             "headers": {},
