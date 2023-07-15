@@ -281,6 +281,7 @@ def extract_text(file: UploadFile):
             f.write(contents) # writes a temporary file with the same bytes
         if file_extension == 'docx': # if it's docx file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+            
         elif file_extension == 'txt':  # if it's txt file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf': # if it's pdf file
