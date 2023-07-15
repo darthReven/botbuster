@@ -146,10 +146,10 @@ def check_text(request: ds.check_text):
                     results = full_results # checking for sentence score
                     for key in path1.split("."): # loops through each key in the path to sentence scores
                         try:
-                            if key == "num":
-                                key = req_num
                             if key.isnumeric(): # if the key is numerical, convert it to an int
                                 key = int(key)
+                            if key == "num":
+                                key = req_num
                             results = results[key] # try to path to the score
                         except KeyError or TypeError or Exception:
                             break
@@ -157,7 +157,7 @@ def check_text(request: ds.check_text):
                         try: 
                             for key in scores["sentence_score"][num].keys():
                                 # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
-                                if results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name
+                                if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
                                     scores[req_num]["sentence_score"][num][key]["api"].append(api)
                                     scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
                         except:
@@ -171,9 +171,9 @@ def check_text(request: ds.check_text):
         try:
             for api_category in scores[req_num]["general_score"]:
                 try:
-                    if scores[req_num]["general_score"][api_category]["overall_score"] > 80:
+                    if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["flagged_threshold"]:
                         scores[req_num]["flags"].append(f"Flagged by ${api_category}")
-                    if scores[req_num]["general_score"][api_category]["overall_score"] > 10:
+                    if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["potentially_flagged_threshold"]:
                         scores[req_num]["flags"].append(f"Potentially Flagged by {api_category}")
                 except Exception:
                     continue

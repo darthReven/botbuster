@@ -92,8 +92,9 @@
         }
     },
     "chunk_option": "sentences",
-    "highlight_score": 70,
-    "highlight_percent": 70,
+    "flagged_threshold": 80,
+    "potentially_flagged_threshold": 10,
+    "highlight_threshold": 70,
     "logos_base_path": "images/",
     "logos": {
         "GPTZero": "gptzero.png",
