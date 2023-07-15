@@ -51,14 +51,17 @@ async def del_pop_up(page, popup):
 
 # find chrome path
 def get_chrome_path():
-    print("test")
-    directories = ["C:\\Program Files", "C:\\Program Files (x86)"]
-    # Search for Chrome in Program Files directories
-    for file in directories:
-        chrome_path = os.path.join(file, "Google", "Chrome", "Application", 'chrome.exe')
-        if os.path.isfile(chrome_path):
-            print(chrome_path)
-            return chrome_path
+    chrome=os.path.exists('./chrome')
+    if chrome:
+        return './Chrome/chrome.exe'
+    else:
+        directories = ["C:\\Program Files", "C:\\Program Files (x86)"]
+        # Search for Chrome in Program Files directories
+        for file in directories:
+            chrome_path = os.path.join(file, "Google", "Chrome", "Application", 'chrome.exe')
+            if os.path.isfile(chrome_path):
+                print(chrome_path)
+                return chrome_path
     return None
 
 # calling the scraper
