@@ -3,7 +3,7 @@ import plotly.io as pio
 import pandas as pd
 
 df = pd.DataFrame({'Category': ['AI-Generated Content', 'Hate Speech', 'Misinformation'],
-                   'Scores': [80, 90, 30]})
+                   'Scores': [80, 50, 10]})
 
 representation = 70 / len(df)
 values = [0, 0, 0, 30] # R, O, G
@@ -45,9 +45,9 @@ fig = go.Figure(data = [go.Pie(
 
 fig.add_annotation(
     text = "<b>Flagged:</b> {}<br><b>Potential Flag:</b> {}<br><b>Unflagged:</b> {}".format(
-        len(df[df['Scores'] >= 75]),
-        len(df[(df['Scores'] >= 50) & (df['Scores'] < 75)]),
-        len(df[df['Scores'] < 50])
+        len(df[df['Scores'] >= 80]),
+        len(df[(df['Scores'] >= 20) & (df['Scores'] < 80)]),
+        len(df[df['Scores'] < 20])
     ),
     x = 0.5,
     y = 0.5,
