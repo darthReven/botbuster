@@ -23,6 +23,7 @@ class API:
         except:
             return "Internal Server Error", 500
         else:
+            print(self.target, response)
             return response.json()
 
     def api_check(self):
