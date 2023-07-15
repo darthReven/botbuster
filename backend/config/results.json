@@ -33,12 +33,68 @@
     },
     "Sapling AI": {
         "0": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+            "score": 0.20975169008664551,
+            "sentence_scores": [
+                {
+                    "score": 0.992939919624424,
+                    "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers."
+                },
+                {
+                    "score": 0.0960616711862875,
+                    "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines."
+                },
+                {
+                    "score": 0.9453607372902206,
+                    "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills."
+                },
+                {
+                    "score": 0.008996424288149618,
+                    "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience."
+                },
+                {
+                    "score": 0.2639008872382479,
+                    "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce."
+                },
+                {
+                    "score": 0.9476804122409461,
+                    "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society."
+                },
+                {
+                    "score": 1.8792944324053096e-06,
+                    "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies."
+                },
+                {
+                    "score": 0.9902978663008982,
+                    "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience."
+                },
+                {
+                    "score": 0.872211272220101,
+                    "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity."
+                },
+                {
+                    "score": 1.6258994151030493e-11,
+                    "sentence": "SP also places great emphasis on innovation and entrepreneurship."
+                },
+                {
+                    "score": 0.9585467091373551,
+                    "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation."
+                },
+                {
+                    "score": 0.22112968920898968,
+                    "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures."
+                }
+            ],
+            "text": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers. Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines. With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills. At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience. The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce. Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society. Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies. These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience. The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity. SP also places great emphasis on innovation and entrepreneurship. The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation. Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures."
         },
         "1": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+            "score": 0.0024295551436287477,
+            "sentence_scores": [
+                {
+                    "score": 0.9982673935747096,
+                    "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
+                }
+            ],
+            "text": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
         }
     },
     "Hugging Face": {
@@ -46,13 +102,13 @@
             "data": [
                 [
                     {
-                        "Real": 0.7422495802800604,
-                        "Fake": 0.2577504197199396
+                        "Real": 0.740241299356733,
+                        "Fake": 0.259758700643267
                     },
                     [
                         [
-                            0.8415066599845886,
-                            850
+                            0.8370700478553772,
+                            849
                         ],
                         [
                             0.6461809873580933,
@@ -66,8 +122,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.37033510208129883,
-            "average_duration": 1.3087203715931286
+            "duration": 0.4758896827697754,
+            "average_duration": 0.9330785682326869
         },
         "1": {
             "data": [
@@ -85,23 +141,21 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.021106958389282227,
-            "average_duration": 1.307784606031207
+            "duration": 0.02361011505126953,
+            "average_duration": 0.9212672896199412
         }
     },
-    "In-house Model": {
-        "0": {
-            "prediction": "0.02688274563419769"
-        },
-        "1": {
-            "prediction": "0.13424459045766265"
-        }
+    "Misinformation Placeholder": {
+        "0": "Error Detecting"
+    },
+    "Misinformation Placeholder 2": {
+        "0": "Error Detecting"
     },
     "Moderate Hate Speech": {
         "0": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9998961687088013"
+            "confidence": "0.9998922348022461"
         },
         "1": {
             "response": "Success",

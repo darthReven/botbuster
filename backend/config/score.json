@@ -12,8 +12,8 @@
                 "GPTZero": "error getting score",
                 "Writer": "error getting score",
                 "Sapling AI": "error getting score",
-                "Hugging Face": 25.8,
-                "overall_score": 25.8
+                "Hugging Face": 26.0,
+                "overall_score": 26.0
             },
             "Misinformation APIs": {
                 "description": "Probability that text is misinformation",
@@ -30,7 +30,7 @@
         },
         "sentence_score": [
             {
-                "\nSingapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.": {
+                "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.": {
                     "highlight": 0,
                     "api": []
                 }
