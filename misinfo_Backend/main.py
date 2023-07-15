@@ -5,20 +5,21 @@ from pydantic import BaseModel
 import misinfo as ms
 
 misinfo=FastAPI()
+
 class Text(BaseModel):
     text: str
 
 @misinfo.on_event("startup")
 async def startup_event():
     ms.trainModel()
-    print('model has been trained, now responding to requests.')
+    # print('model has been trained, now responding to requests.')
 
 @misinfo.post("/predict")
 def predict(text: Text):
     # print(text)
     predText = text.dict()["text"]
     prediction=ms.predictText(predText)
-    print(prediction)
+    # print(prediction)
     
     return({"prediction":f"{prediction}"})
 
