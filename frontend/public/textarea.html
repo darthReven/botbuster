@@ -47,13 +47,16 @@
 			api_info = JSON.parse(api_info)
       for(api_category in api_info) {
         for (key in api_info[api_category]) {
-          if (document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).checked == true) {
-            let category = document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).className
-              data["list_of_apis"].push([key, category])
-          };
+          if (key != "description" && key != "score_type") {
+            if (document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).checked == true) {
+              let category = document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).className
+                data["list_of_apis"].push([key, category])
+            };
+          }
         }
       }
 			data["text"] = document.getElementById("text-area").value;
+      console.log(data)
 			localStorage.setItem("text", data['text'])
 			$.ajax({
 				url: `http://127.0.0.1:8000/checktext/`,
@@ -63,13 +66,13 @@
 				dataType: "json",
 				success: function(data, textStatus, xhr) {
           $('#loading').hide(); // Hide loading
-          $('.btn[type="button"]').prop('disabled', true); // Enable submit
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
 					localStorage.setItem("results", JSON.stringify(data))
 					window.location.href='result.html'
 				},
 				error: function(xhr, textStunlatus, err) {
           $('#loading').hide(); // Hide loading
-          $('.btn[type="button"]').prop('disabled', true); // Enable submit
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
 					console.log(err)
 				}
 			})
@@ -85,29 +88,29 @@
         contentType: "application/json; charset = utf-8",
         dataType: "json",
         success: function(data, textStatus, xhr) {
-          console.log(data)
           for (const api_category in data) {
             $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${api_category.replace(/\s/g, '-')}">`)
             $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${api_category}</div>`)
             for (const key in data[`${api_category}`]) {
+              if (key != "description" && key != "score_type") {
               $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(
-              `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${api_category}`][key][0]}_logo"  src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
-              <div class="checkbox">
-              <input type="checkbox" id="${data[`${api_category}`][key][0]}_checkbox" class="${api_category}" checked>
-              <label for="${data[`${api_category}`][key][0]}_checkbox"></label>
-              </div></div></div></div>`)
-              if (data[`${api_category}`][key][1] != undefined){ 
-                const byte_characters = atob(data[`${api_category}`][key][1]);
-                const byte_numbers = new Array(byte_characters.length);
-                for (let i = 0; i < byte_characters.length; i++) {
-                  byte_numbers[i] = byte_characters.charCodeAt(i);
+                `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${api_category}`][key][0]}_logo"  src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
+                <div class="checkbox">
+                <input type="checkbox" id="${data[`${api_category}`][key][0]}_checkbox" class="${api_category}" checked>
+                <label for="${data[`${api_category}`][key][0]}_checkbox"></label>
+                </div></div></div></div>`)
+                if (data[`${api_category}`][key][1] != undefined){ 
+                  const byte_characters = atob(data[`${api_category}`][key][1]);
+                  const byte_numbers = new Array(byte_characters.length);
+                  for (let i = 0; i < byte_characters.length; i++) {
+                    byte_numbers[i] = byte_characters.charCodeAt(i);
+                  }
+                  const byte_array = new Uint8Array(byte_numbers);
+                  document.getElementById(`${data[`${api_category}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
+                  window.setTimeout(function(){
+                      $('#loading').hide(); // Hide loading
+                  }, 250);
                 }
-                const byte_array = new Uint8Array(byte_numbers);
-                document.getElementById(`${data[`${api_category}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
-                window.setTimeout(function(){
-                    $('#loading').hide(); // Hide loading
-                }, 250);
-                
               }
             }
           }
@@ -127,6 +130,12 @@
             wordCount.textContent = txt.split(/\s+/).filter((item) => item).length;
         });
     }); 
+    function resetCount (){
+        let characCount = document.getElementById("charac-count");
+        let wordCount = document.getElementById("word-count");
+        characCount.textContent = "0"
+        wordCount.textContent = "0"
+    }
 	</script>
 </head>
 <body>
@@ -173,14 +182,13 @@
             <a class="fw-bold" href="webscraper.html">Web Scraper</a>
             <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
         </div>
-        <div class="form-group" style ="padding: 20px 100px">
+        <form class="form-group" style ="padding: 20px 100px">
           <textarea class="form-control" id="text-area" rows="7" placeholder="Enter the text to check for AI generation"></textarea>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
+            <div class="text-center">
+            <button type="button" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
                 Submit
             </button>
-            <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+            <button type="reset" class="btn btn-link px-4 py-3 my-5 mx-2 fw-bold pull-right navbar-btn" onclick=resetCount()>
                 <i class="fa-solid fa-arrows-rotate"></i>
             </button>
             <div class="count">
@@ -194,6 +202,8 @@
                 </div>
               </div>
                 </div>
+        </form>
+        
 
             <!-- Footer -->
   <footer class="text-center text-lg-start bg-white text-muted">

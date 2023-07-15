@@ -1,162 +1,149 @@
 {
     "GPTZero": {
         "0": {
-            "documents": [
-                {
-                    "average_generated_prob": 1,
-                    "completely_generated_prob": 0.9251759946346283,
-                    "overall_burstiness": 9.709024429321289,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.9410928246234925,
-                            "num_sentences": 12,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 21,
-                            "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 31,
-                            "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 26,
-                            "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 37,
-                            "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 40,
-                            "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 29,
-                            "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 51,
-                            "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 21,
-                            "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 24,
-                            "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 46,
-                            "sentence": "SP also places great emphasis on innovation and entrepreneurship.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 27,
-                            "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 36,
-                            "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures.",
-                            "highlight_sentence_for_ai": true
-                        }
-                    ],
-                    "result_message": "Your text is likely to be written entirely by AI",
-                    "result_sub_message": "",
-                    "document_classification": "AI_ONLY"
-                }
-            ],
-            "version": "2023-07-07"
+            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
         },
         "1": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.2201167196035385,
-                    "overall_burstiness": 0,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.11111110864197533,
-                            "num_sentences": 1,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 22,
-                            "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is most likely human written",
-                    "result_sub_message": "",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
+            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
         }
     },
     "Writer": {
-        "0": [
-            {
-                "label": "real",
-                "score": 0.9169961214065552
-            },
-            {
-                "label": "fake",
-                "score": 0.08300386369228363
-            }
-        ],
-        "1": [
-            {
-                "label": "fake",
-                "score": 0.536487340927124
-            },
-            {
-                "label": "real",
-                "score": 0.463512659072876
-            }
-        ]
+        "0": {
+            "tpe": "fail.permission",
+            "errors": [
+                {
+                    "description": "Permission fail",
+                    "key": "fail.permission.generic",
+                    "extras": null
+                }
+            ],
+            "extras": null
+        },
+        "1": {
+            "tpe": "fail.permission",
+            "errors": [
+                {
+                    "description": "Permission fail",
+                    "key": "fail.permission.generic",
+                    "extras": null
+                }
+            ],
+            "extras": null
+        }
     },
     "Sapling AI": {
         "0": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+            "score": 0.20975169008664551,
+            "sentence_scores": [
+                {
+                    "score": 0.992939919624424,
+                    "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers."
+                },
+                {
+                    "score": 0.0960616711862875,
+                    "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines."
+                },
+                {
+                    "score": 0.9453607372902206,
+                    "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills."
+                },
+                {
+                    "score": 0.008996424288149618,
+                    "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience."
+                },
+                {
+                    "score": 0.2639008872382479,
+                    "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce."
+                },
+                {
+                    "score": 0.9476804122409461,
+                    "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society."
+                },
+                {
+                    "score": 1.8792944324053096e-06,
+                    "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies."
+                },
+                {
+                    "score": 0.9902978663008982,
+                    "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience."
+                },
+                {
+                    "score": 0.872211272220101,
+                    "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity."
+                },
+                {
+                    "score": 1.6258994151030493e-11,
+                    "sentence": "SP also places great emphasis on innovation and entrepreneurship."
+                },
+                {
+                    "score": 0.9585467091373551,
+                    "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation."
+                },
+                {
+                    "score": 0.22112968920898968,
+                    "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures."
+                }
+            ],
+            "text": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers. Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines. With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills. At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience. The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce. Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society. Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies. These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience. The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity. SP also places great emphasis on innovation and entrepreneurship. The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation. Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures."
         },
         "1": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+            "score": 0.0024295551436287477,
+            "sentence_scores": [
+                {
+                    "score": 0.9982673935747096,
+                    "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
+                }
+            ],
+            "text": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
         }
     },
     "Hugging Face": {
-        "0": "Error Detecting"
+        "0": {
+            "data": [
+                [
+                    {
+                        "Real": 0.740241299356733,
+                        "Fake": 0.259758700643267
+                    },
+                    [
+                        [
+                            0.8370700478553772,
+                            849
+                        ],
+                        [
+                            0.6461809873580933,
+                            865
+                        ],
+                        [
+                            0.7362344861030579,
+                            211
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.4758896827697754,
+            "average_duration": 0.9330785682326869
+        },
+        "1": {
+            "data": [
+                [
+                    {
+                        "Real": 0.1500905603170395,
+                        "Fake": 0.8499094396829605
+                    },
+                    [
+                        [
+                            0.1500905603170395,
+                            187
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.02361011505126953,
+            "average_duration": 0.9212672896199412
+        }
     },
     "Misinformation Placeholder": {
         "0": "Error Detecting"
@@ -175,8 +162,5 @@
             "class": "normal",
             "confidence": "0.9999213218688965"
         }
-    },
-    "Hate Placeholder 2": {
-        "0": "Error Detecting"
     }
 }

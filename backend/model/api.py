@@ -12,13 +12,14 @@ class API:
     def api_call(self, text: str):        
         # add text to body
         if self.data_type == "string":
-            self.body[f"{self.body_key}"] = text
+            self.body[self.body_key] = text
         elif self.data_type == "list":
-            self.body[f"{self.body_key}"] = [text]
+            self.body[self.body_key] = [text]
         try:
             response = requests.post(self.target, headers = self.header, json  = self.body)
             #if wrong/missing key, code runs - writer gives error
             #if wrong url, code runs - writer gives a "None"
+            # assert response.code == 200
         except:
             return "Internal Server Error", 500
         else:

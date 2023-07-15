@@ -47,27 +47,29 @@
         contentType: "application/json; charset = utf-8",
         dataType: "json",
         success: function(data, textStatus, xhr) {
-          for (const apiCategory in data) {
-            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
-            $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
-            for (const key in data[`${apiCategory}`]) {
-              $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(
-              `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${apiCategory}`][key][0]}-logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
-              <div class="checkbox">
-              <input type="checkbox" id="${data[`${apiCategory}`][key][0]}-checkbox" checked>
-              <label for="${data[`${apiCategory}`][key][0]}-checkbox"></label>
-              </div></div></div></div>`)
-              if (data[`${apiCategory}`][key][1] != undefined){ 
-                const byteCharacters = atob(data[`${apiCategory}`][key][1]);
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+          for (const api_category in data) {
+            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${api_category.replace(/\s/g, '-')}">`)
+            $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${api_category}</div>`)
+            for (const key in data[`${api_category}`]) {
+              if (key != "description" && key != "score_type") {
+              $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(
+                `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${api_category}`][key][0]}_logo"  src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
+                <div class="checkbox">
+                <input type="checkbox" id="${data[`${api_category}`][key][0]}_checkbox" class="${api_category}" checked>
+                <label for="${data[`${api_category}`][key][0]}_checkbox"></label>
+                </div></div></div></div>`)
+                if (data[`${api_category}`][key][1] != undefined){ 
+                  const byte_characters = atob(data[`${api_category}`][key][1]);
+                  const byte_numbers = new Array(byte_characters.length);
+                  for (let i = 0; i < byte_characters.length; i++) {
+                    byte_numbers[i] = byte_characters.charCodeAt(i);
+                  }
+                  const byte_array = new Uint8Array(byte_numbers);
+                  document.getElementById(`${data[`${api_category}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
+                  window.setTimeout(function(){
+                      $('#loading').hide(); // Hide loading
+                  }, 250);
                 }
-                const byteArray = new Uint8Array(byteNumbers);
-                document.getElementById(`${data[`${apiCategory}`][key][0]}-logo`).src = URL.createObjectURL(new Blob([byteArray], { type: 'image/png' }));
-                window.setTimeout(function(){
-                    $('#loading').hide(); // Hide loading
-                }, 250);
               }
             }
           }
@@ -78,8 +80,22 @@
             console.log(err)
           }
         })
+        let inputTextArea = document.getElementById("text-area");
+        let characCount = document.getElementById("charac-count");
+        let wordCount = document.getElementById("word-count");
+        $("#text-area").on('change keyup paste' ,function() {
+            characCount.textContent = inputTextArea.innerText.length;
+            let txt = inputTextArea.innerText.trim();
+            wordCount.textContent = txt.split(/\s+/).filter((item) => item).length;
+        });
     }); 
-    
+    function resetCount (){
+        let characCount = document.getElementById("charac-count");
+        let wordCount = document.getElementById("word-count");
+        characCount.textContent = "0"
+        wordCount.textContent = "0"
+        $(".count").addClass("hidden")
+    }
     function checkFile() {
       $('#loading').show(); // Start loading
       const formData = new FormData()
@@ -99,14 +115,26 @@
         success: function (data, textStatus, xhr) {
           console.log(data)
           $(".content-box").addClass("display");
+          $(".content-box").addClass("mt-4");
           $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
           $(".content-box .row .col-12").append(`${data}`)
+          $(".count").removeClass("hidden")
+          // Update the word count
+        document.getElementById("charac-count").textContent = document.getElementById("text-area").innerText.length;
+        let txt = document.getElementById("text-area").innerText.trim();
+        document.getElementById("word-count").textContent = txt.split(/\s+/).filter((item) => item).length;
           $('#loading').hide(); // Hide loading
           localStorage.setItem('text', data)
         }, error(xhr, textStatus, err) {
           $('#loading').hide(); // Hide loading
         }
       })
+    }
+    function removeContentBox() {
+        $(".content-box").html("")
+        $(".content-box").removeClass("display");
+        $(".content-box").removeClass("mt-4");
+        resetCount()
     }
   </script>
 
@@ -155,20 +183,30 @@
             <a class="fw-bold" href="webscraper.html">Web Scraper</a>
             <a class="fw-bold" href="settings.html" id="settings"><i class="fa-solid fa-gear"></i></a>
           </div>
-          <div id="fileForm" class="form-group" style ="padding: 20px 100px">
+          <form id="fileForm" class="form-group" style ="padding: 20px 100px">
             <label for="formFile" class="form-label">Choose a file to upload</label>
             <input class="form-control" type="file" id="formFile" accept=".docx, .pdf, .txt, .jpg" onChange="checkFile()">
-            <div class="content-box my-4">
+            <div id="text-area" class="content-box">
             </div>
             <div class="text-center">
-              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick="checkFile()">
+              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn" onclick="checkFile()">
                 Submit
               </button>
-              <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">
+              <button type="reset" class="btn btn-link px-4 py-3 my-5 mx-2 fw-bold pull-right navbar-btn" onclick="removeContentBox()">
                 <i class="fa-solid fa-arrows-rotate"></i>
               </button>
+              <div class="count hidden">
+                <div>
+                  <p id="word-count">0</p>
+                  <p>Words</p>
+                </div>
+                <div>
+                  <p id="charac-count">0</p>
+                  <p>Characters</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </form>
 
 
 

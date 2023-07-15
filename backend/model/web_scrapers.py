@@ -111,8 +111,11 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
           # Check for connected pages starting from page 2
             page_num = 2
             while True:
+                before_page_url = page_url
                 page_param = url.replace("*",str(page_num))
                 page_url = f"{base_url}{splitter}{page_param}"
+                if before_page_url==page_url: #check if there is a page param to see if this website is single paged
+                    break
                 response = requests.get(page_url)
                 if response.status_code == 200:
                     # Check if the URL has changed due to redirection
@@ -132,6 +135,7 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
         page_num_param = page_url.split(splitter)[-1]
         page_num = "".join(filter(str.isdigit, page_num_param))
         num_of_loops = 0
+        
         while True: #check for pages after current page
                 num_of_loops += 1 #to get the original page number later on
                 last_slash_index = base_url.rfind(splitter)
@@ -168,7 +172,7 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
                     break
     
     connected_pages.sort(key=lambda x: (x,'page' not in x)) #sort according to page number
-    print(connected_pages)
+    # print(connected_pages)
 
 #scraping starts here
     for page_url in connected_pages:
@@ -177,6 +181,7 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
             soup = BeautifulSoup(response.content, 'html.parser')
             for element in list_of_elements:
                 if "." in element:
+                    
                     split_element = element.split(".", 1)
                     element_type = split_element[0]
                     element_class = split_element[1]
@@ -194,7 +199,6 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
             extracted_text = [[element_type, text] for element_type, text, *_ in extracted_text] 
         else:
             raise HTTPException(status_code=400, detail="Target website could not be scraped due to errors on that website, please check the URL again.")
-   
     return extracted_text
 
 

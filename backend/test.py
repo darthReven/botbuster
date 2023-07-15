@@ -16,16 +16,17 @@ def test_create_item():
     )
     assert response.status_code == 200
 
-# test_create_item()
+test_create_item()
 
 
 def check_sms():
-    response = client.get(
-        "/webscraper/"
+    response = client.post(
+        "/webscraper/settings"
     )
+    print("test")
     assert response.status_code == 200
 
-check_sms()
+# check_sms()
 
 '''
 text = "`Singapore Polytechnic (SP) is a renowned institution offering a diverse range of diploma courses and fostering a culture of academic excellence, practical learning, and industry partnerships. With state-of-the-art facilities and dedicated faculty, SP equips students with the skills and knowledge needed for their chosen fields. The institution emphasizes experiential learning, project-based education, and industry attachments to prepare graduates for successful careers. SP also encourages innovation, entrepreneurship, and holistic development through its vibrant campus life and co-curricular activities. Overall, Singapore Polytechnic is a leading institution that provides a comprehensive and dynamic educational experience to shape the future professionals of Singapore.`"
