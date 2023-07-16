@@ -55,18 +55,8 @@
         "Misinformation APIs": {
             "description": "Probability that text is misinformation",
             "score_type": "Continuous",
-            "Misinformation Placeholder": {
-                "target": "https://misinformation.com/api/v1/",
-                "body_key": "text",
-                "data_type": "string",
-                "headers": {},
-                "body": {
-                    "token": "NO_API_AVAIL",
-                    "text": ""
-                }
-            },
-            "Misinformation Placeholder 2": {
-                "target": "https://misinformation.com/api/v1/",
+            "In-house Model": {
+                "target": "http://localhost:8001/predict/",
                 "body_key": "text",
                 "data_type": "string",
                 "headers": {},
@@ -92,8 +82,9 @@
         }
     },
     "chunk_option": "sentences",
-    "highlight_score": 70,
-    "highlight_percent": 70,
+    "flagged_threshold": 80,
+    "potentially_flagged_threshold": 25,
+    "highlight_threshold": 70,
     "logos_base_path": "images/",
     "logos": {
         "GPTZero": "gptzero.png",
@@ -103,15 +94,16 @@
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
     "path_to_general_score": {
-        "GPTZero": "GPTZero.num.documents.0.average_generated_prob",
-        "Writer": "Writer.num.1.score",
-        "Sapling AI": "Sapling AI.num.score",
-        "Hugging Face": "Hugging Face.num.data.0.0.Fake",
-        "Moderate Hate Speech": "Moderate Hate Speech.num.class"
+        "GPTZero": "num.documents.0.average_generated_prob",
+        "Writer": "num.1.score",
+        "Sapling AI": "num.score",
+        "Hugging Face": "num.data.0.0.Fake",
+        "Moderate Hate Speech": "num.class",
+        "In-house Model": "num.prediction"
     } ,
     "path_to_sentence_score": {
-        "GPTZero": ["GPTZero.num.documents.0.sentences", "generated_prob"],
-        "Sapling AI": ["Sapling AI.num.sentence_scores", "score"]
+        "GPTZero": ["num.documents.0.sentences", "generated_prob"],
+        "Sapling AI": ["num.sentence_scores", "score"]
     },
     "website_configs": {
         "forums.hardwarezone.com.sg": {

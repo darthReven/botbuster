@@ -75,7 +75,7 @@
           }
           localStorage.setItem("api-info", JSON.stringify(data))
         },
-          error: function(xhr, textStunlatus, err) {
+          error: function(xhr, textStatus, err) {
             $('#loading').hide(); // Hide loading
             console.log(err)
           }
@@ -117,7 +117,7 @@
           $(".content-box").addClass("display");
           $(".content-box").addClass("mt-4");
           $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
-          $(".content-box .row .col-12").append(`${data}`)
+          $(".content-box .row .col-12").html(data.replace(/\n/g, "<br>")); 
           $(".count").removeClass("hidden")
           // Update the word count
         document.getElementById("charac-count").textContent = document.getElementById("text-area").innerText.length;

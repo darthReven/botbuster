@@ -74,24 +74,17 @@ def check_text(request: ds.check_text):
         "overall_score": {api_category : 0 for api, api_category in list_of_apis}, # dictionary comprehension to have a nested dictionary to store each category of APIs and overall score for each API
     }
     total_score = {} # store score of each API before taking the average
-    seen_categories = []
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     # change this to the text chunking functions
     list_of_texts = text_utils.chunk(text, config_data["chunk_option"])    
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
-        if api_category not in seen_categories:
-            total_score[api_category] = {
-                "score": 0,
-                "num_apis": 0,
-            }
-            seen_categories.append(api_category)
         try:
-            full_results[api] = {}
+            full_results = {}
             for num, text in enumerate(list_of_texts):
                 if api != "score_type" and api != "description":
                     results = API(config_data["APIs"][api_category][api]).api_call(text[0])
-                    full_results[api][num] = results
+                    full_results[num] = results
                 if api_num == 0:
                     scores[num + 1] = {
                         "general_score": {api_category : {
@@ -103,11 +96,18 @@ def check_text(request: ds.check_text):
                     for sentence in text_utils.chunk_by_sentences(text[0]):
                         scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
         except Exception:
-            full_results[api][num] = "Error Detecting"
+            full_results[num] = "Error Detecting"
             continue
         try:
             # checking for general score 
-            for req_num in full_results[api].keys():
+            for req_num in full_results.keys():
+                seen_categories = []
+                if api_category not in seen_categories:
+                    total_score[api_category] = {
+                        "score": 0,
+                        "num_apis": 0,
+                    }
+                    seen_categories.append(api_category)
                 results = full_results # set the results to loop through
                 if results == "Error Detecting":
                     scores[req_num + 1]["general_score"][api_category][api] = "error detecting" 
@@ -140,28 +140,27 @@ def check_text(request: ds.check_text):
                 try:
                     path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
                     path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
-                except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
-                    continue
-                else:
                     results = full_results # checking for sentence score
                     for key in path1.split("."): # loops through each key in the path to sentence scores
                         try:
-                            if key == "num":
-                                key = req_num
                             if key.isnumeric(): # if the key is numerical, convert it to an int
                                 key = int(key)
+                            if key == "num":
+                                key = req_num
                             results = results[key] # try to path to the score
                         except KeyError or TypeError or Exception:
-                            break
+                            continue
                     for num in range(0, len(results)): # loop through each sentence of results
                         try: 
                             for key in scores["sentence_score"][num].keys():
                                 # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
-                                if results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name
+                                if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
                                     scores[req_num]["sentence_score"][num][key]["api"].append(api)
                                     scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
                         except:
-                            break                 
+                            break  
+                except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
+                    continue             
         except Exception:
             continue
     for req_num in scores.keys():
@@ -171,18 +170,20 @@ def check_text(request: ds.check_text):
         try:
             for api_category in scores[req_num]["general_score"]:
                 try:
-                    if scores[req_num]["general_score"][api_category]["overall_score"] > 80:
+                    if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["flagged_threshold"]:
                         scores[req_num]["flags"].append(f"Flagged by ${api_category}")
-                    if scores[req_num]["general_score"][api_category]["overall_score"] > 10:
+                        continue
+                    if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["potentially_flagged_threshold"]:
                         scores[req_num]["flags"].append(f"Potentially Flagged by {api_category}")
                 except Exception:
                     continue
         except Exception:
             continue
-    with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
-        results_file.write(json.dumps(full_results, indent=4))
+    # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
+    #     results_file.write(json.dumps(full_results, indent=4))
     with open(r"config\score.json", "w") as scores_file: # load in API data from api file
-        scores_file.write(json.dumps(scores, indent=4))
+        temp = {**scores, **total_score}
+        scores_file.write(json.dumps(temp, indent=4))
     # graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
     end = time.perf_counter()
     print(end - start)
@@ -303,9 +304,3 @@ def extract_text(file: UploadFile):
 #     general_score = request.dict()["general_score"]
 #     sentence_score = request.dict()["sentence_score"]
 #     graph.generate_graph(general_score)
-
-# load baseline APIs to api.json file
-with open(CONFIG_FILE_PATH, "r") as config_file:
-    config_data = json.load(config_file)
-    with open(API_FILE_PATH, "w") as add_api_file:
-        add_api_file.write(json.dumps(config_data["APIs"], indent = 4))

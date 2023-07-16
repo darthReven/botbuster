@@ -73,12 +73,28 @@
                 }
             }
             console.log(textCollection)
+            response_categories = ''
+            console.log(Object.keys(results[response_num]['general_score']))
+            for(category of Object.keys(results[response_num]['general_score'])) {
+                colour_class = ''
+                if(results[response_num]['general_score'][category]['overall_score'] >= 80) {
+                    colour_class = 'flagged'
+                }
+                else if(results[response_num]['general_score'][category]['overall_score'] >= 20) {
+                    colour_class = 'potential_flag'
+                }
+                else {
+                    colour_class = 'unflagged'
+                }
+                response_categories += (`<div class='${colour_class}'>${category}:<br>${results[response_num]['general_score'][category]['overall_score']}</div>`)
+            }
+            console.log('yr')
             content += `
                 <div class="row">
                     <div class="col-3 px-3 text-center">
-                        temp: response ${response_num}
+                        ${response_categories}
                     </div>
-                    <div class="col-9 px-3">
+                    <div class="col-9 px-3 results_text">
                         ${textCollection.join(' ')}
                     </div>
                 </div>
@@ -126,7 +142,7 @@
             }
         }
         $("#aggregate_score").html(`${passedThershold}/${numCategories}`)
-        $('.content-box').html(content);
+        $('.results-box').html(content);
       }
       // $.ajax({
       //   url:"http://127.0.0.1:8000/graph/",
@@ -198,7 +214,7 @@
                     </div>
                     <div class="row">
                     </div>
-                    <div class="content-box my-4">
+                    <div class="results-box my-4">
                     </div>
                   </div>
                 </div>
