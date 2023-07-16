@@ -61,14 +61,6 @@ botbuster.add_middleware(
     allow_headers=["*"],
 )
 
-@botbuster.on_event("startup")
-def startup():
-    # load baseline APIs to api.json file
-    with open(CONFIG_FILE_PATH, "r") as config_file:
-        config_data = json.load(config_file)
-        with open(API_FILE_PATH, "w") as add_api_file:
-            add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
-
 # writing endpoints
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
@@ -280,7 +272,6 @@ def extract_text(file: UploadFile):
             f.write(contents) # writes a temporary file with the same bytes
         if file_extension == 'docx': # if it's docx file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
-            
         elif file_extension == 'txt':  # if it's txt file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf': # if it's pdf file
