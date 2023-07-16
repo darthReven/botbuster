@@ -1,5 +1,5 @@
-from fastapi import FastAPI, HTTPException, Response, status
-from fastapi.middleware.cors import CORSMiddleware
+# uvicorn main:misinfo --reload
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 import misinfo as ms

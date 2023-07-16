@@ -151,15 +151,15 @@
             "splitter": "/"
         },
         "twitter.com": {
-            "elements": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"],
+            "elements": [["",100],["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"]],
             "func": "sms"
         },
         "www.reddit.com": {
-            "elements": ["","H1", "H2", "H3", "H4","div","p"],
+            "elements": [["",10],["H1", "H2", "H3", "H4","div","p"]],
             "func": "sms"
         },
         "www.facebook.com": {
-            "elements": ["div.xc9qbxq","div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"],
+            "elements": [["div.xc9qbxq",10],["div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"]],
             "func": "sms"
         },
         "default": {

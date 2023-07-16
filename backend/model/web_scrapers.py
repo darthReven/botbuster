@@ -3,6 +3,7 @@ import asyncio
 import pyppeteer
 from pyppeteer import launch
 import os
+import platform
 # generic webscraper modules
 import requests
 import sys
@@ -34,9 +35,10 @@ async def scrape_infinite_scroll_items(page, content_selector, item_target_count
         previous_height = await page.evaluate("document.body.scrollHeight")
         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         await page.waitForFunction(f'document.body.scrollHeight > {previous_height}')
-        await asyncio.sleep(1)
+        await asyncio.sleep(2)
 
         items = selected_items
+        print(len(items))
 
     return items
 
@@ -51,25 +53,30 @@ async def del_pop_up(page, popup):
 
 # find chrome path
 def get_chrome_path():
-    chrome=os.path.exists('./chrome')
-    if chrome:
-        return './Chrome/chrome.exe'
-    else:
+    system = platform.system()
+    if system == "Windows":
         directories = ["C:\\Program Files", "C:\\Program Files (x86)"]
         # Search for Chrome in Program Files directories
         for file in directories:
             chrome_path = os.path.join(file, "Google", "Chrome", "Application", 'chrome.exe')
             if os.path.isfile(chrome_path):
-                print(chrome_path)
+                return chrome_path
+    elif system == "Linux":
+        directories = [
+            "/usr/bin/google-chrome",
+            "/usr/bin/google-chrome-stable",
+            "/usr/bin/chromium",
+            "/usr/bin/chromium-browser",
+        ]
+        for chrome_path in directories:
+            if os.path.isfile(chrome_path):
                 return chrome_path
     return None
 
 # calling the scraper
 async def scraper(elements, page_url):
-    print("getting chrome path")
     chrome_path = get_chrome_path()
     cookies = os.path.join(os.getcwd(), 'scraper_cookies')
-    print(cookies)
     browser = await launch(
         headless=False,
         handleSIGINT=False,
@@ -81,14 +88,15 @@ async def scraper(elements, page_url):
     page = await browser.newPage()
     await page.goto(page_url)
 
-    if(elements[0]==''):
-        elements.pop(0)
+    if(elements[0][0]==''):
+        print()
     else:
         await del_pop_up(page, elements)
-        elements.pop(0)
-    
+    num_of_items=elements[0][1]
+    elements.pop(0)
     print(elements)
-    items = await scrape_infinite_scroll_items(page, elements, 5)
+    target_elements=elements[0]
+    items = await scrape_infinite_scroll_items(page, target_elements, num_of_items)
     unique_items = []
     seen_items = set()
     for item in items:
