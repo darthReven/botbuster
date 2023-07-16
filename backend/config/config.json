@@ -81,7 +81,7 @@
             }
         }
     },
-    "chunk_option": "sentences",
+    "chunk_option": "paragraphs",
     "flagged_threshold": 80,
     "potentially_flagged_threshold": 25,
     "highlight_threshold": 70,
@@ -94,12 +94,12 @@
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
     "path_to_general_score": {
-        "GPTZero": "num.documents.0.average_generated_prob",
-        "Writer": "num.1.score",
-        "Sapling AI": "num.score",
-        "Hugging Face": "num.data.0.0.Fake",
-        "Moderate Hate Speech": "num.class",
-        "In-house Model": "num.prediction"
+        "GPTZero": "GPTZero.num.documents.0.average_generated_prob",
+        "Writer": "Writer.num.1.score",
+        "Sapling AI": "Sapling AI.num.score",
+        "Hugging Face": "Hugging Face.num.data.0.0.Fake",
+        "Moderate Hate Speech": "Moderate Hate Speech.num.class",
+        "In-house Model": "In-house Model.num.prediction"
     } ,
     "path_to_sentence_score": {
         "GPTZero": ["num.documents.0.sentences", "generated_prob"],

@@ -77,7 +77,6 @@
         },
           error: function(xhr, textStatus, err) {
             $('#loading').hide(); // Hide loading
-            console.log(err)
           }
         })
         let inputTextArea = document.getElementById("text-area");
@@ -113,7 +112,6 @@
         processData: false,
         contentType: false,
         success: function (data, textStatus, xhr) {
-          console.log(data)
           $(".content-box").addClass("display");
           $(".content-box").addClass("mt-4");
           $('.content-box').html(`<div class="row"><div class="col-12" contenteditable></div></div>`);
