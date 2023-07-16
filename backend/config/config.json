@@ -154,6 +154,22 @@
             "elements": [["div.xc9qbxq",10],["div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"]],
             "func": "sms"
         },
+        "shopee.sg": {
+            "elements": [["",30],["span","div","p","label"]],
+            "func": "sms"
+        },
+        "www.linkedin.com": {
+            "elements": [["",30],["span"]],
+            "func": "sms"
+        },
+        "www.lazada.sg": {
+            "elements": [["",200],["h1","span","h2","ul","div.content"]],
+            "func": "sms"
+        },
+        "www.amazon.sg": {
+            "elements": [["",30],["span","th","tr","h2","p"]],
+            "func": "sms"
+        },
         "default": {
             "elements": ["p","h1","h2","h3","h4","h5","h6","div","span"],
             "func": "gws",
