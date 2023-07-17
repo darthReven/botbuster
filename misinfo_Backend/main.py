@@ -1,38 +1,27 @@
-from fastapi import FastAPI, HTTPException, Response, status
-from fastapi.middleware.cors import CORSMiddleware
+# uvicorn main:misinfo --reload
+from fastapi import FastAPI
 from pydantic import BaseModel
 
-import uvicorn
 import misinfo as ms
 
-misinfo= FastAPI()
-
-misinfo.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+misinfo=FastAPI()
 class Text(BaseModel):
     text: str
 
 @misinfo.on_event("startup")
 async def startup_event():
     ms.trainModel()
-    # print('model has been trained, now responding to requests.')
+    print('model has been trained, now responding to requests.')
 
-@misinfo.post("/predict/")
+@misinfo.post("/predict")
 def predict(text: Text):
     # print(text)
-    try:
-        predText = text.dict()["text"]
-        prediction=ms.predictText(predText)
-        # print(prediction)
-        return({"prediction":f"{prediction}"})
-    except:
-        raise HTTPException(status_code = 500, detail = "Internal Server Error")
+    predText = text.dict()["text"]
+    prediction=ms.predictText(predText)
+    print(prediction)
+    
+    return({"prediction":f"{prediction}"})
 
 if __name__ == "__main__":
-    uvicorn.run(misinfo, port=8001)
+    import uvicorn
+    uvicorn.run(misinfo, host="0.0.0.0", port=8001)

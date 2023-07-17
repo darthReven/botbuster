@@ -72,7 +72,6 @@
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
         },
         error: function(xhr, textStunlatus, err) {
-          console.log(err)
           $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
@@ -207,7 +206,6 @@
         },
           error: function(xhr, textStunlatus, err) {
             $('#loading').hide(); // Hide loading
-            console.log(err)
           }
         })
     }); 

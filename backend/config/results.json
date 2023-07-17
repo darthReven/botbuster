@@ -5,6 +5,15 @@
         },
         "1": {
             "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+        },
+        "2": {
+            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+        },
+        "3": {
+            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+        },
+        "4": {
+            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
         }
     },
     "Writer": {
@@ -29,72 +38,61 @@
                 }
             ],
             "extras": null
+        },
+        "2": {
+            "tpe": "fail.permission",
+            "errors": [
+                {
+                    "description": "Permission fail",
+                    "key": "fail.permission.generic",
+                    "extras": null
+                }
+            ],
+            "extras": null
+        },
+        "3": {
+            "tpe": "fail.permission",
+            "errors": [
+                {
+                    "description": "Permission fail",
+                    "key": "fail.permission.generic",
+                    "extras": null
+                }
+            ],
+            "extras": null
+        },
+        "4": {
+            "tpe": "fail.permission",
+            "errors": [
+                {
+                    "description": "Permission fail",
+                    "key": "fail.permission.generic",
+                    "extras": null
+                }
+            ],
+            "extras": null
         }
     },
     "Sapling AI": {
         "0": {
-            "score": 0.20975169008664551,
-            "sentence_scores": [
-                {
-                    "score": 0.992939919624424,
-                    "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers."
-                },
-                {
-                    "score": 0.0960616711862875,
-                    "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines."
-                },
-                {
-                    "score": 0.9453607372902206,
-                    "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills."
-                },
-                {
-                    "score": 0.008996424288149618,
-                    "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience."
-                },
-                {
-                    "score": 0.2639008872382479,
-                    "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce."
-                },
-                {
-                    "score": 0.9476804122409461,
-                    "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society."
-                },
-                {
-                    "score": 1.8792944324053096e-06,
-                    "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies."
-                },
-                {
-                    "score": 0.9902978663008982,
-                    "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience."
-                },
-                {
-                    "score": 0.872211272220101,
-                    "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity."
-                },
-                {
-                    "score": 1.6258994151030493e-11,
-                    "sentence": "SP also places great emphasis on innovation and entrepreneurship."
-                },
-                {
-                    "score": 0.9585467091373551,
-                    "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation."
-                },
-                {
-                    "score": 0.22112968920898968,
-                    "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures."
-                }
-            ],
-            "text": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers. Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines. With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills. At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience. The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce. Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society. Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies. These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience. The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity. SP also places great emphasis on innovation and entrepreneurship. The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation. Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures."
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         },
         "1": {
-            "score": 0.0024295551436287477,
-            "sentence_scores": [
-                {
-                    "score": 0.9982673935747096,
-                    "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
-                }
-            ],
-            "text": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "2": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "3": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "4": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         }
     },
     "Hugging Face": {
@@ -102,65 +100,140 @@
             "data": [
                 [
                     {
-                        "Real": 0.740241299356733,
-                        "Fake": 0.259758700643267
+                        "Real": 0.6346672177314758,
+                        "Fake": 0.36533278226852417
                     },
                     [
                         [
-                            0.8370700478553772,
-                            849
-                        ],
-                        [
-                            0.6461809873580933,
-                            865
-                        ],
-                        [
-                            0.7362344861030579,
-                            211
+                            0.6346672177314758,
+                            539
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.4758896827697754,
-            "average_duration": 0.9330785682326869
+            "duration": 0.11513066291809082,
+            "average_duration": 1.2856430956158345
         },
         "1": {
             "data": [
                 [
                     {
-                        "Real": 0.1500905603170395,
-                        "Fake": 0.8499094396829605
+                        "Real": 0.9721163511276245,
+                        "Fake": 0.02788364887237549
                     },
                     [
                         [
-                            0.1500905603170395,
-                            187
+                            0.9721163511276245,
+                            463
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.02361011505126953,
-            "average_duration": 0.9212672896199412
+            "duration": 0.11579036712646484,
+            "average_duration": 1.2851196715762419
+        },
+        "2": {
+            "data": [
+                [
+                    {
+                        "Real": 0.3962344229221344,
+                        "Fake": 0.6037655770778656
+                    },
+                    [
+                        [
+                            0.3962344229221344,
+                            475
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.05605053901672363,
+            "average_duration": 1.2845699984400345
+        },
+        "3": {
+            "data": [
+                [
+                    {
+                        "Real": 0.7228635549545288,
+                        "Fake": 0.2771364450454712
+                    },
+                    [
+                        [
+                            0.7228635549545288,
+                            447
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.062064170837402344,
+            "average_duration": 1.2840235049989963
+        },
+        "4": {
+            "data": [
+                [
+                    {
+                        "Real": 0.8167065978050232,
+                        "Fake": 0.1832934021949768
+                    },
+                    [
+                        [
+                            0.8167065978050232,
+                            363
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.0615689754486084,
+            "average_duration": 1.2834772786676512
         }
     },
-    "Misinformation Placeholder": {
-        "0": "Error Detecting"
-    },
-    "Misinformation Placeholder 2": {
-        "0": "Error Detecting"
+    "In-house Model": {
+        "0": {
+            "prediction": "0.11824972409678484"
+        },
+        "1": {
+            "prediction": "0.08368007377096813"
+        },
+        "2": {
+            "prediction": "0.06398198535626652"
+        },
+        "3": {
+            "prediction": "0.11563256919281573"
+        },
+        "4": {
+            "prediction": "0.15285635304169054"
+        }
     },
     "Moderate Hate Speech": {
         "0": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9998922348022461"
+            "confidence": "0.9999051094055176"
         },
         "1": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9999213218688965"
+            "confidence": "0.9999375343322754"
+        },
+        "2": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999237060546875"
+        },
+        "3": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999511241912842"
+        },
+        "4": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999301433563232"
         }
     }
 }

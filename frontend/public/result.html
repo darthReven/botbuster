@@ -47,7 +47,6 @@
       if (apiinfo == null || text == null || results == null) {
         history.back()
       }
-      console.log(results)
       content = `
         <div class="row text-center">
             <div class="col-3 px-3">
@@ -72,9 +71,7 @@
                 sentenceelement.style.backgroundColor = String(colour)
                 }
             }
-            console.log(textCollection)
             response_categories = ''
-            console.log(Object.keys(results[response_num]['general_score']))
             for(category of Object.keys(results[response_num]['general_score'])) {
                 colour_class = ''
                 if(results[response_num]['general_score'][category]['overall_score'] >= 80) {
@@ -88,7 +85,6 @@
                 }
                 response_categories += (`<div class='${colour_class}'>${category}:<br>${results[response_num]['general_score'][category]['overall_score']}</div>`)
             }
-            console.log('yr')
             content += `
                 <div class="row">
                     <div class="col-3 px-3 text-center">
@@ -136,8 +132,8 @@
             $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>NIL</div>`)
         }
         else {
-            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["1"]["general_score"][apiCategory]['overall_score']}%</div>`)
-            if (results["1"]["general_score"][apiCategory]['overall_score'] >= threshold) {
+            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["overall_score"][apiCategory]}%</div>`)
+            if (results["overall_score"][apiCategory] >= threshold) {
                 passedThershold += 1
             }
         }

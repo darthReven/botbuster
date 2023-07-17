@@ -56,7 +56,6 @@
         }
       }
 			data["text"] = document.getElementById("text-area").value;
-      console.log(data)
 			localStorage.setItem("text", data['text'])
 			$.ajax({
 				url: `http://127.0.0.1:8000/checktext/`,
@@ -73,7 +72,6 @@
 				error: function(xhr, textStunlatus, err) {
           $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
-					console.log(err)
 				}
 			})
 		};
@@ -116,9 +114,8 @@
           }
           localStorage.setItem("api-info", JSON.stringify(data))
         },
-          error: function(xhr, textStunlatus, err) {
+          error: function(xhr, textStatus, err) {
             $('#loading').hide(); // Hide loading
-            console.log(err)
           }
         })
         let inputTextArea = document.getElementById("text-area");

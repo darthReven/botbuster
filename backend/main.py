@@ -63,38 +63,35 @@ botbuster.add_middleware(
     allow_headers=["*"],
 )
 
-@botbuster.on_event("startup")
-def startup():
-    # load baseline APIs to api.json file
-    with open(CONFIG_FILE_PATH, "r") as config_file:
-        config_data = json.load(config_file)
-        with open(API_FILE_PATH, "w") as add_api_file:
-            add_api_file.write(json.dumps(config_data["APIs"], indent = 4))
-
 # writing endpoints
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
-    print("test")
     start = time.perf_counter()
     list_of_apis = request.dict()["list_of_apis"]
-    text = request.dict()["text"]
-    full_results = {} # create dictionary to store all results
+    full_text = request.dict()["text"]
+    full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
     scores = { # create dictionary to store all scores
         "overall_score": {api_category : 0 for api, api_category in list_of_apis}, # dictionary comprehension to have a nested dictionary to store each category of APIs and overall score for each API
     }
+    overall_scores = {api_category: {} for api, api_category in list_of_apis}
     total_score = {} # store score of each API before taking the average
+    total_num_sentences = text_utils.chunk_size(full_text)
+    overall_scores["total_num_sentences"] = total_num_sentences
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     # change this to the text chunking functions
-    list_of_texts = text_utils.chunk(text, config_data["chunk_option"])    
+    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])    
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
         try:
-            full_results = {}
+            overall_scores[api_category][api] = {}
+            # full_results = {}
             for num, text in enumerate(list_of_texts):
                 if api != "score_type" and api != "description":
                     results = API(config_data["APIs"][api_category][api]).api_call(text[0])
-                    full_results[num] = results
+                    full_results[api][num] = results
+                    num_sentences = text_utils.chunk_size(text[0])
+                    overall_scores[api_category][api][num + 1] = {"num_sentences": num_sentences}
                 if api_num == 0:
                     scores[num + 1] = {
                         "general_score": {api_category : {
@@ -106,11 +103,11 @@ def check_text(request: ds.check_text):
                     for sentence in text_utils.chunk_by_sentences(text[0]):
                         scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
         except Exception:
-            full_results[num] = "Error Detecting"
+            full_results[api][num] = "Error Detecting"
             continue
         try:
             # checking for general score 
-            for req_num in full_results.keys():
+            for req_num in full_results[api].keys():
                 seen_categories = []
                 if api_category not in seen_categories:
                     total_score[api_category] = {
@@ -129,6 +126,7 @@ def check_text(request: ds.check_text):
                         key = req_num
                     try: 
                         results = results[key] # try to path to the score
+
                         if config_data["APIs"][api_category]["score_type"] == "Discrete" and key == path.split('.')[-1]:
                             if results == "flag":
                                 results = 100
@@ -139,6 +137,7 @@ def check_text(request: ds.check_text):
                         total_score[api_category]["num_apis"] += 1 # sums the number of APIs in the category
                         final_score = total_score[api_category]["score"]/total_score[api_category]["num_apis"] # gets the average score of all the APIs in each category
                         scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
+                        overall_scores[api_category][api][req_num + 1]["score"] = round(float(results) * 100,1)
                     except TypeError: # Type error will occur if the loop hasn't reached the score
                         continue  # continue to the next key in the loop
                     except KeyError: # If there is an error with the path
@@ -186,13 +185,31 @@ def check_text(request: ds.check_text):
                     if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["potentially_flagged_threshold"]:
                         scores[req_num]["flags"].append(f"Potentially Flagged by {api_category}")
                 except Exception:
-                    continue
+                    continue   
         except Exception:
             continue
-    # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
-    #     results_file.write(json.dumps(full_results, indent=4))
+    for api_category in overall_scores.keys():
+        if api_category != "total_num_sentences":
+            api_category_total_score = 0
+            api_count = 0
+            for api in overall_scores[api_category].keys(): 
+                api_total_score = 0
+                for req_num in scores.keys():
+                    try: 
+                        if req_num != "overall_score":
+                            api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores[api_category][api][req_num]["num_sentences"]/overall_scores["total_num_sentences"])
+                    except Exception:
+                        continue
+            if str(int(api_total_score)).isnumeric():
+                api_count += 1
+                api_category_total_score += api_total_score
+                print(api_total_score, api_count)
+            scores["overall_score"][api_category] = round(api_category_total_score/api_count, 1)
+            print(overall_scores)
+    with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
+        results_file.write(json.dumps(full_results, indent=4))
     with open(r"config\score.json", "w") as scores_file: # load in API data from api file
-        temp = {**scores, **total_score}
+        temp = {**scores}
         scores_file.write(json.dumps(temp, indent=4))
     # graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
     end = time.perf_counter()

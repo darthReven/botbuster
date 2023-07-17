@@ -81,7 +81,7 @@
             }
         }
     },
-    "chunk_option": "sentences",
+    "chunk_option": "paragraphs",
     "flagged_threshold": 80,
     "potentially_flagged_threshold": 25,
     "highlight_threshold": 70,
@@ -94,12 +94,12 @@
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
     "path_to_general_score": {
-        "GPTZero": "num.documents.0.average_generated_prob",
-        "Writer": "num.1.score",
-        "Sapling AI": "num.score",
-        "Hugging Face": "num.data.0.0.Fake",
-        "Moderate Hate Speech": "num.class",
-        "In-house Model": "num.prediction"
+        "GPTZero": "GPTZero.num.documents.0.average_generated_prob",
+        "Writer": "Writer.num.1.score",
+        "Sapling AI": "Sapling AI.num.score",
+        "Hugging Face": "Hugging Face.num.data.0.0.Fake",
+        "Moderate Hate Speech": "Moderate Hate Speech.num.class",
+        "In-house Model": "In-house Model.num.prediction"
     } ,
     "path_to_sentence_score": {
         "GPTZero": ["num.documents.0.sentences", "generated_prob"],
@@ -143,15 +143,31 @@
             "splitter": "/"
         },
         "twitter.com": {
-            "elements": ["","span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"],
+            "elements": [["",100],["span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"]],
             "func": "sms"
         },
         "www.reddit.com": {
-            "elements": ["","H1", "H2", "H3", "H4","div","p"],
+            "elements": [["",10],["H1", "H2", "H3", "H4","div","p"]],
             "func": "sms"
         },
         "www.facebook.com": {
-            "elements": ["div.xc9qbxq","div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"],
+            "elements": [["div.xc9qbxq",10],["div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"]],
+            "func": "sms"
+        },
+        "shopee.sg": {
+            "elements": [["",30],["span","div","p","label"]],
+            "func": "sms"
+        },
+        "www.linkedin.com": {
+            "elements": [["",30],["span"]],
+            "func": "sms"
+        },
+        "www.lazada.sg": {
+            "elements": [["",200],["h1","span","h2","ul","div.content"]],
+            "func": "sms"
+        },
+        "www.amazon.sg": {
+            "elements": [["",30],["span","th","tr","h2","p"]],
             "func": "sms"
         },
         "default": {
