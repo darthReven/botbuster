@@ -316,12 +316,10 @@ def extract_text(file: UploadFile):
                 page = reader.pages[page_num]
                 content = page.extract_text()
                 lines = content.split('\n')
-                lines_to_keep = int(len(lines) * 0.8)  # keep 80% of lines
-                # exclude top 10% and bottom 10% of lines
-                lines = lines[int(len(lines) * 0.1):lines_to_keep]
+                lines_to_keep = int(len(lines) * 0.95)  # keep 95% of lines 
+                lines = lines[int(len(lines) * 0.05):lines_to_keep]
                 cleaned_content = '\n'.join(lines)
                 text += cleaned_content + '\n'
-        
         elif file_extension == "jpg": # if it's image files
             image = np.array(Image.open(f"temp.{file_extension}")) # create image
             normalised_image = np.zeros((image.shape[0], image.shape[1]))
