@@ -32,8 +32,9 @@ import cv2
 import numpy as np
 import time
 import docx
-import docx2txt
-
+import pdfplumber
+import fitz
+import PyPDF2
 # importing in-house code
 from model.api import API
 import model.data_structures as ds
@@ -308,13 +309,19 @@ def extract_text(file: UploadFile):
             text = '\n'.join(paragraphs)
         elif file_extension == 'txt':  # if it's txt file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
-        elif file_extension == 'pdf': # if it's pdf file
+        elif file_extension == 'pdf': # if it's pdf file    
             reader = PdfReader(f"temp.{file_extension}") # creating a pdf reader object
             text = ""
-            for page_num in range (0, len(reader.pages)):
-                page = reader.pages[page_num] # getting a specific page from the pdf file
-                page_content = page.extract_text() # extracting text from page
-                text += f"{page_content} \n"
+            for page_num in range(len(reader.pages)):
+                page = reader.pages[page_num]
+                content = page.extract_text()
+                lines = content.split('\n')
+                lines_to_keep = int(len(lines) * 0.8)  # keep 80% of lines
+                # exclude top 10% and bottom 10% of lines
+                lines = lines[int(len(lines) * 0.1):lines_to_keep]
+                cleaned_content = '\n'.join(lines)
+                text += cleaned_content + '\n'
+        
         elif file_extension == "jpg": # if it's image files
             image = np.array(Image.open(f"temp.{file_extension}")) # create image
             normalised_image = np.zeros((image.shape[0], image.shape[1]))
