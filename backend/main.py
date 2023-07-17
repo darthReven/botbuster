@@ -31,6 +31,8 @@ import pytesseract
 import cv2
 import numpy as np
 import time
+import docx
+import docx2txt
 
 # importing in-house code
 from model.api import API
@@ -279,8 +281,14 @@ def extract_text(file: UploadFile):
         with open(f"temp.{file_extension}", 'wb') as f:
             f.write(contents) # writes a temporary file with the same bytes
         if file_extension == 'docx': # if it's docx file
-            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
-            
+            doc = docx.Document(f"temp.{file_extension}")
+            section = doc.sections[0]
+            header = section.header
+            header.paragraphs[0].text = ""
+            footer = section.footer
+            footer.paragraphs[0].text = ""
+            paragraphs = [paragraph.text for paragraph in doc.paragraphs]
+            text = '\n'.join(paragraphs)
         elif file_extension == 'txt':  # if it's txt file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf': # if it's pdf file
@@ -303,6 +311,7 @@ def extract_text(file: UploadFile):
             return HTTPException(status_code = 400, detail = "Unsupported File Type")
     except:
         raise HTTPException(status_code = 500, detail = "Internal Server Error")
+        
     finally:
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
     return text
