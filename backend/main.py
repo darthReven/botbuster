@@ -315,9 +315,8 @@ def extract_text(file: UploadFile):
             for page_num in range(len(reader.pages)):
                 page = reader.pages[page_num]
                 content = page.extract_text()
-                lines = content.split('\n')
-                lines_to_keep = int(len(lines) * 0.95)  # keep 95% of lines 
-                lines = lines[int(len(lines) * 0.05):lines_to_keep]
+                lines = content.split('\n') 
+                lines = lines[int(len(lines) * 0.05):int(len(lines))] #how much to take away (5%)
                 cleaned_content = '\n'.join(lines)
                 text += cleaned_content + '\n'
         elif file_extension == "jpg": # if it's image files
