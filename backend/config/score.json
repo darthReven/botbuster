@@ -233,11 +233,11 @@
     },
     "overall_score": {
         "AIGCD APIs": {
-            "GPTZero": "score not calculated",
-            "Writer": "score not calculated",
-            "Sapling AI": "score not calculated",
+            "GPTZero": 53.0,
+            "Writer": 0,
+            "Sapling AI": 0,
             "Hugging Face": 29.9,
-            "average_score": 29.9
+            "average_score": 20.7
         },
         "Misinformation APIs": {
             "In-house Model": 10.4,
@@ -253,8 +253,7 @@
             "2": 3,
             "3": 3,
             "4": 3,
-            "5": 0,
-            "average_score": 0.0
+            "5": 2
         }
     }
 }

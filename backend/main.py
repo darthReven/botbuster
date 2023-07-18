@@ -187,17 +187,21 @@ def check_text(request: ds.check_text):
         except Exception:
             continue
     for api_category in overall_scores.keys():
-        if api_category != "total_num_sentences":
-            api_category_total_score = 0
-            api_count = 0
-            for api in overall_scores[api_category].keys(): 
-                api_total_score = 0
-                for req_num in scores.keys():
-                    try: 
-                        if req_num != "overall_score":
-                            api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
-                    except Exception:
-                        continue
+        if api_category == "sentence_data":
+            continue
+        for api, category in list_of_apis: 
+            if category != api_category:
+                continue
+            api_total_score = 0
+            for req_num in scores.keys():
+                try: 
+                    print(api)
+                    if req_num != "overall_score":
+                        api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
+                except Exception:
+                    print(api, "exception")
+                    continue
+            print(api,api_total_score, str(int(api_total_score)).isnumeric())
             if str(int(api_total_score)).isnumeric():
                 overall_scores[api_category][api] = round(api_total_score,1)
                 api_count += 1
