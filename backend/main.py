@@ -19,6 +19,7 @@ python-multipart ** for form data (even though not imported)
 # importing libraries
 from fastapi import FastAPI, HTTPException, Response, status, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from bleach.sanitizer import Cleaner
 from PyPDF2 import PdfReader
 from urllib.parse import urlparse
 from PIL import Image
@@ -64,6 +65,24 @@ botbuster.add_middleware(
     allow_headers=["*"],
 )
 
+# santization funtion
+def sanitize(data):
+    cleaner=Cleaner(
+        tags={},
+        attributes={},
+        protocols={'http','https'},
+        strip=False,
+    )
+    if isinstance(data, dict):
+        return {key: sanitize(value) for key, value in data.items()}
+    elif isinstance(data, list):
+        return [sanitize(item) for item in data]
+    elif isinstance(data, str):
+        # return cleaner.clean(data)
+        dirtyData = ''.join(char for char in data if char.isalnum())
+        return cleaner.clean(dirtyData)
+    else:
+        return data
 # writing endpoints
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
@@ -213,7 +232,7 @@ def check_text(request: ds.check_text):
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
-    return scores
+    return sanitize(scores)
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information
 async def get_apis():
