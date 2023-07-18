@@ -195,13 +195,10 @@ def check_text(request: ds.check_text):
             api_total_score = 0
             for req_num in scores.keys():
                 try: 
-                    print(api)
                     if req_num != "overall_score":
                         api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
                 except Exception:
-                    print(api, "exception")
                     continue
-            print(api,api_total_score, str(int(api_total_score)).isnumeric())
             if str(int(api_total_score)).isnumeric():
                 overall_scores[api_category][api] = round(api_total_score,1)
                 api_count += 1
