@@ -31,9 +31,9 @@ import pytesseract
 import cv2
 import numpy as np
 import time
-import docx
-import pdfplumber
-import fitz
+# import docx
+# import pdfplumber
+# import fitz
 import PyPDF2
 # importing in-house code
 from model.api import API
@@ -72,27 +72,29 @@ def check_text(request: ds.check_text):
     list_of_apis = request.dict()["list_of_apis"]
     full_text = request.dict()["text"]
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
-    scores = { # create dictionary to store all scores
-        "overall_score": {api_category : 0 for api, api_category in list_of_apis}, # dictionary comprehension to have a nested dictionary to store each category of APIs and overall score for each API
-    }
+    scores = {} # create dictionary to store all scores
     overall_scores = {api_category: {} for api, api_category in list_of_apis}
-    total_score = {} # store score of each API before taking the average
+    total_score = {api_category:{} for api, api_category in list_of_apis} # store score of each API before taking the average
+    overall_scores["sentence_data"] = {}
     total_num_sentences = text_utils.chunk_size(full_text)
-    overall_scores["total_num_sentences"] = total_num_sentences
+    overall_scores["sentence_data"]["total_num_sentences"] = total_num_sentences
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     # change this to the text chunking functions
-    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])    
+    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])   
+    seen_categories = [] 
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
+        overall_scores[api_category][api] = "score not calculated"
         try:
-            overall_scores[api_category][api] = {}
             # full_results = {}
             for num, text in enumerate(list_of_texts):
                 if api != "score_type" and api != "description":
                     results = API(config_data["APIs"][api_category][api]).api_call(text[0])
                     full_results[api][num] = results
                     num_sentences = text_utils.chunk_size(text[0])
-                    overall_scores[api_category][api][num + 1] = {"num_sentences": num_sentences}
+                    overall_scores["sentence_data"][num + 1] = num_sentences
+                if api_category not in seen_categories:
+                    total_score[api_category][num + 1] = {"score": 0, "num_apis": 0}
                 if api_num == 0:
                     scores[num + 1] = {
                         "general_score": {api_category : {
@@ -103,19 +105,14 @@ def check_text(request: ds.check_text):
                     }
                     for sentence in text_utils.chunk_by_sentences(text[0]):
                         scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
+            
+            seen_categories.append(api_category)
         except Exception:
             full_results[api][num] = "Error Detecting"
             continue
         try:
             # checking for general score 
             for req_num in full_results[api].keys():
-                seen_categories = []
-                if api_category not in seen_categories:
-                    total_score[api_category] = {
-                        "score": 0,
-                        "num_apis": 0,
-                    }
-                    seen_categories.append(api_category)
                 results = full_results # set the results to loop through
                 if results == "Error Detecting":
                     scores[req_num + 1]["general_score"][api_category][api] = "error detecting" 
@@ -134,9 +131,9 @@ def check_text(request: ds.check_text):
                             else:
                                 results = 0
                         scores[req_num + 1]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
-                        total_score[api_category]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
-                        total_score[api_category]["num_apis"] += 1 # sums the number of APIs in the category
-                        final_score = total_score[api_category]["score"]/total_score[api_category]["num_apis"] # gets the average score of all the APIs in each category
+                        total_score[api_category][req_num + 1]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
+                        total_score[api_category][req_num + 1]["num_apis"] += 1 # sums the number of APIs in the category
+                        final_score = total_score[api_category][req_num + 1]["score"]/total_score[api_category][req_num + 1]["num_apis"] # gets the average score of all the APIs in each category
                         scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
                         overall_scores[api_category][api][req_num + 1]["score"] = round(float(results) * 100,1)
                     except TypeError: # Type error will occur if the loop hasn't reached the score
@@ -198,23 +195,23 @@ def check_text(request: ds.check_text):
                 for req_num in scores.keys():
                     try: 
                         if req_num != "overall_score":
-                            api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores[api_category][api][req_num]["num_sentences"]/overall_scores["total_num_sentences"])
+                            api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
                     except Exception:
                         continue
             if str(int(api_total_score)).isnumeric():
+                overall_scores[api_category][api] = round(api_total_score,1)
                 api_count += 1
                 api_category_total_score += api_total_score
-                print(api_total_score, api_count)
-            scores["overall_score"][api_category] = round(api_category_total_score/api_count, 1)
-            print(overall_scores)
+            overall_scores[api_category]["average_score"] = round(api_category_total_score/api_count, 1)
     with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
         results_file.write(json.dumps(full_results, indent=4))
     with open(r"config\score.json", "w") as scores_file: # load in API data from api file
-        temp = {**scores}
-        scores_file.write(json.dumps(temp, indent=4))
+        scores["overall_score"] = overall_scores
+        scores_file.write(json.dumps(scores, indent=4))
     # graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
     end = time.perf_counter()
-    print(end - start)
+    # print(end - start)
+    scores["overall_score"] = overall_scores
     return scores
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information
@@ -299,14 +296,15 @@ def extract_text(file: UploadFile):
         with open(f"temp.{file_extension}", 'wb') as f:
             f.write(contents) # writes a temporary file with the same bytes
         if file_extension == 'docx': # if it's docx file
-            doc = docx.Document(f"temp.{file_extension}")
-            section = doc.sections[0]
-            header = section.header
-            header.paragraphs[0].text = ""
-            footer = section.footer
-            footer.paragraphs[0].text = ""
-            paragraphs = [paragraph.text for paragraph in doc.paragraphs]
-            text = '\n'.join(paragraphs)
+            pass
+            # doc = docx.Document(f"temp.{file_extension}")
+            # section = doc.sections[0]
+            # header = section.header
+            # header.paragraphs[0].text = ""
+            # footer = section.footer
+            # footer.paragraphs[0].text = ""
+            # paragraphs = [paragraph.text for paragraph in doc.paragraphs]
+            # text = '\n'.join(paragraphs)
         elif file_extension == 'txt':  # if it's txt file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf': # if it's pdf file    

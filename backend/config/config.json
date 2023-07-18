@@ -94,7 +94,7 @@
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
     "path_to_general_score": {
-        "GPTZero": "GPTZero.num.documents.0.average_generated_prob",
+        "GPTZero": "GPTZero.num.documents.0.completely_generated_prob",
         "Writer": "Writer.num.1.score",
         "Sapling AI": "Sapling AI.num.score",
         "Hugging Face": "Hugging Face.num.data.0.0.Fake",

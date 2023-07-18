@@ -1,19 +1,198 @@
 {
     "GPTZero": {
         "0": {
-            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+            "documents": [
+                {
+                    "average_generated_prob": 1,
+                    "completely_generated_prob": 0.2393001914024353,
+                    "overall_burstiness": 5,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.850090677245877,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 21,
+                            "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.",
+                            "highlight_sentence_for_ai": true
+                        },
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 31,
+                            "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines.",
+                            "highlight_sentence_for_ai": true
+                        },
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 26,
+                            "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills.",
+                            "highlight_sentence_for_ai": true
+                        }
+                    ],
+                    "result_message": "Your text may include parts written by AI",
+                    "result_sub_message": "",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-07"
         },
         "1": {
-            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.8001633286476135,
+                    "overall_burstiness": 5.6862406730651855,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 37,
+                            "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 40,
+                            "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 29,
+                            "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-07"
         },
         "2": {
-            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.8847442269325256,
+                    "overall_burstiness": 16.5227108001709,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 51,
+                            "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 21,
+                            "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 24,
+                            "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by AI",
+                    "result_sub_message": "",
+                    "document_classification": "AI_ONLY"
+                }
+            ],
+            "version": "2023-07-07"
         },
         "3": {
-            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.13049408793449402,
+                    "overall_burstiness": 9.504384994506836,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 46,
+                            "sentence": "SP also places great emphasis on innovation and entrepreneurship.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 27,
+                            "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 36,
+                            "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is most likely human written",
+                    "result_sub_message": "",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-07"
         },
         "4": {
-            "error": "API key has expired. If you have an API subscription please reset the key in the dashboard at app.gptzero.me/app/api"
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.6280757039785385,
+                    "overall_burstiness": 10.60660171508789,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 22,
+                            "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 37,
+                            "sentence": "With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-07"
         }
     },
     "Writer": {
@@ -112,8 +291,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.11513066291809082,
-            "average_duration": 1.2856430956158345
+            "duration": 0.11620807647705078,
+            "average_duration": 1.2889945855339708
         },
         "1": {
             "data": [
@@ -131,8 +310,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.11579036712646484,
-            "average_duration": 1.2851196715762419
+            "duration": 0.0907890796661377,
+            "average_duration": 1.2886521432630742
         },
         "2": {
             "data": [
@@ -150,8 +329,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.05605053901672363,
-            "average_duration": 1.2845699984400345
+            "duration": 0.1124122142791748,
+            "average_duration": 1.2883160747119358
         },
         "3": {
             "data": [
@@ -169,8 +348,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.062064170837402344,
-            "average_duration": 1.2840235049989963
+            "duration": 0.09321260452270508,
+            "average_duration": 1.2879747141091968
         },
         "4": {
             "data": [
@@ -188,25 +367,25 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.0615689754486084,
-            "average_duration": 1.2834772786676512
+            "duration": 0.10465788841247559,
+            "average_duration": 1.287636816671819
         }
     },
     "In-house Model": {
         "0": {
-            "prediction": "0.11824972409678484"
+            "prediction": 0.11824972409678484
         },
         "1": {
-            "prediction": "0.08368007377096813"
+            "prediction": 0.08368007377096813
         },
         "2": {
-            "prediction": "0.06398198535626652"
+            "prediction": 0.06398198535626652
         },
         "3": {
-            "prediction": "0.11563256919281573"
+            "prediction": 0.11563256919281573
         },
         "4": {
-            "prediction": "0.15285635304169054"
+            "prediction": 0.15285635304169054
         }
     },
     "Moderate Hate Speech": {

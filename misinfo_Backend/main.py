@@ -13,14 +13,12 @@ async def startup_event():
     ms.trainModel()
     print('model has been trained, now responding to requests.')
 
-@misinfo.post("/predict")
+@misinfo.post("/predict/")
 def predict(text: Text):
     # print(text)
     predText = text.dict()["text"]
     prediction=ms.predictText(predText)
-    print(prediction)
-    
-    return({"prediction":f"{prediction}"})
+    return({"prediction": prediction})
 
 if __name__ == "__main__":
     import uvicorn

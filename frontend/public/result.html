@@ -110,7 +110,7 @@
         for (const key in results["1"]["general_score"][apiCategory]) {
             if(key != "overall_score" && key != "description" && key != "score_type") {
                 $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`
-                <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["1"]["general_score"][apiCategory][key]}">${results["1"]["general_score"][apiCategory][key]}</span></div></div></div>`)
+                <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["overall_score"][apiCategory][key]}">${results["overall_score"][apiCategory][key]}</span></div></div></div>`)
                 if (apiinfo[`${apiCategory}`][key][1] != undefined){ 
                     const byte_characters = atob(apiinfo[`${apiCategory}`][key][1]);
                     const byte_numbers = new Array(byte_characters.length);
@@ -132,8 +132,8 @@
             $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>NIL</div>`)
         }
         else {
-            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["overall_score"][apiCategory]}%</div>`)
-            if (results["overall_score"][apiCategory] >= threshold) {
+            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["overall_score"][apiCategory]["average_score"]}%</div>`)
+            if (results["overall_score"][apiCategory]["average_score"] >= threshold) {
                 passedThershold += 1
             }
         }
