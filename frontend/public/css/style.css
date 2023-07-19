@@ -646,6 +646,10 @@ form {
     height: calc(100vh - 325px - 58px);
 }
 
+.display_info {
+    display:unset!important;
+}
+
 .hidden {
     display: none;
 }
@@ -790,12 +794,12 @@ form {
     padding-top: 100%
 }
 
-.flagged, .potential_flag, .unflagged {
+.hoverable .flagged, .hoverable .potential_flag, .hoverable .unflagged {
     padding-top: 12px;
     padding-bottom: 12px;
 }
 
-.flagged:not(:last-child), .potential_flag:not(:last-child), .unflagged:not(:last-child) {
+.hoverable:has(.flagged, .flagged, .unflagged):not(:last-child) .potential_flag, .hoverable:has(.flagged, .potential_flag, .unflagged):not(:last-child) .potential_flag, .hoverable:has(.flagged, .potential_flag, .unflagged):not(:last-child) .unflagged{
     border-bottom: solid #ced4da;
     border-width: 1px;
 }
@@ -815,6 +819,17 @@ form {
 .results_text {
     font-size: 13px;
     text-align: justify;
+}
+
+.hover_box {
+    cursor: none;
+    position: absolute;
+    z-index: 100000;
+    background-color: white;
+    padding: 5px;
+    border: solid #ced4da;
+    border-width: 1px;
+    border-radius: 10px;
 }
 
 /* Responsiveness */

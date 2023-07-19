@@ -7,12 +7,14 @@ def generate_graph(data):
     category_list = []
     category_score_list = []
     for i, api_category in enumerate(data):
+        if api_category == 'sentence_data':
+            continue
         category_list.append(api_category)
         category_score_list.append({})
         if (not bool(data[api_category])):
             final_score.append(0)
         for key in data[api_category]:
-            if key != "overall_score":
+            if key != "average_score":
                 score = data[api_category][key]
                 category_score_list[i][key] = score
             else:
@@ -21,21 +23,45 @@ def generate_graph(data):
                     'Scores': final_score})
     
     # scores are current hard coded
-    colors = ['green' if score <= 50 else
-            'yellow' if score <= 75 else
-            'red' for score in df['Scores']]
+    colors = ['#A3D23C' if score <= 20 else
+            '#E5801A' if score <= 80 else
+            '#D2411A' for score in df['Scores']]
     
     fig = go.Figure(data = go.Bar(x = df['Category'], y = df['Scores'], 
                 customdata = category_score_list,
                 marker = dict(color = colors)))
     
+    # Threshold Indicator 20
+    # all the way
+    fig.add_shape(
+        type = 'line',
+        x0 = -0.5,
+        y0 = 20,
+        x1 = len(df['Category']) - 0.5,
+        y1 = 20,
+        line = dict(color = '#E5801A', dash ='dash'),
+        name = f'Threshold ({20})'
+    )
+
+    # Threshold Indicator 80
+    # all the way
+    fig.add_shape(
+        type = 'line',
+        x0 = -0.5,
+        y0 = 80,
+        x1 = len(df['Category']) - 0.5,
+        y1 = 80,
+        line = dict(color = '#D2411A', dash ='dash'),
+        name = f'Threshold ({80})'
+    )
+
     hover_template = 'Individual Scores:<br>%{customdata}<extra></extra>'
     custom_hover_data = []
     for category in fig.data[0].customdata:
         formatted_data = []
         for key, value in category.items():
             if type(value) is int or type(value) is float:
-                score_color = '🟢' if value <= 50 else '🟡' if value <= 75 else '🔴'
+                score_color = '🟢' if value <= 20 else '🟠' if value <= 80 else '🔴'
                 formatted_data.append(f"{score_color} <b>{key}</b>: {str(value)}")
             else:
                 formatted_data.append(f"⚪<br>{key}</b>: {str(value)}")
@@ -51,22 +77,4 @@ def generate_graph(data):
                     yaxis_title = 'Score',
                     yaxis_range=[0, 100])
     
-    pio.write_html(fig, file = '../../frontend/public/graph.html', full_html = False)
-
-
-
-# aggregatedScores = {'GPTZero': 55, 
-#                     'Writer': 65, 
-#                     'Hugging Face': 75}
-# hateSpeech = {'API 1': 70, 
-#               'API 2': 80, 
-#               'API 3': 90}
-# misinformation = {'API A': 75, 
-#                   'API B': 80, 
-#                   'API C': 85}
-
-
-
-
-
-
+    pio.write_html(fig, file = '../frontend/public/graph.html', full_html = False)

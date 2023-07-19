@@ -57,6 +57,7 @@
             </div>
         </div>
         `
+    hoverable_boxes =  ''
         for (let response = 1; response < Object.keys(results).length; response++) {
             response_num = String(response)
             textCollection = []
@@ -83,7 +84,23 @@
                 else {
                     colour_class = 'unflagged'
                 }
-                response_categories += (`<div class='${colour_class}'>${category}:<br>${results[response_num]['general_score'][category]['overall_score']}</div>`)
+                response_categories += (`<span class="hoverable"><div class='${colour_class}'><i class="fa-solid fa-caret-down" style="color: black;"></i>  ${category}:<br>${results[response_num]['general_score'][category]['overall_score']}</div></span>`)
+                api_score_list = []
+                for(api of Object.keys(results[response_num]['general_score'][category])) {
+                    if(api != 'description' && api != 'overall_score' && api != 'score_type') {
+                        if(results[response_num]['general_score'][category][api] >= 80) {
+                            colour_class = 'flagged'
+                        }
+                        else if(results[response_num]['general_score'][category][api] >= 20) {
+                            colour_class = 'potential_flag'
+                        }
+                        else {
+                            colour_class = 'unflagged'
+                        }
+                        api_score_list.push(`<span class='${colour_class}'>${api}: ${results[response_num]['general_score'][category][api]}</span>`)
+                    }    
+                }
+                hoverable_boxes += `<div class='hover_box hidden'>${api_score_list.join('<br>')}</div>`
             }
             content += `
                 <div class="row">
@@ -96,19 +113,19 @@
                 </div>
             `
         }
-      numCategories = Object.keys(results["1"]["general_score"]).length
+      $('.results-box').html(content);
+      numCategories = Object.keys(results["overall_score"]).length
       columnNumber = 12 / numCategories
       if(columnNumber < 4) {
         columnNumber = 4
       }
-      threshold = 50 // HARDCODED (CHANGE LATER IN SETTINGS)
-      passedThershold = 0
-      for (i in Object.keys(results["1"]["general_score"])) {
-        var apiCategory = Object.keys(results["1"]["general_score"])[i]
+      // Filling sidebar scores
+      for (i = 0; i < Object.keys(results["overall_score"]).length - 1; i++) {
+        var apiCategory = Object.keys(results["overall_score"])[i]
         $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
         $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
-        for (const key in results["1"]["general_score"][apiCategory]) {
-            if(key != "overall_score" && key != "description" && key != "score_type") {
+        for (const key in results["overall_score"][apiCategory]) {
+            if(key != "average_score") {
                 $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`
                 <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["overall_score"][apiCategory][key]}">${results["overall_score"][apiCategory][key]}</span></div></div></div>`)
                 if (apiinfo[`${apiCategory}`][key][1] != undefined){ 
@@ -128,18 +145,26 @@
                 resultelement.style.color = String(new_colour)
             }
         }
-        if(Object.keys(results["1"]["general_score"][apiCategory]).length === 0) {
-            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>NIL</div>`)
-        }
-        else {
-            $("#text-area .row").append(`<div class="col-${columnNumber}">${apiCategory}<br>${results["overall_score"][apiCategory]["average_score"]}%</div>`)
-            if (results["overall_score"][apiCategory]["average_score"] >= threshold) {
-                passedThershold += 1
+        // For each category
+        api_averages = []
+        $("#text-area > .row").append(`<div class="col-${columnNumber}"><span class="hoverable"><i class="fa-solid fa-caret-down"></i>  ${apiCategory}<br>${results["overall_score"][apiCategory]["average_score"]}%</span></div>`)
+        for (let i = 0; i < Object.entries(results["overall_score"][apiCategory]).length - 1; i++) {
+            api_and_score = Object.entries(results["overall_score"][apiCategory])[i]
+            if(api_and_score[1] >= 80) {
+                colour_class = 'flagged'
             }
+            else if(api_and_score[1] >= 20) {
+                colour_class = 'potential_flag'
+            }
+            else {
+                colour_class = 'unflagged'
+            }
+            api_averages.push(`<span class='${colour_class}'>${api_and_score[0]}: ${api_and_score[1]}</span>`)
         }
-        $("#aggregate_score").html(`${passedThershold}/${numCategories}`)
-        $('.results-box').html(content);
+        $("body").append(`<div class="hover_box hidden">${api_averages.join('<br>')}</div>`)
+
       }
+      $("body").append(hoverable_boxes)
       // $.ajax({
       //   url:"http://127.0.0.1:8000/graph/",
       //   type: "POST",
@@ -157,6 +182,26 @@
       //     $('#submitBtn').prop('disabled', false); //Enable arrow submit button
       //   }
       // })
+        const hoverable = document.querySelectorAll(".hoverable");
+        const infobox = document.querySelectorAll(".hover_box")
+        const onClick = (e, i) => {
+            infobox[i].classList.toggle('display_info');
+            infobox[i].style.left = e.pageX + 'px';
+            infobox[i].style.top = e.pageY + 'px';
+        }
+        hoverable.forEach((hoverable, i) => {
+            hoverable.addEventListener("click", (e) => onClick(e, i));
+        });
+        document.addEventListener('click', function handleClickOutsideBox(event) {
+
+            hoverable.forEach((hoverable, i) => {
+                if (!hoverable.contains(event.target)) {
+                    console.log(hoverable)
+                    console.log(event.target)
+                    infobox[i].classList.remove('display_info');
+                }
+            })
+        });
     })
   </script>
 
@@ -204,9 +249,9 @@
             <form>
                 <div class="form-group">
                   <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
-                    <div class="embed-responsive embed-responsive-16by9"><iframe src="gauge.html" class="embed-responsive-item"></iframe>
+                    <div class="embed-responsive embed-responsive-16by9" style="height:150px;"><iframe src="gauge.html" class="embed-responsive-item"></iframe>
                     </div>
-                    <div class="embed-responsive embed-responsive-16by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
+                    <div class="embed-responsive embed-responsive-21by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
                     </div>
                     <div class="row">
                     </div>

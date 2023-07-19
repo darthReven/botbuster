@@ -43,6 +43,7 @@ import model.data_structures as ds
 # import model.generic_web_scraper as gws
 import model.web_scrapers as ws
 import model.graph as graph
+import model.gauge as gauge
 import model.text as text_utils
 
 # Initialising constants 
@@ -208,6 +209,8 @@ def check_text(request: ds.check_text):
     for api_category in overall_scores.keys():
         if api_category == "sentence_data":
             continue
+        api_count = 0
+        api_category_total_score = 0
         for api, category in list_of_apis: 
             if category != api_category:
                 continue
@@ -228,7 +231,8 @@ def check_text(request: ds.check_text):
     with open(r"config\score.json", "w") as scores_file: # load in API data from api file
         scores["overall_score"] = overall_scores
         scores_file.write(json.dumps(scores, indent=4))
-    # graph.generate_graph(scores["general_score"]) # generate the graph with the general scores of each API
+    graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
+    gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
@@ -354,10 +358,3 @@ def extract_text(file: UploadFile):
     finally:
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
     return text
-
-# # getting graph data
-# @botbuster.post("/graph/")
-# def web_scraping(request: ds.gen_graph):
-#     general_score = request.dict()["general_score"]
-#     sentence_score = request.dict()["sentence_score"]
-#     graph.generate_graph(general_score)

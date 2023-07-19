@@ -10,7 +10,3 @@ class add_api (BaseModel):
 
 class web_scraper (BaseModel):
     page_url: str
-
-class gen_graph (BaseModel):
-    general_score: dict
-    sentence_score: list
