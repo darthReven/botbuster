@@ -160,7 +160,6 @@
       var element = text_with_elements[0];
       text += element.innerHTML;
       text = text.replace(/<br>/g, "");
-      console.log(text);
 			data["text"] = text
 			localStorage.setItem("text", data['text'])
 			$.ajax({

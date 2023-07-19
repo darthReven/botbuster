@@ -87,8 +87,6 @@ def check_text(request: ds.check_text):
     start = time.perf_counter()
     list_of_apis = request.dict()["list_of_apis"]
     full_text = request.dict()["text"]
-    print("hey")
-    print(full_text)
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
     scores = {} # create dictionary to store all scores
     overall_scores = {api_category: {} for api, api_category in list_of_apis}
