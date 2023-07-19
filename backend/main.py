@@ -63,7 +63,7 @@ botbuster.add_middleware(
 )
 
 # santization funtion
-def sanitize(data):
+def sanitise(data):
     cleaner=Cleaner(
         tags={},
         attributes={},
@@ -71,9 +71,9 @@ def sanitize(data):
         strip=False,
     )
     if isinstance(data, dict):
-        return {key: sanitize(value) for key, value in data.items()}
+        return {key: sanitise(value) for key, value in data.items()}
     elif isinstance(data, list):
-        return [sanitize(item) for item in data]
+        return [sanitise(item) for item in data]
     elif isinstance(data, str):
         # return cleaner.clean(data)
         dirtyData = ''.join(char for char in data if char.isalnum())
@@ -212,12 +212,13 @@ def check_text(request: ds.check_text):
                 continue
             api_total_score = 0
             for req_num in scores.keys():
+                if req_num == "overall_score":
+                    continue
                 try: 
-                    if req_num != "overall_score":
-                        api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
+                    api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
                 except Exception:
                     continue
-            if str(int(api_total_score)).isnumeric():
+            if str(int(api_total_score)).isnumeric() and scores[req_num]["general_score"][api_category][api] != "error getting score":
                 overall_scores[api_category][api] = round(api_total_score,1)
                 api_count += 1
                 api_category_total_score += api_total_score
@@ -231,7 +232,7 @@ def check_text(request: ds.check_text):
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
-    return sanitize(scores)
+    return sanitise(scores)
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information
 async def get_apis():

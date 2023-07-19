@@ -1,0 +1,91 @@
+{
+    "GPTZero": {
+        "0": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.00026822800282388926,
+                    "overall_burstiness": 0,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.11111110864197533,
+                            "num_sentences": 1,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 1,
+                            "sentence": "test",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_sub_message": "",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-07-07"
+        }
+    },
+    "Writer": {
+        "0": {
+            "tpe": "fail.permission",
+            "errors": [
+                {
+                    "description": "Permission fail",
+                    "key": "fail.permission.generic",
+                    "extras": null
+                }
+            ],
+            "extras": null
+        }
+    },
+    "Sapling AI": {
+        "0": {
+            "score": 0.372862180074056,
+            "sentence_scores": [
+                {
+                    "score": NaN,
+                    "sentence": "test"
+                }
+            ],
+            "text": "test"
+        }
+    },
+    "Hugging Face": {
+        "0": {
+            "data": [
+                [
+                    {
+                        "Real": 0.4327251613140106,
+                        "Fake": 0.5672748386859894
+                    },
+                    [
+                        [
+                            0.4327251613140106,
+                            4
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.01807570457458496,
+            "average_duration": 1.2733254929090554
+        }
+    },
+    "In-house Model": {
+        "0": [
+            "Internal Server Error",
+            500
+        ]
+    },
+    "Moderate Hate Speech": {
+        "0": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9997310042381287"
+        }
+    }
+}
