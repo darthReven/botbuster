@@ -32,10 +32,7 @@ import pytesseract
 import cv2
 import numpy as np
 import time
-# import docx
-# import pdfplumber
-# import fitz
-import PyPDF2
+import docx
 # importing in-house code
 from model.api import API
 import model.data_structures as ds
@@ -67,7 +64,7 @@ botbuster.add_middleware(
 )
 
 # santization funtion
-def sanitize(data):
+def sanitise(data):
     cleaner=Cleaner(
         tags={},
         attributes={},
@@ -75,9 +72,9 @@ def sanitize(data):
         strip=False,
     )
     if isinstance(data, dict):
-        return {key: sanitize(value) for key, value in data.items()}
+        return {key: sanitise(value) for key, value in data.items()}
     elif isinstance(data, list):
-        return [sanitize(item) for item in data]
+        return [sanitise(item) for item in data]
     elif isinstance(data, str):
         # return cleaner.clean(data)
         dirtyData = ''.join(char for char in data if char.isalnum())
@@ -101,7 +98,7 @@ def check_text(request: ds.check_text):
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     # change this to the text chunking functions
-    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])   
+    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])  
     seen_categories = [] 
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
         overall_scores[api_category][api] = "score not calculated"
@@ -144,7 +141,6 @@ def check_text(request: ds.check_text):
                         key = req_num
                     try: 
                         results = results[key] # try to path to the score
-
                         if config_data["APIs"][api_category]["score_type"] == "Discrete" and key == path.split('.')[-1]:
                             if results == "flag":
                                 results = 100
@@ -156,6 +152,7 @@ def check_text(request: ds.check_text):
                         final_score = total_score[api_category][req_num + 1]["score"]/total_score[api_category][req_num + 1]["num_apis"] # gets the average score of all the APIs in each category
                         scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
                         overall_scores[api_category][api][req_num + 1]["score"] = round(float(results) * 100,1)
+                        
                     except TypeError: # Type error will occur if the loop hasn't reached the score
                         continue  # continue to the next key in the loop
                     except KeyError: # If there is an error with the path
@@ -216,12 +213,13 @@ def check_text(request: ds.check_text):
                 continue
             api_total_score = 0
             for req_num in scores.keys():
+                if req_num == "overall_score":
+                    continue
                 try: 
-                    if req_num != "overall_score":
-                        api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
+                    api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
                 except Exception:
                     continue
-            if str(int(api_total_score)).isnumeric():
+            if str(int(api_total_score)).isnumeric() and scores[req_num]["general_score"][api_category][api] != "error getting score":
                 overall_scores[api_category][api] = round(api_total_score,1)
                 api_count += 1
                 api_category_total_score += api_total_score
@@ -236,7 +234,7 @@ def check_text(request: ds.check_text):
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
-    return sanitize(scores)
+    return sanitise(scores)
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information
 async def get_apis():
@@ -320,15 +318,14 @@ def extract_text(file: UploadFile):
         with open(f"temp.{file_extension}", 'wb') as f:
             f.write(contents) # writes a temporary file with the same bytes
         if file_extension == 'docx': # if it's docx file
-            pass
-            # doc = docx.Document(f"temp.{file_extension}")
-            # section = doc.sections[0]
-            # header = section.header
-            # header.paragraphs[0].text = ""
-            # footer = section.footer
-            # footer.paragraphs[0].text = ""
-            # paragraphs = [paragraph.text for paragraph in doc.paragraphs]
-            # text = '\n'.join(paragraphs)
+            doc = docx.Document(f"temp.{file_extension}")
+            section = doc.sections[0]
+            header = section.header
+            header.paragraphs[0].text = ""
+            footer = section.footer
+            footer.paragraphs[0].text = ""
+            paragraphs = [paragraph.text for paragraph in doc.paragraphs]
+            text = '\n'.join(paragraphs)
         elif file_extension == 'txt':  # if it's txt file
             text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
         elif file_extension == 'pdf': # if it's pdf file    

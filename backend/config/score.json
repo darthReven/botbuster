@@ -234,10 +234,10 @@
     "overall_score": {
         "AIGCD APIs": {
             "GPTZero": 53.0,
-            "Writer": 0,
-            "Sapling AI": 0,
+            "Writer": "score not calculated",
+            "Sapling AI": "score not calculated",
             "Hugging Face": 29.9,
-            "average_score": 20.7
+            "average_score": 41.4
         },
         "Misinformation APIs": {
             "In-house Model": 10.4,

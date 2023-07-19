@@ -134,6 +134,96 @@
         $(".content-box").removeClass("mt-4");
         resetCount()
     }
+
+    function checkText(event) {
+      event.preventDefault();
+      $('#loading').show(); // Start loading
+      $('.btn[type="button"]').prop('disabled', true); // Disable submit
+			var data = {
+				list_of_apis: [], 
+				text: ""
+			};
+			var api_info = localStorage.getItem("api-info")
+			api_info = JSON.parse(api_info)
+      for(api_category in api_info) {
+        for (key in api_info[api_category]) {
+          if (key != "description" && key != "score_type") {
+            if (document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).checked == true) {
+              let category = document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).className
+                data["list_of_apis"].push([key, category])
+            };
+          }
+        }
+      }
+      var text_with_elements = document.getElementsByClassName("col-12");
+      var text = "";
+      var element = text_with_elements[0];
+      text += element.innerHTML;
+      text = text.replace(/<br>/g, "");
+			data["text"] = text
+			localStorage.setItem("text", data['text'])
+			$.ajax({
+				url: `http://127.0.0.1:8000/checktext/`,
+				type: "POST",
+				data: JSON.stringify(data),
+				contentType: "application/json; charset = utf-8",
+				dataType: "json",
+				success: function(data, textStatus, xhr) {
+          $('#loading').hide(); // Hide loading
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
+					localStorage.setItem("results", JSON.stringify(data))
+					window.location.href='result.html'
+				},
+				error: function(xhr, textStunlatus, err) {
+          $('#loading').hide(); // Hide loading
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
+				}
+			})
+		};
+    $(document).ready(function () {
+			localStorage.clear()
+      $('#loading').show(); // Start loading
+			$.ajax({
+        url: "http://127.0.0.1:8000/getapis/",
+        type: "GET",
+        contentType: "application/json; charset = utf-8",
+        dataType: "json",
+        success: function(data, textStatus, xhr) {
+          for (const api_category in data) {
+            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${api_category.replace(/\s/g, '-')}">`)
+            $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${api_category}</div>`)
+            for (const key in data[`${api_category}`]) {
+              if (key != "description" && key != "score_type") {
+              $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(
+                `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${api_category}`][key][0]}_logo"  src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">
+                <div class="checkbox">
+                <input type="checkbox" id="${data[`${api_category}`][key][0]}_checkbox" class="${api_category}" checked>
+                <label for="${data[`${api_category}`][key][0]}_checkbox"></label>
+                </div></div></div></div>`)
+                if (data[`${api_category}`][key][1] != undefined){ 
+                  const byte_characters = atob(data[`${api_category}`][key][1]);
+                  const byte_numbers = new Array(byte_characters.length);
+                  for (let i = 0; i < byte_characters.length; i++) {
+                    byte_numbers[i] = byte_characters.charCodeAt(i);
+                  }
+                  const byte_array = new Uint8Array(byte_numbers);
+                  document.getElementById(`${data[`${api_category}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
+                  window.setTimeout(function(){
+                      $('#loading').hide(); // Hide loading
+                  }, 250);
+                }
+              }
+            }
+          }
+          localStorage.setItem("api-info", JSON.stringify(data))
+        },
+          error: function(xhr, textStunlatus, err) {
+            $('#loading').hide(); // Hide loading
+          }
+        })
+    }); 
+
+
   </script>
 
 </head>
@@ -187,7 +277,7 @@
             <div id="text-area" class="content-box">
             </div>
             <div class="text-center">
-              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn" onclick="checkFile()">
+              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn" onclick="checkText(event)">
                 Submit
               </button>
               <button type="reset" class="btn btn-link px-4 py-3 my-5 mx-2 fw-bold pull-right navbar-btn" onclick="removeContentBox()">

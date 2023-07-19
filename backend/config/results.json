@@ -291,8 +291,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.1385807991027832,
-            "average_duration": 1.2751780141465434
+            "duration": 0.13370132446289062,
+            "average_duration": 1.2153499373635035
         },
         "1": {
             "data": [
@@ -310,8 +310,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.1256108283996582,
-            "average_duration": 1.2748560065314882
+            "duration": 0.11706018447875977,
+            "average_duration": 1.215100269313291
         },
         "2": {
             "data": [
@@ -329,8 +329,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.44495558738708496,
-            "average_duration": 1.2746236065261272
+            "duration": 0.07388472557067871,
+            "average_duration": 1.2148409021442588
         },
         "3": {
             "data": [
@@ -348,8 +348,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.12275505065917969,
-            "average_duration": 1.2741904452238768
+            "duration": 0.09624791145324707,
+            "average_duration": 1.2145867342299912
         },
         "4": {
             "data": [
@@ -367,8 +367,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.12015008926391602,
-            "average_duration": 1.2738675464113531
+            "duration": 0.09144425392150879,
+            "average_duration": 1.2143315905497758
         }
     },
     "In-house Model": {

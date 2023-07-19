@@ -11,7 +11,7 @@ class Text(BaseModel):
 @misinfo.on_event("startup")
 async def startup_event():
     ms.trainModel()
-    print('model has been trained, now responding to requests.')
+    # print('model has been trained, now responding to requests.')
 
 @misinfo.post("/predict/")
 def predict(text: Text):
