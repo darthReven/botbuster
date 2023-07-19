@@ -207,6 +207,8 @@ def check_text(request: ds.check_text):
     for api_category in overall_scores.keys():
         if api_category == "sentence_data":
             continue
+        api_count = 0
+        api_category_total_score = 0
         for api, category in list_of_apis: 
             if category != api_category:
                 continue
