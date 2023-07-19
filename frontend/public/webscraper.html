@@ -132,7 +132,7 @@
         `}
       $('#fileForm').append(content)
       $('#fileForm').append(`<div class="text-center">
-            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="num_of_submissions();get_elements()">
+            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="checkText()">
                 Submit
             </button>
             <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="location.reload()">
@@ -154,7 +154,7 @@
         `}
       $('#fileForm').append(content)
       $('#fileForm').append(`<div class="text-center">
-            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="num_of_submissions();get_elements()">
+            <button type="button" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn"  onClick="checkText()">
                 Submit
             </button>
             <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn" onClick="location.reload()">
@@ -167,6 +167,52 @@
         appendCheckbox(num_of_elements)
     }}
     
+    function checkText() {
+      $('#loading').show(); // Start loading
+      $('.btn[type="button"]').prop('disabled', true); // Disable submit
+			var data = {
+				list_of_apis: [], 
+				text: ""
+			};
+			var api_info = localStorage.getItem("api-info")
+			api_info = JSON.parse(api_info)
+      
+      for(api_category in api_info) {
+        for (key in api_info[api_category]) {
+          if (key != "description" && key != "score_type") {
+            if (document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).checked == true) {
+              let category = document.getElementById(`${api_info[`${api_category}`][key][0]}_checkbox`).className
+                data["list_of_apis"].push([key, category])
+            };
+          }
+        }
+      }
+      var text_with_elements = document.getElementsByClassName("col-9 px-3");
+      var text = ""
+      for (var i = 1; i < text_with_elements.length; i++) {
+        var element = text_with_elements[i];
+        text+=element.innerHTML;
+      }
+			data["text"] = text
+			localStorage.setItem("text", data['text'])
+			$.ajax({
+				url: `http://127.0.0.1:8000/checktext/`,
+				type: "POST",
+				data: JSON.stringify(data),
+				contentType: "application/json; charset = utf-8",
+				dataType: "json",
+				success: function(data, textStatus, xhr) {
+          $('#loading').hide(); // Hide loading
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
+					localStorage.setItem("results", JSON.stringify(data))
+					window.location.href='result.html'
+				},
+				error: function(xhr, textStunlatus, err) {
+          $('#loading').hide(); // Hide loading
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
+				}
+			})
+		};
     $(document).ready(function () {
 			localStorage.clear()
       $('#loading').show(); // Start loading

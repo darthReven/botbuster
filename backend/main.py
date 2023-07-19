@@ -87,6 +87,8 @@ def check_text(request: ds.check_text):
     start = time.perf_counter()
     list_of_apis = request.dict()["list_of_apis"]
     full_text = request.dict()["text"]
+    print("hey")
+    print(full_text)
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
     scores = {} # create dictionary to store all scores
     overall_scores = {api_category: {} for api, api_category in list_of_apis}
@@ -97,7 +99,7 @@ def check_text(request: ds.check_text):
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     # change this to the text chunking functions
-    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])   
+    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])  
     seen_categories = [] 
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
         overall_scores[api_category][api] = "score not calculated"
@@ -140,7 +142,6 @@ def check_text(request: ds.check_text):
                         key = req_num
                     try: 
                         results = results[key] # try to path to the score
-
                         if config_data["APIs"][api_category]["score_type"] == "Discrete" and key == path.split('.')[-1]:
                             if results == "flag":
                                 results = 100
@@ -152,6 +153,7 @@ def check_text(request: ds.check_text):
                         final_score = total_score[api_category][req_num + 1]["score"]/total_score[api_category][req_num + 1]["num_apis"] # gets the average score of all the APIs in each category
                         scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
                         overall_scores[api_category][api][req_num + 1]["score"] = round(float(results) * 100,1)
+                        
                     except TypeError: # Type error will occur if the loop hasn't reached the score
                         continue  # continue to the next key in the loop
                     except KeyError: # If there is an error with the path

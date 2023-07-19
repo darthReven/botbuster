@@ -138,65 +138,67 @@ def generic_scraper(list_of_elements: list, page_url, url, splitter):
                 else:
                     break
     else:
-        
         base_url = page_url.rstrip(splitter)
-        first_page = base_url.rsplit(splitter, 1)[0] #get first page
-        connected_pages.append(first_page)
         page_num_param = page_url.split(splitter)[-1]
         page_num = "".join(filter(str.isdigit, page_num_param))
-        num_of_loops = 0
-        page_num = int(page_num)
-        original_page_num = page_num
-        page_num+=1
-        while True: #check for pages after current page
-                num_of_loops += 1 #to get the original page number later on
-                last_slash_index = base_url.rfind(splitter)
-                page_url = base_url[:last_slash_index]
-                page_param = url.replace("*",str(page_num))
-                page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
-                response = requests.get(page_url)
-                if response.status_code == 200:
-                    # check if the URL has changed due to redirection
-                    new_url = response.url
-                    if new_url != page_url:
-                        page_num -= num_of_loops+1 #one page before original page number
-                        while True:
-                            last_slash_index = base_url.rfind('/')
-                            page_url = base_url[:last_slash_index]
-                            page_param = url.replace("*",str(page_num))
-                            page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
-                            response = requests.get(page_url)
-                            if response.status_code == 200:                              
-                                # check if the URL has changed due to redirection
-                                new_url = response.url
-                                if new_url != page_url:
-                                    break  # break the loop if the URL remains the same after redirection
-                                connected_pages.append(page_url)
-                                page_num -= 1                     
-                            else:
-                                break
+        if page_num != "":
+            first_page = base_url.rsplit(splitter, 1)[0] #get first page
+            connected_pages.append(first_page)
+            num_of_loops = 0
+            page_num = int(page_num)
+            original_page_num = page_num
+            page_num+=1
+            while True: #check for pages after current page
+                    num_of_loops += 1 #to get the original page number later on
+                    last_slash_index = base_url.rfind(splitter)
+                    page_url = base_url[:last_slash_index]
+                    page_param = url.replace("*",str(page_num))
+                    page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
+                    response = requests.get(page_url)
+                    if response.status_code == 200:
+                        # check if the URL has changed due to redirection
+                        new_url = response.url
+                        if new_url != page_url:
+                            page_num -= num_of_loops+1 #one page before original page number
+                            while True:
+                                last_slash_index = base_url.rfind('/')
+                                page_url = base_url[:last_slash_index]
+                                page_param = url.replace("*",str(page_num))
+                                page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
+                                response = requests.get(page_url)
+                                if response.status_code == 200:                              
+                                    # check if the URL has changed due to redirection
+                                    new_url = response.url
+                                    if new_url != page_url:
+                                        break  # break the loop if the URL remains the same after redirection
+                                    connected_pages.append(page_url)
+                                    page_num -= 1                     
+                                else:
+                                    break
+                            break
+                        connected_pages.append(page_url)
+                        page_num += 1
+                    else:
+                        while original_page_num > 2:   #for pages that doesnt redirect, we need to check if there are pages before the page that the user had input
+                                page_num = original_page_num - 1
+                                last_slash_index = base_url.rfind('/')
+                                page_url = base_url[:last_slash_index]
+                                page_param = url.replace("*",str(page_num))
+                                page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
+                                response = requests.get(page_url)
+                                if response.status_code == 200:                              
+                                    # check if the URL has changed due to redirection
+                                    new_url = response.url
+                                    if new_url != page_url:
+                                        break  # break the loop if the URL remains the same after redirection
+                                    connected_pages.append(page_url)                   
+                                else:
+                                    break
+                                original_page_num -=1
+                                
                         break
-                    connected_pages.append(page_url)
-                    page_num += 1
-                else:
-                    while original_page_num > 2:   #for pages that doesnt redirect, we need to check if there are pages before the page that the user had input
-                            page_num = original_page_num - 1
-                            last_slash_index = base_url.rfind('/')
-                            page_url = base_url[:last_slash_index]
-                            page_param = url.replace("*",str(page_num))
-                            page_url = f"{page_url}{splitter}{page_param}" #replace page number in url with the new one
-                            response = requests.get(page_url)
-                            if response.status_code == 200:                              
-                                # check if the URL has changed due to redirection
-                                new_url = response.url
-                                if new_url != page_url:
-                                    break  # break the loop if the URL remains the same after redirection
-                                connected_pages.append(page_url)                   
-                            else:
-                                break
-                            original_page_num -=1
-                            
-                    break
+        else:
+            connected_pages=connected_pages
     
     connected_pages.sort(key=lambda x: (len(x), url_placeholder not in x, x)) #sort according to page number
     print(connected_pages)
