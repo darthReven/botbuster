@@ -84,12 +84,22 @@
         }
       });
     }
+    
+    const isValidUrl = (urlString) => {
+        const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
+        return urlPattern.test(urlString);
+    };
+    
     function get_elements() {
       $('#loading').show(); // Start loading
       $('.btn[type="button"]').prop('disabled', true); // Disable submit
       $('#submitBtn').prop('disabled', true); //Disable arrow submit button
       let data = {}
       data["page_url"] = document.getElementById("type_url").value
+      if(isValidUrl(data["page_url"])==false){
+        window.alert("Invalid URL!")
+        $('#loading').hide();
+      }
       $.ajax({
         url:"http://127.0.0.1:8000/webscraper/",
         type: "POST",
