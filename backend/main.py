@@ -140,7 +140,7 @@ def check_text(request: ds.check_text):
                         results = results[key] # try to path to the score
                         if config_data["APIs"][api_category]["score_type"] == "Discrete" and key == path.split('.')[-1]:
                             if results == "flag":
-                                results = 100
+                                results = 1
                             else:
                                 results = 0
                         scores[req_num + 1]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
