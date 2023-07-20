@@ -17,12 +17,12 @@
                 }
             },
             "Writer": {
-                "target": "https://enterprise-api.writer.com/content/organization/561977/detect",
+                "target": "https://enterprise-api.writer.com/content/organization/572452/detect",
                 "body_key": "input",
                 "data_type": "string",
                 "headers": {
                     "accept": "application/json",
-                    "Authorization": "bm_ZwHx4IHgOIB6IUNZ_-2ws4Ei0zQmiSWjHZJknYZK2IAwQkWlfKEzxtVi3MJHU0zX5ky1_O7BwHkbDvNxglfyHo9pnjGtYym1UtXMs-sHapluPzbIS88zc8hTm_r2h",
+                    "Authorization": "hoqxluhz0knHgwpS2yKKcZSsYC5FZNJd2ZwhsUXH0rXtKALF-cnZFZiPpEUViA89xiPAPB_hGpmP-UWcxnMLU7BwxAYecOWzS1m99ld6ImzqKo9qCvEOPsMBx5QTmX33",
                     "content-type": "application/json"
                 },
                 "body": {

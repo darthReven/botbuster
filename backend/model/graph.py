@@ -72,7 +72,7 @@ def generate_graph(data):
                   customdata = custom_hover_data,
                   width = 0.5)
     
-    fig.update_layout(title = 'Results Graph',
+    fig.update_layout(
                     xaxis_title = 'Category',
                     yaxis_title = 'Score',
                     yaxis_range=[0, 100])

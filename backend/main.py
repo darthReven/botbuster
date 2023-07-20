@@ -207,7 +207,7 @@ def check_text(request: ds.check_text):
             api_count = 0
             api_category_total_score = 0
             for api in scores[1]["general_score"][api_category]: 
-                if api == "description" or api == "score_type":
+                if api == "description" or api == "score_type" or api == "overall_score":
                     continue
                 if api not in overall_scores[api_category]:
                     overall_scores[api_category][api] = "score not calculated"

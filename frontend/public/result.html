@@ -84,7 +84,7 @@
                 else {
                     colour_class = 'unflagged'
                 }
-                response_categories += (`<span class="hoverable"><div class='${colour_class}'><i class="fa-solid fa-caret-down" style="color: black;"></i>  ${category}:<br>${results[response_num]['general_score'][category]['overall_score']}</div></span>`)
+                response_categories += (`<span class="hoverable"><div class='${colour_class}'><i class="fa-solid fa-caret-down" style="color: black;"></i>  ${category}:<br>${results[response_num]['general_score'][category]['overall_score']}%</div></span>`)
                 api_score_list = []
                 for(api of Object.keys(results[response_num]['general_score'][category])) {
                     if(api != 'description' && api != 'overall_score' && api != 'score_type') {
@@ -249,7 +249,7 @@
             <form>
                 <div class="form-group">
                   <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
-                    <div class="embed-responsive embed-responsive-16by9" style="height:150px;"><iframe src="gauge.html" class="embed-responsive-item"></iframe>
+                    <div class="embed-responsive embed-responsive-21by4"><iframe src="gauge.html" class="embed-responsive-item"></iframe>
                     </div>
                     <div class="embed-responsive embed-responsive-21by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
                     </div>

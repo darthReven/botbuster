@@ -781,6 +781,12 @@ form {
     height: 100%;
     border: 0
 }
+.embed-responsive-21by4::before {
+    padding-top: 19.0476%
+}
+.embed-responsive-21by9::before {
+    padding-top: 42.85714%
+}
 .embed-responsive-21by9::before {
     padding-top: 42.85714%
 }
