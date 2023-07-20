@@ -38,7 +38,6 @@ async def scrape_infinite_scroll_items(page, content_selector, item_target_count
         await asyncio.sleep(2)
 
         items = selected_items
-        print(len(items))
 
     return items
 
@@ -88,15 +87,15 @@ async def scraper(elements, page_url):
     page = await browser.newPage()
     await page.goto(page_url)
 
-    if(elements[0][0]==''):
+    if(elements[0]==''):
         print()
     else:
         await del_pop_up(page, elements)
-    num_of_items=elements[0][1]
+    num_of_items=elements[1]
+    elements.pop(0)
     elements.pop(0)
     print(elements)
-    target_elements=elements[0]
-    items = await scrape_infinite_scroll_items(page, target_elements, num_of_items)
+    items = await scrape_infinite_scroll_items(page, elements, num_of_items)
     unique_items = []
     seen_items = set()
     for item in items:
