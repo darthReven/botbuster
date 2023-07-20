@@ -65,22 +65,19 @@ botbuster.add_middleware(
 
 # santization funtion
 def sanitise(data):
-    cleaner=Cleaner(
+    cleaner = Cleaner(
         tags={},
         attributes={},
         protocols={'http','https'},
         strip=False,
     )
     if isinstance(data, dict):
-        return {key: sanitise(value) for key, value in data.items()}
+        return {sanitise(key): sanitise(value) for key, value in data.items()}
     elif isinstance(data, list):
         return [sanitise(item) for item in data]
     elif isinstance(data, str):
-        # return cleaner.clean(data)
-        dirtyData = ''.join(char for char in data if char.isalnum())
-        return cleaner.clean(dirtyData)
-    else:
-        return data
+        return cleaner.clean(data)
+    return data
 # writing endpoints
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
@@ -203,27 +200,33 @@ def check_text(request: ds.check_text):
                     continue   
         except Exception:
             continue
-    for api_category in overall_scores.keys():
-        if api_category == "sentence_data":
-            continue
-        api_count = 0
-        api_category_total_score = 0
-        for api, category in list_of_apis: 
-            if category != api_category:
+    try:
+        for api_category in overall_scores.keys():
+            if api_category == "sentence_data":
                 continue
-            api_total_score = 0
-            for req_num in scores.keys():
-                if req_num == "overall_score":
+            api_count = 0
+            api_category_total_score = 0
+            for api in scores[1]["general_score"][api_category]: 
+                if api == "description" or api == "score_type":
                     continue
-                try: 
-                    api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
-                except Exception:
+                if api not in overall_scores[api_category]:
+                    overall_scores[api_category][api] = "score not calculated"
                     continue
-            if str(int(api_total_score)).isnumeric() and scores[req_num]["general_score"][api_category][api] != "error getting score":
-                overall_scores[api_category][api] = round(api_total_score,1)
-                api_count += 1
-                api_category_total_score += api_total_score
-            overall_scores[api_category]["average_score"] = round(api_category_total_score/api_count, 1)
+                api_total_score = 0
+                for req_num in scores.keys():
+                    if req_num == "overall_score":
+                        continue
+                    try: 
+                        api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
+                    except Exception:
+                        continue
+                if str(int(api_total_score)).isnumeric() and scores[req_num]["general_score"][api_category][api] != "error getting score":
+                    overall_scores[api_category][api] = round(api_total_score,1)
+                    api_count += 1
+                    api_category_total_score += api_total_score
+                overall_scores[api_category]["average_score"] = round(api_category_total_score/api_count, 1)
+    except:
+        overall_scores[api_category][api] = "score not calculated"
     with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
         results_file.write(json.dumps(full_results, indent=4))
     with open(r"config\score.json", "w") as scores_file: # load in API data from api file

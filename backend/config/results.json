@@ -4,7 +4,7 @@
             "documents": [
                 {
                     "average_generated_prob": 1,
-                    "completely_generated_prob": 0.2393001914024353,
+                    "completely_generated_prob": 0.18646952509880066,
                     "overall_burstiness": 5,
                     "paragraphs": [
                         {
@@ -38,13 +38,13 @@
                     "document_classification": "MIXED"
                 }
             ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
         },
         "1": {
             "documents": [
                 {
                     "average_generated_prob": 0,
-                    "completely_generated_prob": 0.8001633286476135,
+                    "completely_generated_prob": 0.5339298918843269,
                     "overall_burstiness": 5.6862406730651855,
                     "paragraphs": [
                         {
@@ -78,13 +78,13 @@
                     "document_classification": "MIXED"
                 }
             ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
         },
         "2": {
             "documents": [
                 {
                     "average_generated_prob": 0,
-                    "completely_generated_prob": 0.8847442269325256,
+                    "completely_generated_prob": 0.5236997939646244,
                     "overall_burstiness": 16.5227108001709,
                     "paragraphs": [
                         {
@@ -113,18 +113,18 @@
                             "highlight_sentence_for_ai": false
                         }
                     ],
-                    "result_message": "Your text is likely to be written entirely by AI",
-                    "result_sub_message": "",
-                    "document_classification": "AI_ONLY"
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
                 }
             ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
         },
         "3": {
             "documents": [
                 {
                     "average_generated_prob": 0,
-                    "completely_generated_prob": 0.13049408793449402,
+                    "completely_generated_prob": 0.08833999000489712,
                     "overall_burstiness": 9.504384994506836,
                     "paragraphs": [
                         {
@@ -153,18 +153,18 @@
                             "highlight_sentence_for_ai": false
                         }
                     ],
-                    "result_message": "Your text is most likely human written",
+                    "result_message": "Your text is likely to be written entirely by a human",
                     "result_sub_message": "",
-                    "document_classification": "MIXED"
+                    "document_classification": "HUMAN_ONLY"
                 }
             ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
         },
         "4": {
             "documents": [
                 {
                     "average_generated_prob": 0,
-                    "completely_generated_prob": 0.6280757039785385,
+                    "completely_generated_prob": 0.5111041031777859,
                     "overall_burstiness": 10.60660171508789,
                     "paragraphs": [
                         {
@@ -192,7 +192,7 @@
                     "document_classification": "MIXED"
                 }
             ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
         }
     },
     "Writer": {
@@ -270,8 +270,18 @@
             "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         },
         "4": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+            "score": 0.0014295019209384918,
+            "sentence_scores": [
+                {
+                    "score": 0.9982673985231407,
+                    "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
+                },
+                {
+                    "score": 0.02209910510282198,
+                    "sentence": "With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore."
+                }
+            ],
+            "text": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape. With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore."
         }
     },
     "Hugging Face": {
@@ -291,8 +301,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.13370132446289062,
-            "average_duration": 1.2153499373635035
+            "duration": 0.09349393844604492,
+            "average_duration": 1.1843320152327308
         },
         "1": {
             "data": [
@@ -310,8 +320,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.11706018447875977,
-            "average_duration": 1.215100269313291
+            "duration": 0.06848406791687012,
+            "average_duration": 1.1841032172119565
         },
         "2": {
             "data": [
@@ -329,8 +339,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.07388472557067871,
-            "average_duration": 1.2148409021442588
+            "duration": 0.11647200584411621,
+            "average_duration": 1.1838843506249603
         },
         "3": {
             "data": [
@@ -348,8 +358,8 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.09624791145324707,
-            "average_duration": 1.2145867342299912
+            "duration": 0.09300708770751953,
+            "average_duration": 1.183660764385379
         },
         "4": {
             "data": [
@@ -367,26 +377,31 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.09144425392150879,
-            "average_duration": 1.2143315905497758
+            "duration": 0.0357210636138916,
+            "average_duration": 1.183425530840139
         }
     },
     "In-house Model": {
-        "0": {
-            "prediction": 0.11824972409678484
-        },
-        "1": {
-            "prediction": 0.08368007377096813
-        },
-        "2": {
-            "prediction": 0.06398198535626652
-        },
-        "3": {
-            "prediction": 0.11563256919281573
-        },
-        "4": {
-            "prediction": 0.15285635304169054
-        }
+        "0": [
+            "Internal Server Error",
+            500
+        ],
+        "1": [
+            "Internal Server Error",
+            500
+        ],
+        "2": [
+            "Internal Server Error",
+            500
+        ],
+        "3": [
+            "Internal Server Error",
+            500
+        ],
+        "4": [
+            "Internal Server Error",
+            500
+        ]
     },
     "Moderate Hate Speech": {
         "0": {
