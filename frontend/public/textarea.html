@@ -58,7 +58,7 @@
 			data["text"] = document.getElementById("text-area").value;
 			localStorage.setItem("text", data['text'])
 			$.ajax({
-				url: `http://127.0.0.1:8000/checktext/`,
+				url: `http://127.0.0.1:8000/splittext/`,
 				type: "POST",
 				data: JSON.stringify(data),
 				contentType: "application/json; charset = utf-8",
@@ -66,7 +66,7 @@
 				success: function(data, textStatus, xhr) {
           $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
-					localStorage.setItem("results", JSON.stringify(data))
+					localStorage.setItem("text", JSON.stringify(data))
 					window.location.href='result.html'
 				},
 				error: function(xhr, textStunlatus, err) {

@@ -48,6 +48,7 @@ import model.text as text_utils
 CONFIG_FILE_PATH = r"config\config.json"
 API_FILE_PATH = r"config\api.json"
 RESULTS_FILE_PATH = r"config\results.json"
+SCORE_FILE_PATH = r"config\scores.json"
 # setting file path to tesseract
 pytesseract.pytesseract.tesseract_cmd = r"Tesseract-OCR\tesseract.exe"
 
@@ -78,9 +79,20 @@ def sanitise(data):
     elif isinstance(data, str):
         return cleaner.clean(data)
     return data
+
 # writing endpoints
+@botbuster.post("/splittext/")
+def split_text(request: ds.split_text):
+    full_text = request.dict()["text"]
+    with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
+        config_data = json.load(config_data_file)
+    list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])
+    with open(SCORE_FILE_PATH, "w") as score_data_file: # empty in score file
+        config_data = json.load(config_data_file)
+    return list_of_texts
+
 # calling apis to check the text
-@botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
+@botbuster.post("/checktext/old") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
     start = time.perf_counter()
     list_of_apis = request.dict()["list_of_apis"]
