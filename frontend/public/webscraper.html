@@ -250,9 +250,6 @@
         }
       });
     }
-  
-    // Attach event listener to the search input
-    document.getElementById("api-search").addEventListener("keyup", handleSearch);
     
     function checkText() {
       $('#loading').show(); // Start loading
@@ -341,6 +338,8 @@
             $('#loading').hide(); // Hide loading
           }
         })
+        // Attach event listener to the search input
+        document.getElementById("api-search").addEventListener("keyup", handleSearch);
         get_settings()
     }); 
   </script>
