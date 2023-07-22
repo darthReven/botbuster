@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bot Buster - Home</title>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -150,12 +150,32 @@
                     <div></div>
                 </div>
                 <button id="find-out-more" type="button" class="btn fw-bold" onclick="window.location.href='textarea.html'">Find Out More <i class="fa-solid fa-circle-arrow-right"></i></button>
-                <p id="slogan" class="fw-bold">Comprehensive AI Detection</p>
+                <p id="slogan" class="fw-bold">Comprehensive Text Analysis</p>
+            </div>
+            <div class="row">
+                <div class="col-12 pt-5 pb-5">
+                    <h3>What We Do</h3>
+                    <p>Bot Buster aims to aggregate results from text scanning and analysis engines through main-streaming text input to multiple API channels. Its main focus will be on </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 pt-5 pb-5">
+                    <img src="images/sources.png" alt="Source Types" class="img_fluid p-5">
+                </div>
+                <div class="col-8 pt-5 pb-5">
+                    <h3>Analyse Content from Various Sources</h3>
+                    <p>Bot Buster accepts a wide range of sources and formats to analyse content for valuable insights. It is a versatile tool that accepts manual input through a text area, extracts text from a variety of file types and websites.</p>
+                    <ul>
+                        <li>Manual Input with <b>Text Area</b></li>
+                        <li>Text Extraction with <b>File Upload</b> <span style="font-size:10px;">(.docx, .pdf, .txt, .jpg)</span></li>
+                        <li>Text Extraction through our <b>Web Scraper</b></li>
+                    </ul>
+                </div>
             </div>
             <div class="row"  style="margin:0">
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-12">
                     <div class="card">
-                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div class="text-center align-items-center rgba-black-strong py-5 px-4">
                             <div>
                             <h3 class="card-title pt-2"><strong><a href="textarea.html">Text Area</a></strong></h3>
                             <p>Manual detection of content through a text area input.</p>
@@ -163,19 +183,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-12">
                     <div class="card">
-                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div class="text-center align-items-center rgba-black-strong py-5 px-4">
                             <div>
                             <h3 class="card-title pt-2"><strong><a href="textarea.html">File Upload</a></strong></h3>
-                            <p>Upload a varitey of file types to extract content.</p>
+                            <p>Upload a variety of file types to extract content.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-12">
                     <div class="card">
-                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div class="text-center align-items-center rgba-black-strong py-5 px-4">
                             <div>
                             <h3 class="card-title pt-2"><strong><a href="textarea.html">Web Scraper</a></strong></h3>
                             <p>Extract content from articles and social media pages.</p>
@@ -183,15 +203,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="card">
-                        <div class="text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                            <div>
-                            <h3 class="card-title pt-2"><strong><a href="textarea.html">Settings</a></strong></h3>
-                            <p>Change configurations to alter how the functions work.</p>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-8 pt-5 pb-5">
+                    <h3>Categories</h3>
+                    <p>Bot Buster streamlines content to respective APIs across different categories. Three main categories come implemented with the base product to detect AI-generated content and malicious bot behaviour.</p>
+                    <ul>
+                        <li><b>AI Generated Content:</b> Determines if text is AI generated, each API returns a continuous score from 0 to 100 of how probable it is AI generated.</li>
+                        <li><b>Misinformation:</b> Establishes if text is misinformation, featuring Bot Buster's own in-house misinformation model that returns a contiuous score from 0 to 100, of the probability it is misinformation.</li>
+                        <li><b>Hate Speech:</b> Classifies text as hate speech or not, where each API provides a discrete score of 0 being not flagged or 100 as flagged.</li>
+                    </ul>
+                    <p>Additionally, users are permitted to upload APIs of their choosing to exisiting or new categories through the Add API page found on the sidebar.</p>
+                </div>
+                <div class="col-4 pt-5 pb-5">
+                    <img src="images/category.png" alt="Categories" class="img_fluid p-5">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 pt-5 pb-5">
+                    <img src="images/results.png" alt="Results Page Example" class="img_fluid p-5">
+                </div>
+                <div class="col-8 pt-5 pb-5">
+                    <h3>Generate Results</h3>
+                    <p>Upon submitting text, analyse insights from all selected APIS across the categories. Results are summarised with graphical visualisations to conclude the nature of the text at a glance and display in-depth scores based on each request which highlights the sentences responsible for the score.</p>
+                    <p>Text is chunked into multiple requests and sent to the APIs, where the responses will be summarised and flagged based on predefined thresholds for categories worth investigating.</p>
+                    <ul>
+                        <li><b><span class="unflagged">Unflagged</span> (0-19%):</b> The results score is low enough for it not to be of interest.</li>
+                        <li><b><span class="potential_flag">Potentially Flagged</span> (20-79%):</b> When the score may need to be investigated based on the user's discretion, where the score is not too low nor too high.</li>
+                        <li><b><span class="flagged">Flagged</span> (80-100%):</b> The results score is extremely high and it can be safely assumed that it is flagged.</li>
+                    </ul>
                 </div>
             </div>
 

@@ -61,7 +61,7 @@ def generate_graph(data):
         formatted_data = []
         for key, value in category.items():
             if type(value) is int or type(value) is float:
-                score_color = '🟢' if value <= 20 else '🟠' if value <= 80 else '🔴'
+                score_color = '🟢' if value < 20 else '🟠' if value < 80 else '🔴'
                 formatted_data.append(f"{score_color} <b>{key}</b>: {str(value)}")
             else:
                 formatted_data.append(f"⚪<br>{key}</b>: {str(value)}")
