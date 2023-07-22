@@ -74,7 +74,7 @@ body {
     position: relative;
     top: 0;
     height: calc(100vh - 20px);
-    padding-top: 6rem;
+    padding-top: 10rem;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -871,6 +871,13 @@ form {
     .sphere {
         margin-top: 70px;
     }
+}
+
+.form-control.api-search {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 8px;
+    width: 100%;
 }
 
 /* Animations */

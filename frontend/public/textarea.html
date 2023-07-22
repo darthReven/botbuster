@@ -36,6 +36,38 @@
 			document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
 		}
 
+    // Function to handle API or Category search
+    function handleSearch() {
+      const input = document.getElementById("api-search").value.toLowerCase();
+      const apiItems = document.querySelectorAll('.list-group-item');
+      const apiCategories = document.querySelectorAll('.list-group');
+
+      // Loop through all APIs to check if any match the search value
+      apiItems.forEach(item => {
+        const apiName = item.querySelector('.col-lg-4').innerText.toLowerCase();
+        const apiCategoryHeader = item.closest('.list-group').querySelector('.list-header').innerText.toLowerCase();
+        
+        // Check if API or Category matches search value
+        if (apiName.startsWith(input) || apiCategoryHeader.startsWith(input)) {
+          // Display searched API and its category group if matched
+          item.style.display = 'block';
+          item.closest('.list-group').style.display = 'block';
+        } else {
+          // Hide API if unmatched
+          item.style.display = 'none';
+
+          // Check for any other APIs in the category
+          if (!item.closest('.list-group').querySelector('.list-group-item[style="display: block;"]')) {
+            // Hide category if no visible APIs
+            item.closest('.list-group').style.display = 'none';
+          }
+        }
+      });
+    }
+  
+    // Attach event listener to the search input
+    document.getElementById("api-search").addEventListener("keyup", handleSearch);
+
 		function checkText() {
       $('#loading').show(); // Start loading
       $('.btn[type="button"]').prop('disabled', true); // Disable submit
@@ -55,6 +87,7 @@
           }
         }
       }
+
 			data["text"] = document.getElementById("text-area").value;
 			localStorage.setItem("text", data['text'])
 			$.ajax({
@@ -142,6 +175,9 @@
     <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">
+          <div class="p-3">
+            <input type="text" id="api-search" class="form-control api-search" placeholder="Search API or Category">
+          </div>
         </div>
         <div class="text-center">
         <button id="add-api" type="button" class="btn btn-link px-5 py-3 my-3 navbar-btn-2 fw-bold" onclick="window.location.href='addapi.html'">
@@ -291,6 +327,5 @@
   <!-- Footer -->
         </div>
     </main>
-    
 </body>
 </html>
