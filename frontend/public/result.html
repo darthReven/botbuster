@@ -64,18 +64,14 @@
             textCollection = []
             for (const category in results[response_num]["general_score"]) {  
               for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
-                console.log(category)
                 var sentence = Object.keys(results[response_num]["sentence_score"][i])
                 if (!(category in results[response_num]["sentence_score"][i][sentence])) {continue}
-                console.log(sentence)
                 if (results[response_num]["sentence_score"][i][sentence][`${category}-highlight`] == 0) {
                 textCollection.push(`${sentence[0]}`)
                 } else {
                 textCollection.push(`<mark id = "sentence-${i}" style = "backgroundColor: ${highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])};">${sentence[0]}</mark>`)
                 var colour = highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])
-                console.log(colour)
                 // var sentenceelement = document.getElementById(`sentence-${i}`)
-                // console.log(sentenceelement)
                 // sentenceelement.style.backgroundColor = String(colour)
                 }
               }
