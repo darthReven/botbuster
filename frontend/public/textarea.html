@@ -22,7 +22,7 @@
 	<script>
 		function sidebar_open() {
 			document.getElementById("sidebarMenu").style.width = "100%";
-            document.getElementById("add-api").style.display = "inline-block"
+      document.getElementById("add-api").style.display = "inline-block"
 			document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_close()" );
 			document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
@@ -163,6 +163,7 @@
             wordCount.textContent = txt.split(/\s+/).filter((item) => item).length;
         });
     }); 
+    
     function resetCount (){
         let characCount = document.getElementById("charac-count");
         let wordCount = document.getElementById("word-count");

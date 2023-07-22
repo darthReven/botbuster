@@ -129,7 +129,7 @@ def check_text(request: ds.check_text):
                     "sentence_score": []  # keeping a score for each sentence  
                 }
                 for sentence in text_utils.chunk_by_sentences(text[0]):
-                    scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
+                    scores[num + 1]["sentence_score"].append({sentence: {}})
             
             seen_categories.append(api_category)
         except Exception:
@@ -168,34 +168,35 @@ def check_text(request: ds.check_text):
                         continue
                     except Exception: # catch all other errors
                         continue
-                # checking for sentence score
-                try:
-                    path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
-                    path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
-                    results = full_results # checking for sentence score
-                    for key in path1.split("."): # loops through each key in the path to sentence scores
-                        try:
-                            if key.isnumeric(): # if the key is numerical, convert it to an int
-                                key = int(key)
-                            if key == "num":
-                                key = req_num
-                            results = results[key] # try to path to the score
-                        except KeyError or TypeError or Exception:
-                            continue
-                    for num in range(0, len(results)): # loop through each sentence of results
-                        try: 
-                            for key in scores["sentence_score"][num].keys():
-                                # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
-                                if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
-                                    scores[req_num]["sentence_score"][num][key]["api"].append(api)
-                                    scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
-                        except:
-                            break  
-                except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
-                    continue             
         except Exception:
             continue
+           
     for req_num in scores.keys():
+        # checking for sentence score
+        try:
+            path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
+            path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
+            results = full_results # checking for sentence score
+            for key in path1.split("."): # loops through each key in the path to sentence scores
+                try:
+                    if key.isnumeric(): # if the key is numerical, convert it to an int
+                        key = int(key)
+                    if key == "num":
+                        key = req_num
+                    results = results[key] # try to path to the score
+                except KeyError or TypeError or Exception:
+                    continue
+            for num in range(0, len(results)): # loop through each sentence of results
+                try: 
+                    for key in scores["sentence_score"][num].keys():
+                        # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
+                        if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
+                            scores[req_num]["sentence_score"][num][key]["api"].append(api)
+                            scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
+                except:
+                    break  
+        except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
+            continue  
         if not str(req_num).isnumeric():
             continue
         scores[req_num]["flags"] = []
@@ -289,7 +290,7 @@ def check_text(request: ds.check_text):
                         "sentence_score": []  # keeping a score for each sentence  
                     }
                     for sentence in text_utils.chunk_by_sentences(text[0]):
-                        scores[num + 1]["sentence_score"].append({sentence: {"highlight": 0, "api": []}})
+                        scores[num + 1]["sentence_score"].append({sentence: {}})
             
             seen_categories.append(api_category)
         except Exception:
@@ -327,35 +328,7 @@ def check_text(request: ds.check_text):
                         scores[req_num + 1]["general_score"][api_category][api] = "error getting score" 
                         continue
                     except Exception: # catch all other errors
-                        continue
-                # checking for sentence score
-                try:
-                    path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
-                    path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
-                    results = full_results # checking for sentence score
-                    for key in path1.split("."): # loops through each key in the path to sentence scores
-                        try:
-                            print(key)
-                            print(results)
-                            if key.isnumeric(): # if the key is numerical, convert it to an int
-                                key = int(key)
-                            if key == "num":
-                                key = req_num
-                            results = results[key] # try to path to the score
-                        except KeyError or TypeError or Exception:
-                            continue
-                    print(results)
-                    for num in range(0, len(results)): # loop through each sentence of results
-                        try: 
-                            for key in scores["sentence_score"][num].keys():
-                                # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
-                                if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
-                                    scores[req_num]["sentence_score"][num][key][f"api"].append(api)
-                                    scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
-                        except:
-                            break  
-                except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
-                    continue             
+                        continue      
         except Exception:
             continue
     for req_num in scores.keys():
@@ -374,6 +347,43 @@ def check_text(request: ds.check_text):
                     continue   
         except Exception:
             continue
+        # checking for sentence score
+        for api, api_category in list_of_apis:
+            try:
+                path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
+                path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
+                results = full_results # checking for sentence score
+                for key in path1.split("."): # loops through each key in the path to sentence scores
+                    try:
+                        if key.isnumeric(): # if the key is numerical, convert it to an int
+                            key = int(key)
+                        if key == "num":
+                            key = req_num - 1
+                        results = results[key] # try to path to the score
+                    except KeyError or TypeError or Exception:
+                        continue
+                for num in range(0, len(results)): # loop through each sentence of results
+                    try: 
+                        for sentence in scores[req_num]["sentence_score"][num].keys():
+                            if not(api_category in scores[req_num]["sentence_score"][num][sentence]):
+                                scores[req_num]["sentence_score"][num][sentence] = {
+                                    api_category: [],
+                                    f"{api_category}-highlight": 0
+                                }
+                            print(sentence == results[num]["sentence"], results[num][path2] > 0.70)
+                            if sentence == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
+                            # print(num)
+                                print("test", results[num][path2])
+                                # if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
+                                # print(scores[req_num]["sentence_score"][num])
+                                print(total_score)
+                                scores[req_num]["sentence_score"][num][sentence][api_category].append(api)
+                                scores[req_num]["sentence_score"][num][sentence][f"{api_category}-highlight"] += 1/total_score[api_category][req_num]["num_apis"]
+                                print("success")
+                    except:
+                        continue  
+            except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
+                continue       
     try:
         for api_category in overall_scores.keys():
             if api_category == "sentence_data":

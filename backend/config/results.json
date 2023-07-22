@@ -39,54 +39,50 @@
                 }
             ],
             "version": "2023-07-19"
-        },
-        "1": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.5339298918843269,
-                    "overall_burstiness": 5.6862406730651855,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 37,
-                            "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 40,
-                            "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 29,
-                            "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
-                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
-                    "document_classification": "MIXED"
-                }
+        }
+    },
+    "Writer": {
+        "0": [
+            {
+                "label": "real",
+                "score": 0.5115185379981995
+            },
+            {
+                "label": "fake",
+                "score": 0.4884814918041229
+            }
+        ]
+    },
+    "Sapling AI": {
+        "0": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        }
+    },
+    "Hugging Face": {
+        "0": {
+            "data": [
+                [
+                    {
+                        "Real": 0.6346672177314758,
+                        "Fake": 0.36533278226852417
+                    },
+                    [
+                        [
+                            0.6346672177314758,
+                            539
+                        ]
+                    ]
+                ]
             ],
-            "version": "2023-07-19"
+            "is_generating": false,
+            "duration": 0.04652833938598633,
+            "average_duration": 1.1468880079704509
         }
     },
     "In-house Model": {
         "0": {
             "prediction": 0.11824972409678484
-        },
-        "1": {
-            "prediction": 0.08368007377096813
         }
     },
     "Moderate Hate Speech": {
@@ -94,11 +90,6 @@
             "response": "Success",
             "class": "normal",
             "confidence": "0.9999051094055176"
-        },
-        "1": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9999375343322754"
         }
     }
 }
