@@ -3,169 +3,9 @@
         "0": {
             "documents": [
                 {
-                    "average_generated_prob": 1,
-                    "completely_generated_prob": 0.2393001914024353,
-                    "overall_burstiness": 5,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.850090677245877,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 21,
-                            "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 31,
-                            "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 26,
-                            "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills.",
-                            "highlight_sentence_for_ai": true
-                        }
-                    ],
-                    "result_message": "Your text may include parts written by AI",
-                    "result_sub_message": "",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "1": {
-            "documents": [
-                {
                     "average_generated_prob": 0,
-                    "completely_generated_prob": 0.8001633286476135,
-                    "overall_burstiness": 5.6862406730651855,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 37,
-                            "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 40,
-                            "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 29,
-                            "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
-                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "2": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.8847442269325256,
-                    "overall_burstiness": 16.5227108001709,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 51,
-                            "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 21,
-                            "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 24,
-                            "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is likely to be written entirely by AI",
-                    "result_sub_message": "",
-                    "document_classification": "AI_ONLY"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "3": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.13049408793449402,
-                    "overall_burstiness": 9.504384994506836,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 46,
-                            "sentence": "SP also places great emphasis on innovation and entrepreneurship.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 27,
-                            "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 36,
-                            "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is most likely human written",
-                    "result_sub_message": "",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "4": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.6280757039785385,
-                    "overall_burstiness": 10.60660171508789,
+                    "completely_generated_prob": 0.528507124632597,
+                    "overall_burstiness": 19.091882705688477,
                     "paragraphs": [
                         {
                             "completely_generated_prob": 0.02318840472169716,
@@ -176,14 +16,14 @@
                     "sentences": [
                         {
                             "generated_prob": 0,
-                            "perplexity": 22,
-                            "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape.",
+                            "perplexity": 16,
+                            "sentence": "Singapore Polytechnic (SP) is one of the leading polytechnics in Singapore, renowned for its commitment to providing quality education, industry-relevant programs, and fostering innovation.",
                             "highlight_sentence_for_ai": false
                         },
                         {
                             "generated_prob": 0,
-                            "perplexity": 37,
-                            "sentence": "With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore.",
+                            "perplexity": 43,
+                            "sentence": "Established in 1954, SP is the first polytechnic in Singapore and has since played a pivotal role in shaping the nation's workforce through its comprehensive range of diploma courses and applied learning approach.",
                             "highlight_sentence_for_ai": false
                         }
                     ],
@@ -192,65 +32,716 @@
                     "document_classification": "MIXED"
                 }
             ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
+        },
+        "1": {
+            "documents": [
+                {
+                    "average_generated_prob": 1,
+                    "completely_generated_prob": 0.5601080432534218,
+                    "overall_burstiness": 2.309401035308838,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.850090677245877,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 18,
+                            "sentence": "Located in Dover, SP has a sprawling campus that houses state-of-the-art facilities, laboratories, and workshops designed to simulate real-world work environments.",
+                            "highlight_sentence_for_ai": true
+                        },
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 22,
+                            "sentence": "The polytechnic offers over 50 full-time diploma courses across various disciplines, including engineering, business, design, media, information technology, health sciences, and applied sciences.",
+                            "highlight_sentence_for_ai": true
+                        },
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 22,
+                            "sentence": "These programs are designed to equip students with practical skills and knowledge needed for the industry.",
+                            "highlight_sentence_for_ai": true
+                        }
+                    ],
+                    "result_message": "Your text may include parts written by AI",
+                    "result_sub_message": "",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "2": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5073327496647835,
+                    "overall_burstiness": 17.0587215423584,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 59,
+                            "sentence": "SP's educational approach emphasizes hands-on learning, industry collaboration, and entrepreneurial mindset development.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 35,
+                            "sentence": "Students have opportunities to participate in internships, work attachments, and industry projects, allowing them to gain valuable industry experience even before graduation.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 26,
+                            "sentence": "The polytechnic also organizes various industry engagement activities, such as seminars, workshops, and networking events, to connect students with professionals and potential employers.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "3": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5414520502090454,
+                    "overall_burstiness": 42.790184020996094,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 99,
+                            "sentence": "In addition to academic pursuits, SP promotes a well-rounded education experience.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 20,
+                            "sentence": "The polytechnic offers a range of co-curricular activities, including sports, clubs, societies, and community service programs, to develop students' leadership, teamwork, and social skills.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 31,
+                            "sentence": "Students can join a diverse array of clubs and interest groups, engage in community service projects, or participate in inter-polytechnic competitions and events.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "4": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5494314841926098,
+                    "overall_burstiness": 5.656854152679443,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 18,
+                            "sentence": "SP places a strong emphasis on innovation and entrepreneurship, encouraging students to think creatively and develop an entrepreneurial mindset.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 26,
+                            "sentence": "The polytechnic provides support for budding entrepreneurs through its Innovation & Entrepreneurship Center, which offers mentorship, incubation spaces, funding, and entrepreneurship-related programs and workshops.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "5": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.45695726200938225,
+                    "overall_burstiness": 13.435029029846191,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 18,
+                            "sentence": "Furthermore, SP is actively involved in research and development projects, collaborating with industry partners, government agencies, and other educational institutions.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 37,
+                            "sentence": "The polytechnic's research efforts focus on areas such as advanced manufacturing, sustainable technologies, biomedical sciences, digital media, and design innovation.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "6": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5216775797307491,
+                    "overall_burstiness": 15.55634880065918,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 30,
+                            "sentence": "As a respected institution, SP has received numerous accolades and awards for its educational excellence, innovative teaching methodologies, and industry partnerships.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 52,
+                            "sentence": "It maintains close ties with industry partners and employers, ensuring that its courses stay relevant and responsive to industry needs.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "7": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5443567335605621,
+                    "overall_burstiness": 5.656854152679443,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 28,
+                            "sentence": "In summary, Singapore Polytechnic is a prestigious educational institution in Singapore, known for its commitment to applied learning, industry collaboration, and innovation.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 20,
+                            "sentence": "With its comprehensive range of diploma programs, state-of-the-art facilities, and industry partnerships, SP continues to play a crucial role in preparing students for successful careers and contributing to Singapore's economic development.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "8": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.528507124632597,
+                    "overall_burstiness": 19.091882705688477,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 16,
+                            "sentence": "Singapore Polytechnic (SP) is one of the leading polytechnics in Singapore, renowned for its commitment to providing quality education, industry-relevant programs, and fostering innovation.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 43,
+                            "sentence": "Established in 1954, SP is the first polytechnic in Singapore and has since played a pivotal role in shaping the nation's workforce through its comprehensive range of diploma courses and applied learning approach.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "9": {
+            "documents": [
+                {
+                    "average_generated_prob": 1,
+                    "completely_generated_prob": 0.5601080432534218,
+                    "overall_burstiness": 2.309401035308838,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.850090677245877,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 18,
+                            "sentence": "Located in Dover, SP has a sprawling campus that houses state-of-the-art facilities, laboratories, and workshops designed to simulate real-world work environments.",
+                            "highlight_sentence_for_ai": true
+                        },
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 22,
+                            "sentence": "The polytechnic offers over 50 full-time diploma courses across various disciplines, including engineering, business, design, media, information technology, health sciences, and applied sciences.",
+                            "highlight_sentence_for_ai": true
+                        },
+                        {
+                            "generated_prob": 1,
+                            "perplexity": 22,
+                            "sentence": "These programs are designed to equip students with practical skills and knowledge needed for the industry.",
+                            "highlight_sentence_for_ai": true
+                        }
+                    ],
+                    "result_message": "Your text may include parts written by AI",
+                    "result_sub_message": "",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "10": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5073327496647835,
+                    "overall_burstiness": 17.0587215423584,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 59,
+                            "sentence": "SP's educational approach emphasizes hands-on learning, industry collaboration, and entrepreneurial mindset development.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 35,
+                            "sentence": "Students have opportunities to participate in internships, work attachments, and industry projects, allowing them to gain valuable industry experience even before graduation.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 26,
+                            "sentence": "The polytechnic also organizes various industry engagement activities, such as seminars, workshops, and networking events, to connect students with professionals and potential employers.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "11": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5414520502090454,
+                    "overall_burstiness": 42.790184020996094,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.00408719312638748,
+                            "num_sentences": 3,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 99,
+                            "sentence": "In addition to academic pursuits, SP promotes a well-rounded education experience.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 20,
+                            "sentence": "The polytechnic offers a range of co-curricular activities, including sports, clubs, societies, and community service programs, to develop students' leadership, teamwork, and social skills.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 31,
+                            "sentence": "Students can join a diverse array of clubs and interest groups, engage in community service projects, or participate in inter-polytechnic competitions and events.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "12": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5494314841926098,
+                    "overall_burstiness": 5.656854152679443,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 18,
+                            "sentence": "SP places a strong emphasis on innovation and entrepreneurship, encouraging students to think creatively and develop an entrepreneurial mindset.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 26,
+                            "sentence": "The polytechnic provides support for budding entrepreneurs through its Innovation & Entrepreneurship Center, which offers mentorship, incubation spaces, funding, and entrepreneurship-related programs and workshops.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "13": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.45695726200938225,
+                    "overall_burstiness": 13.435029029846191,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 18,
+                            "sentence": "Furthermore, SP is actively involved in research and development projects, collaborating with industry partners, government agencies, and other educational institutions.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 37,
+                            "sentence": "The polytechnic's research efforts focus on areas such as advanced manufacturing, sustainable technologies, biomedical sciences, digital media, and design innovation.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "14": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5216775797307491,
+                    "overall_burstiness": 15.55634880065918,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 30,
+                            "sentence": "As a respected institution, SP has received numerous accolades and awards for its educational excellence, innovative teaching methodologies, and industry partnerships.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 52,
+                            "sentence": "It maintains close ties with industry partners and employers, ensuring that its courses stay relevant and responsive to industry needs.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "15": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.5443567335605621,
+                    "overall_burstiness": 5.656854152679443,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 28,
+                            "sentence": "In summary, Singapore Polytechnic is a prestigious educational institution in Singapore, known for its commitment to applied learning, industry collaboration, and innovation.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 20,
+                            "sentence": "With its comprehensive range of diploma programs, state-of-the-art facilities, and industry partnerships, SP continues to play a crucial role in preparing students for successful careers and contributing to Singapore's economic development.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
         }
     },
     "Writer": {
-        "0": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "1": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "2": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "3": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "4": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        }
+        "0": [
+            {
+                "label": "real",
+                "score": 0.8664114475250244
+            },
+            {
+                "label": "fake",
+                "score": 0.1335885226726532
+            }
+        ],
+        "1": [
+            {
+                "label": "real",
+                "score": 0.6036040782928467
+            },
+            {
+                "label": "fake",
+                "score": 0.39639589190483093
+            }
+        ],
+        "2": [
+            {
+                "label": "real",
+                "score": 0.9971736669540405
+            },
+            {
+                "label": "fake",
+                "score": 0.002826343523338437
+            }
+        ],
+        "3": [
+            {
+                "label": "real",
+                "score": 0.6940577030181885
+            },
+            {
+                "label": "fake",
+                "score": 0.3059422969818115
+            }
+        ],
+        "4": [
+            {
+                "label": "real",
+                "score": 0.8081912398338318
+            },
+            {
+                "label": "fake",
+                "score": 0.1918087601661682
+            }
+        ],
+        "5": [
+            {
+                "label": "fake",
+                "score": 0.8995548486709595
+            },
+            {
+                "label": "real",
+                "score": 0.10044513642787933
+            }
+        ],
+        "6": [
+            {
+                "label": "real",
+                "score": 0.8263558149337769
+            },
+            {
+                "label": "fake",
+                "score": 0.17364415526390076
+            }
+        ],
+        "7": [
+            {
+                "label": "real",
+                "score": 0.8418538570404053
+            },
+            {
+                "label": "fake",
+                "score": 0.15814615786075592
+            }
+        ],
+        "8": [
+            {
+                "label": "real",
+                "score": 0.8664114475250244
+            },
+            {
+                "label": "fake",
+                "score": 0.1335885226726532
+            }
+        ],
+        "9": [
+            {
+                "label": "real",
+                "score": 0.6036040782928467
+            },
+            {
+                "label": "fake",
+                "score": 0.39639589190483093
+            }
+        ],
+        "10": [
+            {
+                "label": "real",
+                "score": 0.9971736669540405
+            },
+            {
+                "label": "fake",
+                "score": 0.002826343523338437
+            }
+        ],
+        "11": [
+            {
+                "label": "real",
+                "score": 0.6940577030181885
+            },
+            {
+                "label": "fake",
+                "score": 0.3059422969818115
+            }
+        ],
+        "12": [
+            {
+                "label": "real",
+                "score": 0.8081912398338318
+            },
+            {
+                "label": "fake",
+                "score": 0.1918087601661682
+            }
+        ],
+        "13": [
+            {
+                "label": "fake",
+                "score": 0.8995548486709595
+            },
+            {
+                "label": "real",
+                "score": 0.10044513642787933
+            }
+        ],
+        "14": [
+            {
+                "label": "real",
+                "score": 0.8263558149337769
+            },
+            {
+                "label": "fake",
+                "score": 0.17364415526390076
+            }
+        ],
+        "15": [
+            {
+                "label": "real",
+                "score": 0.8418538570404053
+            },
+            {
+                "label": "fake",
+                "score": 0.15814615786075592
+            }
+        ]
     },
     "Sapling AI": {
         "0": {
@@ -272,6 +763,50 @@
         "4": {
             "key_prefix": "3HX********************************",
             "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "5": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "6": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "7": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "8": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "9": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "10": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "11": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "12": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "13": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "14": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "15": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         }
     },
     "Hugging Face": {
@@ -279,140 +814,437 @@
             "data": [
                 [
                     {
-                        "Real": 0.6346672177314758,
-                        "Fake": 0.36533278226852417
+                        "Real": 0.09849190711975098,
+                        "Fake": 0.901508092880249
                     },
                     [
                         [
-                            0.6346672177314758,
-                            539
+                            0.09849190711975098,
+                            403
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.13370132446289062,
-            "average_duration": 1.2153499373635035
+            "duration": 0.09319663047790527,
+            "average_duration": 1.1680405087927046
         },
         "1": {
             "data": [
                 [
                     {
-                        "Real": 0.9721163511276245,
-                        "Fake": 0.02788364887237549
+                        "Real": 0.04727150499820709,
+                        "Fake": 0.9527284950017929
                     },
                     [
                         [
-                            0.9721163511276245,
-                            463
+                            0.04727150499820709,
+                            466
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.11706018447875977,
-            "average_duration": 1.215100269313291
+            "duration": 0.11129522323608398,
+            "average_duration": 1.1678291174573263
         },
         "2": {
             "data": [
                 [
                     {
-                        "Real": 0.3962344229221344,
-                        "Fake": 0.6037655770778656
+                        "Real": 0.8679102063179016,
+                        "Fake": 0.1320897936820984
                     },
                     [
                         [
-                            0.3962344229221344,
-                            475
+                            0.8679102063179016,
+                            482
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.07388472557067871,
-            "average_duration": 1.2148409021442588
+            "duration": 0.07620382308959961,
+            "average_duration": 1.1676107923984527
         },
         "3": {
             "data": [
                 [
                     {
-                        "Real": 0.7228635549545288,
-                        "Fake": 0.2771364450454712
+                        "Real": 0.040880631655454636,
+                        "Fake": 0.9591193683445454
                     },
                     [
                         [
-                            0.7228635549545288,
-                            447
+                            0.040880631655454636,
+                            435
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.09624791145324707,
-            "average_duration": 1.2145867342299912
+            "duration": 0.05422258377075195,
+            "average_duration": 1.1673881592833502
         },
         "4": {
             "data": [
                 [
                     {
-                        "Real": 0.8167065978050232,
-                        "Fake": 0.1832934021949768
+                        "Real": 0.3365994393825531,
+                        "Fake": 0.6634005606174469
                     },
                     [
                         [
-                            0.8167065978050232,
-                            363
+                            0.3365994393825531,
+                            359
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.09144425392150879,
-            "average_duration": 1.2143315905497758
+            "duration": 0.07175660133361816,
+            "average_duration": 1.1671691205872388
+        },
+        "5": {
+            "data": [
+                [
+                    {
+                        "Real": 0.15435728430747986,
+                        "Fake": 0.8456427156925201
+                    },
+                    [
+                        [
+                            0.15435728430747986,
+                            336
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.09106755256652832,
+            "average_duration": 1.16695402932839
+        },
+        "6": {
+            "data": [
+                [
+                    {
+                        "Real": 0.79062819480896,
+                        "Fake": 0.20937180519104004
+                    },
+                    [
+                        [
+                            0.79062819480896,
+                            303
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.05743217468261719,
+            "average_duration": 1.1667323023390521
+        },
+        "7": {
+            "data": [
+                [
+                    {
+                        "Real": 0.323195219039917,
+                        "Fake": 0.676804780960083
+                    },
+                    [
+                        [
+                            0.323195219039917,
+                            415
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.03790545463562012,
+            "average_duration": 1.1665067625093413
+        },
+        "8": {
+            "data": [
+                [
+                    {
+                        "Real": 0.09849190711975098,
+                        "Fake": 0.901508092880249
+                    },
+                    [
+                        [
+                            0.09849190711975098,
+                            403
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.0784604549407959,
+            "average_duration": 1.1662894140659597
+        },
+        "9": {
+            "data": [
+                [
+                    {
+                        "Real": 0.04727150499820709,
+                        "Fake": 0.9527284950017929
+                    },
+                    [
+                        [
+                            0.04727150499820709,
+                            466
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.05286669731140137,
+            "average_duration": 1.166067040845118
+        },
+        "10": {
+            "data": [
+                [
+                    {
+                        "Real": 0.8679102063179016,
+                        "Fake": 0.1320897936820984
+                    },
+                    [
+                        [
+                            0.8679102063179016,
+                            482
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.11503839492797852,
+            "average_duration": 1.165857170907834
+        },
+        "11": {
+            "data": [
+                [
+                    {
+                        "Real": 0.040880631655454636,
+                        "Fake": 0.9591193683445454
+                    },
+                    [
+                        [
+                            0.040880631655454636,
+                            435
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.11696243286132812,
+            "average_duration": 1.165647768883868
+        },
+        "12": {
+            "data": [
+                [
+                    {
+                        "Real": 0.3365994393825531,
+                        "Fake": 0.6634005606174469
+                    },
+                    [
+                        [
+                            0.3365994393825531,
+                            359
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.0416562557220459,
+            "average_duration": 1.1654234192804425
+        },
+        "13": {
+            "data": [
+                [
+                    {
+                        "Real": 0.15435728430747986,
+                        "Fake": 0.8456427156925201
+                    },
+                    [
+                        [
+                            0.15435728430747986,
+                            336
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.0565643310546875,
+            "average_duration": 1.1652021342897767
+        },
+        "14": {
+            "data": [
+                [
+                    {
+                        "Real": 0.79062819480896,
+                        "Fake": 0.20937180519104004
+                    },
+                    [
+                        [
+                            0.79062819480896,
+                            303
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.03549695014953613,
+            "average_duration": 1.1649767342131325
+        },
+        "15": {
+            "data": [
+                [
+                    {
+                        "Real": 0.323195219039917,
+                        "Fake": 0.676804780960083
+                    },
+                    [
+                        [
+                            0.323195219039917,
+                            415
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.09553265571594238,
+            "average_duration": 1.1647634000662153
         }
     },
     "In-house Model": {
         "0": {
-            "prediction": 0.11824972409678484
+            "prediction": 0.118001889128649
         },
         "1": {
-            "prediction": 0.08368007377096813
+            "prediction": 0.08494375185486394
         },
         "2": {
-            "prediction": 0.06398198535626652
+            "prediction": 0.12058532473939028
         },
         "3": {
-            "prediction": 0.11563256919281573
+            "prediction": 0.08997202083056857
         },
         "4": {
-            "prediction": 0.15285635304169054
+            "prediction": 0.1304679823080908
+        },
+        "5": {
+            "prediction": 0.17177535831039892
+        },
+        "6": {
+            "prediction": 0.13067071509897923
+        },
+        "7": {
+            "prediction": 0.11094837492626757
+        },
+        "8": {
+            "prediction": 0.118001889128649
+        },
+        "9": {
+            "prediction": 0.08494375185486394
+        },
+        "10": {
+            "prediction": 0.12058532473939028
+        },
+        "11": {
+            "prediction": 0.08997202083056857
+        },
+        "12": {
+            "prediction": 0.1304679823080908
+        },
+        "13": {
+            "prediction": 0.17177535831039892
+        },
+        "14": {
+            "prediction": 0.13067071509897923
+        },
+        "15": {
+            "prediction": 0.11094837492626757
         }
     },
     "Moderate Hate Speech": {
         "0": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9999051094055176"
+            "confidence": "0.9999078512191772"
         },
         "1": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9999375343322754"
+            "confidence": "0.999941349029541"
         },
         "2": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9999237060546875"
+            "confidence": "0.999937891960144"
         },
         "3": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9999511241912842"
+            "confidence": "0.9999266862869263"
         },
         "4": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.9999301433563232"
+            "confidence": "0.9999290704727173"
+        },
+        "5": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.999924898147583"
+        },
+        "6": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999403953552246"
+        },
+        "7": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999244213104248"
+        },
+        "8": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999078512191772"
+        },
+        "9": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.999941349029541"
+        },
+        "10": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.999937891960144"
+        },
+        "11": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999266862869263"
+        },
+        "12": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999290704727173"
+        },
+        "13": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.999924898147583"
+        },
+        "14": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999403953552246"
+        },
+        "15": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999244213104248"
         }
     }
 }

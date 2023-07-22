@@ -102,8 +102,8 @@
         "In-house Model": "In-house Model.num.prediction"
     } ,
     "path_to_sentence_score": {
-        "GPTZero": ["num.documents.0.sentences", "generated_prob"],
-        "Sapling AI": ["num.sentence_scores", "score"]
+        "GPTZero": ["GPTZero.num.documents.0.sentences", "generated_prob"],
+        "Sapling AI": ["Sapling AI.num.sentence_scores", "score"]
     },
     "website_configs": {
         "forums.hardwarezone.com.sg": {
