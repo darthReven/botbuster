@@ -44,7 +44,7 @@ body {
     transition:0.6s;
     background-color: #4A8DB7;
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     padding: 78px 0 0; /* Height of navbar */
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
@@ -53,6 +53,10 @@ body {
     animation: fadeInAnimation ease 0.2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+}
+
+#sidebarMenu > #add-api-box {
+    background-color: #629cc0;
 }
 
 .list-group-item {
@@ -73,8 +77,7 @@ body {
 .sidebar-sticky {
     position: relative;
     top: 0;
-    height: calc(100vh - 20px);
-    padding-top: 6rem;
+    height: calc(100vh - 232px);
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -94,6 +97,13 @@ body {
 
 .sidebarimg {
     text-align:center;
+}
+
+#add-api-box {
+    width: 100%;
+    position: absolute;
+    top: calc(100vh - 89px);
+    z-index: 100;
 }
 
 #add-api {
@@ -219,13 +229,37 @@ main {
 }
 
 #main-page-content {
-    background-color: #78A6C8;
+    background: rgb(120,166,192);
+    background: linear-gradient(180deg, rgba(120,166,192,1) 0%, rgba(120,166,200,1) 100vh, rgba(233,238,242,1) 150vh);
     position:absolute;
     width:100%;
 }
 
+#main-page-content .row {
+    width:100%;
+}
 
+#main-page-content .col-4 > p, #main-page-content .col-8 > p, #main-page-content .col-8 > ul > li {
+    text-align: justify;
+    padding: 0.53em 1.66em;
+}
 
+#main-page-content .col-4 > h3, #main-page-content .col-8 > h3, #main-page-content .col-12 > h3 {
+    text-align: center;
+}
+
+#main-page-content .col-12 > p:not(#slogan){
+    padding: 0px 20% 0px 20%
+}
+
+#main-page-content .col-8 > ul {
+    padding: 0px 10% 0px 10%
+}
+
+.img_fluid {
+    max-width: 100%;
+    height: auto;
+}
 
 .options {
     text-align:center;
@@ -878,9 +912,24 @@ form {
     #add-api {
         display: none;
     }
+    .form-control.api-search {
+        display: none;
+    }
     .sphere {
         margin-top: 70px;
     }
+}
+
+.form-control.api-search {
+    border: 1px solid #ced4da;
+    border-radius: 30px;
+    padding: 10px 30px;
+    margin: 10px 10px;
+    width: calc(100% - 20px);
+}
+
+#api-search-box {
+    background-color: #4A8DB7;
 }
 
 /* Animations */

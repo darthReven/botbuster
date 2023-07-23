@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Bot Buster - Results</title>
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -40,11 +40,12 @@
       const alpha = 0.1 + (0.7 * fractionalValue)
       return `rgb(255, 255, 0, ${alpha})`;
     }
+
     $(document).ready(function() {
       var apiinfo = JSON.parse(localStorage.getItem("api-info"))
       var text = localStorage.getItem("text")
       var results = JSON.parse(localStorage.getItem("results"))
-      if (apiinfo == null || text == null || results == null) {
+      if (apiinfo == null || text == null) {
         history.back()
       }
       content = `
@@ -61,16 +62,19 @@
         for (let response = 1; response < Object.keys(results).length; response++) {
             response_num = String(response)
             textCollection = []
-            for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
+            for (const category in results[response_num]["general_score"]) {  
+              for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
                 var sentence = Object.keys(results[response_num]["sentence_score"][i])
-                if (results[response_num]["sentence_score"][i][sentence]["highlight"] == 0) {
+                if (!(category in results[response_num]["sentence_score"][i][sentence])) {continue}
+                if (results[response_num]["sentence_score"][i][sentence][`${category}-highlight`] == 0) {
                 textCollection.push(`${sentence[0]}`)
                 } else {
-                textCollection.push(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
-                var colour = highlightText(results[response_num]["sentence_score"][i][sentence]["highlight"])
-                var sentenceelement = document.getElementById(`sentence-${i}`)
-                sentenceelement.style.backgroundColor = String(colour)
+                textCollection.push(`<mark id = "sentence-${i}" style = "backgroundColor: ${highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])};">${sentence[0]}</mark>`)
+                var colour = highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])
+                // var sentenceelement = document.getElementById(`sentence-${i}`)
+                // sentenceelement.style.backgroundColor = String(colour)
                 }
+              }
             }
             response_categories = ''
             for(category of Object.keys(results[response_num]['general_score'])) {

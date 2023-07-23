@@ -4,7 +4,7 @@
             "documents": [
                 {
                     "average_generated_prob": 1,
-                    "completely_generated_prob": 0.2393001914024353,
+                    "completely_generated_prob": 0.18646952509880066,
                     "overall_burstiness": 5,
                     "paragraphs": [
                         {
@@ -38,238 +38,23 @@
                     "document_classification": "MIXED"
                 }
             ],
-            "version": "2023-07-07"
-        },
-        "1": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.8001633286476135,
-                    "overall_burstiness": 5.6862406730651855,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 37,
-                            "sentence": "At SP, students are encouraged to explore their passions and develop their potential through a comprehensive learning experience.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 40,
-                            "sentence": "The institution emphasizes hands-on training, project-based learning, and industry attachments to equip students with the necessary skills and knowledge demanded by the workforce.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 29,
-                            "sentence": "Through these experiential learning opportunities, SP graduates are well-prepared to excel in their chosen fields and contribute meaningfully to society.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
-                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "2": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.8847442269325256,
-                    "overall_burstiness": 16.5227108001709,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 51,
-                            "sentence": "Beyond academics, SP offers a vibrant campus life with a myriad of co-curricular activities, clubs, and societies.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 21,
-                            "sentence": "These platforms provide students with opportunities to engage in sports, arts, leadership development, and community service, fostering a well-rounded and balanced student experience.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 24,
-                            "sentence": "The campus itself is a bustling hub of activity, with modern facilities, cutting-edge laboratories, and interactive learning spaces that encourage collaboration and creativity.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is likely to be written entirely by AI",
-                    "result_sub_message": "",
-                    "document_classification": "AI_ONLY"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "3": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.13049408793449402,
-                    "overall_burstiness": 9.504384994506836,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.00408719312638748,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 46,
-                            "sentence": "SP also places great emphasis on innovation and entrepreneurship.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 27,
-                            "sentence": "The institution actively promotes an entrepreneurial mindset among its students, encouraging them to think critically, solve problems creatively, and embrace innovation.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 36,
-                            "sentence": "Through initiatives such as the SP Innovates program, students have access to mentorship, incubation support, and industry networks, enabling them to develop their innovative ideas into viable business ventures.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is most likely human written",
-                    "result_sub_message": "",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
-        },
-        "4": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.6280757039785385,
-                    "overall_burstiness": 10.60660171508789,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.02318840472169716,
-                            "num_sentences": 2,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 22,
-                            "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape.",
-                            "highlight_sentence_for_ai": false
-                        },
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 37,
-                            "sentence": "With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Our ensemble of detectors have predicted different results for this text.",
-                    "result_sub_message": "We suggest entering a longer text for more precise prediction",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-07"
+            "version": "2023-07-19"
         }
     },
     "Writer": {
-        "0": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "1": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "2": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "3": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        },
-        "4": {
-            "tpe": "fail.permission",
-            "errors": [
-                {
-                    "description": "Permission fail",
-                    "key": "fail.permission.generic",
-                    "extras": null
-                }
-            ],
-            "extras": null
-        }
+        "0": [
+            {
+                "label": "real",
+                "score": 0.5115185379981995
+            },
+            {
+                "label": "fake",
+                "score": 0.4884814918041229
+            }
+        ]
     },
     "Sapling AI": {
         "0": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
-        },
-        "1": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
-        },
-        "2": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
-        },
-        "3": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
-        },
-        "4": {
             "key_prefix": "3HX********************************",
             "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         }
@@ -291,101 +76,13 @@
                 ]
             ],
             "is_generating": false,
-            "duration": 0.13370132446289062,
-            "average_duration": 1.2153499373635035
-        },
-        "1": {
-            "data": [
-                [
-                    {
-                        "Real": 0.9721163511276245,
-                        "Fake": 0.02788364887237549
-                    },
-                    [
-                        [
-                            0.9721163511276245,
-                            463
-                        ]
-                    ]
-                ]
-            ],
-            "is_generating": false,
-            "duration": 0.11706018447875977,
-            "average_duration": 1.215100269313291
-        },
-        "2": {
-            "data": [
-                [
-                    {
-                        "Real": 0.3962344229221344,
-                        "Fake": 0.6037655770778656
-                    },
-                    [
-                        [
-                            0.3962344229221344,
-                            475
-                        ]
-                    ]
-                ]
-            ],
-            "is_generating": false,
-            "duration": 0.07388472557067871,
-            "average_duration": 1.2148409021442588
-        },
-        "3": {
-            "data": [
-                [
-                    {
-                        "Real": 0.7228635549545288,
-                        "Fake": 0.2771364450454712
-                    },
-                    [
-                        [
-                            0.7228635549545288,
-                            447
-                        ]
-                    ]
-                ]
-            ],
-            "is_generating": false,
-            "duration": 0.09624791145324707,
-            "average_duration": 1.2145867342299912
-        },
-        "4": {
-            "data": [
-                [
-                    {
-                        "Real": 0.8167065978050232,
-                        "Fake": 0.1832934021949768
-                    },
-                    [
-                        [
-                            0.8167065978050232,
-                            363
-                        ]
-                    ]
-                ]
-            ],
-            "is_generating": false,
-            "duration": 0.09144425392150879,
-            "average_duration": 1.2143315905497758
+            "duration": 0.04652833938598633,
+            "average_duration": 1.1468880079704509
         }
     },
     "In-house Model": {
         "0": {
             "prediction": 0.11824972409678484
-        },
-        "1": {
-            "prediction": 0.08368007377096813
-        },
-        "2": {
-            "prediction": 0.06398198535626652
-        },
-        "3": {
-            "prediction": 0.11563256919281573
-        },
-        "4": {
-            "prediction": 0.15285635304169054
         }
     },
     "Moderate Hate Speech": {
@@ -393,26 +90,6 @@
             "response": "Success",
             "class": "normal",
             "confidence": "0.9999051094055176"
-        },
-        "1": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9999375343322754"
-        },
-        "2": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9999237060546875"
-        },
-        "3": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9999511241912842"
-        },
-        "4": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9999301433563232"
         }
     }
 }
