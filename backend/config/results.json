@@ -63,8 +63,8 @@
             ]
         ],
         "is_generating": false,
-        "duration": 0.014545202255249023,
-        "average_duration": 1.1631729206168584
+        "duration": 0.017899513244628906,
+        "average_duration": 1.1623701466056537
     },
     "In-house Model": {
         "prediction": 0.1366204576458844

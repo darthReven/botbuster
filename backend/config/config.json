@@ -91,6 +91,7 @@
         "Writer": "writer.png",
         "Sapling AI": "sapling.png",
         "Hugging Face": "huggingface.png",
+        "In-house Model": "misinfo.png",
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
     "path_to_general_score": {
