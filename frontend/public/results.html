@@ -134,6 +134,27 @@
         $("body").append(`<div class="hover_box hidden">${api_averages.join('<br>')}</div>`)
       }
       $("body").append(hoverable_boxes)
+      
+      const hoverable = document.querySelectorAll(".hoverable");
+      const infobox = document.querySelectorAll(".hover_box")
+      const onClick = (e, i) => {
+          infobox[i].classList.toggle('display_info');
+          infobox[i].style.left = e.pageX + 'px';
+          infobox[i].style.top = e.pageY + 'px';
+      }
+      hoverable.forEach((hoverable, i) => {
+          hoverable.addEventListener("click", (e) => onClick(e, i));
+      });
+      document.addEventListener('click', function handleClickOutsideBox(event) {
+
+          hoverable.forEach((hoverable, i) => {
+              if (!hoverable.contains(event.target)) {
+                  console.log(hoverable)
+                  console.log(event.target)
+                  infobox[i].classList.remove('display_info');
+              }
+          })
+      });
       $('#loading').hide(); // Hide loading
     }
     $(document).ready(function() {
@@ -203,26 +224,6 @@
         }
       }, 0)
       //
-        const hoverable = document.querySelectorAll(".hoverable");
-        const infobox = document.querySelectorAll(".hover_box")
-        const onClick = (e, i) => {
-            infobox[i].classList.toggle('display_info');
-            infobox[i].style.left = e.pageX + 'px';
-            infobox[i].style.top = e.pageY + 'px';
-        }
-        hoverable.forEach((hoverable, i) => {
-            hoverable.addEventListener("click", (e) => onClick(e, i));
-        });
-        document.addEventListener('click', function handleClickOutsideBox(event) {
-
-            hoverable.forEach((hoverable, i) => {
-                if (!hoverable.contains(event.target)) {
-                    console.log(hoverable)
-                    console.log(event.target)
-                    infobox[i].classList.remove('display_info');
-                }
-            })
-        });
     })
   </script>
 
