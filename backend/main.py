@@ -484,12 +484,26 @@ def get_webscraper_settings():
         website_configs = json.load(config_data_file)["website_configs"]
     website_settings = {key: website_configs[key]["elements"] for key in website_configs.keys()}
     return website_settings
-
+    
 # save web scraping settings
 @botbuster.post("/webscraper/settings/")
-def save_webscraper_settings():
-    pass
+async def update_config(website_configs: dict):
+    # try:
+        # save the updated configuration to the config.json file
+        with open(CONFIG_FILE_PATH, "r") as f:
+            config_data = json.load(f)
+            
+        # ppdate the existing config file with the new data
+        for key, value in website_configs.items():
+            for website_url in config_data[key].keys():
+                config_data[key][website_url]["elements"]= value[website_url]
+                
+            # save the updated configuration to the config.json file
+            with open(CONFIG_FILE_PATH, "w") as file:
+                json.dump(config_data, file, indent=3)
         
+       
+    
 # extracting text from user's file
 @botbuster.post("/extract/") # endpoint #4 scraping data from files
 def extract_text(file: UploadFile):

@@ -21,6 +21,7 @@
 
   <script>
     counter = 0
+    let settingsData = null; //for selecting the elements the user select
     function num_of_submissions(){
       counter+=1
     }
@@ -42,9 +43,10 @@
 			document.getElementById("left-bar-slider").style.margin = "0";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
 		}
+   
 
     function get_settings() {
-        $('#loading').show(); // Start loading
+      $('#loading').show(); // Start loading
       $('.btn[type="button"]').prop('disabled', true); // Disable submit
       $('#submitBtn').prop('disabled', true); //Disable arrow submit button
       $.ajax({
@@ -53,28 +55,34 @@
         contentType: "application/json; charset = utf-8",
         dataType: "json",
         success: function(data, textStatus, xhr) {
-            console.log(data)
-            $('#loading').hide(); // Hide loading
+          settingsData = data;
+          $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
           content = `
       <div class="row text-center">
-          <div class="col-3 px-3">
-              Element
+          <div class="col-4 px-5">
+              Website
           </div>
-          <div class="col-9 px-3">
-              Content
+          <div class="col-8 px-5">
+              Elements Selected
           </div>
       </div>
       `
       for(item of Object.keys(data)) {
+          element_content = ""
+          
+          for (let i = 0; i < data[item].length; i++) { 
+            element_content +=
+            `<input type="checkbox" checked class = "el_checkbox" id = "${data[item][i]}"> ${data[item][i]}<br>`; // Add each checkbox and data item
+          }
           content += `
           <div class="row">
-              <div class="col-3 px-3 text-center">
+              <div class="col-4 px-3 text-center">
                   ${item}
               </div>
-              <div class="col-9 px-3" contenteditable>
-                  ${data[item]}
+              <div class="col-8 px-3" contenteditable>
+                ${element_content}               
               </div>
           </div>
           `
@@ -86,10 +94,38 @@
           $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
-        }
+        },
       });
     }
     
+    function send_settings(){
+    $('#loading').show(); // Start loading
+    $('.btn[type="button"]').prop('disabled', true); // Disable submit
+    $('#submitBtn').prop('disabled', true); //Disable arrow submit button
+    const filteredData = {};
+    for (const item of Object.keys(settingsData)) {
+      filteredData[item] = []; //the websites
+      for (let i = 0; i < settingsData[item].length; i++) {
+        const checkboxId = settingsData[item][i];
+        const checkboxElement = document.getElementById(checkboxId);
+        if (checkboxElement.checked) {
+          // if the checkbox is checked, add the ID to the filteredData
+          filteredData[item].push(checkboxId);
+        }
+    }
+    }
+    const jsonData = JSON.stringify({ website_configs: filteredData });
+    $.ajax({
+    url: "http://127.0.0.1:8000/webscraper/settings/", 
+    type: "POST",
+    data: jsonData,
+    contentType: "application/json; charset = utf-8",
+    dataType: "json",
+  });
+    }
+      
+
+
     const isValidUrl = (urlString) => {
         const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
         return urlPattern.test(urlString);
@@ -130,6 +166,7 @@
           
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
+          
         },
         error: function(xhr, textStunlatus, err) {
           $('#loading').hide(); // Hide loading
@@ -423,7 +460,7 @@
                     <label class="form-label" for="type_url">Enter the URL of the webpage to webscrape</label>
                     <div class="input-group">
                       <input type="url" id="type_url" class="form-control" placeholder="https://example.com"/>
-                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();get_elements();">
+                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();send_settings();get_elements()">
                         <i class="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
