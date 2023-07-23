@@ -41,7 +41,7 @@
       return `rgb(255, 255, 0, ${alpha})`;
     }
     $(document).ready(function() {
-      $('#loading').show(); // Hide loading
+      $('#loading').show(); // show loading
       var apiinfo = JSON.parse(localStorage.getItem("api-info"))
       var list_of_text = JSON.parse(localStorage.getItem("text"))
       if (apiinfo == null || list_of_text == null) {
@@ -51,171 +51,156 @@
 				list_of_apis: JSON.parse(localStorage.getItem("api-used")), 
 				text: ""
 			};
-      for (let request = 0; request < list_of_text.length; request++) {
-        data["text"] = list_of_text[request][0]
-        console.log(list_of_text)
-        console.log(list_of_text.length, request)
-        $.ajax({
-          url: `http://127.0.0.1:8000/checktext/new`,
-          type: "POST",
-          data: JSON.stringify(data),
-          contentType: "application/json; charset = utf-8",
-          dataType: "json",
-          async: false,
-          success: function(data, textStatus, xhr) {
-            $('#loading').hide(); // Hide loading
-            $('.btn[type="button"]').prop('disabled', false); // Enable submit
-            results = data
-            console.log(results)
-          },
-          error: function(xhr, textStunlatus, err) {
-            $('#loading').hide(); // Hide loading
-            $('.btn[type="button"]').prop('disabled', false); // Enable submit
-            localStorage.removeItem("text")
-            localStorage.removeItem("api-used")
-          }
-        })
-        content = `
-          <div class="row text-center">
-              <div class="col-3 px-3">
-                  Categories
-              </div>
-              <div class="col-9 px-3">
-                  Requests
-              </div>
-          </div>
-        `
-        hoverable_boxes =  ''
-          for (let response = 1; response < Object.keys(results).length; response++) {
-              response_num = String(response)
-              textCollection = []
-              for (const category in results[response_num]["general_score"]) {  
-                for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
-                    var sentence = Object.keys(results[response_num]["sentence_score"][i])
-                    console.log(sentence)
-                    if (results[response_num]["sentence_score"][i][sentence][`${category}-highlight`] == 0) {
-                    textCollection.push(`${sentence[0]}`)
-                    } else {
-                    textCollection.push(`<mark id = "sentence-${i}">${sentence[0]}</mark>`)
-                    var colour = highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])
-                    var sentenceelement = document.getElementById(`sentence-${i}`)
-                    sentenceelement.style.backgroundColor = String(colour)
-                    }
-                }
-              }
-              response_categories = ''
-              for(category of Object.keys(results[response_num]['general_score'])) {
-                  colour_class = ''
-                  if(results[response_num]['general_score'][category]['overall_score'] >= 80) {
-                      colour_class = 'flagged'
-                  }
-                  else if(results[response_num]['general_score'][category]['overall_score'] >= 20) {
-                      colour_class = 'potential_flag'
-                  }
-                  else {
-                      colour_class = 'unflagged'
-                  }
-                  response_categories += (`<span class="hoverable"><div class='${colour_class}'><i class="fa-solid fa-caret-down" style="color: black;"></i>  ${category}:<br>${results[response_num]['general_score'][category]['overall_score']}%</div></span>`)
-                  api_score_list = []
-                  for(api of Object.keys(results[response_num]['general_score'][category])) {
-                      if(api != 'description' && api != 'overall_score' && api != 'score_type') {
-                          if(results[response_num]['general_score'][category][api] >= 80) {
-                              colour_class = 'flagged'
-                          }
-                          else if(results[response_num]['general_score'][category][api] >= 20) {
-                              colour_class = 'potential_flag'
-                          }
-                          else {
-                              colour_class = 'unflagged'
-                          }
-                          api_score_list.push(`<span class='${colour_class}'>${api}: ${results[response_num]['general_score'][category][api]}</span>`)
-                      }    
-                  }
-                  hoverable_boxes += `<div class='hover_box hidden'>${api_score_list.join('<br>')}</div>`
-              }
-              content += `
-                  <div class="row">
-                      <div class="col-3 px-3 text-center">
-                          ${response_categories}
-                      </div>
-                      <div class="col-9 px-3 results_text">
-                          ${textCollection.join(' ')}
-                      </div>
-                  </div>
-              `
-          }
-        $('.results-box').html(content);
-        numCategories = Object.keys(results["overall_score"]).length
-        columnNumber = 12 / numCategories
-        if(columnNumber < 4) {
-          columnNumber = 4
-        }
-        // Filling sidebar scores
-        for (i = 0; i < Object.keys(results["overall_score"]).length - 1; i++) {
-          var apiCategory = Object.keys(results["overall_score"])[i]
-          $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
-          $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
-          for (const key in results["overall_score"][apiCategory]) {
-              if(key != "average_score") {
-                  $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`
-                  <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["overall_score"][apiCategory][key]}">${results["overall_score"][apiCategory][key]}</span></div></div></div>`)
-                  if (apiinfo[`${apiCategory}`][key][1] != undefined){ 
-                      const byte_characters = atob(apiinfo[`${apiCategory}`][key][1]);
-                      const byte_numbers = new Array(byte_characters.length);
-                      for (let i = 0; i < byte_characters.length; i++) {
-                          byte_numbers[i] = byte_characters.charCodeAt(i);
-                  }
-                  const byte_array = new Uint8Array(byte_numbers);
-                  document.getElementById(`${apiinfo[`${apiCategory}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
-                  $('#loading').hide(); // Hide loading
-                  }
-                  hue0 = 120
-                  hue1 = 0
-                  var resultelement = document.getElementById(`${apiinfo[apiCategory][key][0]}_result`)
-                  new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
-                  resultelement.style.color = String(new_colour)
-              }
+      setTimeout(function () {
+        for (let request = 0; request < list_of_text.length; request++) {
+          data["text"] = list_of_text[request][0]
+          console.log(list_of_text.length, request)
+          $.ajax({
+            url: `http://127.0.0.1:8000/checktext/new`,
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            async: false,
+            success: function(data, textStatus, xhr) {
+              results = data
+              console.log(data)
+              $('#loading').hide(); // Hide loading
+              console.log("stop loading")
+            },
+            error: function(xhr, textStatus, err) {
+              $('#loading').hide(); // Hide loading
+              $('.btn[type="button"]').prop('disabled', false); // Enable submit
+              localStorage.removeItem("text")
+              localStorage.removeItem("api-used")
+            }
+          })
           
-        }
-        // For each category
-        api_averages = []
-        $("#text-area > .row").append(`<div class="col-${columnNumber}"><span class="hoverable"><i class="fa-solid fa-caret-down"></i>  ${apiCategory}<br>${results["overall_score"][apiCategory]["average_score"]}%</span></div>`)
-        for (let i = 0; i < Object.entries(results["overall_score"][apiCategory]).length - 1; i++) {
-            api_and_score = Object.entries(results["overall_score"][apiCategory])[i]
-            if(api_and_score[1] >= 80) {
-                colour_class = 'flagged'
+        console.log("test")
+        $('#loading').hide(); // Hide loading
+          content = `
+            <div class="row text-center">
+                <div class="col-3 px-3">
+                    Categories
+                </div>
+                <div class="col-9 px-3">
+                    Requests
+                </div>
+            </div>
+          `
+          hoverable_boxes =  ''
+          response_num = String(request + 1)
+          textCollection = []
+          for (const category in results[response_num]["general_score"]) {  
+            for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
+              var sentence = Object.keys(results[response_num]["sentence_score"][i])
+              if (!(category in results[response_num]["sentence_score"][i][sentence])) {continue}
+              if (results[response_num]["sentence_score"][i][sentence][`${category}-highlight`] == 0) {
+              textCollection.push(`${sentence[0]}`)
+              } else {
+              textCollection.push(`<mark id = "sentence-${i}" style = "backgroundColor: ${highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])};">${sentence[0]}</mark>`)
+              var colour = highlightText(results[response_num]["sentence_score"][i][sentence][`${category}-highlight`])
+              // var sentenceelement = document.getElementById(`sentence-${i}`)
+              // sentenceelement.style.backgroundColor = String(colour)
+              }
             }
-            else if(api_and_score[1] >= 20) {
-                colour_class = 'potential_flag'
-            }
-            else {
-                colour_class = 'unflagged'
-            }
-            api_averages.push(`<span class='${colour_class}'>${api_and_score[0]}: ${api_and_score[1]}</span>`)
-        }
-        $("body").append(`<div class="hover_box hidden">${api_averages.join('<br>')}</div>`)
+          }
+          response_categories = ''
+          for(category of Object.keys(results[response_num]['general_score'])) {
+              colour_class = ''
+              if(results[response_num]['general_score'][category]['overall_score'] >= 80) {
+                  colour_class = 'flagged'
+              }
+              else if(results[response_num]['general_score'][category]['overall_score'] >= 20) {
+                  colour_class = 'potential_flag'
+              }
+              else {
+                  colour_class = 'unflagged'
+              }
+              response_categories += (`<span class="hoverable"><div class='${colour_class}'><i class="fa-solid fa-caret-down" style="color: black;"></i>  ${category}:<br>${results[response_num]['general_score'][category]['overall_score']}%</div></span>`)
+              api_score_list = []
+              for(api of Object.keys(results[response_num]['general_score'][category])) {
+                  if(api != 'description' && api != 'overall_score' && api != 'score_type') {
+                      if(results[response_num]['general_score'][category][api] >= 80) {
+                          colour_class = 'flagged'
+                      }
+                      else if(results[response_num]['general_score'][category][api] >= 20) {
+                          colour_class = 'potential_flag'
+                      }
+                      else {
+                          colour_class = 'unflagged'
+                      }
+                      api_score_list.push(`<span class='${colour_class}'>${api}: ${results[response_num]['general_score'][category][api]}</span>`)
+                  }    
+              }
+              hoverable_boxes += `<div class='hover_box hidden'>${api_score_list.join('<br>')}</div>`
+          }
+          content += `
+              <div class="row">
+                  <div class="col-3 px-3 text-center">
+                      ${response_categories}
+                  </div>
+                  <div class="col-9 px-3 results_text">
+                      ${textCollection.join(' ')}
+                  </div>
+              </div>
+          `
+          $('.results-box').html(content);
+          numCategories = Object.keys(results["overall_score"]).length
+          columnNumber = 12 / numCategories
+          if(columnNumber < 4) {
+            columnNumber = 4
+          }
+          // Filling sidebar scores
+          for (i = 0; i < Object.keys(results["overall_score"]).length - 1; i++) {
+            var apiCategory = Object.keys(results["overall_score"])[i]
+            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${apiCategory.replace(/\s/g, '-')}">`)
+            $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${apiCategory}</div>`)
+            for (const key in results["overall_score"][apiCategory]) {
+                if(key != "average_score") {
+                    $(`#api-info-${apiCategory.replace(/\s/g, '-')}`).append(`
+                    <div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${apiinfo[`${apiCategory}`][key][0]}_logo" src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0 text-center"><span id="${apiinfo[`${apiCategory}`][key][0]}_result" class="result-display" value="${results["overall_score"][apiCategory][key]}">${results["overall_score"][apiCategory][key]}</span></div></div></div>`)
+                    if (apiinfo[`${apiCategory}`][key][1] != undefined){ 
+                        const byte_characters = atob(apiinfo[`${apiCategory}`][key][1]);
+                        const byte_numbers = new Array(byte_characters.length);
+                        for (let i = 0; i < byte_characters.length; i++) {
+                            byte_numbers[i] = byte_characters.charCodeAt(i);
+                    }
+                    const byte_array = new Uint8Array(byte_numbers);
+                    document.getElementById(`${apiinfo[`${apiCategory}`][key][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
+                    $('#loading').hide(); // Hide loading
+                    }
+                    hue0 = 120
+                    hue1 = 0
+                    var resultelement = document.getElementById(`${apiinfo[apiCategory][key][0]}_result`)
+                    new_colour = percentageToHsl(resultelement.innerHTML, hue0, hue1)
+                    resultelement.style.color = String(new_colour)
+                }
+            
+          }
+          // For each category
+          api_averages = []
+          $("#text-area > .row").append(`<div class="col-${columnNumber}"><span class="hoverable"><i class="fa-solid fa-caret-down"></i>  ${apiCategory}<br>${results["overall_score"][apiCategory]["average_score"]}%</span></div>`)
+          for (let i = 0; i < Object.entries(results["overall_score"][apiCategory]).length - 1; i++) {
+              api_and_score = Object.entries(results["overall_score"][apiCategory])[i]
+              if(api_and_score[1] >= 80) {
+                  colour_class = 'flagged'
+              }
+              else if(api_and_score[1] >= 20) {
+                  colour_class = 'potential_flag'
+              }
+              else {
+                  colour_class = 'unflagged'
+              }
+              api_averages.push(`<span class='${colour_class}'>${api_and_score[0]}: ${api_and_score[1]}</span>`)
+          }
+          $("body").append(`<div class="hover_box hidden">${api_averages.join('<br>')}</div>`)
 
-      }
-      $("body").append(hoverable_boxes)
-
-    }
-      // $.ajax({
-      //   url:"http://127.0.0.1:8000/graph/",
-      //   type: "POST",
-      //   data: JSON.stringify(results),
-      //   contentType: "application/json; charset = utf-8",
-      //   dataType: "json",
-      //   success: function(data, textStatus, xhr) {
-      //       $('.embed-responsive-item').contentDocument.location.reload(true);
-      //     console.log('success')
-      //   },
-      //   error: function(xhr, textStunlatus, err) {
-      //     console.log(err)
-      //     $('#loading').hide(); // Hide loading
-      //     $('.btn[type="button"]').prop('disabled', false); // Enable submit
-      //     $('#submitBtn').prop('disabled', false); //Enable arrow submit button
-      //   }
-      // })
+        }
+        $("body").append(hoverable_boxes)
+        }
+      }, 0)
+      //
         const hoverable = document.querySelectorAll(".hoverable");
         const infobox = document.querySelectorAll(".hover_box")
         const onClick = (e, i) => {
@@ -241,6 +226,9 @@
 
 </head>
 <body>
+  <div id="loading">
+      <img id="loading-image" src="images/spin_load.gif" alt="Loading..." />
+  </div>
      <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
     <div class="sidebar-sticky">

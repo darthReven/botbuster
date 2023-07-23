@@ -83,12 +83,16 @@ def sanitise(data):
 # writing endpoints
 @botbuster.post("/splittext/")
 def split_text(request: ds.split_text):
+    list_of_apis = request.dict()["list_of_apis"]
     full_text = request.dict()["text"]
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])
-    with open(SCORE_FILE_PATH, "w") as score_file: # empty in score file
-        score_file.write(json.dumps({}, indent=4))
+    with open(SCORE_FILE_PATH, "w") as score_data_file: # empty in score file
+        scores = {"overall_score": {api_category: {} for api, api_category in list_of_apis}}
+        scores["overall_score"]["sentence_data"] = {}
+        scores["overall_score"]["sentence_data"]["total_num_sentences"] = 0
+        score_data_file.write(json.dumps(scores, indent=4))
     return list_of_texts
 
 
@@ -98,81 +102,87 @@ def check_text(request: ds.check_text):
     start = time.perf_counter()
     list_of_apis = request.dict()["list_of_apis"]
     text = request.dict()["text"]
+    with open(SCORE_FILE_PATH, "r") as score_data_file: # load in config data from config file
+        scores = json.load(score_data_file)
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
-    scores = {} # create dictionary to store all scores
-    overall_scores = {api_category: {} for api, api_category in list_of_apis}
     total_score = {api_category:{} for api, api_category in list_of_apis} # store score of each API before taking the average
-    overall_scores["sentence_data"] = {}
-    total_num_sentences = text_utils.chunk_size(text)
-    overall_scores["sentence_data"]["total_num_sentences"] = total_num_sentences
+    num_sentences = text_utils.chunk_size(text)
+    request_num = len(scores)
+    print(f"Request No.: {request_num}")
+    scores["overall_score"]["sentence_data"][request_num] = num_sentences
+    scores["overall_score"]["sentence_data"]["total_num_sentences"] += num_sentences
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
-    # change this to the text chunking functions
     seen_categories = [] 
     for api_num, [api, api_category] in enumerate(list_of_apis): # loop through all APIs
-        overall_scores[api_category][api] = "score not calculated"
+        scores["overall_score"][api_category][api] = "score not calculated"
         try:
-            # full_results = {}
             if api != "score_type" and api != "description":
                 results = API(config_data["APIs"][api_category][api]).api_call(text)
-                full_results[api][num] = results
-                num_sentences = text_utils.chunk_size(text[0])
-                overall_scores["sentence_data"][num + 1] = num_sentences
+                full_results[api] = results
             if api_category not in seen_categories:
-                total_score[api_category][num + 1] = {"score": 0, "num_apis": 0}
+                total_score[api_category] = {"score": 0, "num_apis": 0}
             if api_num == 0:
-                scores[num + 1] = {
+                scores[request_num] = {
                     "general_score": {api_category : {
                         "description": config_data["APIs"][api_category]["description"],
                         "score_type": config_data["APIs"][api_category]["score_type"]
                     } for api, api_category in list_of_apis},
                     "sentence_score": []  # keeping a score for each sentence  
                 }
-                for sentence in text_utils.chunk_by_sentences(text[0]):
-                    scores[num + 1]["sentence_score"].append({sentence: {}})
-            
+                for sentence in text_utils.chunk_by_sentences(text):
+                    scores[request_num]["sentence_score"].append({sentence: {}})
             seen_categories.append(api_category)
         except Exception:
-            full_results[api][num] = "Error Detecting"
+            full_results[api] = "Error Detecting"
             continue
         try:
             # checking for general score 
-            for req_num in full_results[api].keys():
-                results = full_results # set the results to loop through
-                if results == "Error Detecting":
-                    scores[req_num + 1]["general_score"][api_category][api] = "error detecting" 
-                path = config_data["path_to_general_score"][api] # get the path
-                for key in path.split('.'): # loop through each key in the path to general score
-                    if str(key).isnumeric(): # if the key is numerical, convert it to an int
-                        key = int(key)
-                    if key == "num":
-                        key = req_num
-                    try: 
-                        results = results[key] # try to path to the score
-                        if config_data["APIs"][api_category]["score_type"] == "Discrete" and key == path.split('.')[-1]:
-                            if results == "flag":
-                                results = 1
-                            else:
-                                results = 0
-                        scores[req_num + 1]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
-                        total_score[api_category][req_num + 1]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
-                        total_score[api_category][req_num + 1]["num_apis"] += 1 # sums the number of APIs in the category
-                        final_score = total_score[api_category][req_num + 1]["score"]/total_score[api_category][req_num + 1]["num_apis"] # gets the average score of all the APIs in each category
-                        scores[req_num + 1]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
-                        overall_scores[api_category][api][req_num + 1]["score"] = round(float(results) * 100,1)
-                        
-                    except TypeError: # Type error will occur if the loop hasn't reached the score
-                        continue  # continue to the next key in the loop
-                    except KeyError: # If there is an error with the path
-                        scores[req_num + 1]["general_score"][api_category][api] = "error getting score" 
-                        continue
-                    except Exception: # catch all other errors
-                        continue
+            results = full_results # set the results to loop through
+            if results == "Error Detecting":
+                scores[request_num]["general_score"][api_category][api] = "error detecting" 
+            path = config_data["path_to_general_score"][api] # get the path
+            for key in path.split('.'): # loop through each key in the path to general score
+                if str(key).isnumeric(): # if the key is numerical, convert it to an int
+                    key = int(key)
+                if key == "num":
+                    key = request_num
+                try: 
+                    results = results[key] # try to path to the score
+                    if config_data["APIs"][api_category]["score_type"] == "Discrete" and key == path.split('.')[-1]:
+                        if results == "flag":
+                            results = 1
+                        else:
+                            results = 0
+                    scores[request_num]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
+                    total_score[api_category]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
+                    total_score[api_category]["num_apis"] += 1 # sums the number of APIs in the category
+                    final_score = total_score[api_category]["score"]/total_score[api_category]["num_apis"] # gets the average score of all the APIs in each category
+                    scores[request_num]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score                    
+                except TypeError: # Type error will occur if the loop hasn't reached the score
+                    continue  # continue to the next key in the loop
+                except KeyError: # If there is an error with the path
+                    scores[request_num]["general_score"][api_category][api] = "error getting score" 
+                    continue
+                except Exception: # catch all other errors
+                    continue      
         except Exception:
-            continue
-           
-    for req_num in scores.keys():
-        # checking for sentence score
+            continue  
+    try:
+        scores[request_num]["flags"] = []
+        for api_category in scores[request_num]["general_score"]:
+            try:
+                if scores[request_num]["general_score"][api_category]["overall_score"] > config_data["flagged_threshold"]:
+                    scores[request_num]["flags"].append(f"Flagged by ${api_category}")
+                    continue
+                if scores[request_num]["general_score"][api_category]["overall_score"] > config_data["potentially_flagged_threshold"]:
+                    scores[request_num]["flags"].append(f"Potentially Flagged by {api_category}")
+            except Exception:
+                continue   
+    except Exception:
+        pass
+    # checking for sentence score
+    for api, api_category in list_of_apis:
         try:
             path1 = config_data["path_to_sentence_score"][api][0] # path to the list of the sentences
             path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
@@ -182,73 +192,64 @@ def check_text(request: ds.check_text):
                     if key.isnumeric(): # if the key is numerical, convert it to an int
                         key = int(key)
                     if key == "num":
-                        key = req_num
+                        key = request_num
                     results = results[key] # try to path to the score
                 except KeyError or TypeError or Exception:
                     continue
             for num in range(0, len(results)): # loop through each sentence of results
                 try: 
-                    for key in scores["sentence_score"][num].keys():
-                        # if key == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
-                        if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
-                            scores[req_num]["sentence_score"][num][key]["api"].append(api)
-                            scores[req_num]["sentence_score"][num][key]["highlight"] += 1/len(total_score[api_category]["num_apis"])
+                    for sentence in scores[request_num]["sentence_score"][num].keys():
+                        if not(api_category in scores[request_num]["sentence_score"][num][sentence]):
+                            scores[request_num]["sentence_score"][num][sentence] = {
+                                api_category: [],
+                                f"{api_category}-highlight": 0
+                            }
+                        if sentence == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name 
+                            scores[request_num]["sentence_score"][num][sentence][api_category].append(api)
+                            scores[request_num]["sentence_score"][num][sentence][f"{api_category}-highlight"] += 1/total_score[api_category]["num_apis"]
                 except:
-                    break  
+                    continue  
         except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
-            continue  
-        if not str(req_num).isnumeric():
-            continue
-        scores[req_num]["flags"] = []
-        try:
-            for api_category in scores[req_num]["general_score"]:
-                try:
-                    if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["flagged_threshold"]:
-                        scores[req_num]["flags"].append(f"Flagged by ${api_category}")
-                        continue
-                    if scores[req_num]["general_score"][api_category]["overall_score"] > config_data["potentially_flagged_threshold"]:
-                        scores[req_num]["flags"].append(f"Potentially Flagged by {api_category}")
-                except Exception:
-                    continue   
-        except Exception:
-            continue
+            continue       
     try:
-        for api_category in overall_scores.keys():
+        for api_category in scores["overall_score"].keys():
             if api_category == "sentence_data":
                 continue
             api_count = 0
             api_category_total_score = 0
-            for api in scores[1]["general_score"][api_category]: 
+            if request_num == 1:
+                keys = scores[1]["general_score"][api_category]
+            else: 
+                keys = scores["1"]["general_score"][api_category]
+            for api in keys: 
                 if api == "description" or api == "score_type" or api == "overall_score":
                     continue
-                if api not in overall_scores[api_category]:
-                    overall_scores[api_category][api] = "score not calculated"
+                if api not in scores["overall_score"][api_category]:
+                    scores["overall_score"][api_category][api] = "score not calculated"
                     continue
                 api_total_score = 0
                 for req_num in scores.keys():
                     if req_num == "overall_score":
                         continue
                     try: 
-                        api_total_score += scores[req_num]["general_score"][api_category][api] * (overall_scores["sentence_data"][req_num]/overall_scores["sentence_data"]["total_num_sentences"])
+                        api_total_score += scores[req_num]["general_score"][api_category][api]  * (scores["overall_score"]["sentence_data"][req_num]/scores["overall_score"]["sentence_data"]["total_num_sentences"])
                     except Exception:
                         continue
                 if str(int(api_total_score)).isnumeric() and scores[req_num]["general_score"][api_category][api] != "error getting score":
-                    overall_scores[api_category][api] = round(api_total_score,1)
+                    scores["overall_score"][api_category][api] = round(api_total_score,1)
                     api_count += 1
                     api_category_total_score += api_total_score
-                overall_scores[api_category]["average_score"] = round(api_category_total_score/api_count, 1)
+                scores["overall_score"][api_category]["average_score"] = round(api_category_total_score/api_count, 1)
     except:
-        overall_scores[api_category][api] = "score not calculated"
+        scores["overall_score"][api_category][api] = "score not calculated"
     with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
         results_file.write(json.dumps(full_results, indent=4))
-    with open(r"config\score.json", "w") as scores_file: # load in API data from api file
-        scores["overall_score"] = overall_scores
-        scores_file.write(json.dumps(scores, indent=4))
-    graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
-    gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
+    with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file
+        score_data_file.write(json.dumps(scores, indent=4))
+    # graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
+    # gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()
     # print(end - start)
-    scores["overall_score"] = overall_scores
     return sanitise(scores)
 
 # calling apis to check the text
@@ -370,16 +371,9 @@ def check_text(request: ds.check_text):
                                     api_category: [],
                                     f"{api_category}-highlight": 0
                                 }
-                            print(sentence == results[num]["sentence"], results[num][path2] > 0.70)
-                            if sentence == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name ## commented this out because each sentence doesn't match yet
-                            # print(num)
-                                print("test", results[num][path2])
-                                # if results[num][path2] > config_data["highlight_threshold"]: # if score above > 70%, add the  highlight and the api name
-                                # print(scores[req_num]["sentence_score"][num])
-                                print(total_score)
+                            if sentence == results[num]["sentence"] and results[num][path2] > 0.70: # if score above > 70%, add the  highlight and the api name
                                 scores[req_num]["sentence_score"][num][sentence][api_category].append(api)
                                 scores[req_num]["sentence_score"][num][sentence][f"{api_category}-highlight"] += 1/total_score[api_category][req_num]["num_apis"]
-                                print("success")
                     except:
                         continue  
             except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)

@@ -3,67 +3,39 @@
         "0": {
             "documents": [
                 {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.0007537237834185362,
-                    "overall_burstiness": 220.6173095703125,
+                    "average_generated_prob": 1,
+                    "completely_generated_prob": 0.18646952509880066,
+                    "overall_burstiness": 5,
                     "paragraphs": [
                         {
-                            "completely_generated_prob": 0.02318840472169716,
-                            "num_sentences": 2,
+                            "completely_generated_prob": 0.850090677245877,
+                            "num_sentences": 3,
                             "start_sentence_index": 0
                         }
                     ],
                     "sentences": [
                         {
-                            "generated_prob": 0,
-                            "perplexity": 329,
-                            "sentence": "1 test.",
-                            "highlight_sentence_for_ai": false
+                            "generated_prob": 1,
+                            "perplexity": 21,
+                            "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.",
+                            "highlight_sentence_for_ai": true
                         },
                         {
-                            "generated_prob": 0,
-                            "perplexity": 17,
-                            "sentence": "test.",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is likely to be written entirely by a human",
-                    "result_sub_message": "",
-                    "document_classification": "HUMAN_ONLY"
-                }
-            ],
-            "version": "2023-07-19"
-        },
-        "1": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.0003615462628658861,
-                    "overall_burstiness": 4.242640495300293,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.02318840472169716,
-                            "num_sentences": 2,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 365,
-                            "sentence": "3 test.",
-                            "highlight_sentence_for_ai": false
+                            "generated_prob": 1,
+                            "perplexity": 31,
+                            "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines.",
+                            "highlight_sentence_for_ai": true
                         },
                         {
-                            "generated_prob": 0,
-                            "perplexity": 371,
-                            "sentence": "4 test.",
-                            "highlight_sentence_for_ai": false
+                            "generated_prob": 1,
+                            "perplexity": 26,
+                            "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills.",
+                            "highlight_sentence_for_ai": true
                         }
                     ],
-                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_message": "Your text may include parts written by AI",
                     "result_sub_message": "",
-                    "document_classification": "HUMAN_ONLY"
+                    "document_classification": "MIXED"
                 }
             ],
             "version": "2023-07-19"
@@ -72,53 +44,19 @@
     "Writer": {
         "0": [
             {
-                "label": "fake",
-                "score": 0.6399211287498474
+                "label": "real",
+                "score": 0.5115185379981995
             },
             {
-                "label": "real",
-                "score": 0.360078901052475
-            }
-        ],
-        "1": [
-            {
                 "label": "fake",
-                "score": 0.6085770130157471
-            },
-            {
-                "label": "real",
-                "score": 0.39142298698425293
+                "score": 0.4884814918041229
             }
         ]
     },
     "Sapling AI": {
         "0": {
-            "score": 0.9426851426916463,
-            "sentence_scores": [
-                {
-                    "score": 0.0,
-                    "sentence": "1 test."
-                },
-                {
-                    "score": 0.9898225729827477,
-                    "sentence": "test."
-                }
-            ],
-            "text": "1 test. test."
-        },
-        "1": {
-            "score": 0.1832224279642105,
-            "sentence_scores": [
-                {
-                    "score": 0.0,
-                    "sentence": "3 test."
-                },
-                {
-                    "score": 0.0,
-                    "sentence": "4 test."
-                }
-            ],
-            "text": "3 test. 4 test."
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
         }
     },
     "Hugging Face": {
@@ -126,59 +64,32 @@
             "data": [
                 [
                     {
-                        "Real": 0.3359587788581848,
-                        "Fake": 0.6640412211418152
+                        "Real": 0.6346672177314758,
+                        "Fake": 0.36533278226852417
                     },
                     [
                         [
-                            0.3359587788581848,
-                            13
+                            0.6346672177314758,
+                            539
                         ]
                     ]
                 ]
             ],
             "is_generating": false,
-            "duration": 0.024228811264038086,
-            "average_duration": 1.1576281483866675
-        },
-        "1": {
-            "data": [
-                [
-                    {
-                        "Real": 0.25325772166252136,
-                        "Fake": 0.7467422783374786
-                    },
-                    [
-                        [
-                            0.25325772166252136,
-                            15
-                        ]
-                    ]
-                ]
-            ],
-            "is_generating": false,
-            "duration": 0.025187015533447266,
-            "average_duration": 1.157456123301926
+            "duration": 0.04652833938598633,
+            "average_duration": 1.1468880079704509
         }
     },
     "In-house Model": {
         "0": {
-            "prediction": 0.14225322950841576
-        },
-        "1": {
-            "prediction": 0.14225322950841576
+            "prediction": 0.11824972409678484
         }
     },
     "Moderate Hate Speech": {
         "0": {
             "response": "Success",
             "class": "normal",
-            "confidence": "0.999527096748352"
-        },
-        "1": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9990745782852173"
+            "confidence": "0.9999051094055176"
         }
     }
 }

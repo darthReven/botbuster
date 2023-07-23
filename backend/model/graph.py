@@ -6,6 +6,7 @@ def generate_graph(data):
     final_score = []
     category_list = []
     category_score_list = []
+    print(data)
     for i, api_category in enumerate(data):
         if api_category == 'sentence_data':
             continue
@@ -19,6 +20,7 @@ def generate_graph(data):
                 category_score_list[i][key] = score
             else:
                 final_score.append(data[api_category][key])
+    print(category_list, final_score)
     df = pd.DataFrame({'Category': category_list,
                     'Scores': final_score})
     

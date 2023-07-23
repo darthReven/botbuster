@@ -93,6 +93,14 @@
         "Hugging Face": "huggingface.png",
         "Moderate Hate Speech": "moderatehatespeech.png"
     },
+    "path_to_general_score_new": {
+        "GPTZero": "GPTZero.num.documents.0.completely_generated_prob",
+        "Writer": "Writer.num.1.score",
+        "Sapling AI": "Sapling AI.num.score",
+        "Hugging Face": "Hugging Face.num.data.0.0.Fake",
+        "Moderate Hate Speech": "Moderate Hate Speech.num.class",
+        "In-house Model": "In-house Model.num.prediction"
+    },
     "path_to_general_score": {
         "GPTZero": "GPTZero.num.documents.0.completely_generated_prob",
         "Writer": "Writer.num.1.score",
@@ -100,7 +108,7 @@
         "Hugging Face": "Hugging Face.num.data.0.0.Fake",
         "Moderate Hate Speech": "Moderate Hate Speech.num.class",
         "In-house Model": "In-house Model.num.prediction"
-    } ,
+    },
     "path_to_sentence_score": {
         "GPTZero": ["GPTZero.num.documents.0.sentences", "generated_prob"],
         "Sapling AI": ["Sapling AI.num.sentence_scores", "score"]

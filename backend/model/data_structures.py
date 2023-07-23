@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 class split_text (BaseModel):
+    list_of_apis: list
     text: str
 
 class check_text (BaseModel):
