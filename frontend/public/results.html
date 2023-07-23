@@ -143,8 +143,6 @@
       if (api_info == null || list_of_text == null) {
         history.back()
       }
-      console.log(api_info)
-      console.log(Object.keys(api_info))
 			var data = {
 				list_of_apis: JSON.parse(localStorage.getItem("api-used")), 
 				text: ""
@@ -190,7 +188,6 @@
               async: false,
               success: function(data, textStatus, xhr) {
                 results = data
-                console.log(data)
                 display_results(data, request, api_info)
                 $('#loading').hide(); // Hide loading
               },
