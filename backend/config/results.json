@@ -1,89 +1,77 @@
 {
     "GPTZero": {
-        "0": {
-            "documents": [
-                {
-                    "average_generated_prob": 0,
-                    "completely_generated_prob": 0.00026822800282388926,
-                    "overall_burstiness": 0,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.11111110864197533,
-                            "num_sentences": 1,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 0,
-                            "perplexity": 1,
-                            "sentence": "test",
-                            "highlight_sentence_for_ai": false
-                        }
-                    ],
-                    "result_message": "Your text is likely to be written entirely by a human",
-                    "result_sub_message": "",
-                    "document_classification": "HUMAN_ONLY"
-                }
-            ],
-            "version": "2023-07-19"
-        }
-    },
-    "Writer": {
-        "0": [
+        "documents": [
             {
-                "label": "fake",
-                "score": 0.7393109798431396
-            },
-            {
-                "label": "real",
-                "score": 0.26068904995918274
+                "average_generated_prob": 0,
+                "completely_generated_prob": 0.00026495405472815037,
+                "overall_burstiness": 0,
+                "paragraphs": [
+                    {
+                        "completely_generated_prob": 0.11111110864197533,
+                        "num_sentences": 1,
+                        "start_sentence_index": 0
+                    }
+                ],
+                "sentences": [
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 620,
+                        "sentence": "test1",
+                        "highlight_sentence_for_ai": false
+                    }
+                ],
+                "result_message": "Your text is likely to be written entirely by a human",
+                "result_sub_message": "",
+                "document_classification": "HUMAN_ONLY"
             }
-        ]
+        ],
+        "version": "2023-07-19"
     },
-    "Sapling AI": {
-        "0": {
-            "score": 0.372862180074056,
-            "sentence_scores": [
-                {
-                    "score": NaN,
-                    "sentence": "test"
-                }
-            ],
-            "text": "test"
+    "Writer": [
+        {
+            "label": "fake",
+            "score": 0.6714881062507629
+        },
+        {
+            "label": "real",
+            "score": 0.32851189374923706
         }
+    ],
+    "Sapling AI": {
+        "score": 0.1831253468990326,
+        "sentence_scores": [
+            {
+                "score": 0.0,
+                "sentence": "test1"
+            }
+        ],
+        "text": "test1"
     },
     "Hugging Face": {
-        "0": {
-            "data": [
+        "data": [
+            [
+                {
+                    "Real": 0.4745290279388428,
+                    "Fake": 0.5254709720611572
+                },
                 [
-                    {
-                        "Real": 0.4327251613140106,
-                        "Fake": 0.5672748386859894
-                    },
                     [
-                        [
-                            0.4327251613140106,
-                            4
-                        ]
+                        0.4745290279388428,
+                        5
                     ]
                 ]
-            ],
-            "is_generating": false,
-            "duration": 0.01786327362060547,
-            "average_duration": 1.1588933027327324
-        }
+            ]
+        ],
+        "is_generating": false,
+        "duration": 0.01734471321105957,
+        "average_duration": 1.1635524308525376
     },
     "In-house Model": {
-        "0": {
-            "prediction": 0.1394132459562126
-        }
+        "prediction": 0.1366204576458844
     },
     "Moderate Hate Speech": {
-        "0": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9997310042381287"
-        }
+        "response": "Success",
+        "class": "normal",
+        "confidence": "0.9997376799583435"
     }
 }
