@@ -666,6 +666,16 @@ form {
 }
 
 
+.content-box .row .col-4 {
+    padding:0;
+}
+
+.content-box .row .col-8 {
+    padding:0;
+    border-left: solid #ced4da;
+    border-width: 1px;
+}
+
 .content-box .row .col-3 {
     padding:0;
 }
