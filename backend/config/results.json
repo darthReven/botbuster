@@ -3,75 +3,85 @@
         "documents": [
             {
                 "average_generated_prob": 0,
-                "completely_generated_prob": 0.00026495405472815037,
-                "overall_burstiness": 0,
+                "completely_generated_prob": 0.5111041031777859,
+                "overall_burstiness": 10.60660171508789,
                 "paragraphs": [
                     {
-                        "completely_generated_prob": 0.11111110864197533,
-                        "num_sentences": 1,
+                        "completely_generated_prob": 0.02318840472169716,
+                        "num_sentences": 2,
                         "start_sentence_index": 0
                     }
                 ],
                 "sentences": [
                     {
                         "generated_prob": 0,
-                        "perplexity": 620,
-                        "sentence": "test1",
+                        "perplexity": 22,
+                        "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 37,
+                        "sentence": "With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore.",
                         "highlight_sentence_for_ai": false
                     }
                 ],
-                "result_message": "Your text is likely to be written entirely by a human",
-                "result_sub_message": "",
-                "document_classification": "HUMAN_ONLY"
+                "result_message": "Our ensemble of detectors have predicted different results for this text.",
+                "result_sub_message": "We suggest entering a longer text for more precise prediction",
+                "document_classification": "MIXED"
             }
         ],
         "version": "2023-07-19"
     },
     "Writer": [
         {
-            "label": "fake",
-            "score": 0.6714881062507629
+            "label": "real",
+            "score": 0.9059640169143677
         },
         {
-            "label": "real",
-            "score": 0.32851189374923706
+            "label": "fake",
+            "score": 0.09403597563505173
         }
     ],
     "Sapling AI": {
-        "score": 0.1831253468990326,
+        "score": 0.0014295019209384918,
         "sentence_scores": [
             {
-                "score": 0.0,
-                "sentence": "test1"
+                "score": 0.9982673985231407,
+                "sentence": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape."
+            },
+            {
+                "score": 0.02209910510282198,
+                "sentence": "With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore."
             }
         ],
-        "text": "test1"
+        "text": "Singapore Polytechnic has established itself as a premier institution that nurtures talent, fosters innovation, and prepares students for success in the rapidly evolving global landscape. With its unwavering commitment to academic excellence and industry relevance, SP continues to play a pivotal role in shaping the future leaders and professionals of Singapore."
     },
     "Hugging Face": {
         "data": [
             [
                 {
-                    "Real": 0.4745290279388428,
-                    "Fake": 0.5254709720611572
+                    "Real": 0.8167065978050232,
+                    "Fake": 0.1832934021949768
                 },
                 [
                     [
-                        0.4745290279388428,
-                        5
+                        0.8167065978050232,
+                        363
                     ]
                 ]
             ]
         ],
         "is_generating": false,
-        "duration": 0.017899513244628906,
-        "average_duration": 1.1623701466056537
+        "duration": 0.11825728416442871,
+        "average_duration": 1.1661955536727824
     },
     "In-house Model": {
-        "prediction": 0.1366204576458844
+        "prediction": 0.15285635304169054
     },
     "Moderate Hate Speech": {
         "response": "Success",
         "class": "normal",
-        "confidence": "0.9997376799583435"
+        "confidence": "0.9999301433563232"
     }
 }

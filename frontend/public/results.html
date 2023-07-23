@@ -25,21 +25,25 @@
       document.getElementById("left-bar-slider").style.margin = "0 0 0 90vw";
       document.getElementById("left-bar-slider").style.transform = "scaleX(-1)";
     }
+
     function sidebar_close() {
       document.getElementById("sidebarMenu").style.width = "0%";
       document.getElementById("left-bar-slider").setAttribute( "onclick", "sidebar_open();" );
       document.getElementById("left-bar-slider").style.margin = "0";
       document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
     }
+
     function percentageToHsl(percentage, hue0, hue1) {
       var hue = ((percentage/100) * (hue1 - hue0)) + hue0;
       return `hsl(${hue}, 100%, 50%)`;
     }
+
     function highlightText(fractionalValue) {
       // Calculate the color based on the fractional value
       const alpha = 0.1 + (0.7 * fractionalValue)
       return `rgb(255, 255, 0, ${alpha})`;
     }
+
     function display_results(results, request, api_info) {
       content = ''
       hoverable_boxes =  ''
@@ -158,7 +162,7 @@
       $('#loading').hide(); // Hide loading
     }
     $(document).ready(function() {
-      $('#loading').hide(); // show loading
+      $('#loading').show(); // show loading
       var api_info = JSON.parse(localStorage.getItem("api-info"))
       var list_of_text = JSON.parse(localStorage.getItem("text"))
       if (api_info == null || list_of_text == null) {
@@ -208,7 +212,7 @@
               dataType: "json",
               async: false,
               success: function(data, textStatus, xhr) {
-                results = data
+                console.log(data)
                 display_results(data, request, api_info)
                 $('#loading').hide(); // Hide loading
               },
