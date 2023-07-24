@@ -1,5 +1,1 @@
-2023/07/24-14:25:05.206 103ec Log #3: 36 ops saved to Table #4 OK
-2023/07/24-14:25:05.208 103ec Archiving C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/000003.log: OK
-2023/07/24-14:25:05.208 103ec Table #4: 36 entries OK
-2023/07/24-14:25:05.212 103ec Archiving C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/MANIFEST-000001: OK
-2023/07/24-14:25:05.219 103ec **** Repaired leveldb C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database; recovered 1 files; 892 bytes. Some data may have been lost. ****
+2023/07/24-14:25:05.226 103ec Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/MANIFEST-000001

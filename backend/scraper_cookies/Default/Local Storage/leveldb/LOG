@@ -1,2 +1,3 @@
-2023/07/24-14:25:05.372 ec58 Creating DB C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb since it was missing.
-2023/07/24-14:25:05.399 ec58 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/MANIFEST-000001
+2023/07/24-15:53:22.655 da70 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/MANIFEST-000001
+2023/07/24-15:53:22.657 da70 Recovering log #3
+2023/07/24-15:53:22.663 da70 Reusing old log C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/000003.log 

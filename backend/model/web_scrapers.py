@@ -73,7 +73,7 @@ def get_chrome_path():
     return None
 
 # calling the scraper
-async def scraper(elements, page_url):
+async def scraper(elements,settings, page_url):
     chrome_path = get_chrome_path()
     cookies = os.path.join(os.getcwd(), 'scraper_cookies')
     browser = await launch(
@@ -87,14 +87,11 @@ async def scraper(elements, page_url):
     page = await browser.newPage()
     await page.goto(page_url)
 
-    if(elements[0]==''):
-        print()
+    if(settings[0]==''):
+        pass
     else:
-        await del_pop_up(page, elements)
-    num_of_items=elements[1]
-    elements.pop(0)
-    elements.pop(0)
-    print(elements)
+        await del_pop_up(page, settings)
+    num_of_items=settings[1]
     items = await scrape_infinite_scroll_items(page, elements, num_of_items)
     unique_items = []
     seen_items = set()

@@ -456,7 +456,7 @@ def web_scraping(request: ds.web_scraper):
     if scraping_data["func"] == "sms": # calling the social media scraper
         loop = asyncio.new_event_loop() # creates a new event loop and 
         asyncio.set_event_loop(loop) # set created loop as the active one
-        items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
+        items = loop.run_until_complete(ws.scraper(scraping_data["elements"],scraping_data["settings"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
         url = scraping_data.get("url", None)
         splitter = scraping_data.get("splitter", None)
