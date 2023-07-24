@@ -17,7 +17,7 @@ python-multipart ** for form data (even though not imported)
 """
 
 # importing libraries
-from fastapi import FastAPI, HTTPException, Response, status, UploadFile
+from fastapi import FastAPI, HTTPException, Response, status, UploadFile, Request
 from fastapi.middleware.cors import CORSMiddleware
 from bleach.sanitizer import Cleaner
 from PyPDF2 import PdfReader
@@ -459,7 +459,7 @@ def add_api(request: ds.add_api, response: Response):
 
 # scraping websites data
 @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
-def web_scraping(request: ds.web_scraper):
+async def web_scraping(request: ds.web_scraper):
     page_url = request.dict()["page_url"]
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
         website_configs = json.load(config_data_file)["website_configs"]
@@ -479,7 +479,7 @@ def web_scraping(request: ds.web_scraper):
 
 # get website scraping configurations
 @botbuster.get("/webscraper/settings/") # endpoint to retrieve the webscraping settings
-def get_webscraper_settings():
+async def get_webscraper_settings():
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
     website_settings = {key: website_configs[key]["elements"] for key in website_configs.keys()}
@@ -493,16 +493,28 @@ async def update_config(website_configs: dict):
         with open(CONFIG_FILE_PATH, "r") as f:
             config_data = json.load(f)
             
-        # ppdate the existing config file with the new data
+        # update the existing config file with the new data
         for key, value in website_configs.items():
             for website_url in config_data[key].keys():
                 config_data[key][website_url]["elements"]= value[website_url]
                 
             # save the updated configuration to the config.json file
-            with open(CONFIG_FILE_PATH, "w") as file:
-                json.dump(config_data, file, indent=3)
-        
-       
+            with open(CONFIG_FILE_PATH, "w") as f:
+                json.dump(config_data, f, indent=3)
+
+#append new elements that user enters 
+@botbuster.post("/webscraper/update_elements/")      
+async def update_elements(request: Request):
+    data = await request.json()
+    website = data.get("website")
+    new_element = data.get("newElement")
+    with open(CONFIG_FILE_PATH, "r") as f:
+        config_data = json.load(f)    
+    if website in config_data["website_configs"]:
+        config_data["website_configs"][website]["elements"].append(new_element)
+    with open(CONFIG_FILE_PATH, "w") as f:
+            json.dump(config_data, f, indent=3)
+
     
 # extracting text from user's file
 @botbuster.post("/extract/") # endpoint #4 scraping data from files

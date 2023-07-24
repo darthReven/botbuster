@@ -22,6 +22,8 @@
   <script>
     counter = 0
     let settingsData = null; //for selecting the elements the user select
+    let button_pressed = 0; //to see how many elements user added
+    let button_dict = {};
     function num_of_submissions(){
       counter+=1
     }
@@ -44,7 +46,21 @@
 			document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
 		}
    
+    function addNewElement(item){
+      //add textbox for new element
+      placeholder = "button_"+ item
+      button_dict[placeholder] += 1
+      add_button = document.getElementById(item+"-button");
+      new_content = `<div class="textbox-container"> 
+            <input type="checkbox" checked class = "new_checkbox" id ="${item}-checkbox-${button_dict[placeholder]}" > 
+            <textarea class="el_textbox" id ="${item}-${button_dict[placeholder]}" class="new_element" rows="1" cols="18" placeholder="Enter new element here"></textarea><br>
+            </div>
+            <button type="button" class ="add_button" id ="${item}-button"" onClick=addNewElement("${item}")>Add Element</button>`
+      add_button.insertAdjacentHTML('afterend', new_content);
+      add_button.remove();
 
+      return element_content
+    }
     function get_settings() {
       $('#loading').show(); // Start loading
       $('.btn[type="button"]').prop('disabled', true); // Disable submit
@@ -69,13 +85,16 @@
           </div>
       </div>
       `
+      
       for(item of Object.keys(data)) {
+          key = "button_"+item  //check how many times each "add element" button is pressed
+          button_dict[key]=0;
           element_content = ""
-          
           for (let i = 0; i < data[item].length; i++) { 
             element_content +=
             `<input type="checkbox" checked class = "el_checkbox" id = "${data[item][i]}"> ${data[item][i]}<br>`; // Add each checkbox and data item
           }
+          element_content += `<button type="button" class = "add_button" id ="${item}-button" onClick=addNewElement("${item}")>Add Element</button>`
           content += `
           <div class="row">
               <div class="col-4 px-3 text-center">
@@ -86,6 +105,7 @@
               </div>
           </div>
           `
+          
         };
         $(".content-box").addClass("display");
         $('.content-box').html(content);
@@ -98,6 +118,32 @@
       });
     }
     
+    function check_new_elements(){
+      for(item of Object.keys(settingsData)) {
+          placeholder = "button_"+ item
+          loops = button_dict[placeholder]
+          for (let i = 1; i <= loops; i++){
+            checkBox = document.getElementById(item+"-checkbox-"+i)
+            if (checkBox!=null){
+              if (checkBox.checked){ //check if checkbox is checked
+              new_element = document.getElementById(item+"-"+i)
+              new_element_val = new_element.value // get the new element
+              if (new_element_val != "") {
+                $.ajax({
+                    url: "http://127.0.0.1:8000/webscraper/update_elements/", 
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        website: item,
+                        newElement: new_element_val
+                    }),
+                  })
+              }
+        }}}
+        
+        
+      }
+    }
     function send_settings(){
     $('#loading').show(); // Start loading
     $('.btn[type="button"]').prop('disabled', true); // Disable submit
@@ -124,8 +170,6 @@
   });
     }
       
-
-
     const isValidUrl = (urlString) => {
         const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
         return urlPattern.test(urlString);
@@ -460,7 +504,7 @@
                     <label class="form-label" for="type_url">Enter the URL of the webpage to webscrape</label>
                     <div class="input-group">
                       <input type="url" id="type_url" class="form-control" placeholder="https://example.com"/>
-                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();send_settings();get_elements()">
+                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();send_settings();check_new_elements();get_elements()">
                         <i class="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
