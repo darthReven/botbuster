@@ -122,15 +122,6 @@
          "url": "page-*",
          "splitter": "/"
       },
-      "stackoverflow.com": {
-         "elements": [
-            "p",
-            "pre"
-         ],
-         "func": "gws",
-         "url": "page=*&tab=scoredesc#tab-top",
-         "splitter": "?"
-      },
       "boards.4channel.org": {
          "elements": [
             "blockquote.postMessage"

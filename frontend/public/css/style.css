@@ -688,6 +688,30 @@ form {
     display: none;
 }
 
+.textbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.add_button{
+    margin-bottom: 8px;
+    margin-top: 5px;
+}
+
+.el_textbox {
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    overflow-x: hidden; 
+    white-space: pre-wrap;
+    scrollbar-width: none; 
+}
+
+.el_textbox::-webkit-scrollbar {
+    width: 0; 
+    background: transparent; 
+}
+
 .content-box .row{
     background-color: #FFFFFF;
     margin: 0;
