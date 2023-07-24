@@ -127,9 +127,8 @@
 
 
     const isValidUrl = (urlString) => {
-        // const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
-        // return urlPattern.test(urlString);
-        return true
+        const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
+        return urlPattern.test(urlString);
     };
     
     function get_elements() {
