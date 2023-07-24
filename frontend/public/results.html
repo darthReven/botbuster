@@ -44,11 +44,98 @@
       return `rgb(255, 255, 0, ${alpha})`;
     }
 
+    // Function to handle clicks outside the infobox
+function handleClickOutsideBox(event) {
+    const hoverable = document.querySelectorAll(".hoverable");
+    const infobox = document.querySelectorAll(".hover_box");
+
+    hoverable.forEach((hoverable, i) => {
+        if (!hoverable.contains(event.target)) {
+            infobox[i].classList.remove('display_info');
+        }
+    });
+}
+
+function clickRefresh() {
+    const hoverable = document.querySelectorAll(".hoverable");
+    const infobox = document.querySelectorAll(".hover_box");
+
+    // Function to handle the click event
+    function onClick(e, i) {
+        console.log(i);
+        infobox[i].classList.toggle('display_info');
+        infobox[i].style.left = e.pageX + 'px';
+        infobox[i].style.top = e.pageY + 'px';
+    }
+
+    // Remove existing event listener for clicks on the document
+    document.removeEventListener('click', handleClickOutsideBox);
+
+    // Remove existing event listeners from original hoverable elements
+    hoverable.forEach((hoverable, i) => {
+        hoverable.removeEventListener("click", () => onClick(event, i));
+    });
+
+    // Clone the hoverable elements and add event listeners to the duplicates
+    const hoverableClones = [];
+    hoverable.forEach((originalHoverable, i) => {
+        const hoverableClone = originalHoverable.cloneNode(true);
+        hoverableClones.push(hoverableClone);
+
+        hoverableClone.addEventListener("click", (e) => onClick(e, i));
+    });
+
+    // Replace the original hoverable elements with the cloned duplicates
+    hoverable.forEach((originalHoverable, i) => {
+        originalHoverable.replaceWith(hoverableClones[i]);
+    });
+
+    // Add event listener to handle clicks outside the infobox
+    document.addEventListener('click', handleClickOutsideBox);
+}
+
+
+    function makeSequentialRequests(index, list_of_text, api_info) {
+    if (index >= list_of_text.length) {
+        // All requests have been processed, exit recursion.
+        return;
+    }
+
+    var data = {
+        list_of_apis: JSON.parse(localStorage.getItem("api-used")), 
+        text: ""
+    };
+
+    data["text"] = list_of_text[index][0]
+
+    $.ajax({
+        url: "http://127.0.0.1:8000/checktext/new",
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data, textStatus, xhr) {
+            display_results(data, index, api_info);
+            $('#loading').hide(); // Hide loading
+
+            // Make the next request recursively
+            makeSequentialRequests(index + 1, list_of_text, api_info);
+        },
+        error: function (xhr, textStatus, err) {
+            $('#loading').hide(); // Hide loading
+            $('.btn[type="button"]').prop('disabled', false); // Enable submit
+            localStorage.removeItem("text");
+            localStorage.removeItem("api-used");
+        }
+    });
+    }
+
     function display_results(results, request, api_info) {
       content = ''
       hoverable_boxes =  ''
       response_num = String(request + 1)
         textCollection = []
+        // Sentence Highlighting
       for (const category in results[response_num]["general_score"]) {  
         for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
           var sentence = Object.keys(results[response_num]["sentence_score"][i])
@@ -63,6 +150,7 @@
           }
         }
       }
+      // Side categories for individual request
       response_categories = ''
       for(category of Object.keys(results[response_num]['general_score'])) {
           colour_class = ''
@@ -77,6 +165,7 @@
           }
           response_categories += (`<span class="hoverable"><div class='${colour_class}'><i class="fa-solid fa-caret-down" style="color: black;"></i>${category}:<br>${results[response_num]['general_score'][category]['overall_score']}%</div></span>`)
           api_score_list = []
+          // Hoverable box for each category in a request
           for(api of Object.keys(results[response_num]['general_score'][category])) {
               if(api != 'description' && api != 'overall_score' && api != 'score_type') {
                   if(results[response_num]['general_score'][category][api] >= 80) {
@@ -92,6 +181,7 @@
               }    
           }
           hoverable_boxes += `<div class='hover_box hidden'>${api_score_list.join('<br>')}</div>`
+    // Append a new request with categories and hoverable boxes
       }
       content += `
           <div class="row">
@@ -104,12 +194,13 @@
           </div>
       `
       $('.results-box').append(content);
+
       // Filling sidebar scores
-      
       for (api_category of Object.keys(results["overall_score"])) {
         // For each category
         if (api_category == "sentence_data") {continue}
         for (api of Object.keys(api_info[api_category])) {
+            console.log(api)
           if (api == "description" || api == "score_type") {continue}
           let result_sidebar_element = document.getElementById(`${api_info[api_category][api][0]}_result`)
           result_sidebar_element.textContent = results["overall_score"][api_category][api]
@@ -121,7 +212,9 @@
         let result_element = document.getElementById(`${api_category.replace(/\s/g, '-')}-average-score`)
         result_element.textContent = `${results["overall_score"][api_category]["average_score"]}%`
 
+        // Changing the average for each category
         api_averages = []
+        console.log(results)
         for (let i = 0; i < Object.entries(results["overall_score"][api_category]).length - 1; i++) {
             api_and_score = Object.entries(results["overall_score"][api_category])[i]
             if(api_and_score[1] >= 80) {
@@ -135,33 +228,15 @@
             }
             api_averages.push(`<span class='${colour_class}'>${api_and_score[0]}: ${api_and_score[1]}</span>`)
         }
-        $("body").append(`<div class="hover_box hidden">${api_averages.join('<br>')}</div>`)
+        $(`#hover_box_${api_category.replace(/\s/g, '-')}`).html(api_averages.join('<br>'))
       }
       $("body").append(hoverable_boxes)
-      
-      const hoverable = document.querySelectorAll(".hoverable");
-      const infobox = document.querySelectorAll(".hover_box")
-      const onClick = (e, i) => {
-          infobox[i].classList.toggle('display_info');
-          infobox[i].style.left = e.pageX + 'px';
-          infobox[i].style.top = e.pageY + 'px';
-      }
-      hoverable.forEach((hoverable, i) => {
-          hoverable.addEventListener("click", (e) => onClick(e, i));
-      });
-      document.addEventListener('click', function handleClickOutsideBox(event) {
-
-          hoverable.forEach((hoverable, i) => {
-              if (!hoverable.contains(event.target)) {
-                  console.log(hoverable)
-                  console.log(event.target)
-                  infobox[i].classList.remove('display_info');
-              }
-          })
-      });
+      clickRefresh()
       $('#loading').hide(); // Hide loading
+      $( '#pie_chart' ).attr( 'src', function ( i, val ) { return val; });
+      $( '#bar_graph' ).attr( 'src', function ( i, val ) { return val; });
     }
-    $(document).ready(function() {
+    $(window).ready(function() {
       $('#loading').show(); // show loading
       var api_info = JSON.parse(localStorage.getItem("api-info"))
       var list_of_text = JSON.parse(localStorage.getItem("text"))
@@ -178,7 +253,9 @@
         column_number = 4
       }
       for (api_category of Object.keys(api_info)) {
-        $("#text-area > .row").append(`<div class="col-${column_number}"><span class = "hoverable"><i class="fa-solid fa-caret-down"></i>${api_category}<br><span id =  "${api_category.replace(/\s/g, '-')}-average-score">calculating</span></span></div>`)
+        // Create the average for each category and the hoverable boxes
+        $("#text-area > .row").append(`<div class="col-${column_number}"><span class = "hoverable" id = "average_${api_category}"><i class="fa-solid fa-caret-down"></i>${api_category}<br><span id =  "${api_category.replace(/\s/g, '-')}-average-score">calculating</span></span></div>`)
+        $("body").append(`<div class="hover_box hidden" id="hover_box_${api_category.replace(/\s/g, '-')}">Updating...</div>`)
 
         $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${api_category.replace(/\s/g, '-')}">`)
         $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${api_category}</div>`)
@@ -197,36 +274,7 @@
           }
         }
       }
-      
-        
-      setTimeout(function () {
-        for (let request = 0; request < list_of_text.length; request++) {
-          setTimeout(function () {
-            data["text"] = list_of_text[request][0]
-            console.log(list_of_text.length, request)
-            $.ajax({
-              url: `http://127.0.0.1:8000/checktext/new`,
-              type: "POST",
-              data: JSON.stringify(data),
-              contentType: "application/json; charset = utf-8",
-              dataType: "json",
-              async: false,
-              success: function(data, textStatus, xhr) {
-                console.log(data)
-                display_results(data, request, api_info)
-                $('#loading').hide(); // Hide loading
-              },
-              error: function(xhr, textStatus, err) {
-                $('#loading').hide(); // Hide loading
-                $('.btn[type="button"]').prop('disabled', false); // Enable submit
-                localStorage.removeItem("text")
-                localStorage.removeItem("api-used")
-              }
-
-            })
-          }, 0)
-        }
-      }, 0)
+      makeSequentialRequests(0, list_of_text, api_info);
       //
     })
   </script>
@@ -238,6 +286,9 @@
   </div>
      <!-- Sidebar -->
   <nav id="sidebarMenu" class="d-lg-block sidebar">
+    <div class="text-center" id="api-search-box">
+        <input type="text" id="api-search" class="form-control api-search" placeholder="Search API or Category">
+      </div>
     <div class="sidebar-sticky">
         </div>
         <div class="text-center">
@@ -278,9 +329,9 @@
             <form>
                 <div class="form-group">
                   <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
-                    <div class="embed-responsive embed-responsive-21by4"><iframe src="gauge.html" class="embed-responsive-item"></iframe>
+                    <div class="embed-responsive embed-responsive-21by4"><iframe src="gauge.html" class="embed-responsive-item" id="pie_chart"></iframe>
                     </div>
-                    <div class="embed-responsive embed-responsive-21by9"><iframe src="graph.html" class="embed-responsive-item"></iframe>
+                    <div class="embed-responsive embed-responsive-21by9"><iframe src="graph.html" class="embed-responsive-item" id="bar_graph"></iframe>
                     </div>
                     <div class="row">
                     </div>

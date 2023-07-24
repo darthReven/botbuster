@@ -395,8 +395,8 @@ def check_text(request: ds.check_text):
     with open(r"config\score.json", "w") as scores_file: # load in API data from api file
         scores["overall_score"] = overall_scores
         scores_file.write(json.dumps(scores, indent=4))
-    graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
-    gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
+    #graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
+    #gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
