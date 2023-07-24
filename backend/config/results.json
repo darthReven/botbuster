@@ -1,77 +1,458 @@
 {
     "GPTZero": {
-        "documents": [
-            {
-                "average_generated_prob": 0,
-                "completely_generated_prob": 0.00026495405472815037,
-                "overall_burstiness": 0,
-                "paragraphs": [
-                    {
-                        "completely_generated_prob": 0.11111110864197533,
-                        "num_sentences": 1,
-                        "start_sentence_index": 0
-                    }
-                ],
-                "sentences": [
-                    {
-                        "generated_prob": 0,
-                        "perplexity": 620,
-                        "sentence": "test1",
-                        "highlight_sentence_for_ai": false
-                    }
-                ],
-                "result_message": "Your text is likely to be written entirely by a human",
-                "result_sub_message": "",
-                "document_classification": "HUMAN_ONLY"
-            }
-        ],
-        "version": "2023-07-19"
-    },
-    "Writer": [
-        {
-            "label": "fake",
-            "score": 0.6714881062507629
+        "0": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.0015607071109116077,
+                    "overall_burstiness": 67.88224792480469,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 136,
+                            "sentence": "This domain is for use in illustrative examples in documents.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 40,
+                            "sentence": "You may use this",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_sub_message": "",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-07-19"
         },
-        {
-            "label": "real",
-            "score": 0.32851189374923706
+        "1": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.19291123747825623,
+                    "overall_burstiness": 0,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.11111110864197533,
+                            "num_sentences": 1,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 189,
+                            "sentence": "domain in literature without prior coordination or asking for permission.",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is most likely human written",
+                    "result_sub_message": "",
+                    "document_classification": "MIXED"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "2": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.00025253152125515044,
+                    "overall_burstiness": 0,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.11111110864197533,
+                            "num_sentences": 1,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 163534,
+                            "sentence": "Example Domain",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_sub_message": "",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "3": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.001442590495571494,
+                    "overall_burstiness": 101.82337951660156,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.02318840472169716,
+                            "num_sentences": 2,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 184,
+                            "sentence": "Example DomainThis domain is for use in illustrative examples in documents.",
+                            "highlight_sentence_for_ai": false
+                        },
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 40,
+                            "sentence": "You may use this",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_sub_message": "",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "4": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.00025385463959537446,
+                    "overall_burstiness": 0,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.11111110864197533,
+                            "num_sentences": 1,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 262,
+                            "sentence": "domain in literature without prior coordination or asking for permission.More information...",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_sub_message": "",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-07-19"
+        },
+        "5": {
+            "documents": [
+                {
+                    "average_generated_prob": 0,
+                    "completely_generated_prob": 0.0002458378439769149,
+                    "overall_burstiness": 0,
+                    "paragraphs": [
+                        {
+                            "completely_generated_prob": 0.11111110864197533,
+                            "num_sentences": 1,
+                            "start_sentence_index": 0
+                        }
+                    ],
+                    "sentences": [
+                        {
+                            "generated_prob": 0,
+                            "perplexity": 909,
+                            "sentence": "More information...",
+                            "highlight_sentence_for_ai": false
+                        }
+                    ],
+                    "result_message": "Your text is likely to be written entirely by a human",
+                    "result_sub_message": "",
+                    "document_classification": "HUMAN_ONLY"
+                }
+            ],
+            "version": "2023-07-19"
         }
-    ],
-    "Sapling AI": {
-        "score": 0.1831253468990326,
-        "sentence_scores": [
+    },
+    "Writer": {
+        "0": [
             {
-                "score": 0.0,
-                "sentence": "test1"
+                "label": "fake",
+                "score": 0.5198879241943359
+            },
+            {
+                "label": "real",
+                "score": 0.48011210560798645
             }
         ],
-        "text": "test1"
+        "1": [
+            {
+                "label": "real",
+                "score": 0.6996849179267883
+            },
+            {
+                "label": "fake",
+                "score": 0.30031508207321167
+            }
+        ],
+        "2": [
+            {
+                "label": "fake",
+                "score": 0.6068155169487
+            },
+            {
+                "label": "real",
+                "score": 0.39318448305130005
+            }
+        ],
+        "3": [
+            {
+                "label": "real",
+                "score": 0.71063631772995
+            },
+            {
+                "label": "fake",
+                "score": 0.2893637418746948
+            }
+        ],
+        "4": [
+            {
+                "label": "real",
+                "score": 0.758155345916748
+            },
+            {
+                "label": "fake",
+                "score": 0.24184472858905792
+            }
+        ],
+        "5": [
+            {
+                "label": "fake",
+                "score": 0.6470816731452942
+            },
+            {
+                "label": "real",
+                "score": 0.35291826725006104
+            }
+        ]
+    },
+    "Sapling AI": {
+        "0": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "1": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "2": {
+            "score": 0.09974987804889679,
+            "sentence_scores": [
+                {
+                    "score": 0.0,
+                    "sentence": "Example Domain"
+                }
+            ],
+            "text": "Example Domain"
+        },
+        "3": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "4": {
+            "key_prefix": "3HX********************************",
+            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        },
+        "5": {
+            "score": 0.3646750330924988,
+            "sentence_scores": [
+                {
+                    "score": 0.0,
+                    "sentence": "More information..."
+                }
+            ],
+            "text": "More information..."
+        }
     },
     "Hugging Face": {
-        "data": [
-            [
-                {
-                    "Real": 0.4745290279388428,
-                    "Fake": 0.5254709720611572
-                },
+        "0": {
+            "data": [
                 [
+                    {
+                        "Real": 0.06814505159854889,
+                        "Fake": 0.9318549484014511
+                    },
                     [
-                        0.4745290279388428,
-                        5
+                        [
+                            0.06814505159854889,
+                            78
+                        ]
                     ]
                 ]
-            ]
-        ],
-        "is_generating": false,
-        "duration": 0.014545202255249023,
-        "average_duration": 1.1631729206168584
+            ],
+            "is_generating": false,
+            "duration": 0.10563921928405762,
+            "average_duration": 1.1714263362957693
+        },
+        "1": {
+            "data": [
+                [
+                    {
+                        "Real": 0.9913830161094666,
+                        "Fake": 0.008616983890533447
+                    },
+                    [
+                        [
+                            0.9913830161094666,
+                            73
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.03140115737915039,
+            "average_duration": 1.1712805716647865
+        },
+        "2": {
+            "data": [
+                [
+                    {
+                        "Real": 0.5560018420219421,
+                        "Fake": 0.44399815797805786
+                    },
+                    [
+                        [
+                            0.5560018420219421,
+                            14
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.01916646957397461,
+            "average_duration": 1.1711332801661811
+        },
+        "3": {
+            "data": [
+                [
+                    {
+                        "Real": 0.0012981935869902372,
+                        "Fake": 0.9987018064130098
+                    },
+                    [
+                        [
+                            0.0012981935869902372,
+                            92
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.03078913688659668,
+            "average_duration": 1.170987512028219
+        },
+        "4": {
+            "data": [
+                [
+                    {
+                        "Real": 0.10188280791044235,
+                        "Fake": 0.8981171920895576
+                    },
+                    [
+                        [
+                            0.10188280791044235,
+                            92
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.07943868637084961,
+            "average_duration": 1.170847999141504
+        },
+        "5": {
+            "data": [
+                [
+                    {
+                        "Real": 0.6191934943199158,
+                        "Fake": 0.38080650568008423
+                    },
+                    [
+                        [
+                            0.6191934943199158,
+                            19
+                        ]
+                    ]
+                ]
+            ],
+            "is_generating": false,
+            "duration": 0.0325925350189209,
+            "average_duration": 1.1707025351844276
+        }
     },
     "In-house Model": {
-        "prediction": 0.1366204576458844
+        "0": [
+            "Internal Server Error",
+            500
+        ],
+        "1": [
+            "Internal Server Error",
+            500
+        ],
+        "2": [
+            "Internal Server Error",
+            500
+        ],
+        "3": [
+            "Internal Server Error",
+            500
+        ],
+        "4": [
+            "Internal Server Error",
+            500
+        ],
+        "5": [
+            "Internal Server Error",
+            500
+        ]
     },
     "Moderate Hate Speech": {
-        "response": "Success",
-        "class": "normal",
-        "confidence": "0.9997376799583435"
+        "0": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9998026490211487"
+        },
+        "1": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999158382415771"
+        },
+        "2": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.999922513961792"
+        },
+        "3": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9997804760932922"
+        },
+        "4": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9998817443847656"
+        },
+        "5": {
+            "response": "Success",
+            "class": "normal",
+            "confidence": "0.9999532699584961"
+        }
     }
 }

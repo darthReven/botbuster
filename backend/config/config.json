@@ -91,6 +91,7 @@
       "Writer": "writer.png",
       "Sapling AI": "sapling.png",
       "Hugging Face": "huggingface.png",
+      "In-house Model": "misinfo.png",
       "Moderate Hate Speech": "moderatehatespeech.png"
    },
    "path_to_general_score": {
@@ -140,6 +141,7 @@
       "www.channelnewsasia.com": {
          "elements": [
             "p",
+            "h2",
             "h1.h1--page-title"
          ],
          "func": "gws",
@@ -159,6 +161,10 @@
          "elements": [
             "span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0"
          ],
+         "settings": [
+            "",
+            100
+         ],
          "func": "sms"
       },
       "www.reddit.com": {
@@ -170,12 +176,20 @@
             "div",
             "p"
          ],
+         "settings": [
+            "",
+            20
+         ],
          "func": "sms"
       },
       "www.facebook.com": {
          "elements": [
             "div.xc9qbxq",
             "div.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x1vvkbs.x126k92a"
+         ],
+         "settings": [
+            "div.xc9qbxq",
+            10
          ],
          "func": "sms"
       },
@@ -186,11 +200,19 @@
             "p",
             "label"
          ],
+         "settings": [
+            "",
+            30
+         ],
          "func": "sms"
       },
       "www.linkedin.com": {
          "elements": [
             "span"
+         ],
+         "settings": [
+            "",
+            30
          ],
          "func": "sms"
       },
@@ -198,8 +220,13 @@
          "elements": [
             "h1",
             "span",
+            "h2",
             "ul",
             "div.content"
+         ],
+         "settings": [
+            "",
+            200
          ],
          "func": "sms"
       },
@@ -208,7 +235,12 @@
             "span",
             "th",
             "tr",
+            "h2",
             "p"
+         ],
+         "settings": [
+            "",
+            30
          ],
          "func": "sms"
       },
@@ -216,6 +248,11 @@
          "elements": [
             "p",
             "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
             "div",
             "span"
          ],

@@ -42,6 +42,7 @@ import model.web_scrapers as ws
 import model.graph as graph
 import model.gauge as gauge
 import model.text as text_utils
+import model.validationFns as validation
 
 # Initialising constants 
 # setting file paths for configuration files
@@ -63,22 +64,6 @@ botbuster.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# santization funtion
-def sanitise(data):
-    cleaner = Cleaner(
-        tags={},
-        attributes={},
-        protocols={'http','https'},
-        strip=False,
-    )
-    if isinstance(data, dict):
-        return {sanitise(key): sanitise(value) for key, value in data.items()}
-    elif isinstance(data, list):
-        return [sanitise(item) for item in data]
-    elif isinstance(data, str):
-        return cleaner.clean(data)
-    return data
 
 # writing endpoints
 @botbuster.post("/splittext/")
@@ -246,11 +231,11 @@ def check_text(request: ds.check_text):
         results_file.write(json.dumps(full_results, indent=4))
     with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file
         score_data_file.write(json.dumps(scores, indent=4))
-    # graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
-    # gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
+    graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
+    gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()
     # print(end - start)
-    return sanitise(scores)
+    return validation.sanitise(scores)
 
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
@@ -415,7 +400,7 @@ def check_text(request: ds.check_text):
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
-    return sanitise(scores)
+    return validation.sanitise(scores)
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information
 async def get_apis():
@@ -461,6 +446,9 @@ def add_api(request: ds.add_api, response: Response):
 @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
 async def web_scraping(request: ds.web_scraper):
     page_url = request.dict()["page_url"]
+    if(validation.is_valid_url(page_url)==False):
+        print("invalid url detected")
+        raise HTTPException (status_code = 400, detail = "Bad Request")
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
         website_configs = json.load(config_data_file)["website_configs"]
     website_name = urlparse(page_url).netloc # getting the website name from the url
@@ -468,13 +456,14 @@ async def web_scraping(request: ds.web_scraper):
     if scraping_data["func"] == "sms": # calling the social media scraper
         loop = asyncio.new_event_loop() # creates a new event loop and 
         asyncio.set_event_loop(loop) # set created loop as the active one
-        items = loop.run_until_complete(ws.scraper(scraping_data["elements"], page_url))
+        items = loop.run_until_complete(ws.scraper(scraping_data["elements"],scraping_data["settings"], page_url))
     elif scraping_data["func"] == "gws": # calling the generic web scraper
         url = scraping_data.get("url", None)
         splitter = scraping_data.get("splitter", None)
         items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
+    # return validation.santise(items)
     return items
 
 # get website scraping configurations
@@ -561,4 +550,5 @@ def extract_text(file: UploadFile):
         
     finally:
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
+    # return validation.santise(text)
     return text

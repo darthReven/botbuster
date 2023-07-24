@@ -1,10 +1,5 @@
 import html
 import re
-import string
-
-def check_ascii(input_string):
-    return all(char in string.ascii_letters or char in string.digits or char in string.punctuation or char in string.whitespace for char in input_string)
-
 
 def sanitise(data):
     if isinstance(data, dict):
