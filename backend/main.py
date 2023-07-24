@@ -42,6 +42,7 @@ import model.web_scrapers as ws
 import model.graph as graph
 import model.gauge as gauge
 import model.text as text_utils
+import model.validationFns as validation
 
 # Initialising constants 
 # setting file paths for configuration files
@@ -63,22 +64,6 @@ botbuster.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# santization funtion
-def sanitise(data):
-    cleaner = Cleaner(
-        tags={},
-        attributes={},
-        protocols={'http','https'},
-        strip=False,
-    )
-    if isinstance(data, dict):
-        return {sanitise(key): sanitise(value) for key, value in data.items()}
-    elif isinstance(data, list):
-        return [sanitise(item) for item in data]
-    elif isinstance(data, str):
-        return cleaner.clean(data)
-    return data
 
 # writing endpoints
 @botbuster.post("/splittext/")
@@ -250,7 +235,7 @@ def check_text(request: ds.check_text):
     gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()
     # print(end - start)
-    return sanitise(scores)
+    return validation.sanitise(scores)
 
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
@@ -415,7 +400,7 @@ def check_text(request: ds.check_text):
     end = time.perf_counter()
     # print(end - start)
     scores["overall_score"] = overall_scores
-    return sanitise(scores)
+    return validation.sanitise(scores)
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information
 async def get_apis():
@@ -461,6 +446,9 @@ def add_api(request: ds.add_api, response: Response):
 @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
 def web_scraping(request: ds.web_scraper):
     page_url = request.dict()["page_url"]
+    if(validation.is_valid_url(page_url)==False):
+        print("invalid url detected")
+        raise HTTPException (status_code = 400, detail = "Bad Request")
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
         website_configs = json.load(config_data_file)["website_configs"]
     website_name = urlparse(page_url).netloc # getting the website name from the url
@@ -475,6 +463,7 @@ def web_scraping(request: ds.web_scraper):
         items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
     else: 
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
+    # return validation.santise(items)
     return items
 
 # get website scraping configurations
@@ -549,4 +538,5 @@ def extract_text(file: UploadFile):
         
     finally:
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
+    # return validation.santise(text)
     return text

@@ -1,3 +1,5 @@
-2023/07/20-10:00:01.952 833c Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\File System\Origins/MANIFEST-000001
-2023/07/20-10:00:01.953 833c Recovering log #3
-2023/07/20-10:00:01.953 833c Reusing old log C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\File System\Origins/000003.log 
+2023/07/24-14:25:06.657 9490 Log #3: 3 ops saved to Table #4 OK
+2023/07/24-14:25:06.661 9490 Archiving C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\File System\Origins/000003.log: OK
+2023/07/24-14:25:06.661 9490 Table #4: 3 entries OK
+2023/07/24-14:25:06.664 9490 Archiving C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\File System\Origins/MANIFEST-000001: OK
+2023/07/24-14:25:06.672 9490 **** Repaired leveldb C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\File System\Origins; recovered 1 files; 181 bytes. Some data may have been lost. ****
