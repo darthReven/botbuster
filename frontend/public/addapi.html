@@ -46,8 +46,8 @@
         success: function(data, textStatus, xhr) {
           console.log(data)
           for (const api_category in data) {
-            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-4" id="api-info-${api_category.replace(/\s/g, '-')}">`)
-            $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pt-5 pb-2">${api_category}</div>`)
+            $(".sidebar-sticky").append(`<div class="list-group list-group-flush mx-3 mt-3" id="api-info-${api_category.replace(/\s/g, '-')}">`)
+            $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(`<div class="list-header text-center fw-bold pb-2">${api_category}</div>`)
             for (const key in data[`${api_category}`]) {
               $(`#api-info-${api_category.replace(/\s/g, '-')}`).append(
               `<div class="list-group-item fw-bold"><div class="row align-items-center"><div class="col-lg-6 col-md-5 col-sm-5 sidebarimg"><img class="img-fluid" id="${data[`${api_category}`][key][0]}_logo"  src=""></div><div class="col-lg-4 col-md-5 col-sm-2 px-0">${key}</div><div class="col-2 p-0">

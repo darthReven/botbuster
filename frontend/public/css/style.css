@@ -64,6 +64,10 @@ body {
     background-color: #4A8DB7 !important;
 }
 
+.list-group {
+    margin-bottom: 3rem!important;
+}
+
 .list-header {
     font-size: 20px;
     color: #ffffff !important;
