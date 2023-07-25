@@ -202,7 +202,7 @@
          ],
          "settings": [
             "",
-            30
+            300
          ],
          "func": "sms"
       },
@@ -211,7 +211,7 @@
             "span"
          ],
          "settings": [
-            "",
+            "li-icon.artdeco-button__icon",
             30
          ],
          "func": "sms"
@@ -245,9 +245,22 @@
          "func": "sms"
       },
       "default": {
-        "elements": ["p", "h1", "h2", "h3", "h4", "h5", "h6", "div", "span"],
-        "settings": ["", 50],
-        "func": "sms"
+         "elements": [
+            "p",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "div",
+            "span"
+         ],
+         "settings": [
+            "",
+            50
+         ],
+         "func": "sms"
       }
    }
 }

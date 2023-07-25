@@ -12,12 +12,54 @@ from fastapi import HTTPException
 from urllib.parse import urljoin
 
 # social media scraper
-async def scrape_infinite_scroll_items(page, content_selector, item_target_count):
+# async def scrape_infinite_scroll_items(page, content_selector, item_target_count):
+#     await asyncio.sleep(2.5)
+#     items = []
+#     previous_height = 0
+
+#     while True:
+#         selected_items = await page.evaluate('''(content_selector, previous_height) => {
+#             const selected_items = [];
+#             const elements = Array.from(document.querySelectorAll("*"));
+
+#             for (const element of elements) {
+#                 for (const selector of content_selector) {
+#                     if (element.matches(selector)) {
+#                         selected_items.push([selector.split('.')[0], element.innerText]);
+#                     }
+#                 }
+#             }
+
+#             return selected_items;
+#         }''', content_selector, previous_height)
+
+#         items.extend(selected_items)  # Instead of overwriting items, extend the list
+#         current_height = await page.evaluate("document.body.scrollHeight")
+
+#         if current_height == previous_height:
+#             # Reached the bottom of the page, no more items to load
+#             break
+
+#         previous_height = current_height
+
+#         if len(items) >= item_target_count:
+#             break
+
+#         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+#         await page.waitForFunction(f'document.body.scrollHeight > {previous_height}')
+#         await asyncio.sleep(2)
+
+#     return items
+
+import random
+
+async def scrape_infinite_scroll_items(page, content_selector, item_target_count, max_retries=5):
     await asyncio.sleep(2.5)
     items = []
     previous_height = 0
+    retries = 0
 
-    while True:
+    while retries < max_retries:
         selected_items = await page.evaluate('''(content_selector, previous_height) => {
             const selected_items = [];
             const elements = Array.from(document.querySelectorAll("*"));
@@ -33,7 +75,7 @@ async def scrape_infinite_scroll_items(page, content_selector, item_target_count
             return selected_items;
         }''', content_selector, previous_height)
 
-        items.extend(selected_items)  # Instead of overwriting items, extend the list
+        items.extend(selected_items)
         current_height = await page.evaluate("document.body.scrollHeight")
 
         if current_height == previous_height:
@@ -45,9 +87,21 @@ async def scrape_infinite_scroll_items(page, content_selector, item_target_count
         if len(items) >= item_target_count:
             break
 
-        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        await page.waitForFunction(f'document.body.scrollHeight > {previous_height}')
-        await asyncio.sleep(2)
+        # Check if it's still possible to scroll down
+        can_scroll_down = await page.evaluate("window.innerHeight + window.scrollY < document.body.scrollHeight")
+
+        if can_scroll_down:
+            # Scroll down to trigger more content loading
+            await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+
+            # Introduce some randomness to the sleep interval to avoid triggering anti-scraping measures
+            sleep_interval = random.uniform(2, 4)
+            await asyncio.sleep(sleep_interval)
+
+            retries += 1
+        else:
+            # If it's not possible to scroll down, break the loop
+            break
 
     return items
 
