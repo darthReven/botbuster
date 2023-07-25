@@ -1,2 +1,18 @@
-2023/07/24-14:25:05.372 ec58 Creating DB C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb since it was missing.
-2023/07/24-14:25:05.399 ec58 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/MANIFEST-000001
+2023/07/25-16:35:53.131 384 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/MANIFEST-000001
+2023/07/25-16:35:53.135 384 Recovering log #18
+2023/07/25-16:35:53.136 384 Level-0 table #21: started
+2023/07/25-16:35:53.146 384 Level-0 table #21: 50451 bytes OK
+2023/07/25-16:35:53.147 384 Recovering log #20
+2023/07/25-16:35:53.154 384 Reusing old log C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/000020.log 
+2023/07/25-16:35:53.156 384 Delete type=0 #18
+2023/07/25-16:35:53.157 ec1c Compacting 4@0 + 1@1 files
+2023/07/25-16:35:53.169 ec1c Generated table #22@0: 34 keys, 227439 bytes
+2023/07/25-16:35:53.169 ec1c Compacted 4@0 + 1@1 files => 227439 bytes
+2023/07/25-16:35:53.169 ec1c compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/07/25-16:35:53.170 ec1c Delete type=2 #13
+2023/07/25-16:35:53.170 ec1c Delete type=2 #15
+2023/07/25-16:35:53.170 ec1c Delete type=2 #17
+2023/07/25-16:35:53.170 ec1c Delete type=2 #19
+2023/07/25-16:35:53.170 ec1c Delete type=2 #21
+2023/07/25-16:38:26.748 1254 Level-0 table #24: started
+2023/07/25-16:38:26.756 1254 Level-0 table #24: 52259 bytes OK

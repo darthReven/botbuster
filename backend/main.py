@@ -19,6 +19,7 @@ python-multipart ** for form data (even though not imported)
 # importing libraries
 from fastapi import FastAPI, HTTPException, Response, status, UploadFile, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import BackgroundTasks
 from bleach.sanitizer import Cleaner
 from PyPDF2 import PdfReader
 from urllib.parse import urlparse
@@ -443,28 +444,66 @@ def add_api(request: ds.add_api, response: Response):
             response.status_code = status.HTTP_204_NO_CONTENT
 
 # scraping websites data
+# @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
+# async def web_scraping(request: ds.web_scraper):
+#     page_url = request.dict()["page_url"]
+#     if(validation.is_valid_url(page_url)==False):
+#         print("invalid url detected")
+#         raise HTTPException (status_code = 400, detail = "Bad Request")
+#     with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
+#         website_configs = json.load(config_data_file)["website_configs"]
+#     website_name = urlparse(page_url).netloc # getting the website name from the url
+#     scraping_data = website_configs.get(website_name, website_configs["default"]) # extract the proper elements to scrape from the website, if website not in database, use default elements
+#     if scraping_data["func"] == "sms": # calling the social media scraper
+#         loop = asyncio.new_event_loop() # creates a new event loop and 
+#         asyncio.set_event_loop(loop) # set created loop as the active one
+#         # loop=asyncio.get_event_loop()
+#         # if not loop.is_running():
+#         #     loop=asyncio.new_event_loop()
+#         #     asyncio.set_event_loop(loop)
+#         # loop = asyncio.get_event_loop()
+#         # if not asyncio.get_event_loop().is_running():
+#         #     loop = asyncio.new_event_loop()
+#         #     asyncio.set_event_loop(loop)    
+#         items = loop.run_until_complete(ws.scraper(scraping_data["elements"],scraping_data["settings"], page_url))
+#     elif scraping_data["func"] == "gws": # calling the generic web scraper
+#         url = scraping_data.get("url", None)
+#         splitter = scraping_data.get("splitter", None)
+#         items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
+#     else: 
+#         raise HTTPException (status_code = 500, detail = "Internal Server Error")
+#     # return validation.santise(items)
+#     return items
+
+# Add this import to the top of your file
+from fastapi import BackgroundTasks
+
+# ... (other code)
+
 @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
-async def web_scraping(request: ds.web_scraper):
+async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
     page_url = request.dict()["page_url"]
-    if(validation.is_valid_url(page_url)==False):
+    if not validation.is_valid_url(page_url):
         print("invalid url detected")
-        raise HTTPException (status_code = 400, detail = "Bad Request")
-    with open(CONFIG_FILE_PATH, "r") as config_data_file: # opens configuration settings to be used to decide which elements to scrape
+        raise HTTPException(status_code=400, detail="Bad Request")
+
+    with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
-    website_name = urlparse(page_url).netloc # getting the website name from the url
-    scraping_data = website_configs.get(website_name, website_configs["default"]) # extract the proper elements to scrape from the website, if website not in database, use default elements
-    if scraping_data["func"] == "sms": # calling the social media scraper
-        loop = asyncio.new_event_loop() # creates a new event loop and 
-        asyncio.set_event_loop(loop) # set created loop as the active one
-        items = loop.run_until_complete(ws.scraper(scraping_data["elements"],scraping_data["settings"], page_url))
-    elif scraping_data["func"] == "gws": # calling the generic web scraper
+    
+    website_name = urlparse(page_url).netloc
+    scraping_data = website_configs.get(website_name, website_configs["default"])
+
+    if scraping_data["func"] == "sms":
+        items = await ws.scraper(scraping_data["elements"], scraping_data["settings"], page_url)
+    elif scraping_data["func"] == "gws":
         url = scraping_data.get("url", None)
         splitter = scraping_data.get("splitter", None)
         items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
     else: 
-        raise HTTPException (status_code = 500, detail = "Internal Server Error")
-    # return validation.santise(items)
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
     return items
+
 
 # get website scraping configurations
 @botbuster.get("/webscraper/settings/") # endpoint to retrieve the webscraping settings

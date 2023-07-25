@@ -15,14 +15,15 @@ from urllib.parse import urljoin
 async def scrape_infinite_scroll_items(page, content_selector, item_target_count):
     await asyncio.sleep(2.5)
     items = []
+    previous_height = 0
 
-    while item_target_count > len(items):
-        selected_items = await page.evaluate('''(contentselector) => {
+    while True:
+        selected_items = await page.evaluate('''(content_selector, previous_height) => {
             const selected_items = [];
             const elements = Array.from(document.querySelectorAll("*"));
 
             for (const element of elements) {
-                for (const selector of contentselector) {
+                for (const selector of content_selector) {
                     if (element.matches(selector)) {
                         selected_items.push([selector.split('.')[0], element.innerText]);
                     }
@@ -30,16 +31,27 @@ async def scrape_infinite_scroll_items(page, content_selector, item_target_count
             }
 
             return selected_items;
-        }''', content_selector)
+        }''', content_selector, previous_height)
 
-        previous_height = await page.evaluate("document.body.scrollHeight")
+        items.extend(selected_items)  # Instead of overwriting items, extend the list
+        current_height = await page.evaluate("document.body.scrollHeight")
+
+        if current_height == previous_height:
+            # Reached the bottom of the page, no more items to load
+            break
+
+        previous_height = current_height
+
+        if len(items) >= item_target_count:
+            break
+
         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         await page.waitForFunction(f'document.body.scrollHeight > {previous_height}')
         await asyncio.sleep(2)
 
-        items = selected_items
-
     return items
+
+
 
 async def del_pop_up(page, popup):
     try:
