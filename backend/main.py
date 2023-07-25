@@ -525,7 +525,10 @@ async def update_config(website_configs: dict):
         for key, value in website_configs.items():
             for website_url in config_data[key].keys():
                 config_data[key][website_url]["elements"]= value[website_url]
-                
+            for website_url in value:
+                if website_url not in config_data[key]:
+                    config_data[key][website_url] = {"elements": value[website_url], "settings": ["",50],"func": "sms"}
+                    
             # save the updated configuration to the config.json file
             with open(CONFIG_FILE_PATH, "w") as f:
                 json.dump(config_data, f, indent=3)

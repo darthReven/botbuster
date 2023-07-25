@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2023/07/25-20:48:06.873 e904 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/MANIFEST-000001
 2023/07/25-20:48:06.873 e904 Recovering log #6
 2023/07/25-20:48:06.874 e904 Reusing old log C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/000006.log 
+=======
+2023/07/25-19:53:53.646 5050 Reusing MANIFEST C:\Users\cheon\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/MANIFEST-000001
+2023/07/25-19:53:53.647 5050 Recovering log #9
+2023/07/25-19:53:53.647 5050 Reusing old log C:\Users\cheon\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Site Characteristics Database/000009.log 
+>>>>>>> 9a644d337b3810766f16e5f74cf4ad12e5b8983d
