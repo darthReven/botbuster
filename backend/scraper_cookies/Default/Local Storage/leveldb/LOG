@@ -1,3 +1,7 @@
-2023/07/24-15:53:22.655 da70 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/MANIFEST-000001
-2023/07/24-15:53:22.657 da70 Recovering log #3
-2023/07/24-15:53:22.663 da70 Reusing old log C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/000003.log 
+2023/07/25-16:38:49.986 3878 Reusing MANIFEST C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/MANIFEST-000001
+2023/07/25-16:38:49.987 3878 Recovering log #20
+2023/07/25-16:38:49.989 3878 Level-0 table #24: started
+2023/07/25-16:38:50.000 3878 Level-0 table #24: 52259 bytes OK
+2023/07/25-16:38:50.000 3878 Recovering log #23
+2023/07/25-16:38:50.005 3878 Reusing old log C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\Local Storage\leveldb/000023.log 
+2023/07/25-16:38:50.014 3878 Delete type=0 #20
