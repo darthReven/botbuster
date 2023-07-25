@@ -697,6 +697,15 @@ form {
     align-items: center;
 }
 
+
+.add_domain{
+    margin-left: -12px;
+    width: 728.5px;
+    height: 70px;
+    border: none;
+    outline: none !important;
+}
+
 .add_button{
     margin-bottom: 8px;
     margin-top: 5px;
@@ -920,7 +929,7 @@ form {
   height: 30px;
   top: 80vh;
   margin: -20px 0 0 -20px;
-  -webkit-transform: rotate(45deg);
+  /* -webkit-transform: rotate(45deg); */
   border-left: none;
   border-top: none;
   border-right: 2px #386a8a solid;

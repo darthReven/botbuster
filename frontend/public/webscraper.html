@@ -24,6 +24,8 @@
     let settingsData = null; //for selecting the elements the user select
     let button_pressed = 0; //to see how many elements user added
     let button_dict = {};
+    let domain_num = 0;
+    let domain_pressed = {}
     function num_of_submissions(){
       counter+=1
     }
@@ -61,6 +63,44 @@
 
       return element_content
     }
+
+    function addNewElement_domain(item){
+      //add textbox for new element
+      domain_pressed[item] += 1
+      add_button = document.getElementById(item+"-button");
+      new_content = `<div class="textbox-container"> 
+            <input type="checkbox" checked class = "new_checkbox" id ="${item}-checkbox}" > 
+            <textarea class="el_textbox" id ="${item}-textbox-${domain_pressed[item]}" class="new_element" rows="1" cols="18" placeholder="Enter new element here"></textarea><br>
+            </div>
+            <button type="button" class ="add_button" id ="${item}-button"" onClick=addNewElement_domain("${item}")>Add Element</button>`
+      add_button.insertAdjacentHTML('afterend', new_content);
+      add_button.remove();
+      //return element_content
+    }
+
+    function addDomain(){
+      domain_num+= 1;
+      domain_pressed[domain_num] = 0
+      
+      header = document.getElementById("header");
+      domain_button = document.getElementById("domain");
+      new_content = ` <div class="row text-center">
+          <div class="col-12 px-10">
+            <button type="button" class = "add_domain" id = "domain" onClick = addDomain()> Add Domain</button>
+          </div>
+      </div>
+      <div class="row text-center">
+          <div class="col-4 px-5" contenteditable id="domainField${domain_num}">
+              Domain (Click here to edit)
+          </div>
+          <div class="col-8 px-3" style="text-align: left;">
+            <button type="button" class ="add_button" id ="${domain_num}-button"" onClick=addNewElement_domain("${domain_num}")>Add Element</button>
+          </div>
+      </div>`
+      header.insertAdjacentHTML('afterend', new_content);
+      domain_button.remove()
+    }
+
     function get_settings() {
       $('#loading').show(); // Start loading
       $('.btn[type="button"]').prop('disabled', true); // Disable submit
@@ -76,13 +116,19 @@
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
           content = `
-      <div class="row text-center">
+      <div class="row text-center" id ="header">
           <div class="col-4 px-5">
               Website
           </div>
           <div class="col-8 px-5">
               Elements Selected
           </div>
+      </div>
+      <div class="row text-center">
+          <div class="col-12 px-10">
+            <button type="button" class = "add_domain" id = "domain" onClick = addDomain()> Add Domain</button>
+          </div>
+          
       </div>
       `
       
@@ -160,6 +206,16 @@
         }
     }
     }
+    for (let i = 1; i <= domain_num; i++){ //loops through all the new domains to add to the dictionary
+      new_domain = document.getElementById("domainField"+i).innerText;
+      elementList = [];
+      for (let j = 1; j <= domain_pressed[i]; j++){
+        new_elements = document.getElementById(i+"-textbox-"+j).value;
+        elementList.push(new_elements);
+      filteredData[new_domain]=elementList;
+
+      }
+    } 
     const jsonData = JSON.stringify({ website_configs: filteredData });
     $.ajax({
     url: "http://127.0.0.1:8000/webscraper/settings/", 
