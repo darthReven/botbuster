@@ -33,6 +33,20 @@
       document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
     }
 
+    // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        // After scrolling
+        if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+            $('#scroll_down').css('display', 'none')
+        } 
+        // At the top
+        else {
+            $('#scroll_down').css('display', 'block')
+        }
+    }
+
     // Function to handle API or Category search
     function handleSearch() {
         
@@ -373,6 +387,7 @@ function clickRefresh() {
             </div>
             <form>
                 <div class="form-group">
+                    <div class="arrow" id="scroll_down"></div>
                   <div class="form-control" id="text-area" rows="7" disabled style="text-align:center">
                     <div class="progress">
                         <div class="progress-bar" id="progress_bar" role="progressbar" aria-valuenow="70"
