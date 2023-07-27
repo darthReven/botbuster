@@ -104,7 +104,7 @@ def check_text(request: ds.check_text):
         scores["overall_score"][api_category][api] = "score not calculated"
         try:
             if api != "score_type" and api != "description":
-                results = API(config_data["APIs"][api_category][api]).api_call(text)
+                results = API(config_data["APIs"][api_category][api]).api_call(text)                
                 full_results[api] = results
             if api_category not in seen_categories:
                 total_score[api_category] = {"score": 0, "num_apis": 0}
@@ -140,11 +140,15 @@ def check_text(request: ds.check_text):
                             results = 1
                         else:
                             results = 0
-                    scores[request_num]["general_score"][api_category][api] = round(float(results) * 100,1) # appends general score to the dictionary
-                    total_score[api_category]["score"] += round(float(results) * 100,1) # sums the general scores of all apis
+                    score = round(float(results) * 100,1)
+                    if score > 100:
+                        scores[request_num]["general_score"][api_category][api] = "error getting score"
+                        continue
+                    scores[request_num]["general_score"][api_category][api] = score # appends general score to the dictionary
+                    total_score[api_category]["score"] += score # sums the general scores of all apis
                     total_score[api_category]["num_apis"] += 1 # sums the number of APIs in the category
                     final_score = total_score[api_category]["score"]/total_score[api_category]["num_apis"] # gets the average score of all the APIs in each category
-                    scores[request_num]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score                    
+                    scores[request_num]["general_score"][api_category]["overall_score"] = round(final_score,1) # appends the average score
                 except TypeError: # Type error will occur if the loop hasn't reached the score
                     continue  # continue to the next key in the loop
                 except KeyError: # If there is an error with the path
@@ -196,9 +200,9 @@ def check_text(request: ds.check_text):
                 except:
                     continue  
         except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
-            continue       
-    try:
-        for api_category in scores["overall_score"].keys():
+            continue      
+    for api_category in scores["overall_score"].keys():
+        try:
             if api_category == "sentence_data":
                 continue
             api_count = 0
@@ -226,8 +230,8 @@ def check_text(request: ds.check_text):
                     api_count += 1
                     api_category_total_score += api_total_score
                 scores["overall_score"][api_category]["average_score"] = round(api_category_total_score/api_count, 1)
-    except:
-        scores["overall_score"][api_category][api] = "score not calculated"
+        except:
+            scores["overall_score"][api_category][api] = "score not calculated"
     with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
         results_file.write(json.dumps(full_results, indent=4))
     with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file

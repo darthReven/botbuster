@@ -1,0 +1,1 @@
+{"net":{"http_server_properties":{"servers":[{"https://accounts.google.com":{"supports_spdy":true}},{"https://pythonbasics.org":{"supports_spdy":true}},{"https://www.googletagmanager.com":{"supports_spdy":true}},{"https://www.google-analytics.com":{"supports_spdy":true}}],"version":5}}}

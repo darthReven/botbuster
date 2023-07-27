@@ -10,10 +10,10 @@ def generate_gauge(data):
         if api_category == 'sentence_data':
             continue
         category_list.append(api_category)
-        if (not bool(data[api_category])):
-            final_score.append(0)
-        else:
+        try: 
             final_score.append(data[api_category]['average_score'])
+        except:
+            final_score.append(0)
     df = pd.DataFrame({'Category': category_list,
                     'Scores': final_score})
     representation = 70 / len(df)

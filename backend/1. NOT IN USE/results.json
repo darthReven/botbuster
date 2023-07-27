@@ -1,95 +1,77 @@
 {
     "GPTZero": {
-        "0": {
-            "documents": [
-                {
-                    "average_generated_prob": 1,
-                    "completely_generated_prob": 0.18646952509880066,
-                    "overall_burstiness": 5,
-                    "paragraphs": [
-                        {
-                            "completely_generated_prob": 0.850090677245877,
-                            "num_sentences": 3,
-                            "start_sentence_index": 0
-                        }
-                    ],
-                    "sentences": [
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 21,
-                            "sentence": "Singapore Polytechnic (SP) is one of the leading tertiary institutions in Singapore, renowned for its commitment to academic excellence, industry relevance, and nurturing innovative thinkers.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 31,
-                            "sentence": "Established in 1954, SP has since evolved into a dynamic and vibrant institution, offering a wide range of diploma courses across various disciplines.",
-                            "highlight_sentence_for_ai": true
-                        },
-                        {
-                            "generated_prob": 1,
-                            "perplexity": 26,
-                            "sentence": "With its state-of-the-art facilities, dedicated faculty, and strong industry partnerships, SP provides students with a holistic education that combines theoretical knowledge with practical skills.",
-                            "highlight_sentence_for_ai": true
-                        }
-                    ],
-                    "result_message": "Your text may include parts written by AI",
-                    "result_sub_message": "",
-                    "document_classification": "MIXED"
-                }
-            ],
-            "version": "2023-07-19"
-        }
-    },
-    "Writer": {
-        "0": [
+        "documents": [
             {
-                "label": "real",
-                "score": 0.5115185379981995
-            },
-            {
-                "label": "fake",
-                "score": 0.4884814918041229
+                "average_generated_prob": 0,
+                "completely_generated_prob": 0.0003179713385179639,
+                "overall_burstiness": 22.627416610717773,
+                "paragraphs": [
+                    {
+                        "completely_generated_prob": 0.02318840472169716,
+                        "num_sentences": 2,
+                        "start_sentence_index": 0
+                    }
+                ],
+                "sentences": [
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 28,
+                        "sentence": "His legacy inspired future generations to believe in the power of unity and the potential for positive change.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 60,
+                        "sentence": "As Singapore celebrated its newfound harmony and progress, President Srinivas's story became a beacon of hope for the world, a testament to the transformative impact of a leader who rose above divisions and worked tirelessly to build a better tomorrow\u00a0for\u00a0all.",
+                        "highlight_sentence_for_ai": false
+                    }
+                ],
+                "result_message": "Your text is likely to be written entirely by a human",
+                "result_sub_message": "",
+                "document_classification": "HUMAN_ONLY"
             }
-        ]
+        ],
+        "version": "2023-07-19"
     },
-    "Sapling AI": {
-        "0": {
-            "key_prefix": "3HX********************************",
-            "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+    "Writer": [
+        {
+            "label": "real",
+            "score": 0.8230782151222229
+        },
+        {
+            "label": "fake",
+            "score": 0.1769218146800995
         }
+    ],
+    "Sapling AI": {
+        "key_prefix": "3HX********************************",
+        "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
     },
     "Hugging Face": {
-        "0": {
-            "data": [
+        "data": [
+            [
+                {
+                    "Real": 0.9450012445449829,
+                    "Fake": 0.05499875545501709
+                },
                 [
-                    {
-                        "Real": 0.6346672177314758,
-                        "Fake": 0.36533278226852417
-                    },
                     [
-                        [
-                            0.6346672177314758,
-                            539
-                        ]
+                        0.9450012445449829,
+                        371
                     ]
                 ]
-            ],
-            "is_generating": false,
-            "duration": 0.04652833938598633,
-            "average_duration": 1.1468880079704509
-        }
+            ]
+        ],
+        "is_generating": false,
+        "duration": 0.10687613487243652,
+        "average_duration": 1.1117716678159928
     },
     "In-house Model": {
-        "0": {
-            "prediction": 0.11824972409678484
-        }
+        "prediction": 0.10528984968261783
     },
     "Moderate Hate Speech": {
-        "0": {
-            "response": "Success",
-            "class": "normal",
-            "confidence": "0.9999051094055176"
-        }
+        "response": "Success",
+        "class": "normal",
+        "confidence": "0.9999417066574097"
     }
 }

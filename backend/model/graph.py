@@ -6,21 +6,20 @@ def generate_graph(data):
     final_score = []
     category_list = []
     category_score_list = []
-    print(data)
     for i, api_category in enumerate(data):
         if api_category == 'sentence_data':
             continue
         category_list.append(api_category)
         category_score_list.append({})
-        if (not bool(data[api_category])):
-            final_score.append(0)
         for key in data[api_category]:
             if key != "average_score":
-                score = data[api_category][key]
-                category_score_list[i][key] = score
-            else:
-                final_score.append(data[api_category][key])
-    print(category_list, final_score)
+                continue
+            score = data[api_category][key]
+            category_score_list[i][key] = score
+        try:
+            final_score.append(data[api_category]["average_score"])
+        except:
+            final_score.append(0)
     df = pd.DataFrame({'Category': category_list,
                     'Scores': final_score})
     

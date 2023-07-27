@@ -3,8 +3,8 @@
         "documents": [
             {
                 "average_generated_prob": 0,
-                "completely_generated_prob": 0.0003179713385179639,
-                "overall_burstiness": 22.627416610717773,
+                "completely_generated_prob": 0.0003030236985068768,
+                "overall_burstiness": 76.3675308227539,
                 "paragraphs": [
                     {
                         "completely_generated_prob": 0.02318840472169716,
@@ -15,14 +15,14 @@
                 "sentences": [
                     {
                         "generated_prob": 0,
-                        "perplexity": 28,
-                        "sentence": "His legacy inspired future generations to believe in the power of unity and the potential for positive change.",
+                        "perplexity": 60,
+                        "sentence": "But Trump repeats these lies because he knows his supporters will believe them without bothering to Google.",
                         "highlight_sentence_for_ai": false
                     },
                     {
                         "generated_prob": 0,
-                        "perplexity": 60,
-                        "sentence": "As Singapore celebrated its newfound harmony and progress, President Srinivas's story became a beacon of hope for the world, a testament to the transformative impact of a leader who rose above divisions and worked tirelessly to build a better tomorrow\u00a0for\u00a0all.",
+                        "perplexity": 168,
+                        "sentence": "It s still a lie, though.Photo by Zach Gibson   Pool/Getty Images.",
                         "highlight_sentence_for_ai": false
                     }
                 ],
@@ -36,42 +36,48 @@
     "Writer": [
         {
             "label": "real",
-            "score": 0.8230782151222229
+            "score": 0.9883248805999756
         },
         {
             "label": "fake",
-            "score": 0.1769218146800995
+            "score": 0.011675179935991764
         }
     ],
     "Sapling AI": {
-        "key_prefix": "3HX********************************",
-        "msg": "Rate Limited. Visit https://sapling.ai/docs/api/api-access for details."
+        "score": 0.32359902446086586,
+        "sentence_scores": [
+            {
+                "score": 0.0012975056245744243,
+                "sentence": "But Trump repeats these lies because he knows his supporters will believe them without bothering to Google."
+            },
+            {
+                "score": 0.0,
+                "sentence": "It s still a lie, though.Photo by Zach Gibson   Pool/Getty Images."
+            }
+        ],
+        "text": "But Trump repeats these lies because he knows his supporters will believe them without bothering to Google. It s still a lie, though.Photo by Zach Gibson   Pool/Getty Images."
     },
     "Hugging Face": {
         "data": [
             [
                 {
-                    "Real": 0.9450012445449829,
-                    "Fake": 0.05499875545501709
+                    "Real": 0.9705721139907837,
+                    "Fake": 0.02942788600921631
                 },
                 [
                     [
-                        0.9450012445449829,
-                        371
+                        0.9705721139907837,
+                        174
                     ]
                 ]
             ]
         ],
         "is_generating": false,
-        "duration": 0.10687613487243652,
-        "average_duration": 1.1117716678159928
+        "duration": 0.2101895809173584,
+        "average_duration": 1.3020569331178977
     },
     "In-house Model": {
-        "prediction": 0.10528984968261783
+        "prediction": 0.03600957371631133
     },
-    "Moderate Hate Speech": {
-        "response": "Success",
-        "class": "normal",
-        "confidence": "0.9999417066574097"
-    }
+    "Moderate Hate Speech": "Error Detecting"
 }
