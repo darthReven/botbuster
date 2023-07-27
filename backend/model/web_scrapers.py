@@ -4,6 +4,7 @@ import pyppeteer
 from pyppeteer import launch
 import os
 import platform
+import random
 # generic webscraper modules
 import requests
 import sys
@@ -12,48 +13,7 @@ from fastapi import HTTPException
 from urllib.parse import urljoin
 
 # social media scraper
-# async def scrape_infinite_scroll_items(page, content_selector, item_target_count):
-#     await asyncio.sleep(2.5)
-#     items = []
-#     previous_height = 0
-
-#     while True:
-#         selected_items = await page.evaluate('''(content_selector, previous_height) => {
-#             const selected_items = [];
-#             const elements = Array.from(document.querySelectorAll("*"));
-
-#             for (const element of elements) {
-#                 for (const selector of content_selector) {
-#                     if (element.matches(selector)) {
-#                         selected_items.push([selector.split('.')[0], element.innerText]);
-#                     }
-#                 }
-#             }
-
-#             return selected_items;
-#         }''', content_selector, previous_height)
-
-#         items.extend(selected_items)  # Instead of overwriting items, extend the list
-#         current_height = await page.evaluate("document.body.scrollHeight")
-
-#         if current_height == previous_height:
-#             # Reached the bottom of the page, no more items to load
-#             break
-
-#         previous_height = current_height
-
-#         if len(items) >= item_target_count:
-#             break
-
-#         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-#         await page.waitForFunction(f'document.body.scrollHeight > {previous_height}')
-#         await asyncio.sleep(2)
-
-#     return items
-
-import random
-
-async def scrape_infinite_scroll_items(page, content_selector, item_target_count, max_retries=5):
+async def scrape_infinite_scroll_items(page, content_selector, item_target_count, max_retries=10):
     await asyncio.sleep(2.5)
     items = []
     previous_height = 0
@@ -95,7 +55,7 @@ async def scrape_infinite_scroll_items(page, content_selector, item_target_count
             await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
 
             # Introduce some randomness to the sleep interval to avoid triggering anti-scraping measures
-            sleep_interval = random.uniform(2, 4)
+            sleep_interval = random.uniform(2, 3)
             await asyncio.sleep(sleep_interval)
 
             retries += 1
