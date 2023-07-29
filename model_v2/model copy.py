@@ -1,9 +1,7 @@
-# sentencepiece
+# THIS FILE IS NOT CALLED BY THE API, IT IS PURELY USED TO TRAIN THE MODEL AND SAVE ITS WEIGHTS
 import numpy as np
 import pandas as pd
-# Use the PyTorch version of ALBERT
-from transformers import AlbertTokenizer, AlbertModel
-# from transformers import AlbertTokenizer, AlbertModel  # For PyTorch
+from transformers import AutoModel, BertTokenizerFast
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
@@ -12,7 +10,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-# Load Data
 true_data = pd.read_csv('true.csv')
 fake_data = pd.read_csv('fake.csv')
 
@@ -25,7 +22,7 @@ data = pd.concat([true_data, fake_data], ignore_index=True)
 data = shuffle(data).reset_index(drop=True)
 
 # sample some data from the dataset to reduce training time for now can remove ltr i think
-# data = data.sample(n=15000, random_state=42)
+data = data.sample(n=15000, random_state=42)
 # Target column is made of string values True/Fake, let's change it to numbers 0/1 (Fake=1)
 data['label'] = pd.get_dummies(data.Target)['Fake']
 
@@ -46,31 +43,30 @@ val_text, test_text, val_labels, test_labels = train_test_split(
     stratify=temp_labels
 )
 
-# Load ALBERT Model and Tokenizer
-albert_model_name = 'albert-base-v2'
-albert = AlbertModel.from_pretrained(albert_model_name)
-tokenizer = AlbertTokenizer.from_pretrained(albert_model_name)
+bert_model_name = 'bert-base-uncased'
+bert = AutoModel.from_pretrained(bert_model_name)
+tokenizer = BertTokenizerFast.from_pretrained(bert_model_name)
 
 MAX_LENGTH = 15
 
 tokens_train = tokenizer.batch_encode_plus(
     train_text.tolist(),
     max_length=MAX_LENGTH,
-    padding=True,
+    padding=True,  # Updated argument name
     truncation=True
 )
 
 tokens_val = tokenizer.batch_encode_plus(
     val_text.tolist(),
     max_length=MAX_LENGTH,
-    padding=True,
+    padding=True,  # Updated argument name
     truncation=True
 )
 
 tokens_test = tokenizer.batch_encode_plus(
     test_text.tolist(),
     max_length=MAX_LENGTH,
-    padding=True,
+    padding=True,  # Updated argument name
     truncation=True
 )
 
@@ -97,22 +93,22 @@ val_dataset = TensorDataset(torch.tensor(val_seq), torch.tensor(val_mask), torch
 val_sampler = SequentialSampler(val_dataset)
 val_dataloader = DataLoader(val_dataset, sampler=val_sampler, batch_size=batch_size)
 
-# Freezing the parameters and defining trainable ALBERT structure
-for param in albert.parameters():
+# Freezing the parameters and defining trainable BERT structure
+for param in bert.parameters():
     param.requires_grad = False
 
-class ALBERT_Arch(nn.Module):
-    def __init__(self, albert):
-        super(ALBERT_Arch, self).__init__()
-        self.albert = albert
+class BERT_Arch(nn.Module):
+    def __init__(self, bert):
+        super(BERT_Arch, self).__init__()
+        self.bert = bert
         self.dropout = nn.Dropout(0.1)
         self.relu = nn.ReLU()
-        self.fc1 = nn.Linear(768, 512)  # Update the input size to 768
+        self.fc1 = nn.Linear(768, 512)
         self.fc2 = nn.Linear(512, 2)
         self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, sent_id, mask):
-        cls_hs = self.albert(sent_id, attention_mask=mask)['pooler_output']  # Use 'pooler_output' for ALBERT
+        cls_hs = self.bert(sent_id, attention_mask=mask)['pooler_output']
         x = self.fc1(cls_hs)
         x = self.relu(x)
         x = self.dropout(x)
@@ -120,7 +116,7 @@ class ALBERT_Arch(nn.Module):
         x = self.softmax(x)
         return x
 
-model = ALBERT_Arch(albert)  # Use the ALBERT-based architecture
+model = BERT_Arch(bert)
 
 # Defining the hyperparameters (optimizer, weights of the classes and the epochs)
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5)
@@ -190,15 +186,10 @@ for epoch in range(epochs):
 # Load the best model for evaluation
 model.load_state_dict(torch.load('new_model_weights.pt'))
 
-model.eval()
+# Testing and Predicting (OPTIONAL)
 with torch.no_grad():
-    preds = []
-    for step, batch in enumerate(val_dataloader):
-        batch = [t.to(device) for t in batch]
-        sent_id, mask, labels = batch
-        predictions = model(sent_id, mask)
-        predictions = torch.argmax(predictions, axis=1)
-        preds.extend(predictions.cpu().numpy())
+    preds = model(torch.tensor(test_seq).to(device), torch.tensor(test_mask).to(device))
+    preds = preds.detach().cpu().numpy()
 
-# Evaluate and print classification report
-print(classification_report(val_y, preds))
+preds = np.argmax(preds, axis=1)
+print(classification_report(test_y, preds))
