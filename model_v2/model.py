@@ -31,7 +31,7 @@ data['label'] = pd.get_dummies(data.Target)['Fake']
 
 # Train-Validation-Test set split into 70:15:15 ratio
 train_text, temp_text, train_labels, temp_labels = train_test_split(
-    data['title'],
+    data['text'],
     data['label'],
     random_state=2018,
     test_size=0.3,
