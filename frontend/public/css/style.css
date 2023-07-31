@@ -699,9 +699,8 @@ form {
 
 
 .add_domain{
-    margin-left: -12px;
-    width: 728.5px;
-    height: 70px;
+    width: 100%;
+    min-height: 70px;
     border: none;
     outline: none !important;
 }
