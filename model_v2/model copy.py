@@ -179,7 +179,7 @@ for epoch in range(epochs):
 
     if valid_loss < best_valid_loss:
         best_valid_loss = valid_loss
-        torch.save(model.state_dict(), 'new_model_weights.pt')
+        torch.save(model.state_dict(), 'new_model_weights1.pt')
 
     train_losses.append(train_loss)
     valid_losses.append(valid_loss)
@@ -188,7 +188,7 @@ for epoch in range(epochs):
     print(f'Validation Loss: {valid_loss:.3f}')
 
 # Load the best model for evaluation
-model.load_state_dict(torch.load('new_model_weights.pt'))
+model.load_state_dict(torch.load('new_model_weights1.pt'))
 
 model.eval()
 with torch.no_grad():

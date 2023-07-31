@@ -74,7 +74,7 @@ albert_model_name = 'albert-base-v2'
 model = ALBERT_Arch(albert_model_name)
 
 # Load the pre-trained model weights
-model.load_state_dict(torch.load('new_model_weights.pt'))
+model.load_state_dict(torch.load('new_model_weights2.pt'))
 
 # print(predictText("The Straits Times is an English-language daily broadsheet newspaper based in Singapore and currently owned by SPH Media Trust. The Sunday Times is its Sunday edition. The newspaper was established on 15 July 1845 as The Straits Times and Singapore Journal of Commerce."))
 # here is where the actual api shit starts
