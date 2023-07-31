@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 from fastapi import FastAPI
 from pydantic import BaseModel
+from nltk.corpus import stopwords
 
 # importing the model from the saved weights
 class ALBERT_Arch(nn.Module):
@@ -25,7 +26,21 @@ class ALBERT_Arch(nn.Module):
         x = self.softmax(x)
         return x
 
+def preprocess_text(text):
+    stop_words = set(stopwords.words('english'))
+    # Convert text to lowercase
+    text = text.lower()
+    
+    # Remove stop words
+    words = text.split()
+    words = [word for word in words if word not in stop_words]
+    text = ' '.join(words)
+
+    return text
+
 def load_and_tokenize(albert_model_name, text, max_length=15):
+    text=preprocess_text(text)
+    # text = [preprocess_text(text) for text in texts]
     tokenizer = AlbertTokenizerFast.from_pretrained(albert_model_name)
     tokens = tokenizer.batch_encode_plus(
         [text],

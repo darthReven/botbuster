@@ -1,9 +1,7 @@
 # sentencepiece
 import numpy as np
 import pandas as pd
-# Use the PyTorch version of ALBERT
 from transformers import AlbertTokenizer, AlbertModel
-# from transformers import AlbertTokenizer, AlbertModel  # For PyTorch
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
@@ -11,6 +9,13 @@ from torch.utils.data import TensorDataset, DataLoader, RandomSampler, Sequentia
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import nltk
+
+# Download the English stop words (run this once)
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
 
 # Load Data
 true_data = pd.read_csv('true.csv')
@@ -53,42 +58,49 @@ tokenizer = AlbertTokenizer.from_pretrained(albert_model_name)
 
 MAX_LENGTH = 15
 
-tokens_train = tokenizer.batch_encode_plus(
-    train_text.tolist(),
-    max_length=MAX_LENGTH,
-    padding=True,
-    truncation=True
-)
+def preprocess_text(text):
+    # Convert text to lowercase
+    text = text.lower()
+    
+    # Remove stop words
+    words = text.split()
+    words = [word for word in words if word not in stop_words]
+    text = ' '.join(words)
 
-tokens_val = tokenizer.batch_encode_plus(
-    val_text.tolist(),
-    max_length=MAX_LENGTH,
-    padding=True,
-    truncation=True
-)
+    return text
 
-tokens_test = tokenizer.batch_encode_plus(
-    test_text.tolist(),
-    max_length=MAX_LENGTH,
-    padding=True,
-    truncation=True
-)
+def prepare_data(texts, labels):
+    # Preprocess the text data
+    texts = [preprocess_text(text) for text in texts]
+    
+    # Tokenize the preprocessed text
+    tokens = tokenizer.batch_encode_plus(
+        texts,
+        max_length=MAX_LENGTH,
+        padding=True,
+        truncation=True
+    )
 
-train_seq = np.array(tokens_train['input_ids'])
-train_mask = np.array(tokens_train['attention_mask'])
-train_y = np.array(train_labels.tolist())
+    # Convert to numpy arrays
+    seq = np.array(tokens['input_ids'])
+    mask = np.array(tokens['attention_mask'])
+    y = np.array(labels.tolist())
 
-val_seq = np.array(tokens_val['input_ids'])
-val_mask = np.array(tokens_val['attention_mask'])
-val_y = np.array(val_labels.tolist())
-
-test_seq = np.array(tokens_test['input_ids'])
-test_mask = np.array(tokens_test['attention_mask'])
-test_y = np.array(test_labels.tolist())
+    return seq, mask, y
 
 # Data Loader structure definition
 batch_size = 32
 
+# Prepare the training data
+train_seq, train_mask, train_y = prepare_data(train_text, train_labels)
+
+# Prepare the validation data
+val_seq, val_mask, val_y = prepare_data(val_text, val_labels)
+
+# Prepare the test data
+test_seq, test_mask, test_y = prepare_data(test_text, test_labels)
+
+# Create TensorDatasets and DataLoaders
 train_dataset = TensorDataset(torch.tensor(train_seq), torch.tensor(train_mask), torch.tensor(train_y))
 train_sampler = RandomSampler(train_dataset)
 train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=batch_size)
@@ -96,6 +108,10 @@ train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=b
 val_dataset = TensorDataset(torch.tensor(val_seq), torch.tensor(val_mask), torch.tensor(val_y))
 val_sampler = SequentialSampler(val_dataset)
 val_dataloader = DataLoader(val_dataset, sampler=val_sampler, batch_size=batch_size)
+
+test_dataset = TensorDataset(torch.tensor(test_seq), torch.tensor(test_mask), torch.tensor(test_y))
+test_sampler = SequentialSampler(test_dataset)
+test_dataloader = DataLoader(test_dataset, sampler=test_sampler, batch_size=batch_size)
 
 # Freezing the parameters and defining trainable ALBERT structure
 for param in albert.parameters():

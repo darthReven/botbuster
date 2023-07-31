@@ -1,23 +1,23 @@
 # run with py ./main.py
-from transformers import AutoModel, BertTokenizerFast
+from transformers import AlbertModel, AlbertTokenizerFast
 import torch
 import torch.nn as nn
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 # importing the model from the saved weights
-class BERT_Arch(nn.Module):
-    def __init__(self, bert_model_name):
-        super(BERT_Arch, self).__init__()
-        self.bert = AutoModel.from_pretrained(bert_model_name)
+class ALBERT_Arch(nn.Module):
+    def __init__(self, albert_model_name):
+        super(ALBERT_Arch, self).__init__()
+        self.albert = AlbertModel.from_pretrained(albert_model_name)
         self.dropout = nn.Dropout(0.1)
         self.relu = nn.ReLU()
-        self.fc1 = nn.Linear(768, 512)
+        self.fc1 = nn.Linear(768, 512)  # Adjust the input size to 768 for ALBERT
         self.fc2 = nn.Linear(512, 2)
         self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, sent_id, mask):
-        cls_hs = self.bert(sent_id, attention_mask=mask)['pooler_output']
+        cls_hs = self.albert(sent_id, attention_mask=mask)['pooler_output']
         x = self.fc1(cls_hs)
         x = self.relu(x)
         x = self.dropout(x)
@@ -25,8 +25,8 @@ class BERT_Arch(nn.Module):
         x = self.softmax(x)
         return x
 
-def load_and_tokenize(bert_model_name, text, max_length=15):
-    tokenizer = BertTokenizerFast.from_pretrained(bert_model_name)
+def load_and_tokenize(albert_model_name, text, max_length=15):
+    tokenizer = AlbertTokenizerFast.from_pretrained(albert_model_name)
     tokens = tokenizer.batch_encode_plus(
         [text],
         max_length=max_length,
@@ -39,7 +39,7 @@ def load_and_tokenize(bert_model_name, text, max_length=15):
 
     return seq, mask
 
-def predict_text(bert_model_name, model, seq, mask, device="cpu"):
+def predict_text(albert_model_name, model, seq, mask, device="cpu"):
     model.to(device)
     model.eval()
 
@@ -51,12 +51,12 @@ def predict_text(bert_model_name, model, seq, mask, device="cpu"):
 
 # Function to predict whether the text is fake or real
 def predictText(text):
-    seq, mask = load_and_tokenize(bert_model_name, text)
-    prediction = predict_text(bert_model_name, model, seq, mask)
+    seq, mask = load_and_tokenize(albert_model_name, text)
+    prediction = predict_text(albert_model_name, model, seq, mask)
     return prediction
 
-bert_model_name = 'bert-base-uncased'
-model = BERT_Arch(bert_model_name)
+albert_model_name = 'albert-base-v2'
+model = ALBERT_Arch(albert_model_name)
 
 # Load the pre-trained model weights
 model.load_state_dict(torch.load('new_model_weights.pt'))
