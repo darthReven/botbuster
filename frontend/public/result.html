@@ -161,9 +161,7 @@ function clickRefresh() {
             list_of_apis: JSON.parse(localStorage.getItem("api-used")), 
             text: ""
         };
-
         data["text"] = list_of_text[index][0]
-
         $.ajax({
             url: "http://127.0.0.1:8000/checktext/new",
             type: "POST",

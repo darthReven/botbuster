@@ -3,26 +3,62 @@
         "documents": [
             {
                 "average_generated_prob": 0,
-                "completely_generated_prob": 0.0003030236985068768,
-                "overall_burstiness": 76.3675308227539,
+                "completely_generated_prob": 0.0028409166261553764,
+                "overall_burstiness": 438.747802734375,
                 "paragraphs": [
                     {
-                        "completely_generated_prob": 0.02318840472169716,
-                        "num_sentences": 2,
+                        "completely_generated_prob": 3.0024051513069735e-07,
+                        "num_sentences": 8,
                         "start_sentence_index": 0
                     }
                 ],
                 "sentences": [
                     {
                         "generated_prob": 0,
-                        "perplexity": 60,
-                        "sentence": "But Trump repeats these lies because he knows his supporters will believe them without bothering to Google.",
+                        "perplexity": 1429,
+                        "sentence": "Waterway point ada banyak restoran di sana seperti swensens,pastamania dan jollibee.",
                         "highlight_sentence_for_ai": false
                     },
                     {
                         "generated_prob": 0,
-                        "perplexity": 168,
-                        "sentence": "It s still a lie, though.Photo by Zach Gibson   Pool/Getty Images.",
+                        "perplexity": 1629,
+                        "sentence": "Pusat membeli-belah itu juga sangat besar.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 549,
+                        "sentence": "Setiap minggu hari ahad, saya dan ibu saya selalu makan sarapan di ya kun di waterwaypoint.Qn : Describe a family member:Ayah saya seorang doktor di hospital Tan Tock Seng.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 965,
+                        "sentence": "Dia tinggi dan besar.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 1046,
+                        "sentence": "Dia suka memasak untuk keluarga walaupun sibuk dengan kerja.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 511,
+                        "sentence": "Saya dan adik-adik saya suka bila ayah memasak ayam briyani.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 931,
+                        "sentence": "Dia suka berjoging di taman berdekat rumah.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 406,
+                        "sentence": "Ayah saya kadang-kadang balik rumah lewat.",
                         "highlight_sentence_for_ai": false
                     }
                 ],
@@ -36,48 +72,41 @@
     "Writer": [
         {
             "label": "real",
-            "score": 0.9883248805999756
+            "score": 0.9940284490585327
         },
         {
             "label": "fake",
-            "score": 0.011675179935991764
+            "score": 0.005971572361886501
         }
     ],
     "Sapling AI": {
-        "score": 0.32359902446086586,
-        "sentence_scores": [
-            {
-                "score": 0.0012975056245744243,
-                "sentence": "But Trump repeats these lies because he knows his supporters will believe them without bothering to Google."
-            },
-            {
-                "score": 0.0,
-                "sentence": "It s still a lie, though.Photo by Zach Gibson   Pool/Getty Images."
-            }
-        ],
-        "text": "But Trump repeats these lies because he knows his supporters will believe them without bothering to Google. It s still a lie, though.Photo by Zach Gibson   Pool/Getty Images."
+        "msg": "API key or subscription expired. Please contact support@sapling.ai with questions / subscribe here: https://sapling.ai/docs/api/pricing/"
     },
     "Hugging Face": {
         "data": [
             [
                 {
-                    "Real": 0.9705721139907837,
-                    "Fake": 0.02942788600921631
+                    "Real": 0.9885421991348267,
+                    "Fake": 0.01145780086517334
                 },
                 [
                     [
-                        0.9705721139907837,
-                        174
+                        0.9885421991348267,
+                        531
                     ]
                 ]
             ]
         ],
         "is_generating": false,
-        "duration": 0.2101895809173584,
-        "average_duration": 1.3020569331178977
+        "duration": 0.29256463050842285,
+        "average_duration": 1.3619160618537116
     },
     "In-house Model": {
-        "prediction": 0.03600957371631133
+        "prediction": 0.0912662417060249
     },
-    "Moderate Hate Speech": "Error Detecting"
+    "Moderate Hate Speech": {
+        "response": "Success",
+        "class": "normal",
+        "confidence": "0.9997088313102722"
+    }
 }
