@@ -283,7 +283,7 @@ function clickRefresh() {
             }
             api_averages.push(`<span class='${colour_class}'>${api_and_score[0]}: ${api_and_score[1]}</span>`)
         }
-        $(`#hover_box_${api_category.replace(/\s/g, '-')}`).html(api_averages.join('<br>'))
+        $(`#hover_box_${api_category.replace(/\s/g, '-')}`).html(`${results["1"]["general_score"][api_category]["description"]}<br><br>` + api_averages.join('<br>'))
       }
       $("body").append(hoverable_boxes)
       clickRefresh()
