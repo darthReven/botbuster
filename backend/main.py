@@ -20,7 +20,6 @@ python-multipart ** for form data (even though not imported)
 from fastapi import FastAPI, HTTPException, Response, status, UploadFile, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import BackgroundTasks
-from bleach.sanitizer import Cleaner
 from PyPDF2 import PdfReader
 from urllib.parse import urlparse
 from PIL import Image
