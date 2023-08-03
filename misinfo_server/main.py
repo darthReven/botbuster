@@ -54,7 +54,7 @@ def load_and_tokenize(albert_model_name, text, max_length=15):
 
     return seq, mask
 
-def predict_text(albert_model_name, model, seq, mask, device="cpu"):
+def predict_text(model, seq, mask, device="cpu"):
     model.to(device)
     model.eval()
 
@@ -67,7 +67,7 @@ def predict_text(albert_model_name, model, seq, mask, device="cpu"):
 # Function to predict whether the text is fake or real
 def predictText(text):
     seq, mask = load_and_tokenize(albert_model_name, text)
-    prediction = predict_text(albert_model_name, model, seq, mask)
+    prediction = predict_text(model, seq, mask)
     return prediction
 
 # load the model

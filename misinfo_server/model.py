@@ -25,13 +25,11 @@ fake_data = pd.read_csv('fake.csv')
 true_data['Target'] = ['True'] * len(true_data)
 fake_data['Target'] = ['Fake'] * len(fake_data)
 
-# Merge 'true_data' and 'fake_data', by random mixing into a single df called 'data'
+# Merge 'true_data' and 'fake_data', by random mixing into a single data file
 data = pd.concat([true_data, fake_data], ignore_index=True)
 data = shuffle(data).reset_index(drop=True)
 
-# sample some data from the dataset to reduce training time for now can remove ltr i think
-# data = data.sample(n=15000, random_state=42)
-# Target column is made of string values True/Fake, let's change it to numbers 0/1 (Fake=1)
+# changing labels to numbers 0/1 (Fake=1)
 data['label'] = pd.get_dummies(data.Target)['Fake']
 
 # Train-Validation-Test set split into 70:15:15 ratio
@@ -61,18 +59,15 @@ MAX_LENGTH = 15
 def preprocess_text(text):
     # Convert text to lowercase
     text = text.lower()
-    
     # Remove stop words
     words = text.split()
     words = [word for word in words if word not in stop_words]
     text = ' '.join(words)
-
     return text
 
 def prepare_data(texts, labels):
     # Preprocess the text data
     texts = [preprocess_text(text) for text in texts]
-    
     # Tokenize the preprocessed text
     tokens = tokenizer.batch_encode_plus(
         texts,
@@ -80,23 +75,20 @@ def prepare_data(texts, labels):
         padding=True,
         truncation=True
     )
-
     # Convert to numpy arrays
     seq = np.array(tokens['input_ids'])
     mask = np.array(tokens['attention_mask'])
-    y = np.array(labels.tolist())
+    labelz = np.array(labels.tolist())
 
-    return seq, mask, y
+    return seq, mask, labelz
 
 # Data Loader structure definition
 batch_size = 32
 
 # Prepare the training data
 train_seq, train_mask, train_y = prepare_data(train_text, train_labels)
-
 # Prepare the validation data
 val_seq, val_mask, val_y = prepare_data(val_text, val_labels)
-
 # Prepare the test data
 test_seq, test_mask, test_y = prepare_data(test_text, test_labels)
 
