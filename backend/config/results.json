@@ -3,20 +3,32 @@
         "documents": [
             {
                 "average_generated_prob": 0,
-                "completely_generated_prob": 0.00036426642327569425,
-                "overall_burstiness": 0,
+                "completely_generated_prob": 0.02357984334230423,
+                "overall_burstiness": 36.692413330078125,
                 "paragraphs": [
                     {
-                        "completely_generated_prob": 0.11111110864197533,
-                        "num_sentences": 1,
+                        "completely_generated_prob": 0.00408719312638748,
+                        "num_sentences": 3,
                         "start_sentence_index": 0
                     }
                 ],
                 "sentences": [
                     {
                         "generated_prob": 0,
-                        "perplexity": 63,
-                        "sentence": "The list of eligible candidates will be unveiled a few days before Nomination Day when the PEC announces who has successfully obtained a certificate\u00a0of\u00a0eligibility.",
+                        "perplexity": 31,
+                        "sentence": "Snyk is a Boston-based cybersecurity company specializing in cloud computing.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 74,
+                        "sentence": "It was founded in 2015 out of London and Tel Aviv with headquarters in Boston.",
+                        "highlight_sentence_for_ai": false
+                    },
+                    {
+                        "generated_prob": 0,
+                        "perplexity": 1,
+                        "sentence": "Wikipedia",
                         "highlight_sentence_for_ai": false
                     }
                 ],
@@ -45,27 +57,27 @@
         "data": [
             [
                 {
-                    "Real": 0.9933748841285706,
-                    "Fake": 0.006625115871429443
+                    "Real": 0.9952431321144104,
+                    "Fake": 0.0047568678855896
                 },
                 [
                     [
-                        0.9933748841285706,
-                        164
+                        0.9952431321144104,
+                        166
                     ]
                 ]
             ]
         ],
         "is_generating": false,
-        "duration": 0.07707953453063965,
-        "average_duration": 1.2944233122958144
+        "duration": 0.06040477752685547,
+        "average_duration": 1.2949692068466354
     },
     "In-house Model": {
-        "prediction": 0.9889171123504639
+        "prediction": 0.7192708253860474
     },
     "Moderate Hate Speech": {
         "response": "Success",
         "class": "normal",
-        "confidence": "0.9999336004257202"
+        "confidence": "0.9999470710754395"
     }
 }
