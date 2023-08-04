@@ -3,62 +3,32 @@
         "documents": [
             {
                 "average_generated_prob": 0,
-                "completely_generated_prob": 0.0028409166261553764,
-                "overall_burstiness": 438.747802734375,
+                "completely_generated_prob": 0.02357984334230423,
+                "overall_burstiness": 36.692413330078125,
                 "paragraphs": [
                     {
-                        "completely_generated_prob": 3.0024051513069735e-07,
-                        "num_sentences": 8,
+                        "completely_generated_prob": 0.00408719312638748,
+                        "num_sentences": 3,
                         "start_sentence_index": 0
                     }
                 ],
                 "sentences": [
                     {
                         "generated_prob": 0,
-                        "perplexity": 1429,
-                        "sentence": "Waterway point ada banyak restoran di sana seperti swensens,pastamania dan jollibee.",
+                        "perplexity": 31,
+                        "sentence": "Snyk is a Boston-based cybersecurity company specializing in cloud computing.",
                         "highlight_sentence_for_ai": false
                     },
                     {
                         "generated_prob": 0,
-                        "perplexity": 1629,
-                        "sentence": "Pusat membeli-belah itu juga sangat besar.",
+                        "perplexity": 74,
+                        "sentence": "It was founded in 2015 out of London and Tel Aviv with headquarters in Boston.",
                         "highlight_sentence_for_ai": false
                     },
                     {
                         "generated_prob": 0,
-                        "perplexity": 549,
-                        "sentence": "Setiap minggu hari ahad, saya dan ibu saya selalu makan sarapan di ya kun di waterwaypoint.Qn : Describe a family member:Ayah saya seorang doktor di hospital Tan Tock Seng.",
-                        "highlight_sentence_for_ai": false
-                    },
-                    {
-                        "generated_prob": 0,
-                        "perplexity": 965,
-                        "sentence": "Dia tinggi dan besar.",
-                        "highlight_sentence_for_ai": false
-                    },
-                    {
-                        "generated_prob": 0,
-                        "perplexity": 1046,
-                        "sentence": "Dia suka memasak untuk keluarga walaupun sibuk dengan kerja.",
-                        "highlight_sentence_for_ai": false
-                    },
-                    {
-                        "generated_prob": 0,
-                        "perplexity": 511,
-                        "sentence": "Saya dan adik-adik saya suka bila ayah memasak ayam briyani.",
-                        "highlight_sentence_for_ai": false
-                    },
-                    {
-                        "generated_prob": 0,
-                        "perplexity": 931,
-                        "sentence": "Dia suka berjoging di taman berdekat rumah.",
-                        "highlight_sentence_for_ai": false
-                    },
-                    {
-                        "generated_prob": 0,
-                        "perplexity": 406,
-                        "sentence": "Ayah saya kadang-kadang balik rumah lewat.",
+                        "perplexity": 1,
+                        "sentence": "Wikipedia",
                         "highlight_sentence_for_ai": false
                     }
                 ],
@@ -69,16 +39,17 @@
         ],
         "version": "2023-07-19"
     },
-    "Writer": [
-        {
-            "label": "real",
-            "score": 0.9940284490585327
-        },
-        {
-            "label": "fake",
-            "score": 0.005971572361886501
-        }
-    ],
+    "Writer": {
+        "tpe": "fail.permission",
+        "errors": [
+            {
+                "description": "Permission fail",
+                "key": "fail.permission.generic",
+                "extras": null
+            }
+        ],
+        "extras": null
+    },
     "Sapling AI": {
         "msg": "API key or subscription expired. Please contact support@sapling.ai with questions / subscribe here: https://sapling.ai/docs/api/pricing/"
     },
@@ -86,27 +57,27 @@
         "data": [
             [
                 {
-                    "Real": 0.9885421991348267,
-                    "Fake": 0.01145780086517334
+                    "Real": 0.9952431321144104,
+                    "Fake": 0.0047568678855896
                 },
                 [
                     [
-                        0.9885421991348267,
-                        531
+                        0.9952431321144104,
+                        166
                     ]
                 ]
             ]
         ],
         "is_generating": false,
-        "duration": 0.29256463050842285,
-        "average_duration": 1.3619160618537116
+        "duration": 0.06040477752685547,
+        "average_duration": 1.2949692068466354
     },
     "In-house Model": {
-        "prediction": 0.0912662417060249
+        "prediction": 0.7192708253860474
     },
     "Moderate Hate Speech": {
         "response": "Success",
         "class": "normal",
-        "confidence": "0.9997088313102722"
+        "confidence": "0.9999470710754395"
     }
 }
