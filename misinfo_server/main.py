@@ -5,6 +5,7 @@ import torch.nn as nn
 from fastapi import FastAPI
 from pydantic import BaseModel
 from nltk.corpus import stopwords
+import os
 
 # importing the model from the saved weights
 class ALBERT_Arch(nn.Module):
@@ -74,6 +75,7 @@ def predictText(text):
 albert_model_name = 'albert-base-v2'
 model = ALBERT_Arch(albert_model_name)
 # Load the pre-trained model weights
+os.chdir('./model')
 model.load_state_dict(torch.load('model_weights.pt'))
 
 

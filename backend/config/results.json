@@ -2,39 +2,27 @@
     "GPTZero": {
         "documents": [
             {
-                "average_generated_prob": 1,
-                "completely_generated_prob": 0.000277303479379043,
-                "overall_burstiness": 9.451631546020508,
+                "average_generated_prob": 0,
+                "completely_generated_prob": 0.00036426642327569425,
+                "overall_burstiness": 0,
                 "paragraphs": [
                     {
-                        "completely_generated_prob": 0.850090677245877,
-                        "num_sentences": 3,
+                        "completely_generated_prob": 0.11111110864197533,
+                        "num_sentences": 1,
                         "start_sentence_index": 0
                     }
                 ],
                 "sentences": [
                     {
-                        "generated_prob": 1,
-                        "perplexity": 29,
-                        "sentence": "Mission: Impossible - Dead Reckoning Part One premiered on the Spanish Steps in Rome on June 19, 2023, and was theatrically released in the United States on July 12, 2023, by Paramount Pictures.",
-                        "highlight_sentence_for_ai": true
-                    },
-                    {
-                        "generated_prob": 1,
-                        "perplexity": 15,
-                        "sentence": "It has received widespread acclaim from audiences and critics alike[6][7][8][9] and has grossed $451 million worldwide.",
-                        "highlight_sentence_for_ai": true
-                    },
-                    {
-                        "generated_prob": 1,
-                        "perplexity": 33,
-                        "sentence": "A direct sequel, Dead Reckoning Part Two, is set to be released on June 28, 2024.",
-                        "highlight_sentence_for_ai": true
+                        "generated_prob": 0,
+                        "perplexity": 63,
+                        "sentence": "The list of eligible candidates will be unveiled a few days before Nomination Day when the PEC announces who has successfully obtained a certificate\u00a0of\u00a0eligibility.",
+                        "highlight_sentence_for_ai": false
                     }
                 ],
-                "result_message": "Your text may include parts written by AI",
+                "result_message": "Your text is likely to be written entirely by a human",
                 "result_sub_message": "",
-                "document_classification": "MIXED"
+                "document_classification": "HUMAN_ONLY"
             }
         ],
         "version": "2023-07-19"
@@ -57,27 +45,27 @@
         "data": [
             [
                 {
-                    "Real": 0.4700789749622345,
-                    "Fake": 0.5299210250377655
+                    "Real": 0.9933748841285706,
+                    "Fake": 0.006625115871429443
                 },
                 [
                     [
-                        0.4700789749622345,
-                        396
+                        0.9933748841285706,
+                        164
                     ]
                 ]
             ]
         ],
         "is_generating": false,
-        "duration": 0.1697690486907959,
-        "average_duration": 1.3071723830129978
+        "duration": 0.07707953453063965,
+        "average_duration": 1.2944233122958144
     },
     "In-house Model": {
-        "prediction": 0.7627618908882141
+        "prediction": 0.9889171123504639
     },
     "Moderate Hate Speech": {
         "response": "Success",
         "class": "normal",
-        "confidence": "0.9999480247497559"
+        "confidence": "0.9999336004257202"
     }
 }
