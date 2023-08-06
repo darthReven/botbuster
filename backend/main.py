@@ -1,21 +1,3 @@
-"""
-MAIN CODE FOR FINAL YEAR PROJECT BOTBUSTER
-
-install uvicorn, fastapi
-
-in command prompt, run "uvicorn main:botbuster --reload"
-
-libaries needed:
-uvicorn
-fastapi
-asyncio
-pyppeteer
-re
-json
-base64
-python-multipart ** for form data (even though not imported)
-"""
-
 # importing libraries
 from fastapi import FastAPI, HTTPException, Response, status, UploadFile, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,7 +24,7 @@ import model.web_scrapers as ws
 import model.graph as graph
 import model.gauge as gauge
 import model.text as text_utils
-import model.validationFns as validation
+import model.validation as validation
 
 # Initialising constants 
 # setting file paths for configuration files
