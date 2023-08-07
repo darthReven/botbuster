@@ -213,10 +213,10 @@ def check_text(request: ds.check_text):
                 scores["overall_score"][api_category]["average_score"] = round(api_category_total_score/api_count, 1)
         except:
             scores["overall_score"][api_category][api] = "score not calculated"
-    with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
-        results_file.write(json.dumps(full_results, indent=4))
-    with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file
-        score_data_file.write(json.dumps(scores, indent=4))
+    # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
+    #     results_file.write(json.dumps(full_results, indent=4))
+    # with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file
+    #     score_data_file.write(json.dumps(scores, indent=4))
     graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
     gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()
@@ -376,11 +376,11 @@ def check_text(request: ds.check_text):
                 overall_scores[api_category]["average_score"] = round(api_category_total_score/api_count, 1)
     except:
         overall_scores[api_category][api] = "score not calculated"
-    with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
-        results_file.write(json.dumps(full_results, indent=4))
-    with open(r"config\score.json", "w") as scores_file: # load in API data from api file
-        scores["overall_score"] = overall_scores
-        scores_file.write(json.dumps(scores, indent=4))
+    # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
+    #     results_file.write(json.dumps(full_results, indent=4))
+    # with open(r"config\score.json", "w") as scores_file: # load in API data from api file
+    #     scores["overall_score"] = overall_scores
+    #     scores_file.write(json.dumps(scores, indent=4))
     #graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
     #gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     end = time.perf_counter()

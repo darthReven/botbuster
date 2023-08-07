@@ -38,29 +38,20 @@ def chunk(text:str, chunk_option, threshold:int  = 2000):
 
     def process_chunks(chunks_to_process):
         nonlocal current_chunk, total_chars
-        # avg_chunk_size = len(text) / max(len(chunks_to_process), 1) # not needed
-
         for chunk in chunks_to_process:
             chunk_length = len(chunk)
-            # Determines if length of current chunk exceeds threshold
-            if total_chars + chunk_length > threshold:
-                # Register current chunk to the list of chunks before starting a new chunk with the current sentence
-                chunks.append([' '.join(current_chunk)])
+            if total_chars + chunk_length > threshold: # Determines if length of current chunk exceeds threshold
+                chunks.append([' '.join(current_chunk)]) # Register current chunk to the list of chunks before starting a new chunk with the current sentence
                 current_chunk = [chunk]
                 total_chars = 0 
-
-            else:
-                # Append sentence to current chunk if total character length is less than or equal to 1500
+            else: # Append sentence to current chunk if total character length is less than or equal to 1500
                 current_chunk.append(chunk)
                 total_chars += chunk_length
-              
-        # Append last chunk to list of chunks
-        if current_chunk:
+        if current_chunk: # Append last chunk to list of chunks
             if chunk_option == 'paragraphs':
                 chunks.append([' '.join(current_chunk)])
                 current_chunk = []
                 total_chars = 0
-
             else:
                 chunks.append(current_chunk)
 

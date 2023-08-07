@@ -170,6 +170,24 @@
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
+                                <div class="form-row mb-3">
+                                  <label for="validationCustom01">Body Key</label>
+                                  <input type="text" class="form-control" id="validationCustom01" placeholder="text" required>
+                                  <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">Data Type</label>
+                                <input type="text" class="form-control" name="product" placeholder="Data Type" list="data_types" required>
+                                <datalist id="data_types">
+                                  <option value="string">String</option>
+                                  <option value="list">List</option>
+                                </datalist>                                
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
                               </div>
                               <div class="form-row mb-3">
                                 <label for="validationCustom01">Header</label>
@@ -181,6 +199,20 @@
                               <div class="form-row mb-3">
                                 <label for="validationCustom01">Body</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder='{&#10"text": "Input Text"&#10}' required></textarea>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">Path to General Score</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1"placeholder='GPTZero.num.documents.0.completely_generated_prob' required></textarea>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                              <div class="form-row mb-3">
+                                <label for="validationCustom01">path_to_sentence_score</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder='[&#10"GPTZero.num.documents.0.sentences",&#10"generated_prob"&#10]' required></textarea>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>

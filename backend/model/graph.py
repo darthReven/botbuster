@@ -12,7 +12,7 @@ def generate_graph(data):
         category_list.append(api_category)
         category_score_list.append({})
         for key in data[api_category]:
-            if key != "average_score":
+            if key == "average_score":
                 continue
             score = data[api_category][key]
             category_score_list[i][key] = score
