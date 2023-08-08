@@ -118,7 +118,6 @@ function clickRefresh() {
 
     // Function to handle the click event
     function onClick(e, i) {
-        console.log(i);
         infobox[i].classList.toggle('display_info');
         infobox[i].style.left = e.pageX + 'px';
         infobox[i].style.top = e.pageY + 'px';
@@ -156,7 +155,6 @@ function clickRefresh() {
             // All requests have been processed, exit recursion.
             return;
         }
-
         var data = {
             list_of_apis: JSON.parse(localStorage.getItem("api-used")), 
             text: ""
@@ -171,8 +169,9 @@ function clickRefresh() {
             success: function (data, textStatus, xhr) {
                 display_results(data, index, api_info);
                 $('#loading').hide(); // Hide loading
-
                 // Make the next request recursively
+                console.log(data)
+                console.log(index + 1)
                 updateProgress(list_of_text.length, index + 1)
                 makeSequentialRequests(index + 1, list_of_text, api_info);
             },
@@ -191,6 +190,8 @@ function clickRefresh() {
       response_num = String(request + 1)
         textCollection = []
         // Sentence Highlighting
+      console.log(response_num)
+      console.log(results[response_num]["general_score"])
       for (const category in results[response_num]["general_score"]) {  
         for (let i = 0; i < results[response_num]["sentence_score"].length; i++) {
           var sentence = Object.keys(results[response_num]["sentence_score"][i])
@@ -255,7 +256,6 @@ function clickRefresh() {
         // For each category
         if (api_category == "sentence_data") {continue}
         for (api of Object.keys(api_info[api_category])) {
-            console.log(api)
           if (api == "description" || api == "score_type") {continue}
           let result_sidebar_element = document.getElementById(`${api_info[api_category][api][0]}_result`)
           result_sidebar_element.textContent = results["overall_score"][api_category][api]
@@ -269,7 +269,6 @@ function clickRefresh() {
 
         // Changing the average for each category
         api_averages = []
-        console.log(results)
         for (let i = 0; i < Object.entries(results["overall_score"][api_category]).length - 1; i++) {
             api_and_score = Object.entries(results["overall_score"][api_category])[i]
             if(api_and_score[1] >= 80) {

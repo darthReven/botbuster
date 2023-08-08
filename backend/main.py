@@ -69,22 +69,21 @@ def split_text(request: ds.split_text):
 # calling apis to check the text
 @botbuster.post("/checktext/new") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
-    start = time.perf_counter()
     decoded_req=validation.decode(request.dict())# decode the encoded text
     list_of_apis = decoded_req["list_of_apis"]
     text = decoded_req["text"]
     # validate text
     if(validation.check_text(text)==False):
         raise HTTPException(status_code=400, detail="Bad Request")
-    # list_of_apis = request.dict()["list_of_apis"]
-    # text = request.dict()["text"]
+    list_of_apis = request.dict()["list_of_apis"]
+    text = request.dict()["text"]
     with open(SCORE_FILE_PATH, "r") as score_data_file: # load in config data from config file
         scores = json.load(score_data_file)
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
     total_score = {api_category:{} for api, api_category in list_of_apis} # store score of each API before taking the average
     num_sentences = text_utils.chunk_size(text)
     request_num = len(scores)
-    print(f"Request No.: {request_num}")
+    # print(f"Request No.: {request_num}")
     scores["overall_score"]["sentence_data"][request_num] = num_sentences
     scores["overall_score"]["sentence_data"]["total_num_sentences"] += num_sentences
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
@@ -224,18 +223,15 @@ def check_text(request: ds.check_text):
             scores["overall_score"][api_category][api] = "score not calculated"
     # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
     #     results_file.write(json.dumps(full_results, indent=4))
-    # with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file
-    #     score_data_file.write(json.dumps(scores, indent=4))
+    with open(SCORE_FILE_PATH, "w") as score_data_file: # load in API data from api file
+        score_data_file.write(json.dumps(scores, indent=4))
     graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
     gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
-    end = time.perf_counter()
-    # print(end - start)
     return validation.sanitise(scores)
 
 # calling apis to check the text
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
-    start = time.perf_counter()
     decoded_req=validation.decode(request.dict())
     list_of_apis = decoded_req["list_of_apis"]
     full_text = decoded_req["text"]
@@ -388,13 +384,11 @@ def check_text(request: ds.check_text):
         overall_scores[api_category][api] = "score not calculated"
     # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
     #     results_file.write(json.dumps(full_results, indent=4))
-    # with open(r"config\score.json", "w") as scores_file: # load in API data from api file
-    #     scores["overall_score"] = overall_scores
-    #     scores_file.write(json.dumps(scores, indent=4))
-    #graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
-    #gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
-    end = time.perf_counter()
-    # print(end - start)
+    with open(r"config\score.json", "w") as scores_file: # load in API data from api file
+        scores["overall_score"] = overall_scores
+        scores_file.write(json.dumps(scores, indent=4))
+    graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
+    gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     scores["overall_score"] = overall_scores
     return validation.sanitise(scores)
 
@@ -443,12 +437,9 @@ def add_api(request: ds.add_api, response: Response):
 async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
     page_url = request.dict()["page_url"]
     if not validation.is_valid_url(page_url):
-        print("invalid url detected")
         raise HTTPException(status_code=400, detail="Bad Request")
-
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
-    
     website_name = urlparse(page_url).netloc
     scraping_data = website_configs.get(website_name, website_configs["default"])
 

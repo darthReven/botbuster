@@ -84,7 +84,6 @@
           }
         }
       }
-      console.log(JSON.stringify(data))
 			data["text"] = document.getElementById("text-area").value;
       localStorage.setItem("api-used", JSON.stringify(data["list_of_apis"]))
 			$.ajax({
@@ -97,7 +96,7 @@
           $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
 					localStorage.setItem("text", JSON.stringify(data))
-					// window.location.href='result.html'
+					window.location.href='result.html'
 				},
 				error: function(xhr, textStunlatus, err) {
           $('#loading').hide(); // Hide loading
