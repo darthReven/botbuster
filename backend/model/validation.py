@@ -7,7 +7,7 @@ def sanitise(data):
     elif isinstance(data, list):
         return [sanitise(item) for item in data]
     elif isinstance(data, str):
-        return html.escape(data)
+        return html.escape(data)  # Escape the string
     else:
         return data
 
@@ -22,8 +22,7 @@ def decode(data):
     else:
         return data
     
-# if(validation.is_valid_url(page_url)==False):
-#         raise HTTPException (status_code = 400, detail = "Invalid Input!")
+
 def is_valid_url(url_string):
     url_pattern = r"^(https?):\/\/[^\s/$.?#].[^\s]*$"
     return bool(re.match(url_pattern, url_string))
@@ -54,6 +53,21 @@ def check_add_api(api):
     except KeyError:
         return False
     
+def check_text(text):
+    if not isinstance(text, str):
+        return False
+    return bool(text.strip())
 
-def check_webscraper_settings(data):
+# web scraper setings validation funcs
+def check_elements(elements):
+    # loop through elements, check if they match the regex
+    compound_selector_pattern = r"^(?:[a-zA-Z_][\w-]*\.)+[a-zA-Z_][\w-]*$|^([a-zA-Z_][\w-]*)$"
+    return bool(re.match(compound_selector_pattern, elements))
+    pass
+
+
+def check_domain(domain):
+    # check if the regex matches the domain
+    domain_name_pattern = r"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$"
+    return bool(re.match(domain_name_pattern, domain))
     pass

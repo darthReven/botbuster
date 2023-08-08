@@ -6,6 +6,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from nltk.corpus import stopwords
 import os
+import nltk
+
+# Download the English stop words (run this once)
+nltk.download('stopwords')
 
 # importing the model from the saved weights
 class ALBERT_Arch(nn.Module):

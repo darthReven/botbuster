@@ -96,20 +96,29 @@ def get_chrome_path():
         for chrome_path in directories:
             if os.path.isfile(chrome_path):
                 return chrome_path
-    return None
+    return False
 
 # calling the scraper
 async def scraper(elements,settings, page_url):
     chrome_path = get_chrome_path()
     cookies = os.path.join(os.getcwd(), 'scraper_cookies')
-    browser = await launch(
+    if(chrome_path==False):
+        browser = await launch(
         headless=False,
         handleSIGINT=False,
         handleSIGTERM=False,
         handleSIGHUP=False,
-        executablePath=chrome_path,
         userDataDir=cookies
-    )
+        )
+    else:
+        browser = await launch(
+            headless=False,
+            handleSIGINT=False,
+            handleSIGTERM=False,
+            handleSIGHUP=False,
+            executablePath=chrome_path,
+            userDataDir=cookies
+        )
     page = await browser.newPage()
     await page.goto(page_url)
 

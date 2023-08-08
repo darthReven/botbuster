@@ -52,6 +52,9 @@ botbuster.add_middleware(
 def split_text(request: ds.split_text):
     list_of_apis = request.dict()["list_of_apis"]
     full_text = request.dict()["text"]
+    # validating full_text
+    if(validation.check_text(full_text)==False):
+        raise HTTPException(status_code=400, detail="Bad Request")
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])
@@ -67,8 +70,14 @@ def split_text(request: ds.split_text):
 @botbuster.post("/checktext/new") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
     start = time.perf_counter()
-    list_of_apis = request.dict()["list_of_apis"]
-    text = request.dict()["text"]
+    decoded_req=validation.decode(request.dict())# decode the encoded text
+    list_of_apis = decoded_req["list_of_apis"]
+    text = decoded_req["text"]
+    # validate text
+    if(validation.check_text(text)==False):
+        raise HTTPException(status_code=400, detail="Bad Request")
+    # list_of_apis = request.dict()["list_of_apis"]
+    # text = request.dict()["text"]
     with open(SCORE_FILE_PATH, "r") as score_data_file: # load in config data from config file
         scores = json.load(score_data_file)
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
@@ -227,8 +236,9 @@ def check_text(request: ds.check_text):
 @botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
     start = time.perf_counter()
-    list_of_apis = request.dict()["list_of_apis"]
-    full_text = request.dict()["text"]
+    decoded_req=validation.decode(request.dict())
+    list_of_apis = decoded_req["list_of_apis"]
+    full_text = decoded_req["text"]
     full_results = {api : {} for api, api_category in list_of_apis} # create dictionary to store all results
     scores = {} # create dictionary to store all scores
     overall_scores = {api_category: {} for api, api_category in list_of_apis}
@@ -451,7 +461,7 @@ async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTask
     else: 
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-    return items
+    return validation.sanitise(items)
 
 
 # get website scraping configurations
@@ -541,5 +551,5 @@ def extract_text(file: UploadFile):
         
     finally:
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
-    # return validation.santise(text)
-    return text
+    return validation.sanitise(text)
+    # return text
