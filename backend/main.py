@@ -29,6 +29,7 @@ import model.validation as validation
 # Initialising constants 
 # setting file paths for configuration files
 CONFIG_FILE_PATH = r"config\config.json"
+TEMP_FILE_PATH = r"config\temp.json"
 API_FILE_PATH = r"config\api.json"
 RESULTS_FILE_PATH = r"config\results.json"
 SCORE_FILE_PATH = r"config\scores.json"
@@ -468,9 +469,8 @@ async def get_webscraper_settings():
 async def update_config(website_configs: dict):
     # try:
         # save the updated configuration to the config.json file
-        with open(CONFIG_FILE_PATH, "r") as f:
+        with open(TEMP_FILE_PATH, "r") as f:
             config_data = json.load(f)
-            
         # update the existing config file with the new data
         for key, value in website_configs.items():
             for website_url in config_data[key].keys():
@@ -478,9 +478,8 @@ async def update_config(website_configs: dict):
             for website_url in value:
                 if website_url not in config_data[key]:
                     config_data[key][website_url] = {"elements": value[website_url], "settings": ["",50],"func": "sms"}
-                    
             # save the updated configuration to the config.json file
-            with open(CONFIG_FILE_PATH, "w") as f:
+            with open(TEMP_FILE_PATH, "w") as f:
                 json.dump(config_data, f, indent=3)
 
 #append new elements that user enters 
@@ -489,14 +488,21 @@ async def update_elements(request: Request):
     data = await request.json()
     website = data.get("website")
     new_element = data.get("newElement")
-    with open(CONFIG_FILE_PATH, "r") as f:
+    with open(TEMP_FILE_PATH, "r") as f:
         config_data = json.load(f)    
     if website in config_data["website_configs"]:
         config_data["website_configs"][website]["elements"].append(new_element)
-    with open(CONFIG_FILE_PATH, "w") as f:
+    with open(TEMP_FILE_PATH, "w") as f:
             json.dump(config_data, f, indent=3)
 
-    
+# save the user's changes
+@botbuster.get("/webscraper/temp_config")
+def changeFile():
+    with open(TEMP_FILE_PATH, "r") as f:
+        contents = f.read()
+    with open(CONFIG_FILE_PATH, "w") as f: #writing the temp file to config file
+        f.write(contents)
+
 # extracting text from user's file
 @botbuster.post("/extract/") # endpoint #4 scraping data from files
 def extract_text(file: UploadFile):

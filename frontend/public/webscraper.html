@@ -50,10 +50,31 @@
 			document.getElementById("left-bar-slider").style.margin = "0";
 			document.getElementById("left-bar-slider").style.transform = "scaleX(1)";
 		}
+
     function removeSaveBtn(){
       save_button = document.getElementById("saveBtn");
       save_button.remove();
     }
+
+    function saveButton(){
+      $('#loading').show(); // Start loading
+      $('.btn[type="button"]').prop('disabled', true); // Disable submit
+      $('#submitBtn').prop('disabled', true); //Disable arrow submit button
+      send_settings()
+      check_new_elements()
+      $.ajax({
+            type: 'GET',
+            url: 'http://127.0.0.1:8000/webscraper/temp_config/',
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: function(response) {
+              $('#loading').hide(); // Hide loading
+              $('.btn[type="button"]').prop('disabled', false); // Enable submit
+              $('#submitBtn').prop('disabled', false); //Enable arrow submit button
+            },
+        });
+    }
+
     function addNewElement(item){
       //add textbox for new element
       placeholder = "button_"+ item
@@ -66,8 +87,6 @@
             <button type="button" class ="add_button" id ="${item}-button"" onClick=addNewElement("${item}")>Add Element</button>`
       add_button.insertAdjacentHTML('afterend', new_content);
       add_button.remove();
-
-      return element_content
     }
 
     function addNewElement_domain(item){
@@ -81,7 +100,6 @@
             <button type="button" class ="add_button" id ="${item}-button"" onClick=addNewElement_domain("${item}")>Add Element</button>`
       add_button.insertAdjacentHTML('afterend', new_content);
       add_button.remove();
-      //return element_content
     }
 
     function addDomain(){
@@ -161,7 +179,7 @@
        
         };
         saveBtn= `    <div class="text-center">
-                  <button type="button" id = "saveBtn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold form-btn">
+                  <button type="button" id = "saveBtn" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold form-btn" onClick = saveButton()>
                     Save
                 </button>
       </div> `
