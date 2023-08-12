@@ -516,6 +516,14 @@ def changeFile():
     with open(CONFIG_FILE_PATH, "w") as f: #writing the temp file to config file
         f.write(contents)
 
+# save the user's changes
+@botbuster.get("/webscraper/del_changes")
+def changeFile():
+    with open(CONFIG_FILE_PATH, "r") as f:
+        contents = f.read()
+    with open(TEMP_FILE_PATH, "w") as f: #resetting the temp file if user did not press save
+        f.write(contents)
+
 # extracting text from user's file
 @botbuster.post("/extract/") # endpoint #4 scraping data from files
 def extract_text(file: UploadFile):

@@ -75,6 +75,20 @@
         });
     }
 
+    function deleteChanges(){
+      $.ajax({
+            type: 'GET',
+            url: 'http://127.0.0.1:8000/webscraper/del_changes/',
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: function(response) {
+              $('#loading').hide(); // Hide loading
+              $('.btn[type="button"]').prop('disabled', false); // Enable submit
+              $('#submitBtn').prop('disabled', false); //Enable arrow submit button
+            },
+        });
+    }
+
     function addNewElement(item){
       //add textbox for new element
       placeholder = "button_"+ item
@@ -593,7 +607,7 @@
                     <label class="form-label" for="type_url">Enter the URL of the webpage to webscrape</label>
                     <div class="input-group">
                       <input type="url" id="type_url" class="form-control" placeholder="https://example.com"/>
-                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();send_settings();check_new_elements();get_elements();removeSaveBtn()">
+                      <button id="submitBtn" class="btn btn-link arrow-button" onclick="num_of_submissions();send_settings();check_new_elements();get_elements();deleteChanges();removeSaveBtn()">
                         <i class="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
