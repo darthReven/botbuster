@@ -468,6 +468,13 @@ async def get_webscraper_settings():
 @botbuster.post("/webscraper/settings/")
 async def update_config(website_configs: dict):
     # try:
+    # validation
+    for domain, selectors in website_configs.items():
+        if not validation.check_domain(domain):
+            raise HTTPException(status_code=400, detail="Invalid Input!")
+        for selector in selectors:
+            if not validation.check_elements(selector):
+                raise HTTPException(status_code=400, detail="Invalid Input!")
         # save the updated configuration to the config.json file
         with open(TEMP_FILE_PATH, "r") as f:
             config_data = json.load(f)
@@ -488,6 +495,12 @@ async def update_elements(request: Request):
     data = await request.json()
     website = data.get("website")
     new_element = data.get("newElement")
+    # validation
+    if(validation.check_domain(website)==False):
+        raise HTTPException(status_code = 400, detail = "Invalid Input!")
+    if(validation.check_elements(new_element)==False):
+        raise HTTPException(status_code = 400, detail = "Invalid Input!")
+    
     with open(TEMP_FILE_PATH, "r") as f:
         config_data = json.load(f)    
     if website in config_data["website_configs"]:
