@@ -59,14 +59,43 @@ def check_text(text):
     return bool(text.strip())
 
 # web scraper setings validation funcs
+# def check_elements(elements):
+#     # # loop through elements, check if they match the regex
+#     # compound_selector_pattern = r"^(?:[a-zA-Z_][\w-]*\.)+[a-zA-Z_][\w-]*$|^([a-zA-Z_][\w-]*)$"
+#     # return bool(re.match(compound_selector_pattern, elements))
+#     # pass
+#     element_regex = r"^(?:[a-zA-Z_][\w-]*\.)+[a-zA-Z_][\w-]*$|^([a-zA-Z_][\w-]*)$"
+#     # return bool(re.match(element_regex, elements))
+#     if(bool(re.match(element_regex, elements))==True):
+#         print("1st val ok")
+#         html_elements = [
+#             "a", "abbr", "acronym", "address", "area", "article", "aside", "audio", "b",
+#             "base", "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption",
+#             "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details",
+#             "dfn", "dialog", "dir", "div", "dl", "dt", "em", "embed", "fieldset",
+#             "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6",
+#             "header", "hgroup", "hr", "html", "i", "iframe", "img", "input", "ins", "kbd",
+#             "label", "legend", "li", "link", "main", "map", "mark", "menu", "meta", "meter",
+#             "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param",
+#             "picture", "pre", "progress", "q", "rb", "rp", "rt", "ruby", "s", "samp",
+#             "script", "section", "select", "small", "source", "span", "strong", "style",
+#             "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot",
+#             "th", "thead", "time", "title", "tr", "track", "u", "ul", "var", "video",
+#             "wbr", "xmp"
+#         ]
+#         element=elements.split('.')
+#         element[0]=element[0].replace(" ","")
+#         for count in html_elements:
+#             if count==element[0].lower():
+#                 return True
+#         return False
+#     else:
+#         return False
 def check_elements(elements):
-    # # loop through elements, check if they match the regex
-    # compound_selector_pattern = r"^(?:[a-zA-Z_][\w-]*\.)+[a-zA-Z_][\w-]*$|^([a-zA-Z_][\w-]*)$"
-    # return bool(re.match(compound_selector_pattern, elements))
-    # pass
     element_regex = r"^(?:[a-zA-Z_][\w-]*\.)+[a-zA-Z_][\w-]*$|^([a-zA-Z_][\w-]*)$"
-    # return bool(re.match(element_regex, elements))
-    if(bool(re.match(element_regex, elements))==True):
+    elements= elements.replace(" ", "")
+
+    if bool(re.match(element_regex, elements)):
         html_elements = [
             "a", "abbr", "acronym", "address", "area", "article", "aside", "audio", "b",
             "base", "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption",
@@ -82,9 +111,9 @@ def check_elements(elements):
             "th", "thead", "time", "title", "tr", "track", "u", "ul", "var", "video",
             "wbr", "xmp"
         ]
-        element=elements.split('.')
+        element = elements.split('.')
         for count in html_elements:
-            if count==element[0]:
+            if count == element[0].lower():
                 return True
         return False
     else:
@@ -93,6 +122,8 @@ def check_elements(elements):
 
 def check_domain(domain):
     # check if the regex matches the domain
-    domain_name_pattern = r"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$"
+    domain=domain.replace(" ","")
+    if(domain=='default'):
+        return True
+    domain_name_pattern = "^((?!-)[A-Za-z0-9-]" + "{1,63}(?<!-)\\.)" +"+[A-Za-z]{2,6}"
     return bool(re.match(domain_name_pattern, domain))
-    pass

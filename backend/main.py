@@ -55,7 +55,7 @@ def split_text(request: ds.split_text):
     full_text = request.dict()["text"]
     # validating full_text
     if(validation.check_text(full_text)==False):
-        raise HTTPException(status_code=400, detail="Bad Request")
+        raise HTTPException(status_code=403, detail="Bad Request")
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
         config_data = json.load(config_data_file)
     list_of_texts = text_utils.chunk(full_text, config_data["chunk_option"])
@@ -75,7 +75,7 @@ def check_text(request: ds.check_text):
     text = decoded_req["text"]
     # validate text
     if(validation.check_text(text)==False):
-        raise HTTPException(status_code=400, detail="Bad Request")
+        raise HTTPException(status_code=403, detail="Bad Request")
     list_of_apis = request.dict()["list_of_apis"]
     text = request.dict()["text"]
     with open(SCORE_FILE_PATH, "r") as score_data_file: # load in config data from config file
@@ -424,7 +424,7 @@ def add_api(request: ds.add_api, response: Response):
         API(req["api_details"])
         api_name = req["api_name"]
     except KeyError:
-        raise HTTPException (status_code = 400, detail = "missing details")
+        raise HTTPException (status_code = 403, detail = "missing details")
     else:
         with open(API_FILE_PATH, "r") as add_api_file:
             api_data = json.load(add_api_file)
@@ -438,7 +438,7 @@ def add_api(request: ds.add_api, response: Response):
 async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
     page_url = request.dict()["page_url"]
     if not validation.is_valid_url(page_url):
-        raise HTTPException(status_code=400, detail="Bad Request")
+        raise HTTPException(status_code=403, detail="Bad Request")
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
     website_name = urlparse(page_url).netloc
@@ -469,25 +469,29 @@ async def get_webscraper_settings():
 async def update_config(website_configs: dict):
     # try:
     # validation
-    # for domain, selectors in website_configs.items():
-    #     # if not validation.check_domain(domain):
-    #     #     raise HTTPException(status_code=400, detail="Invalid Input!")
-    #     for selector in selectors:
-    #         if not validation.check_elements(selector):
-    #             raise HTTPException(status_code=400, detail="Invalid Input!")
+    print(website_configs)
+    for domain, selectors in website_configs["website_configs"].items():
+        if (validation.check_domain(domain)==False):
+            print("websoite validation failed")
+            raise HTTPException(status_code=403, detail="Invalid Input!")
+        for selector in selectors:
+            if (validation.check_elements(selector)==False):
+                print(selector)
+                print("element validation failed")
+                raise HTTPException(status_code=403, detail="Invalid Input!")
         # save the updated configuration to the config.json file
-        with open(TEMP_FILE_PATH, "r") as f:
-            config_data = json.load(f)
+    with open(TEMP_FILE_PATH, "r") as f:
+        config_data = json.load(f)
         # update the existing config file with the new data
-        for key, value in website_configs.items():
-            for website_url in config_data[key].keys():
-                config_data[key][website_url]["elements"]= value[website_url]
-            for website_url in value:
-                if website_url not in config_data[key]:
-                    config_data[key][website_url] = {"elements": value[website_url], "settings": ["",50],"func": "sms"}
+    for key, value in website_configs.items():
+        for website_url in config_data[key].keys():
+            config_data[key][website_url]["elements"]= value[website_url]
+        for website_url in value:
+            if website_url not in config_data[key]:
+                config_data[key][website_url] = {"elements": value[website_url], "settings": ["",50],"func": "sms"}
             # save the updated configuration to the config.json file
-            with open(TEMP_FILE_PATH, "w") as f:
-                json.dump(config_data, f, indent=3)
+        with open(TEMP_FILE_PATH, "w") as f:
+            json.dump(config_data, f, indent=3)
 
 #append new elements that user enters 
 @botbuster.post("/webscraper/update_elements/")      
@@ -496,13 +500,15 @@ async def update_elements(request: Request):
     website = data.get("website")
     new_element = data.get("newElement")
     # validation
-    # if(validation.check_domain(website)==False):
-    #     raise HTTPException(status_code = 400, detail = "Invalid Input!")
-    # if(validation.check_elements(new_element)==False):
-    #     raise HTTPException(status_code = 400, detail = "Invalid Input!")
+    if(validation.check_domain(website)==False):
+        print("website validation FAILED")
+        raise HTTPException(status_code = 403, detail = "Invalid Input!")
+    if(validation.check_elements(new_element)==False):
+        # print("element validation FAILED")
+        raise HTTPException(status_code = 403, detail = "Invalid Input!")
     
     with open(TEMP_FILE_PATH, "r") as f:
-        config_data = json.load(f)    
+        config_data = json.load(f)
     if website in config_data["website_configs"]:
         config_data["website_configs"][website]["elements"].append(new_element)
     with open(TEMP_FILE_PATH, "w") as f:
@@ -563,7 +569,7 @@ def extract_text(file: UploadFile):
 
             text = pytesseract.image_to_string(image) # use pytesseract to extract text
         else:
-            return HTTPException(status_code = 400, detail = "Unsupported File Type")
+            return HTTPException(status_code = 403, detail = "Unsupported File Type")
     except:
         raise HTTPException(status_code = 500, detail = "Internal Server Error")
         

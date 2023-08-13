@@ -116,7 +116,8 @@
       "forums.hardwarezone.com.sg": {
          "elements": [
             "h1.p-title-value",
-            "div.bbWrapper"
+            "div.bbWrapper",
+            "h1"
          ],
          "func": "gws",
          "url": "page-*",
