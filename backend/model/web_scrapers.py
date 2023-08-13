@@ -1,4 +1,4 @@
-# social media scraper moduels
+# social media scraper modules
 import asyncio
 import pyppeteer
 from pyppeteer import launch

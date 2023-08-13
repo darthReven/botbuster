@@ -218,7 +218,6 @@
       },
       "www.lazada.sg": {
          "elements": [
-            "h1",
             "span",
             "h2",
             "ul",
@@ -247,7 +246,6 @@
       "default": {
          "elements": [
             "p",
-            "h1",
             "h2",
             "h4",
             "h5",

@@ -177,7 +177,7 @@
           element_content = ""
           for (let i = 0; i < data[item].length; i++) { 
             element_content +=
-            `<input type="checkbox" checked class = "el_checkbox" id = "${data[item][i]}"> ${data[item][i]}<br>`; // Add each checkbox and data item
+            `<input type="checkbox" checked class = "el_checkbox" id = "${item}-checkbox-${data[item][i]}"> ${data[item][i]}<br>`; // Add each checkbox and data item
           }
           element_content += `<button type="button" class = "add_button" id ="${item}-button" onClick=addNewElement("${item}")>Add Element</button>`
           content += `
@@ -243,14 +243,16 @@
     for (const item of Object.keys(settingsData)) {
       filteredData[item] = []; //the websites
       for (let i = 0; i < settingsData[item].length; i++) {
-        const checkboxId = settingsData[item][i];
+        const checkboxId = item+"-checkbox-"+settingsData[item][i];
         const checkboxElement = document.getElementById(checkboxId);
+        const checkboxName = settingsData[item][i]
         if (checkboxElement.checked) {
           // if the checkbox is checked, add the ID to the filteredData
-          filteredData[item].push(checkboxId);
+          filteredData[item].push(checkboxName);
         }
     }
     }
+    console.log(filteredData);
     for (let i = 1; i <= domain_num; i++){ //loops through all the new domains to add to the dictionary
       new_domain = document.getElementById("domainField"+i).innerText;
       elementList = [];
