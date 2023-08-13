@@ -131,7 +131,7 @@ class ALBERT_Arch(nn.Module):
 model = ALBERT_Arch(albert)  # Use the ALBERT-based architecture
 
 # Defining the hyperparameters (optimizer, weights of the classes and the epochs)
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5, weight_decay=0.15)  # Added L2 regularization (weight_decay)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5, weight_decay=0.4)
 cross_entropy = nn.NLLLoss()
 epochs = 2
 
@@ -187,7 +187,7 @@ for epoch in range(epochs):
 
     if valid_loss < best_valid_loss:
         best_valid_loss = valid_loss
-        torch.save(model.state_dict(), 'model_weights1.pt')
+        torch.save(model.state_dict(), 'model_weights.pt')
 
     train_losses.append(train_loss)
     valid_losses.append(valid_loss)
@@ -195,7 +195,7 @@ for epoch in range(epochs):
     print(f'\nTraining Loss: {train_loss:.3f}')
     print(f'Validation Loss: {valid_loss:.3f}')
 
-# Load the best model for evaluation
+# Load the model for evaluation
 model.load_state_dict(torch.load('model_weights1.pt'))
 
 model.eval()
