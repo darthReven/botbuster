@@ -173,6 +173,13 @@
         resetCount()
     }
 
+    function validateText(text) {
+    if (typeof text !== 'string' || text.trim() === '' || text==='') {
+        return false;
+    }
+    return true;
+    }
+
     function checkText(event) {
       event.preventDefault();
       $('#loading').show(); // Start loading
@@ -199,7 +206,19 @@
       text += element.innerHTML;
       text = text.replace(/<br>/g, "");
 			data["text"] = text
-			localStorage.setItem("text", data['text'])
+      // validation
+      if(validateText(text)==false){
+        window.alert("Text is empty!")
+        $('#loading').hide();
+        $('.btn[type="button"]').prop('disabled', false);
+      }
+      console.log(data["list_of_apis"])
+      if(data["list_of_apis"].length=0){
+        window.alert("Text is empty!")
+        $('#loading').hide();
+        $('.btn[type="button"]').prop('disabled', false);
+      }
+      localStorage.setItem("text", data['text'])
       localStorage.setItem("api-used", JSON.stringify(data["list_of_apis"]))
 			$.ajax({
 				url: `http://127.0.0.1:8000/splittext/`,
