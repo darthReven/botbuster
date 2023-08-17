@@ -104,7 +104,7 @@ async def scraper(elements,settings, page_url):
     cookies = os.path.join(os.getcwd(), 'scraper_cookies')
     if(chrome_path==False):
         browser = await launch(
-        headless=False,
+        headless=True,
         handleSIGINT=False,
         handleSIGTERM=False,
         handleSIGHUP=False,
@@ -112,7 +112,7 @@ async def scraper(elements,settings, page_url):
         )
     else:
         browser = await launch(
-            headless=False,
+            headless=True,
             handleSIGINT=False,
             handleSIGTERM=False,
             handleSIGHUP=False,

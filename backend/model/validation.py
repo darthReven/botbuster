@@ -29,21 +29,21 @@ def check_add_api(api_config):
         return False
 
 # Example API configurations
-api_configs = {
-    "Moderate Hate Speech": {
-            "target": "https://api.moderatehatespeech.com/api/v1/moderate/",
-            "body_key": "text",
-            "data_type": "string",
+# api_configs = {
+#     "Moderate Hate Speech": {
+#             "target": "https://api.moderatehatespeech.com/api/v1/moderate/",
+#             "body_key": "text",
+#             "data_type": "string",
             
-            "body": {
-               "token": "7a1a3e7a755bafa20f164ddcee16349a",
-               "text": ""
-            }
-         }
-}
+#             "body": {
+#                "token": "7a1a3e7a755bafa20f164ddcee16349a",
+#                "text": ""
+#             }
+#          }
+# }
 
-# Validate API configurations for common fields
-print(check_add_api(api_configs))
+# # Validate API configurations for common fields
+# print(check_add_api(api_configs))
 
 
 def sanitise(data):

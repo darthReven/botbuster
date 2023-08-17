@@ -501,6 +501,13 @@
         }
       });
     }
+
+    function validateText(text) {
+    if (typeof text !== 'string' || text.trim() === '' || text==='') {
+        return false;
+    }
+    return true;
+    }
     
     function checkText(event) {
       event.preventDefault()

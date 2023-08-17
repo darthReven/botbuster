@@ -34,7 +34,7 @@ data['label'] = pd.get_dummies(data.Target)['Fake']
 
 # Train-Validation-Test set split into 70:15:15 ratio
 train_text, temp_text, train_labels, temp_labels = train_test_split(
-    data['title'],
+    data['text'],
     data['label'],
     random_state=2018,
     test_size=0.3,
@@ -131,9 +131,9 @@ class ALBERT_Arch(nn.Module):
 model = ALBERT_Arch(albert)  # Use the ALBERT-based architecture
 
 # Defining the hyperparameters (optimizer, weights of the classes and the epochs)
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5, weight_decay=0.4)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=140)
 cross_entropy = nn.NLLLoss()
-epochs = 2
+epochs = 1
 
 # Training and Evaluation Functions
 def train():
