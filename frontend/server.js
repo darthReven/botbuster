@@ -6,6 +6,7 @@ var port = 3001;
 
 var app = express();
 
+app.disable("x-powered-by");
 app.use(function(req, res, next){
     // console.log(req.url);
     // console.log(req.method);
