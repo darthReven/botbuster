@@ -7,19 +7,15 @@ from urllib.parse import urlparse
 from PIL import Image
 import json
 import base64
-import asyncio
 import textract
 import os
 import pytesseract
 import cv2
 import numpy as np
-import time
 import docx
 # importing in-house code
 from model.api import API
 import model.data_structures as ds
-# import model.social_media_scraper as sms
-# import model.generic_web_scraper as gws
 import model.web_scrapers as ws
 import model.graph as graph
 import model.gauge as gauge
@@ -274,21 +270,25 @@ def add_api(request: ds.add_api, response: Response):
 async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
     page_url = request.dict()["page_url"]
     if not validation.is_valid_url(page_url):
-        raise HTTPException(status_code=403, detail="Bad Request")
+        print("hello")
+        # raise HTTPException(status_code=403, detail="Bad Request")
+    print("test")
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
     website_name = urlparse(page_url).netloc
     scraping_data = website_configs.get(website_name, website_configs["default"])
-
+    print("test")
     if scraping_data["func"] == "sms":
         items = await ws.scraper(scraping_data["elements"], scraping_data["settings"], page_url)
     elif scraping_data["func"] == "gws":
         url = scraping_data.get("url", None)
         splitter = scraping_data.get("splitter", None)
+        print("1")
         items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
+        print("hello")
     else: 
         raise HTTPException(status_code=500, detail="Internal Server Error")
-
+    print("test2")
     return validation.sanitise(items)
 
 
