@@ -331,6 +331,7 @@
       
     const isValidUrl = (urlString) => {
         const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
+        console.log(urlString)
         return urlPattern.test(urlString);
     };
     
@@ -344,6 +345,7 @@
         window.alert("Invalid URL!")
         $('#loading').hide();
       }
+      console.log(data)
       $.ajax({
         url:"http://127.0.0.1:8000/webscraper/",
         type: "POST",
@@ -375,7 +377,6 @@
           $('#loading').hide(); // Hide loading
           $('.btn[type="button"]').prop('disabled', false); // Enable submit
           $('#submitBtn').prop('disabled', false); //Enable arrow submit button
-          console.log("error")
         }
       })
     }
