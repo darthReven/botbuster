@@ -239,7 +239,7 @@ main {
 
 #main-page-content {
     background: rgb(120,166,192);
-    background: linear-gradient(180deg, rgba(120,166,192,1) 0%, rgba(120,166,200,1) 100vh, rgba(233,238,242,1) 150vh);
+    background: linear-gradient(180deg, rgba(120,166,192,1) 0%, rgba(120,166,200,1) 100vh, rgba(233,238,242,1) 135vh);
     position:absolute;
     width:100%;
 }
@@ -253,7 +253,7 @@ main {
     padding: 0.53em 1.66em;
 }
 
-#main-page-content .col-4 > h3, #main-page-content .col-8 > h3, #main-page-content .col-12 > h3 {
+#main-page-content .col-4 > h3, #main-page-content .col-8 > h3, #main-page-content .col-12 > h2 {
     text-align: center;
 }
 
