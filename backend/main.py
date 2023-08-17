@@ -30,7 +30,6 @@ import model.validation as validation
 # setting file paths for configuration files
 CONFIG_FILE_PATH = r"config\config.json"
 TEMP_FILE_PATH = r"config\temp.json"
-API_FILE_PATH = r"config\api.json"
 RESULTS_FILE_PATH = r"config\results.json"
 SCORE_FILE_PATH = r"config\scores.json"
 # setting file path to tesseract
@@ -230,9 +229,194 @@ def check_text(request: ds.check_text):
     gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
     return validation.sanitise(scores)
 
-# calling apis to check the text
-@botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
-def check_text(request: ds.check_text):
+@botbuster.get("/getapis/") # endpoint #2 retrieving available API information
+async def get_apis():
+    api_info = {} 
+    try: 
+        with open(CONFIG_FILE_PATH, "r") as config_data_file:
+            api_data = json.load(config_data_file)["APIs"] # grabs all API data from API config file
+            for api_category in api_data.keys(): # loops through the API categories
+                api_info[api_category] = {} # creates an empty dictionary for each category
+                
+                for api in api_data[api_category].keys(): # loops through all API in each category 
+                    api_info[api_category][api] = [api.lower().replace(" ", "")] # creates 
+                    try: 
+                        with open(CONFIG_FILE_PATH, "r") as config_data_file:
+                            config_data = json.load(config_data_file)
+                            api_logo_path = config_data["logos_base_path"] + config_data["logos"][api] # sets file path for the system to open
+                            with open(api_logo_path, "rb") as image:
+                                api_info[api_category][api].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
+                    except Exception: 
+                        continue # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
+    except Exception:
+        raise HTTPException (status_code = 500, detail = "Internal Server Error")
+    return api_info
+
+# adding apis to system
+@botbuster.post("/addapi/") # endpoint #3 adding APIs to the system
+def add_api(request: ds.add_api, response: Response):
+    req = request.dict()
+    try:
+        API(req["api_details"])
+        api_name = req["api_name"]
+    except KeyError:
+        raise HTTPException (status_code = 403, detail = "missing details")
+    else:
+        with open(CONFIG_FILE_PATH, "r") as add_api_file:
+            api_data = json.load(add_api_file)
+            api_data[api_name] = req["api_details"]
+        with open(CONFIG_FILE_PATH, "w") as add_api_file:
+            add_api_file.write(json.dumps(api_data, indent = 4))
+            response.status_code = status.HTTP_204_NO_CONTENT
+
+# scraping websites data
+@botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
+async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
+    page_url = request.dict()["page_url"]
+    if not validation.is_valid_url(page_url):
+        raise HTTPException(status_code=403, detail="Bad Request")
+    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+        website_configs = json.load(config_data_file)["website_configs"]
+    website_name = urlparse(page_url).netloc
+    scraping_data = website_configs.get(website_name, website_configs["default"])
+
+    if scraping_data["func"] == "sms":
+        items = await ws.scraper(scraping_data["elements"], scraping_data["settings"], page_url)
+    elif scraping_data["func"] == "gws":
+        url = scraping_data.get("url", None)
+        splitter = scraping_data.get("splitter", None)
+        items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
+    else: 
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+    return validation.sanitise(items)
+
+
+# get website scraping configurations
+@botbuster.get("/webscraper/settings/") # endpoint to retrieve the webscraping settings
+async def get_webscraper_settings():
+    with open(CONFIG_FILE_PATH, "r") as config_data_file:
+        website_configs = json.load(config_data_file)["website_configs"]
+    website_settings = {key: website_configs[key]["elements"] for key in website_configs.keys()}
+    return website_settings
+    
+# save web scraping settings
+@botbuster.post("/webscraper/settings/")
+async def update_config(website_configs: dict):
+    # try:
+    # validation
+    print(website_configs)
+    for domain, selectors in website_configs["website_configs"].items():
+        if (validation.check_domain(domain)==False):
+            print("websoite validation failed")
+            raise HTTPException(status_code=403, detail="Invalid Input!")
+        for selector in selectors:
+            if (validation.check_elements(selector)==False):
+                print(selector)
+                print("element validation failed")
+                raise HTTPException(status_code=403, detail="Invalid Input!")
+        # save the updated configuration to the config.json file
+    with open(TEMP_FILE_PATH, "r") as f:
+        config_data = json.load(f)
+        # update the existing config file with the new data
+    for key, value in website_configs.items():
+        for website_url in config_data[key].keys():
+            config_data[key][website_url]["elements"]= value[website_url]
+        for website_url in value:
+            if website_url not in config_data[key]:
+                config_data[key][website_url] = {"elements": value[website_url], "settings": ["",50],"func": "sms"}
+            # save the updated configuration to the config.json file
+        with open(TEMP_FILE_PATH, "w") as f:
+            json.dump(config_data, f, indent=3)
+
+#append new elements that user enters 
+@botbuster.post("/webscraper/update_elements/")      
+async def update_elements(request: Request):
+    data = await request.json()
+    website = data.get("website")
+    new_element = data.get("newElement")
+    # validation
+    if(validation.check_domain(website)==False):
+        print("website validation FAILED")
+        raise HTTPException(status_code = 403, detail = "Invalid Input!")
+    if(validation.check_elements(new_element)==False):
+        # print("element validation FAILED")
+        raise HTTPException(status_code = 403, detail = "Invalid Input!")
+    
+    with open(TEMP_FILE_PATH, "r") as f:
+        config_data = json.load(f)
+    if website in config_data["website_configs"]:
+        config_data["website_configs"][website]["elements"].append(new_element)
+    with open(TEMP_FILE_PATH, "w") as f:
+            json.dump(config_data, f, indent=3)
+
+# save the user's changes
+@botbuster.get("/webscraper/temp_config")
+def changeFile():
+    with open(TEMP_FILE_PATH, "r") as f:
+        contents = f.read()
+    with open(CONFIG_FILE_PATH, "w") as f: #writing the temp file to config file
+        f.write(contents)
+
+# save the user's changes
+@botbuster.get("/webscraper/del_changes")
+def changeFile():
+    with open(CONFIG_FILE_PATH, "r") as f:
+        contents = f.read()
+    with open(TEMP_FILE_PATH, "w") as f: #resetting the temp file if user did not press save
+        f.write(contents)
+
+# extracting text from user's file
+@botbuster.post("/extract/") # endpoint #4 scraping data from files
+def extract_text(file: UploadFile):
+    try: 
+        file_extension = file.filename.rsplit('.', 1)[1].lower() #extracts file extension from file name
+        contents = file.file.read() # gets content of file out in bytes
+        with open(f"temp.{file_extension}", 'wb') as f:
+            f.write(contents) # writes a temporary file with the same bytes
+        if file_extension == 'docx': # if it's docx file
+            doc = docx.Document(f"temp.{file_extension}")
+            section = doc.sections[0]
+            header = section.header
+            header.paragraphs[0].text = ""
+            footer = section.footer
+            footer.paragraphs[0].text = ""
+            paragraphs = [paragraph.text for paragraph in doc.paragraphs]
+            text = '\n'.join(paragraphs)
+        elif file_extension == 'txt':  # if it's txt file
+            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
+        elif file_extension == 'pdf': # if it's pdf file    
+            reader = PdfReader(f"temp.{file_extension}") # creating a pdf reader object
+            text = ""
+            for page_num in range(len(reader.pages)):
+                page = reader.pages[page_num]
+                content = page.extract_text()
+                lines = content.split('\n') 
+                lines = lines[int(len(lines) * 0.05):int(len(lines))] #how much to take away (5%)
+                cleaned_content = '\n'.join(lines)
+                text += cleaned_content + '\n'
+        elif file_extension == "jpg": # if it's image files
+            image = np.array(Image.open(f"temp.{file_extension}")) # create image
+            normalised_image = np.zeros((image.shape[0], image.shape[1]))
+            # remove distractions in the photo using cv
+            image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
+            image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
+            image = cv2.GaussianBlur(image, (1, 1), 0)
+
+            text = pytesseract.image_to_string(image) # use pytesseract to extract text
+        else:
+            return HTTPException(status_code = 403, detail = "Unsupported File Type")
+    except:
+        raise HTTPException(status_code = 500, detail = "Internal Server Error")
+        
+    finally:
+        os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
+    return validation.sanitise(text)
+    # return text
+
+# calling apis to check the text API ENDPOINT
+@botbuster.post("/api/v1/checktext/") # endpoint #1 sending requests to the AI detection engines
+def check_text_api(request: ds.check_text):
     decoded_req=validation.decode(request.dict())
     list_of_apis = decoded_req["list_of_apis"]
     full_text = decoded_req["text"]
@@ -383,9 +567,7 @@ def check_text(request: ds.check_text):
                 overall_scores[api_category]["average_score"] = round(api_category_total_score/api_count, 1)
     except:
         overall_scores[api_category][api] = "score not calculated"
-    # with open(RESULTS_FILE_PATH, "w") as results_file: # load in API data from api file
-    #     results_file.write(json.dumps(full_results, indent=4))
-    with open(r"config\score.json", "w") as scores_file: # load in API data from api file
+    with open(r"config\score_api.json", "w") as scores_file: # load in API data from api file
         scores["overall_score"] = overall_scores
         scores_file.write(json.dumps(scores, indent=4))
     graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
@@ -393,187 +575,18 @@ def check_text(request: ds.check_text):
     scores["overall_score"] = overall_scores
     return validation.sanitise(scores)
 
-@botbuster.get("/getapis/") # endpoint #2 retrieving available API information
-async def get_apis():
-    api_info = {} 
+# calling apis to check the text API ENDPOINT
+@botbuster.get("/api/v1/getapis/") # endpoint #1 sending requests to the AI detection engines
+def get_apis_api():
+    api_info = []
     try: 
-        with open(API_FILE_PATH, "r") as api_data_file:
-            api_data = json.load(api_data_file) # grabs all API data from API config file
+        with open(CONFIG_FILE_PATH, "r") as config_data_file:
+            api_data = json.load(config_data_file)["APIs"] # grabs all API data from API config file
             for api_category in api_data.keys(): # loops through the API categories
-                api_info[api_category] = {} # creates an empty dictionary for each category
-                
                 for api in api_data[api_category].keys(): # loops through all API in each category 
-                    api_info[api_category][api] = [api.lower().replace(" ", "")] # creates 
-                    try: 
-                        with open(CONFIG_FILE_PATH, "r") as config_data_file:
-                            config_data = json.load(config_data_file)
-                            api_logo_path = config_data["logos_base_path"] + config_data["logos"][api] # sets file path for the system to open
-                            with open(api_logo_path, "rb") as image:
-                                api_info[api_category][api].append(base64.b64encode(image.read()).decode("utf-8)")) # encodes the image in base 64 and decodes in utf-8
-                    except Exception: 
-                        continue # catches all errors and continues to the next api in the loop. If there is no logo etc, it will just not show up on UI
+                    if api == "description" or api == "score_type":
+                        continue
+                    api_info.append([api, api_category])
     except Exception:
         raise HTTPException (status_code = 500, detail = "Internal Server Error")
     return api_info
-
-# adding apis to system
-@botbuster.post("/addapi/") # endpoint #3 adding APIs to the system
-def add_api(request: ds.add_api, response: Response):
-    req = request.dict()
-    try:
-        API(req["api_details"])
-        api_name = req["api_name"]
-    except KeyError:
-        raise HTTPException (status_code = 403, detail = "missing details")
-    else:
-        with open(API_FILE_PATH, "r") as add_api_file:
-            api_data = json.load(add_api_file)
-            api_data[api_name] = req["api_details"]
-        with open(API_FILE_PATH, "w") as add_api_file:
-            add_api_file.write(json.dumps(api_data, indent = 4))
-            response.status_code = status.HTTP_204_NO_CONTENT
-
-# scraping websites data
-@botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
-async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
-    page_url = request.dict()["page_url"]
-    if not validation.is_valid_url(page_url):
-        raise HTTPException(status_code=403, detail="Bad Request")
-    with open(CONFIG_FILE_PATH, "r") as config_data_file:
-        website_configs = json.load(config_data_file)["website_configs"]
-    website_name = urlparse(page_url).netloc
-    scraping_data = website_configs.get(website_name, website_configs["default"])
-
-    if scraping_data["func"] == "sms":
-        items = await ws.scraper(scraping_data["elements"], scraping_data["settings"], page_url)
-    elif scraping_data["func"] == "gws":
-        url = scraping_data.get("url", None)
-        splitter = scraping_data.get("splitter", None)
-        items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
-    else: 
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-    return validation.sanitise(items)
-
-
-# get website scraping configurations
-@botbuster.get("/webscraper/settings/") # endpoint to retrieve the webscraping settings
-async def get_webscraper_settings():
-    with open(CONFIG_FILE_PATH, "r") as config_data_file:
-        website_configs = json.load(config_data_file)["website_configs"]
-    website_settings = {key: website_configs[key]["elements"] for key in website_configs.keys()}
-    return website_settings
-    
-# save web scraping settings
-@botbuster.post("/webscraper/settings/")
-async def update_config(website_configs: dict):
-    # try:
-    # validation
-    print(website_configs)
-    for domain, selectors in website_configs["website_configs"].items():
-        if (validation.check_domain(domain)==False):
-            print("websoite validation failed")
-            raise HTTPException(status_code=403, detail="Invalid Input!")
-        for selector in selectors:
-            if (validation.check_elements(selector)==False):
-                print(selector)
-                print("element validation failed")
-                raise HTTPException(status_code=403, detail="Invalid Input!")
-        # save the updated configuration to the config.json file
-    with open(TEMP_FILE_PATH, "r") as f:
-        config_data = json.load(f)
-        # update the existing config file with the new data
-    for key, value in website_configs.items():
-        for website_url in config_data[key].keys():
-            config_data[key][website_url]["elements"]= value[website_url]
-        for website_url in value:
-            if website_url not in config_data[key]:
-                config_data[key][website_url] = {"elements": value[website_url], "settings": ["",50],"func": "sms"}
-            # save the updated configuration to the config.json file
-        with open(TEMP_FILE_PATH, "w") as f:
-            json.dump(config_data, f, indent=3)
-
-#append new elements that user enters 
-@botbuster.post("/webscraper/update_elements/")      
-async def update_elements(request: Request):
-    data = await request.json()
-    website = data.get("website")
-    new_element = data.get("newElement")
-    # validation
-    if(validation.check_domain(website)==False):
-        print("website validation FAILED")
-        raise HTTPException(status_code = 403, detail = "Invalid Input!")
-    if(validation.check_elements(new_element)==False):
-        # print("element validation FAILED")
-        raise HTTPException(status_code = 403, detail = "Invalid Input!")
-    
-    with open(TEMP_FILE_PATH, "r") as f:
-        config_data = json.load(f)
-    if website in config_data["website_configs"]:
-        config_data["website_configs"][website]["elements"].append(new_element)
-    with open(TEMP_FILE_PATH, "w") as f:
-            json.dump(config_data, f, indent=3)
-
-# save the user's changes
-@botbuster.get("/webscraper/temp_config")
-def changeFile():
-    with open(TEMP_FILE_PATH, "r") as f:
-        contents = f.read()
-    with open(CONFIG_FILE_PATH, "w") as f: #writing the temp file to config file
-        f.write(contents)
-
-# save the user's changes
-@botbuster.get("/webscraper/del_changes")
-def changeFile():
-    with open(CONFIG_FILE_PATH, "r") as f:
-        contents = f.read()
-    with open(TEMP_FILE_PATH, "w") as f: #resetting the temp file if user did not press save
-        f.write(contents)
-
-# extracting text from user's file
-@botbuster.post("/extract/") # endpoint #4 scraping data from files
-def extract_text(file: UploadFile):
-    try: 
-        file_extension = file.filename.rsplit('.', 1)[1].lower() #extracts file extension from file name
-        contents = file.file.read() # gets content of file out in bytes
-        with open(f"temp.{file_extension}", 'wb') as f:
-            f.write(contents) # writes a temporary file with the same bytes
-        if file_extension == 'docx': # if it's docx file
-            doc = docx.Document(f"temp.{file_extension}")
-            section = doc.sections[0]
-            header = section.header
-            header.paragraphs[0].text = ""
-            footer = section.footer
-            footer.paragraphs[0].text = ""
-            paragraphs = [paragraph.text for paragraph in doc.paragraphs]
-            text = '\n'.join(paragraphs)
-        elif file_extension == 'txt':  # if it's txt file
-            text = textract.process(f"temp.{file_extension}", method = "python").decode('utf-8')
-        elif file_extension == 'pdf': # if it's pdf file    
-            reader = PdfReader(f"temp.{file_extension}") # creating a pdf reader object
-            text = ""
-            for page_num in range(len(reader.pages)):
-                page = reader.pages[page_num]
-                content = page.extract_text()
-                lines = content.split('\n') 
-                lines = lines[int(len(lines) * 0.05):int(len(lines))] #how much to take away (5%)
-                cleaned_content = '\n'.join(lines)
-                text += cleaned_content + '\n'
-        elif file_extension == "jpg": # if it's image files
-            image = np.array(Image.open(f"temp.{file_extension}")) # create image
-            normalised_image = np.zeros((image.shape[0], image.shape[1]))
-            # remove distractions in the photo using cv
-            image = cv2.normalize(image, normalised_image, 0, 255, cv2.NORM_MINMAX)
-            image = cv2.threshold(image, 100, 255, cv2.THRESH_BINARY)[1]
-            image = cv2.GaussianBlur(image, (1, 1), 0)
-
-            text = pytesseract.image_to_string(image) # use pytesseract to extract text
-        else:
-            return HTTPException(status_code = 403, detail = "Unsupported File Type")
-    except:
-        raise HTTPException(status_code = 500, detail = "Internal Server Error")
-        
-    finally:
-        os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
-    return validation.sanitise(text)
-    # return text
