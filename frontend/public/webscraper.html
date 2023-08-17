@@ -331,7 +331,6 @@
       
     const isValidUrl = (urlString) => {
         const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
-        console.log(urlString)
         return urlPattern.test(urlString);
     };
     
@@ -344,41 +343,42 @@
       if(isValidUrl(data["page_url"])==false){
         window.alert("Invalid URL!")
         $('#loading').hide();
-      }
-      console.log(data)
-      $.ajax({
-        url:"http://127.0.0.1:8000/webscraper/",
-        type: "POST",
-        data: JSON.stringify(data),
-        contentType: "application/json; charset = utf-8",
-        dataType: "json",
-        success: function(data, textStatus, xhr) {
-          elements = data
-          unique = []
-          for(item of elements) { 
-            if(!unique.includes(item[0])) {
-                unique.push(item[0])
+      }else{
+          $.ajax({
+          url:"http://127.0.0.1:8000/webscraper/",
+          type: "POST",
+          data: JSON.stringify(data),
+          contentType: "application/json; charset = utf-8",
+          dataType: "json",
+          success: function(data, textStatus, xhr) {
+            elements = data
+            unique = []
+            for(item of elements) { 
+              if(!unique.includes(item[0])) {
+                  unique.push(item[0])
+              }
             }
+            num_of_elements = unique.length
+            if (counter > 1){
+              changeCheckbox(num_of_elements)
+              update_content_box(elements,'<input type="checkbox" class="checkboxed" name="checkbox"',num_of_elements)
+            }
+            else {
+              update_content_box(elements,'',num_of_elements)
+            }
+            
+            $('.btn[type="button"]').prop('disabled', false); // Enable submit
+            $('#submitBtn').prop('disabled', false); //Enable arrow submit button
+            
+          },
+          error: function(xhr, textStunlatus, err) {
+            $('#loading').hide(); // Hide loading
+            $('.btn[type="button"]').prop('disabled', false); // Enable submit
+            $('#submitBtn').prop('disabled', false); //Enable arrow submit button
+            console.log("error")
           }
-          num_of_elements = unique.length
-          if (counter > 1){
-            changeCheckbox(num_of_elements)
-            update_content_box(elements,'<input type="checkbox" class="checkboxed" name="checkbox"',num_of_elements)
-          }
-          else {
-            update_content_box(elements,'',num_of_elements)
-          }
-          
-          $('.btn[type="button"]').prop('disabled', false); // Enable submit
-          $('#submitBtn').prop('disabled', false); //Enable arrow submit button
-          
-        },
-        error: function(xhr, textStunlatus, err) {
-          $('#loading').hide(); // Hide loading
-          $('.btn[type="button"]').prop('disabled', false); // Enable submit
-          $('#submitBtn').prop('disabled', false); //Enable arrow submit button
-        }
-      })
+        })
+      }
     }
         
     function update_content_box(elements,content,num_of_elements) {
