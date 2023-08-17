@@ -179,8 +179,8 @@ function clickRefresh() {
             error: function (xhr, textStatus, err) {
                 $('#loading').hide(); // Hide loading
                 $('.btn[type="button"]').prop('disabled', false); // Enable submit
-                localStorage.removeItem("text");
-                localStorage.removeItem("api-used");
+                // localStorage.removeItem("text");
+                // localStorage.removeItem("api-used");
             }
         });
     }
@@ -293,11 +293,38 @@ function clickRefresh() {
     }
     $(window).ready(function() {
       $('#loading').show(); // show loading
+			var data = {
+				list_of_apis: JSON.parse(localStorage.getItem("api-used")), 
+				text: JSON.parse(localStorage.getItem("original-text"))
+			};
+      console.log(data)
+      $.ajax({
+        url: `http://127.0.0.1:8000/splittext/`,
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset = utf-8",
+        dataType: "json",
+        async: false,
+        success: function(data, textStatus, xhr) {
+          // $('#loading').hide(); // Hide loading
+          // $('.btn[type="button"]').prop('disabled', false); // Enable submit
+          localStorage.setItem("text", JSON.stringify(data))
+        },
+        error: function(xhr, textStunlatus, err) {
+          $('#loading').hide(); // Hide loading
+          $('.btn[type="button"]').prop('disabled', false); // Enable submit
+          // localStorage.removeItem("text")
+          // localStorage.removeItem("api-used")
+        }
+      })
       var api_info = JSON.parse(localStorage.getItem("api-info"))
       var list_of_text = JSON.parse(localStorage.getItem("text"))
       var api_used = JSON.parse(localStorage.getItem("api-used"))
       if (api_info == null || list_of_text == null) {
-        history.back()
+        console.log("Null values")
+        console.log(api_info)
+        console.log(list_of_text)
+        // history.back()
       }
 			var data = {
 				list_of_apis: JSON.parse(localStorage.getItem("api-used")), 

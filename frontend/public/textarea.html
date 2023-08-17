@@ -105,25 +105,9 @@
         $('.btn[type="button"]').prop('disabled', false);
       }else{
         localStorage.setItem("api-used", JSON.stringify(data["list_of_apis"]))
-        $.ajax({
-          url: `http://127.0.0.1:8000/splittext/`,
-          type: "POST",
-          data: JSON.stringify(data),
-          contentType: "application/json; charset = utf-8",
-          dataType: "json",
-          success: function(data, textStatus, xhr) {
-            $('#loading').hide(); // Hide loading
-            $('.btn[type="button"]').prop('disabled', false); // Enable submit
-            localStorage.setItem("text", JSON.stringify(data))
-            window.location.href='result.html'
-          },
-          error: function(xhr, textStunlatus, err) {
-            $('#loading').hide(); // Hide loading
-            $('.btn[type="button"]').prop('disabled', false); // Enable submit
-            localStorage.removeItem("text")
-            // localStorage.removeItem("api-used")
-          }
-        })
+        localStorage.setItem("original-text", JSON.stringify(data["text"]))
+        console.log("test")
+        window.location.href='result.html'
       }
 		};
 

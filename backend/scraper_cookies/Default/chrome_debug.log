@@ -1,0 +1,27 @@
+[0818/010002.593:ERROR:gpu_process_transport_factory.cc(980)] Lost UI shared context.
+[0818/010002.604:ERROR:devtools_http_handler.cc(288)] Error writing DevTools active port to file
+[0818/010002.620:ERROR:backend_impl.cc(1432)] Unable to map Index file
+[0818/010002.623:ERROR:cache_util_win.cc(19)] Unable to move the cache: 5
+[0818/010002.623:ERROR:cache_util.cc(140)] Unable to move cache folder C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\GPUCache to C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\old_GPUCache_000
+[0818/010002.623:ERROR:disk_cache.cc(168)] Unable to create cache
+[0818/010002.624:ERROR:shader_disk_cache.cc(620)] Shader Cache Creation failed: -2
+[0818/010005.641:ERROR:service_worker_storage.cc(2104)] Failed to delete the database: Database IO error
+[0818/010018.435:ERROR:gpu_process_transport_factory.cc(980)] Lost UI shared context.
+[0818/010018.447:ERROR:devtools_http_handler.cc(288)] Error writing DevTools active port to file
+[0818/010018.454:ERROR:backend_impl.cc(1432)] Unable to map Index file
+[0818/010018.455:ERROR:cache_util_win.cc(19)] Unable to move the cache: 5
+[0818/010018.455:ERROR:cache_util.cc(140)] Unable to move cache folder C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\GPUCache to C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\old_GPUCache_000
+[0818/010018.455:ERROR:disk_cache.cc(168)] Unable to create cache
+[0818/010018.455:ERROR:shader_disk_cache.cc(620)] Shader Cache Creation failed: -2
+[0818/010021.155:INFO:CONSOLE(1)] "%c【AdEngine】(production-148) queued at 16944ms and loaded in 1224ms. (w3schools.com:7416-1692195508448-default)", source: https://adengine.snigelweb.com/w3schools.com/7416-1692195508448/adngin.js (1)
+[0818/010021.195:INFO:CONSOLE(5)] "Uncaught TypeError: Object.fromEntries is not a function", source: https://cdn.snigelweb.com/prebid/7.53.0/prebid.js?v=7416-1692195508448 (5)
+[0818/010021.482:ERROR:service_worker_storage.cc(2104)] Failed to delete the database: Database IO error
+[0818/010021.902:INFO:CONSOLE(7)] "Uncaught (in promise) TypeError: a.b.allSettled is not a function", source: https://cdn.id5-sync.com/api/1.0/id5-api.js (7)
+[0818/010028.388:INFO:CONSOLE(1)] "%c【AdEngine】(production-148) queued at 8633ms and loaded in 711ms. (w3schools.com:7416-1692195508448-default)", source: https://adengine.snigelweb.com/w3schools.com/7416-1692195508448/adngin.js (1)
+[0818/010028.419:INFO:CONSOLE(5)] "Uncaught TypeError: Object.fromEntries is not a function", source: https://cdn.snigelweb.com/prebid/7.53.0/prebid.js?v=7416-1692195508448 (5)
+[0818/010028.671:INFO:CONSOLE(7)] "Uncaught (in promise) TypeError: a.b.allSettled is not a function", source: https://cdn.id5-sync.com/api/1.0/id5-api.js (7)
+[0818/010031.227:ERROR:database.cc(1828)] Cookie sqlite error 2067, errno 0: UNIQUE constraint failed: cookies.host_key, cookies.name, cookies.path, sql: INSERT INTO cookies (creation_utc, host_key, name, value, encrypted_value, path, expires_utc, is_secure, is_httponly, firstpartyonly, last_access_utc, has_expires, is_persistent, priority) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+[0818/010031.229:ERROR:database.cc(1828)] Cookie sqlite error 2067, errno 0: UNIQUE constraint failed: cookies.host_key, cookies.name, cookies.path, sql: INSERT INTO cookies (creation_utc, host_key, name, value, encrypted_value, path, expires_utc, is_secure, is_httponly, firstpartyonly, last_access_utc, has_expires, is_persistent, priority) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+[0818/010031.232:ERROR:database.cc(1828)] Cookie sqlite error 2067, errno 0: UNIQUE constraint failed: cookies.host_key, cookies.name, cookies.path, sql: INSERT INTO cookies (creation_utc, host_key, name, value, encrypted_value, path, expires_utc, is_secure, is_httponly, firstpartyonly, last_access_utc, has_expires, is_persistent, priority) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+[0818/010031.232:ERROR:database.cc(1828)] Cookie sqlite error 2067, errno 0: UNIQUE constraint failed: cookies.host_key, cookies.name, cookies.path, sql: INSERT INTO cookies (creation_utc, host_key, name, value, encrypted_value, path, expires_utc, is_secure, is_httponly, firstpartyonly, last_access_utc, has_expires, is_persistent, priority) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+[0818/010031.233:ERROR:database.cc(1828)] Cookie sqlite error 2067, errno 0: UNIQUE constraint failed: cookies.host_key, cookies.name, cookies.path, sql: INSERT INTO cookies (creation_utc, host_key, name, value, encrypted_value, path, expires_utc, is_secure, is_httponly, firstpartyonly, last_access_utc, has_expires, is_persistent, priority) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
