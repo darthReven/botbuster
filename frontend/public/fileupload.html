@@ -182,7 +182,6 @@
     }
 
     function checkText(event) {
-      console.log(event)
       event.preventDefault();
       $('#loading').show(); // Start loading
       $('.btn[type="button"]').prop('disabled', true); // Disable submit
@@ -203,42 +202,48 @@
         }
       }
       var text_with_elements = document.getElementsByClassName("col-12");
-      var text = "";
-      var element = text_with_elements[0];
-      text += element.innerHTML;
-      text = text.replace(/<br>/g, "");
-			data["text"] = text
-      // validation
-      if(validateText(text)==false){
+      if(text_with_elements.length===0){
         window.alert("Text is empty!")
         $('#loading').hide();
         $('.btn[type="button"]').prop('disabled', false);
-      }else if(data["list_of_apis"].length==0){
-        window.alert("No APIs selected!")
-        $('#loading').hide();
-        $('.btn[type="button"]').prop('disabled', false);
       }else{
-          localStorage.setItem("text", data['text'])
-          localStorage.setItem("api-used", JSON.stringify(data["list_of_apis"]))
-          $.ajax({
-            url: `http://127.0.0.1:8000/splittext/`,
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset = utf-8",
-            dataType: "json",
-            success: function(data, textStatus, xhr) {
-              $('#loading').hide(); // Hide loading
-              $('.btn[type="button"]').prop('disabled', false); // Enable submit
-              localStorage.setItem("text", JSON.stringify(data))
-              // window.location.href='result.html'
-            },
-            error: function(xhr, textStunlatus, err) {
-              $('#loading').hide(); // Hide loading
-              $('.btn[type="button"]').prop('disabled', false); // Enable submit
-              localStorage.removeItem("text")
-              localStorage.removeItem("api-used")
-            }
-          }) 
+        var text = "";
+        var element = text_with_elements[0];
+        text += element.innerHTML;
+        text = text.replace(/<br>/g, "");
+        data["text"] = text
+        // validation
+        if(validateText(text)==false){
+          window.alert("Text is empty!")
+          $('#loading').hide();
+          $('.btn[type="button"]').prop('disabled', false);
+        }else if(data["list_of_apis"].length==0){
+          window.alert("No APIs selected!")
+          $('#loading').hide();
+          $('.btn[type="button"]').prop('disabled', false);
+        }else{
+            localStorage.setItem("text", data['text'])
+            localStorage.setItem("api-used", JSON.stringify(data["list_of_apis"]))
+            $.ajax({
+              url: `http://127.0.0.1:8000/splittext/`,
+              type: "POST",
+              data: JSON.stringify(data),
+              contentType: "application/json; charset = utf-8",
+              dataType: "json",
+              success: function(data, textStatus, xhr) {
+                $('#loading').hide(); // Hide loading
+                $('.btn[type="button"]').prop('disabled', false); // Enable submit
+                localStorage.setItem("text", JSON.stringify(data))
+                // window.location.href='result.html'
+              },
+              error: function(xhr, textStunlatus, err) {
+                $('#loading').hide(); // Hide loading
+                $('.btn[type="button"]').prop('disabled', false); // Enable submit
+                localStorage.removeItem("text")
+                localStorage.removeItem("api-used")
+              }
+            }) 
+        }
       }
 		};
 
@@ -299,7 +304,7 @@
             <div id="text-area" class="content-box">
             </div>
             <div class="text-center">
-              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn" onclick="checkText(event)">
+              <button type="submit" id="submit-btn" class="btn btn-link px-5 py-3 my-5 mx-2 fw-bold pull-right form-btn"  onclick="checkText(event)">
                 Submit
               </button>
               <button type="reset" class="btn btn-link px-4 py-3 my-5 mx-2 fw-bold pull-right navbar-btn" onclick="removeContentBox()">
