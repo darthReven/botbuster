@@ -379,7 +379,84 @@
         }
       })
     }
-        
+    function decodeHtmlEntities(encodedString) {
+    return encodedString.replace(/&(amp|lt|gt|quot|apos|#x27|#039|#60|#62|#36|#35|#40|#41|#58|#123|#125|#95|#45|#43|#42|#10|#9);|&#(\d+);|&#[xX]([0-9A-Fa-f]+);/g, function(match, entity, dec, hex) {
+        if (entity === 'amp') {
+            return '&';
+        } else if (entity === 'lt') {
+            return '<';
+        } else if (entity === 'gt') {
+            return '>';
+        } else if (entity === 'quot') {
+            return '"';
+        } else if (entity === 'apos' || entity === '#x27' || entity === '#039') {
+            return "'";
+        } else if (entity === '#60') {
+            return "@";
+        } else if (entity === '#62') {
+            return "#";
+        } else if (entity === '#36') {
+            return "$";
+        } else if (entity === '#35') {
+            return "%";
+        } else if (entity === '#40') {
+            return "(";
+        } else if (entity === '#41') {
+            return ")";
+        } else if (entity === '#58') {
+            return ":";
+        } else if (entity === '#123') {
+            return "{";
+        } else if (entity === '#125') {
+            return "}";
+        } else if (entity === '#95') {
+            return "_";
+        } else if (entity === '#45') {
+            return "-";
+        } else if (entity === '#43') {
+            return "+";
+        } else if (entity === '#42') {
+            return "*";
+        } else if (entity === '#10') {
+            return "\n";
+        } else if (entity === '#9') {
+            return "\t";
+        } else if (dec) {
+            return String.fromCharCode(dec);
+        } else if (hex) {
+            return String.fromCharCode(parseInt(hex, 16));
+        }
+        return match;
+    });
+}
+
+
+function unescapeJsonString(jsonString) {
+    return jsonString.replace(/\\(["\\/bfnrt]|u[0-9a-fA-F]{4})/g, function (match) {
+        switch (match.charAt(1)) {
+            case '"':
+            case '\\':
+            case '/':
+                return match.charAt(1);
+            case 'b':
+                return '\b';
+            case 'f':
+                return '\f';
+            case 'n':
+                return '\n';
+            case 'r':
+                return '\r';
+            case 't':
+                return '\t';
+            default:
+                if (match.startsWith('\\u')) {
+                    return String.fromCharCode(parseInt(match.substr(2), 16));
+                }
+                return match;
+        }
+    });
+}
+
     function update_content_box(elements,content,num_of_elements) {
       if (content.includes('<input type="checkbox" class="checkboxed" name="checkbox"')) {
         gettingElements()
@@ -387,7 +464,6 @@
         gettingElements()
         appendCheckbox(num_of_elements)
       }
-      
       content = `
       <div class="row text-center">
           <div class="col-3 px-3">
@@ -398,17 +474,18 @@
           </div>
       </div>
       `
-      for(item of elements) {
-        if(!unselectedElements.includes(item[0])) {
+      for(item in elements) {
+        placeholder = elements[item]
+        if(!unselectedElements.includes(placeholder[0])) {
           content += `
           <div class="row">
               <div class="col-3 px-3 text-center">
                 <i class="fas fa-trash-alt delete-icon"></i>
-                  ${item[0]}
+                  ${placeholder[0]}
               </div>
               <div class="col-9 px-3" contenteditable>
                 
-                  ${item[1]}
+                  ${placeholder[1]}
               </div>
           </div>
   
@@ -417,6 +494,19 @@
       }
       $('.content-box').html(content);
       $('.delete-icon').on('click', function() {
+          const row = $(this).closest('.row');
+          const value = row.text().trim().replace(/\s{3,}/g, '!@#$%').split('!@#$%');
+          str_value = JSON.stringify(value)
+          decodedValue = unescapeJsonString(str_value)
+          for(item in elements){
+            str_item = JSON.stringify(elements[item])
+            
+            decodedItem = decodeHtmlEntities(str_item)
+            console.log(decodedItem)
+            if (decodedValue === decodedItem){
+              delete elements[item]
+            }
+          }
           $(this).closest('.row').remove();
       })
       $('#loading').hide(); // Hide loading
