@@ -295,6 +295,7 @@ function clickRefresh() {
       $('#loading').show(); // show loading
       var api_info = JSON.parse(localStorage.getItem("api-info"))
       var list_of_text = JSON.parse(localStorage.getItem("text"))
+      var api_used = JSON.parse(localStorage.getItem("api-used"))
       if (api_info == null || list_of_text == null) {
         history.back()
       }
@@ -307,8 +308,12 @@ function clickRefresh() {
       if(column_number < 4) {
         column_number = 4
       }
-      for (api_category of Object.keys(api_info)) {
+      displayed_categories = []
+      for (info of api_used) {
+        api = info[0]
+        api_category = info[1]
         // Create the average for each category and the hoverable boxes
+        if (displayed_categories.includes(api_category)) {continue}
         $("#text-area > .row").append(`<div class="col-${column_number}"><span class = "hoverable" id = "average_${api_category}"><i class="fa-solid fa-caret-down"></i>${api_category}<br><span id =  "${api_category.replace(/\s/g, '-')}-average-score">calculating</span></span></div>`)
         $("body").append(`<div class="hover_box hidden" id="hover_box_${api_category.replace(/\s/g, '-')}">Updating...</div>`)
 
@@ -327,6 +332,7 @@ function clickRefresh() {
           const byte_array = new Uint8Array(byte_numbers);
           document.getElementById(`${api_info[api_category][api][0]}_logo`).src = URL.createObjectURL(new Blob([byte_array], { type: 'image/png' }));
           }
+          displayed_categories.push(api_category)
         }
       }
       makeSequentialRequests(0, list_of_text, api_info);

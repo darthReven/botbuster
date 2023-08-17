@@ -408,7 +408,6 @@ def extract_text(file: UploadFile):
             return HTTPException(status_code = 403, detail = "Unsupported File Type")
     except:
         raise HTTPException(status_code = 500, detail = "Internal Server Error")
-        
     finally:
         os.remove(f"temp.{file_extension}") # delete the temporary file whether there was an error or not
     return validation.sanitise(text)
