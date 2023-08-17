@@ -162,7 +162,7 @@ function clickRefresh() {
         };
         data["text"] = list_of_text[index][0]
         $.ajax({
-            url: "http://127.0.0.1:8000/checktext/new",
+            url: "http://127.0.0.1:8000/checktext/",
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",

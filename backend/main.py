@@ -67,7 +67,7 @@ def split_text(request: ds.split_text):
 
 
 # calling apis to check the text
-@botbuster.post("/checktext/new") # endpoint #1 sending requests to the AI detection engines
+@botbuster.post("/checktext/") # endpoint #1 sending requests to the AI detection engines
 def check_text(request: ds.check_text):
     decoded_req=validation.decode(request.dict())# decode the encoded text
     list_of_apis = decoded_req["list_of_apis"]
