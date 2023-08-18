@@ -1,7 +1,6 @@
 # importing libraries
 from fastapi import FastAPI, HTTPException, Response, status, UploadFile, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import BackgroundTasks
 from PyPDF2 import PdfReader
 from urllib.parse import urlparse
 from PIL import Image
@@ -79,7 +78,7 @@ def check_text(request: ds.check_text):
     total_score = {api_category:{} for api, api_category in list_of_apis} # store score of each API before taking the average
     num_sentences = text_utils.chunk_size(text)
     request_num = len(scores)
-    # print(f"Request No.: {request_num}")
+    print(f"Request No.: {request_num}")
     scores["overall_score"]["sentence_data"][request_num] = num_sentences
     scores["overall_score"]["sentence_data"]["total_num_sentences"] += num_sentences
     with open(CONFIG_FILE_PATH, "r") as config_data_file: # load in config data from config file
@@ -89,7 +88,8 @@ def check_text(request: ds.check_text):
         scores["overall_score"][api_category][api] = "score not calculated"
         try:
             if api != "score_type" and api != "description":
-                results = API(config_data["APIs"][api_category][api]).api_call(text)                
+                results = API(config_data["APIs"][api_category][api]).api_call(text)
+                # print(api, results)
                 full_results[api] = results
             if api_category not in seen_categories:
                 total_score[api_category] = {"score": 0, "num_apis": 0}
@@ -101,6 +101,7 @@ def check_text(request: ds.check_text):
                     } for api, api_category in list_of_apis},
                     "sentence_score": []  # keeping a score for each sentence  
                 }
+                print(scores)
                 for sentence in text_utils.chunk_by_sentences(text):
                     scores[request_num]["sentence_score"].append({sentence: {}})
             seen_categories.append(api_category)
@@ -164,10 +165,13 @@ def check_text(request: ds.check_text):
             results = full_results # checking for sentence score
             for key in path1.split("."): # loops through each key in the path to sentence scores
                 try:
+                    if results == "Error Detecting":
+                        continue
                     if key.isnumeric(): # if the key is numerical, convert it to an int
                         key = int(key)
                     if key == "num":
                         key = request_num
+                    print("results", results)
                     results = results[key] # try to path to the score
                 except KeyError or TypeError or Exception:
                     continue
@@ -185,7 +189,8 @@ def check_text(request: ds.check_text):
                 except:
                     continue  
         except KeyError: # Key Error will trigger is there is no path to sentence score (API does not have this capability)
-            continue      
+            continue     
+    # print(scores) 
     for api_category in scores["overall_score"].keys():
         try:
             if api_category == "sentence_data":
@@ -252,43 +257,41 @@ async def get_apis():
 @botbuster.post("/addapi/") # endpoint #3 adding APIs to the system
 def add_api(request: ds.add_api, response: Response):
     req = request.dict()
-    try:
-        API(req["api_details"])
-        api_name = req["api_name"]
-    except KeyError:
+    acceptable_request = validation.validate_api_details(req)
+    if not (acceptable_request):
         raise HTTPException (status_code = 403, detail = "missing details")
-    else:
-        with open(CONFIG_FILE_PATH, "r") as add_api_file:
-            api_data = json.load(add_api_file)
-            api_data[api_name] = req["api_details"]
-        with open(CONFIG_FILE_PATH, "w") as add_api_file:
-            add_api_file.write(json.dumps(api_data, indent = 4))
-            response.status_code = status.HTTP_204_NO_CONTENT
+    with open(CONFIG_FILE_PATH, "r") as config_file:
+        config_data = json.load(config_file)
+        config_data["APIs"][req["category"]] = {
+            "description": req["description"],
+            "score_type": req["score_type"],
+            req["name"]: {"target": req["target"], "body_key": req["body_key"], "data_type": req["data_type"], "headers": req["headers"], "body": req["body"]}
+        }
+        config_data["path_to_general_score"][req["name"]] = req["path_to_general_score"]
+        if req["path_to_sentence_score"] != "":
+            config_data["path_to_sentence_score"][req["name"]] = req["path_to_sentence_score"]
+    with open(CONFIG_FILE_PATH, "w") as add_api_file:
+        add_api_file.write(json.dumps(config_data, indent = 4))
+        response.status_code = status.HTTP_204_NO_CONTENT
 
 # scraping websites data
 @botbuster.post("/webscraper/") # endpoint #4 scraping data from websites
 async def web_scraping(request: ds.web_scraper, background_tasks: BackgroundTasks):
     page_url = request.dict()["page_url"]
     if not validation.is_valid_url(page_url):
-        print("hello")
-        # raise HTTPException(status_code=403, detail="Bad Request")
-    print("test")
+        raise HTTPException(status_code=403, detail="Bad Request")
     with open(CONFIG_FILE_PATH, "r") as config_data_file:
         website_configs = json.load(config_data_file)["website_configs"]
     website_name = urlparse(page_url).netloc
     scraping_data = website_configs.get(website_name, website_configs["default"])
-    print("test")
     if scraping_data["func"] == "sms":
         items = await ws.scraper(scraping_data["elements"], scraping_data["settings"], page_url)
     elif scraping_data["func"] == "gws":
         url = scraping_data.get("url", None)
         splitter = scraping_data.get("splitter", None)
-        print("1")
         items = ws.generic_scraper(scraping_data["elements"], page_url, url, splitter)
-        print("hello")
     else: 
         raise HTTPException(status_code=500, detail="Internal Server Error")
-    print("test2")
     return validation.sanitise(items)
 
 
@@ -305,15 +308,11 @@ async def get_webscraper_settings():
 async def update_config(website_configs: dict):
     # try:
     # validation
-    print(website_configs)
     for domain, selectors in website_configs["website_configs"].items():
         if (validation.check_domain(domain)==False):
-            print("websoite validation failed")
             raise HTTPException(status_code=403, detail="Invalid Input!")
         for selector in selectors:
             if (validation.check_elements(selector)==False):
-                print(selector)
-                print("element validation failed")
                 raise HTTPException(status_code=403, detail="Invalid Input!")
         # save the updated configuration to the config.json file
     with open(TEMP_FILE_PATH, "r") as f:
@@ -337,10 +336,8 @@ async def update_elements(request: Request):
     new_element = data.get("newElement")
     # validation
     if(validation.check_domain(website)==False):
-        print("website validation FAILED")
         raise HTTPException(status_code = 403, detail = "Invalid Input!")
     if(validation.check_elements(new_element)==False):
-        # print("element validation FAILED")
         raise HTTPException(status_code = 403, detail = "Invalid Input!")
     
     with open(TEMP_FILE_PATH, "r") as f:

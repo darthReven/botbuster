@@ -24,16 +24,3 @@ class API:
             return "Internal Server Error", 500
         else:
             return response.json()
-
-    def api_check(self):
-        pass 
-
-    @classmethod
-    async def api_body_check(api):
-        pass
-
-    @classmethod
-    async def api_target_check(api):
-        #direct to virus total/phishing api
-
-        pass
