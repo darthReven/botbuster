@@ -147,14 +147,14 @@
                     <div class="form-control p-5">
                         <h4>Add API Details</h4>
                             <div class="form-row mb-3">
-                                <label for="validationCustom01">Title</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder="API Title" required>
+                                <label for="api-title">Title</label>
+                                <input type="text" class="form-control" id="api-title" placeholder="API Title" required>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Category</label>
+                                <label for="api-category">Category</label>
                                 <input type="text" class="form-control" name="product" placeholder="Category" list="existing_apis" required>
                                 <datalist id="existing_apis">
                                   <option value="AIGCD APIs">AIGCD APIs</option>
@@ -166,19 +166,22 @@
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Description</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder="Description" required>
+                                <label for="api-description">Description</label>
+                                <input type="text" class="form-control" id="api-description" placeholder="Description" required>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
                                 <label for="validationCustom01">Score Type</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder="Continuous/Discrete" required>
-                                <div class="valid-feedback">
-                                  Looks good!
-                                </div>
-                              </div>
+                                <select class="form-select" aria-label="Score type selection">
+                                    <option value="contiuous" selected>Continuous</option>
+                                    <option value="discrete">Discrete</option>
+                                  </select>
+                                  <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                              </div>
                               <div class="form-row mb-3">
                                 <label for="validationCustom01">Target</label>
                                 <input type="text" class="form-control" id="validationCustom01" placeholder="https://example.com/API" required>
@@ -195,15 +198,14 @@
                               </div>
                               <div class="form-row mb-3">
                                 <label for="validationCustom01">Data Type</label>
-                                <input type="text" class="form-control" name="product" placeholder="Data Type" list="data_types" required>
-                                <datalist id="data_types">
-                                  <option value="string">String</option>
-                                  <option value="list">List</option>
-                                </datalist>                                
+                                <select class="form-select" aria-label="Score type selection">
+                                    <option value="string" selected>String</option>
+                                    <option value="list">List</option>
+                                </select>                               
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
-                              </div>
+                              </div>
                               <div class="form-row mb-3">
                                 <label for="validationCustom01">Header</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='{&#10"accept": "application/json",&#10"Authorization": "Key",&#10"content-type": "application/json"&#10}' required></textarea>
