@@ -101,7 +101,7 @@ def check_text(request: ds.check_text):
                     } for api, api_category in list_of_apis},
                     "sentence_score": []  # keeping a score for each sentence  
                 }
-                print(scores)
+                # print(scores)
                 for sentence in text_utils.chunk_by_sentences(text):
                     scores[request_num]["sentence_score"].append({sentence: {}})
             seen_categories.append(api_category)
@@ -171,7 +171,7 @@ def check_text(request: ds.check_text):
                         key = int(key)
                     if key == "num":
                         key = request_num
-                    print("results", results)
+                    # print("results", results)
                     results = results[key] # try to path to the score
                 except KeyError or TypeError or Exception:
                     continue
@@ -256,10 +256,11 @@ async def get_apis():
 # adding apis to system
 @botbuster.post("/addapi/") # endpoint #3 adding APIs to the system
 def add_api(request: ds.add_api, response: Response):
+    print("called")
     req = request.dict()
-    acceptable_request = validation.validate_api_details(req)
-    if not (acceptable_request):
-        raise HTTPException (status_code = 403, detail = "missing details")
+    # acceptable_request = validation.validate_api_details(req)
+    # if not (acceptable_request):
+    #     raise HTTPException (status_code = 403, detail = "missing details")
     with open(CONFIG_FILE_PATH, "r") as config_file:
         config_data = json.load(config_file)
         config_data["APIs"][req["category"]] = {
@@ -268,8 +269,9 @@ def add_api(request: ds.add_api, response: Response):
             req["name"]: {"target": req["target"], "body_key": req["body_key"], "data_type": req["data_type"], "headers": req["headers"], "body": req["body"]}
         }
         config_data["path_to_general_score"][req["name"]] = req["path_to_general_score"]
-        if req["path_to_sentence_score"] != "":
+        if req["path_to_sentence_score"] != [""]:
             config_data["path_to_sentence_score"][req["name"]] = req["path_to_sentence_score"]
+
     with open(CONFIG_FILE_PATH, "w") as add_api_file:
         add_api_file.write(json.dumps(config_data, indent = 4))
         response.status_code = status.HTTP_204_NO_CONTENT

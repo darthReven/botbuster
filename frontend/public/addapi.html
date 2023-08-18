@@ -78,27 +78,57 @@
           }
         })
     }); 
-    </script>
-    <script>
+    
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
-          'use strict';
-          window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-              form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-              }, false);
-            });
-          }, false);
-        })();
-        </script>
+        // (function() {
+        //   'use strict';
+        //   window.addEventListener('load', function() {
+        //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        //     var forms = document.getElementsByClassName('needs-validation');
+        //     // Loop over them and prevent submission
+        //     var validation = Array.prototype.filter.call(forms, function(form) {
+        //       form.addEventListener('submit', function(event) {
+        //         if (form.checkValidity() === false) {
+        //           event.preventDefault();
+        //           event.stopPropagation();
+        //         }
+        //         form.classList.add('was-validated');
+        //       }, false);
+        //     });
+        //   }, false);
+        // })();
+
+        function addApi(event) {
+          event.preventDefault()
+          $('#loading').show(); // Start loading
+          $('.btn[type="button"]').prop('disabled', true); // Disable submit
+          var data = {
+            name: document.getElementById("api-title").value, 
+            category: document.getElementById("api-category").value,
+            description: document.getElementById("api-description").value,
+            score_type: document.getElementById("api-score-type").value,
+            target: document.getElementById("api-target").value,
+            body_key: document.getElementById("api-body-key").value,
+            data_type: document.getElementById("api-data-type").value,
+            headers: JSON.parse(document.getElementById("api-header").value),
+            body: JSON.parse(document.getElementById("api-body").value),
+            path_to_general_score: document.getElementById("api-general-path").value,
+            path_to_sentence_score: document.getElementById("api-sentence-path").value.split(","),
+          };
+          console.log(data)
+          $.ajax({
+            url: "http://127.0.0.1:8000/addapi/",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset = utf-8",
+            success: function (data, textStatus, xhr) {
+              location.reload()
+            }, error(xhr, textStatus, err) {
+              $('#loading').hide(); // Hide loading
+            }
+          })
+        };
+    </script>
 
 </head>
 <body>
@@ -155,7 +185,7 @@
                               </div>
                               <div class="form-row mb-3">
                                 <label for="api-category">Category</label>
-                                <input type="text" class="form-control" name="product" placeholder="Category" list="existing_apis" required>
+                                <input type="text" class="form-control" id="api-category" placeholder="Category" list="existing_apis" required>
                                 <datalist id="existing_apis">
                                   <option value="AIGCD APIs">AIGCD APIs</option>
                                   <option value="Misinformation APIs">Misinformation APIs</option>
@@ -173,8 +203,8 @@
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Score Type</label>
-                                <select class="form-select" aria-label="Score type selection">
+                                <label for="api-score-type">Score Type</label>
+                                <select class="form-select" aria-label="Score type selection" id="api-score-type">
                                     <option value="contiuous" selected>Continuous</option>
                                     <option value="discrete">Discrete</option>
                                   </select>
@@ -183,22 +213,22 @@
                                   </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Target</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder="https://example.com/API" required>
+                                <label for="api-target">Target</label>
+                                <input type="text" class="form-control" placeholder="https://example.com/API" id="api-target" required>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Body Key</label>
-                                <input type="text" class="form-control" id="validationCustom01" placeholder="text" required>
+                                <label for="api-body-key">Body Key</label>
+                                <input type="text" class="form-control" id="api-body-key" placeholder="text" required>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Data Type</label>
-                                <select class="form-select" aria-label="Score type selection">
+                                <label for="api-data-type">Data Type</label>
+                                <select class="form-select" aria-label="Score type selection" id="api-data-type">
                                     <option value="string" selected>String</option>
                                     <option value="list">List</option>
                                 </select>                               
@@ -207,35 +237,35 @@
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Header</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='{&#10"accept": "application/json",&#10"Authorization": "Key",&#10"content-type": "application/json"&#10}' required></textarea>
+                                <label for="api-header">Header</label>
+                                <textarea class="form-control" id="api-header" rows="5" placeholder='{&#10"accept": "application/json",&#10"Authorization": "Key",&#10"content-type": "application/json"&#10}'></textarea>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Body</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder='{&#10"text": "Input Text"&#10}' required></textarea>
+                                <label for="api-body">Body</label>
+                                <textarea class="form-control" id="api-body" rows="3" placeholder='{&#10"text": "Input Text"&#10}' required></textarea>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Path to General Score</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1"placeholder='GPTZero.num.documents.0.completely_generated_prob' required></textarea>
+                                <label for="api-general-path">Path to General Score</label>
+                                <textarea class="form-control" id="api-general-path"placeholder='GPTZero.num.documents.0.completely_generated_prob' required></textarea>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="form-row mb-3">
-                                <label for="validationCustom01">Path To Sentence Score</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder='[&#10"GPTZero.num.documents.0.sentences",&#10"generated_prob"&#10]' required></textarea>
+                                <label for="api-sentence-path">Path To Sentence Score</label>
+                                <textarea class="form-control" id="api-sentence-path" rows="6" placeholder='[&#10"GPTZero.num.documents.0.sentences",&#10"generated_prob"&#10]'></textarea>
                                 <div class="valid-feedback">
                                   Looks good!
                                 </div>
                               </div>
                               <div class="text-center">
-                                <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = checkText()>
+                                <button type="submit" class="btn btn-link px-5 py-3 my-3 mx-2 fw-bold pull-right form-btn" onclick = addApi(event)>
                                     Submit
                                 </button>
                                 <button type="reset" class="btn btn-link px-4 py-3 my-3 mx-2 fw-bold pull-right navbar-btn">

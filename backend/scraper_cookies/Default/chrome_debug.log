@@ -1,11 +1,20 @@
-[0818/011947.104:ERROR:gpu_process_transport_factory.cc(980)] Lost UI shared context.
-[0818/011947.114:ERROR:devtools_http_handler.cc(288)] Error writing DevTools active port to file
-[0818/011947.121:ERROR:backend_impl.cc(1432)] Unable to map Index file
-[0818/011947.122:ERROR:cache_util_win.cc(19)] Unable to move the cache: 5
-[0818/011947.123:ERROR:cache_util.cc(140)] Unable to move cache folder C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\GPUCache to C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\old_GPUCache_000
-[0818/011947.123:ERROR:disk_cache.cc(168)] Unable to create cache
-[0818/011947.129:ERROR:shader_disk_cache.cc(620)] Shader Cache Creation failed: -2
-[0818/011950.152:ERROR:service_worker_storage.cc(2104)] Failed to delete the database: Database IO error
-[0818/012003.537:INFO:CONSOLE(5)] "Uncaught TypeError: Object.fromEntries is not a function", source: https://cdn.snigelweb.com/prebid/7.53.0/prebid.js?v=7416-1692195508448 (5)
-[0818/012003.544:INFO:CONSOLE(1)] "%c【AdEngine】(production-148) queued at 15222ms and loaded in 629ms. (w3schools.com:7416-1692195508448-default)", source: https://adengine.snigelweb.com/w3schools.com/7416-1692195508448/adngin.js (1)
-[0818/012004.193:INFO:CONSOLE(7)] "Uncaught (in promise) TypeError: a.b.allSettled is not a function", source: https://cdn.id5-sync.com/api/1.0/id5-api.js (7)
+[0818/174152.665:ERROR:gpu_process_transport_factory.cc(980)] Lost UI shared context.
+[0818/174152.679:ERROR:devtools_http_handler.cc(288)] Error writing DevTools active port to file
+[0818/174152.686:ERROR:backend_impl.cc(1432)] Unable to map Index file
+[0818/174152.688:ERROR:cache_util_win.cc(19)] Unable to move the cache: 5
+[0818/174152.688:ERROR:cache_util.cc(140)] Unable to move cache folder C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\GPUCache to C:\Users\Ellio\Documents\GitHub\botbuster\backend\scraper_cookies\Default\old_GPUCache_000
+[0818/174152.688:ERROR:disk_cache.cc(168)] Unable to create cache
+[0818/174152.689:ERROR:shader_disk_cache.cc(620)] Shader Cache Creation failed: -2
+[0818/174155.711:ERROR:service_worker_storage.cc(2104)] Failed to delete the database: Database IO error
+[0818/174202.387:INFO:CONSOLE(1)] "<link rel=preload> has an invalid `href` value", source: https://www.theonion.com/hungover-man-pieces-together-previous-night-by-what-he-1850729761 (1)
+[0818/174209.213:INFO:CONSOLE(2)] "Uncaught (in promise) TypeError: Object.fromEntries is not a function", source: https://x.kinja-static.com/assets/new-client/prebid-js-prod.29460a7272aaea626f60.js (2)
+[0818/174210.386:INFO:CONSOLE(1)] "Preflight request for request with keepalive specified is currently not supported", source: https://www.theonion.com/x-kinja-static/assets/new-client/vendor~trackers.dba99ae55abaa84738c0.js (1)
+[0818/174210.388:INFO:CONSOLE(1)] "Uncaught (in promise) TypeError: Failed to fetch", source: https://www.theonion.com/x-kinja-static/assets/new-client/vendor~trackers.dba99ae55abaa84738c0.js (1)
+[0818/174210.535:INFO:CONSOLE(899)] "tcData", source: https://www.theonion.com/hungover-man-pieces-together-previous-night-by-what-he-1850729761 (899)
+[0818/174210.536:INFO:CONSOLE(916)] "tcData", source: https://www.theonion.com/hungover-man-pieces-together-previous-night-by-what-he-1850729761 (916)
+[0818/174210.536:INFO:CONSOLE(920)] "tcData", source: https://www.theonion.com/hungover-man-pieces-together-previous-night-by-what-he-1850729761 (920)
+[0818/174210.556:INFO:CONSOLE(1)] "Messaging without detection successfully executed.", source: https://sourcepoint.theonion.com/wrapperMessagingWithoutDetection.js (1)
+[0818/174210.823:INFO:CONSOLE(67)] "Uncaught SyntaxError: Failed to execute 'measure' on 'Performance': The mark 'frontend.connatix.init.start' does not exist.", source: https://www.theonion.com/hungover-man-pieces-together-previous-night-by-what-he-1850729761 (67)
+[0818/174210.958:INFO:CONSOLE(1)] "Uncaught SyntaxError: Unexpected token =", source: https://cds.connatix.com/p/316151/connatix.playspace.js?cid=a2d35740-1866-416b-92dc-399b9121b597 (1)
+[0818/174210.958:INFO:CONSOLE(3)] "Uncaught TypeError: window.initConnatixPlayer is not a function", source: https://cd.connatix.com/connatix.playspace.js?cid=a2d35740-1866-416b-92dc-399b9121b597 (3)
+[0818/174211.553:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'https://as-sec.casalemedia.com/headerstats?s=365217&u=https%3A%2F%2Fwww.theonion.com%2Fhungover-man-pieces-together-previous-night-by-what-he-1850729761&v=3' from origin 'https://www.theonion.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.", source: https://www.theonion.com/hungover-man-pieces-together-previous-night-by-what-he-1850729761 (0)

@@ -17,7 +17,7 @@ class add_api (BaseModel):
     headers: dict
     body: dict
     path_to_general_score: str
-    path_to_sentence_score: str
+    path_to_sentence_score: list
     description: str
     score_type: str
 
