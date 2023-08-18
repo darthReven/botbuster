@@ -79,23 +79,6 @@
                     "text": ""
                 }
             }
-        },
-        "test": {
-            "description": "test",
-            "score_type": "contiuous",
-            "writer test": {
-                "target": "https://enterprise-api.writer.com/content/organization/572452/detect",
-                "body_key": "input",
-                "data_type": "string",
-                "headers": {
-                    "accept": "application/json",
-                    "Authorization": "hoqxluhz0knHgwpS2yKKcZSsYC5FZNJd2ZwhsUXH0rXtKALF-cnZFZiPpEUViA89xiPAPB_hGpmP-UWcxnMLU7BwxAYecOWzS1m99ld6ImzqKo9qCvEOPsMBx5QTmX33",
-                    "content-type": "application/json"
-                },
-                "body": {
-                    "input": ""
-                }
-            }
         }
     },
     "chunk_option": "paragraphs",
@@ -117,8 +100,7 @@
         "Sapling AI": "Sapling AI.num.score",
         "Hugging Face": "Hugging Face.num.data.0.0.Fake",
         "Moderate Hate Speech": "Moderate Hate Speech.num.class",
-        "In-house Model": "In-house Model.num.prediction",
-        "writer test": "Writer.num.1.score"
+        "In-house Model": "In-house Model.num.prediction"
     },
     "path_to_sentence_score": {
         "GPTZero": [
