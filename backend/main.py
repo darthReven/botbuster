@@ -228,6 +228,7 @@ def check_text(request: ds.check_text):
         score_data_file.write(json.dumps(scores, indent=4))
     graph.generate_graph(scores["overall_score"]) # generate the graph with the overall scores of each API
     gauge.generate_gauge(scores["overall_score"]) # generate the gauge with the overall scores of each API
+    scores=validation.decode(scores)
     return validation.sanitise(scores)
 
 @botbuster.get("/getapis/") # endpoint #2 retrieving available API information

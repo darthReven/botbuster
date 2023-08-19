@@ -70,7 +70,6 @@ def decode(data):
     else:
         return data
     
-
 def is_valid_url(url_string):
     url_pattern = r"^(https?):\/\/[^\s/$.?#].[^\s]*$"
     return bool(re.match(url_pattern, url_string))
