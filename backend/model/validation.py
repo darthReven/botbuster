@@ -31,24 +31,6 @@ def check_add_api(api_config):
     except ValidationError as e:
         return False
 
-# Example API configurations
-# api_configs = {
-#     "Moderate Hate Speech": {
-#             "target": "https://api.moderatehatespeech.com/api/v1/moderate/",
-#             "body_key": "text",
-#             "data_type": "string",
-            
-#             "body": {
-#                "token": "7a1a3e7a755bafa20f164ddcee16349a",
-#                "text": ""
-#             }
-#          }
-# }
-
-# # Validate API configurations for common fields
-# print(check_add_api(api_configs))
-
-
 def sanitise(data):
     if isinstance(data, dict):
         return {sanitise(key): sanitise(value) for key, value in data.items()}
@@ -73,27 +55,6 @@ def decode(data):
 def is_valid_url(url_string):
     url_pattern = r"^(https?):\/\/[^\s/$.?#].[^\s]*$"
     return bool(re.match(url_pattern, url_string))
-
-# def check_add_api(api):
-#     def recursion(data):
-#         if isinstance(api, dict):
-#             return {recursion(key): recursion(value) for key, value in data.items()}
-#         elif isinstance(data, list):
-#             return [recursion(item) for item in data]
-#         elif isinstance(data, str):
-#             return data
-#         elif isinstance(data,bool):
-#             return data
-#         else:
-#             return False
-#     try:
-#         if(is_valid_url(api["api_details"]["target"])==False or recursion(api)==False):
-#             return False
-#         else:
-#             return True
-
-#     except KeyError:
-#         return False
     
 def check_text(text):
     if not isinstance(text, str):

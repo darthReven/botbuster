@@ -10,14 +10,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import nltk
-
 # Download the English stop words (run this once)
 nltk.download('stopwords')
-
 from nltk.corpus import stopwords
-stop_words = set(stopwords.words('english'))
 
-# Load Data
+stop_words = set(stopwords.words('english'))
+# Load Dataset
 true_data = pd.read_csv('true.csv')
 fake_data = pd.read_csv('fake.csv')
 
@@ -25,14 +23,14 @@ fake_data = pd.read_csv('fake.csv')
 true_data['Target'] = ['True'] * len(true_data)
 fake_data['Target'] = ['Fake'] * len(fake_data)
 
-# Merge 'true_data' and 'fake_data', by random mixing into a single data file
+# Merge dataset into one, shuffle the data
 data = pd.concat([true_data, fake_data], ignore_index=True)
 data = shuffle(data).reset_index(drop=True)
 
 # changing labels to numbers 0/1 (Fake=1)
 data['label'] = pd.get_dummies(data.Target)['Fake']
 
-# Train-Validation-Test set split into 70:15:15 ratio
+# split dataset into training and test in 7:3 ratio
 train_text, temp_text, train_labels, temp_labels = train_test_split(
     data['text'],
     data['label'],
@@ -41,6 +39,7 @@ train_text, temp_text, train_labels, temp_labels = train_test_split(
     stratify=data['Target']
 )
 
+# split test data into test and validation data in 50-50 split
 val_text, test_text, val_labels, test_labels = train_test_split(
     temp_text,
     temp_labels,
@@ -53,7 +52,7 @@ val_text, test_text, val_labels, test_labels = train_test_split(
 albert_model_name = 'albert-base-v2'
 albert = AlbertModel.from_pretrained(albert_model_name)
 tokenizer = AlbertTokenizer.from_pretrained(albert_model_name)
-
+# define max length for tokens
 MAX_LENGTH = 15
 
 def preprocess_text(text):
@@ -109,13 +108,14 @@ test_dataloader = DataLoader(test_dataset, sampler=test_sampler, batch_size=batc
 for param in albert.parameters():
     param.requires_grad = False
 
+# setting up and configuring the albert model
 class ALBERT_Arch(nn.Module):
     def __init__(self, albert):
         super(ALBERT_Arch, self).__init__()
         self.albert = albert
         self.dropout = nn.Dropout(0.1)
         self.relu = nn.ReLU()
-        self.fc1 = nn.Linear(768, 512)  # Update the input size to 768
+        self.fc1 = nn.Linear(768, 512)
         self.fc2 = nn.Linear(512, 2)
         self.softmax = nn.LogSoftmax(dim=1)
 
@@ -133,7 +133,7 @@ model = ALBERT_Arch(albert)  # Use the ALBERT-based architecture
 # Defining the hyperparameters (optimizer, weights of the classes and the epochs)
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=140)
 cross_entropy = nn.NLLLoss()
-epochs = 1
+epochs = 2
 
 # Training and Evaluation Functions
 def train():

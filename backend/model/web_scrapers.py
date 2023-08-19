@@ -122,12 +122,14 @@ async def scraper(elements,settings, page_url):
     page = await browser.newPage()
     await page.goto(page_url)
 
+    # check if website has any popups defined
     if(settings[0]==''):
         pass
     else:
         await del_pop_up(page, settings)
     num_of_items=settings[1]
     items = await scrape_infinite_scroll_items(page, elements, num_of_items)
+    # filtering to avoid duplicate content
     unique_items = []
     seen_items = set()
     for item in items:
