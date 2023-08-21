@@ -50,8 +50,12 @@ With the goal of accurately identifying and flagging fake content including bot 
 As such, to handle this constraint, the team would have to employ a repetition model which works on word clustering. Word clustering is a technique that will group similar texts based on their content, which depending on the clustering method, either hard or soft, will have different clusters that may overlap. This method can help identify the variation in content posted by a specific account, low variation and high repetition would indicate a high probability of it being a bot account. Training and implementing such a model, would work well in conjunction with the other categories in identifying bot or fake accounts and the purpose of them, such as spreading misinformation, hate speech, or utilising AI-generated content.
 
 # User Guide and Documentation
+Our user guide and documentation can be found at this [Google Docs link](https://docs.google.com/document/d/1T2BiViXb7NjKcg330562_HD5HM3_ABVY4zqm5_BBv4E/edit?usp=sharing).
 
 # Installation Guide
+Botbuster was designed, built and tested in a Windows 10/11 environment. Therefore, the team recommends hosting the servers on a Windows Server 2016. The system is coded using Python on the Backend and Misinformation servers, and HTML, CSS and Javascript on the front end. As such, it may be capable of running on Linux or other operating systems with little to no modifications to the code/installed software. However, this was not a priority and therefore not tested by the team.
+
+Each subfolder found in the main project folder is designed to be run on a separate server/virtual machine. For the frontend server, nodejs is required to be installed and python must be installed on the servers running the backend and misinformation models. After installing these modules, the needed dependencies for each subfolder can be installed using `pip install -r requirements.txt`. 
 
 # Dependencies
 - urllib
