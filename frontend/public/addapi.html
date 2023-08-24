@@ -1,3 +1,15 @@
+<!--
+'''
+AY2023/24 Final Year Project 
+DISM3A68
+
+p2104092 Lucas Quek
+p2104104 Elliot Ang
+p2128511 Kara Huang
+p2128649 Cheong Yue Ming
+P2128962 Sibi Srinivas S/O Ganesan
+'''
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +110,16 @@
         //   }, false);
         // })();
 
+        const isValidUrl = (urlString) => {
+          const urlPattern = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
+          return urlPattern.test(urlString);
+        };
+
         function addApi(event) {
+          if(checkDomain(document.getElementById("api-target").value.trim())==false){
+            window.alert("Invalid URL!")
+            return
+          }
           event.preventDefault()
           $('#loading').show(); // Start loading
           $('.btn[type="button"]').prop('disabled', true); // Disable submit
@@ -115,14 +136,13 @@
             path_to_general_score: document.getElementById("api-general-path").value,
             path_to_sentence_score: document.getElementById("api-sentence-path").value.split(","),
           };
-          console.log(data)
           $.ajax({
             url: "http://127.0.0.1:8000/addapi/",
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json; charset = utf-8",
             success: function (data, textStatus, xhr) {
-              location.reload()
+              // location.reload()
             }, error(xhr, textStatus, err) {
               $('#loading').hide(); // Hide loading
             }

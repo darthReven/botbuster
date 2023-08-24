@@ -1,3 +1,14 @@
+'''
+AY2023/24 Final Year Project 
+DISM3A68
+
+p2104092 Lucas Quek
+p2104104 Elliot Ang
+p2128511 Kara Huang
+p2128649 Cheong Yue Ming
+P2128962 Sibi Srinivas S/O Ganesan
+'''
+
 import nltk
 import re
 

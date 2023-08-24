@@ -11,6 +11,11 @@ During the course of the project, the team decided to specify three categories o
 The framework is built to have both a user interface and an API for users to call. The API is built on the Windows operating system and may not be fully compatible with Linux or any other operating system.
 The team strived to make the solution as robust as possible. However, due to the limited amount of time, the framework will be more functional and efficient in more favourable conditions. The optimal conditions to run BotBuster are listed in the subsections below. The subsections will also include the data stored and the resources needed when using the system.
 
+## Running the system
+Backend Server -> ensure you are in the backend server directory, run the main.py file
+Frontend Server -> ensure you are in the frontend server directory, run the server.js file
+Misinformation Model Server -> ensure you are in the misinfo_backend server directory, run the main.py file
+
 ## Physical Environment and Requirements
 Since BotBuster makes multiple requests to various different APIs and it could potentially get millions of words to process, it is vital for the server hosting the BotBuster framework to have a high-speed internet connection. Moreover, in order to handle many requests and data at the same time, the server would also require sufficient RAM and CPU resources. Taking these requirements into account, the team recommends that the server hosting the BotBuster framework should meet the following minimum requirements:
 -A high-speed gigabit internet connection
