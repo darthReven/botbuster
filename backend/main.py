@@ -175,7 +175,8 @@ def check_text(request: ds.check_text):
             path2 = config_data["path_to_sentence_score"][api][1] # path to the score of each sentence
             results = full_results # checking for sentence score
             for key in path1.split("."): # loops through each key in the path to sentence scores
-                try:
+                try:   
+                    print(results)
                     if results == "Error Detecting":
                         continue
                     if key.isnumeric(): # if the key is numerical, convert it to an int

@@ -35,7 +35,7 @@
             "data_type": "string",
             "headers": {},
             "body": {
-               "key": "3HXGTW1V9RR7KJJ3CKZC8TDRHOKK9NTM",
+               "key": "K038CIZV4FT1TGIQOBFEHJT65KNLXJSY",
                "text": "",
                "sent_scores": true
             }
@@ -250,14 +250,16 @@
          ],
          "func": "sms"
       },
-      "forums.hardwarezone.com.sg": {
+      "forums.hardwarezone.com.sg\n": {
          "elements": [
             "h4",
             "div.bbWrapper"
          ],
-         "func": "gws",
-         "url": "*",
-         "splitter": "/"
+         "settings": [
+            "",
+            50
+         ],
+         "func": "sms"
       }
    }
 }

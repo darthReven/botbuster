@@ -1,7 +1,405 @@
-[1207/223231.728:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
-[1207/223231.732:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
-[1207/223231.736:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
-[1207/223231.741:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
-[1207/223232.083:INFO:CONSOLE(1)] "Uncaught NetworkError: Failed to import 'https://abs.twimg.com/responsive-web/client-serviceworker/serviceworker.4557530a.js'. importScripts() of new scripts after service worker installation is not allowed.", source: https://twitter.com/sw.js (1)
-[1207/223235.233:ERROR:leveldb_factory.cc(88)] Failed to open LevelDB database from C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\IndexedDB\https_twitter.com_0.indexeddb.leveldb,IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\IndexedDB\https_twitter.com_0.indexeddb.leveldb/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
-[1207/223235.239:ERROR:leveldb_factory.cc(88)] Failed to open LevelDB database from C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\IndexedDB\https_twitter.com_0.indexeddb.leveldb,IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\IndexedDB\https_twitter.com_0.indexeddb.leveldb/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141008.202:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141008.222:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141008.227:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141008.231:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141008.235:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141013.207:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141016.300:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141016.315:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141016.315:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141016.315:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141016.315:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141016.315:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141016.315:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141016.319:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141016.323:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141016.328:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141016.331:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141019.329:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/141021.316:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141023.218:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141031.324:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141043.236:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141051.338:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/141102.227:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141102.228:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141102.228:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141102.228:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141102.228:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141102.228:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141102.231:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141102.237:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141102.243:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141102.248:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141105.256:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/141108.456:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/141109.061:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141109.170:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141109.208:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141109.251:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141109.470:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141109.612:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141109.655:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141109.669:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141109.695:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141109.857:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141110.288:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141110.366:INFO:CONSOLE(2)] "Powered by AMP ⚡ HTML – Version 2310301456000 https://forums.hardwarezone.com.sg/threads/yakun-vs-toastbox-food.6577903/page-5", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141110.467:INFO:CONSOLE(2)] "Powered by AMP ⚡ HTML – Version 2310301456000 https://forums.hardwarezone.com.sg/threads/yakun-vs-toastbox-food.6577903/page-5", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141110.683:INFO:CONSOLE(2)] "[amp-analytics/transport] Response unparseable or failed to send image request https://securepubads.g.doubleclick.net/pagead/adview?ai=C5cC6_gR0ZbHFDNOTrQGimYe4BqDx5sZ057nIhoISChABIJPg0SpgvwWgAaTjl7kpyAECqQKbSB-R0xthPuACAKgDAcgDCKoEiANP0AOvju7cxVvCeLLEh5tQZp6GMZrm-Ydtfp5IGqP3cmWNWRxi6w6eAVdEHGGk5y0bwE5vGt0B4KrBjBvsRkNxxt_c9z7DBJcNqUremU9jpP58dRfNbUl8xJ2mv2e_swPUBJ8tbe8DxE9rXC_sSq5qqdZrVAcLhbm_uxdqiUuYWK6xosMl--bWIhSwf28j0_vMQZWilY0zBvAjkBwKKcTEvPROuHCxOEf8K2SFz5SF7_JCDaB02jepMNLEhjqTCozUmMidBZNguqKa7QHZOgA55vBXJHhMHG-S-wVI2ItXrUv0OQNTB8P6Dux0cwXs-ykYUGNvBj5hL1C46bM0CgFLnv4HXKCUSGGDZ1jDuS2O5LtUgZjvClfy5odS3PuiGSMOgKCn0WjLzOvTEYIPZsFXc-02un-113JNhH_acHyqtB1n_o1INMXzGw4tVXWXIiMacC5hk0rnlX0-Ho68tcLoGXMPVu4tMVbBOLjYSTpn8BqGglHz7TOZHFQKhhfgozNOAmu6sN7mRsAEx6mtir8E4AQBiAXbwvmeTaAGAoAHpJvomASoB9m2sQKoB47OG6gHk9gbqAfulrECqAf-nrECqAfVyRuoB6a-G9gHAfIHBBD2mQrSCB0IgGEQARgdMgKKAjoCgEBIvf3BOljdpL2J2YGDA5oJdWh0dHBzOi8vd3d3LmFsdXhlLmNvbS9zZy1lbi93ZWRkaW5nLXJpbmcvY2F0ZWdvcnkvYWNyZWRvLz91dG1fc291cmNlPWdvb2dsZV9nZG4mdXRtX21lZGl1bT1hZF9ucF9uYiZ1dG1fY2FtcGFpZ249aW1wcoAKA8gLAaIMGCoWChTktLEC7rWxArW4sQLktLEC7rWxAtoMEQoLEOD-gfLm8rfF7wESAgED4g0TCJrzvYnZgYMDFdNJKwodoswBZ9gTA9AVAZgWAYAXAbIXHgocCAASFHB1Yi0wNjQyMDY5MTg4OTA2OTkwGK6IEA&sigh=pdkzOkiddjw&uach_m=%5B%5D&ase=2&nis=ATTRIBUTION_REPORTING_STATUS&cid=CAQSPADICaaN1vApzoTFKyo9K4bbFRnY3WYERJCYkdAsJZc0MWwmQhm9SzO7uF88NcmMzxikKw_xHSlntscMOBgB&cbvp=2", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141111.148:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/141115.714:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141115.719:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141115.723:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141115.728:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141115.731:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141115.731:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141115.732:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141115.732:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141115.732:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141115.732:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141118.746:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/141121.828:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/141122.387:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141122.387:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141122.387:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141122.500:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141122.590:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141122.845:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141122.856:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141122.888:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141122.916:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/141123.422:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141123.454:INFO:CONSOLE(2)] "Powered by AMP ⚡ HTML – Version 2310301456000 https://forums.hardwarezone.com.sg/threads/yakun-vs-toastbox-food.6577903/page-5", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141123.513:INFO:CONSOLE(2)] "Powered by AMP ⚡ HTML – Version 2310301456000 https://forums.hardwarezone.com.sg/threads/yakun-vs-toastbox-food.6577903/page-5", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141123.734:INFO:CONSOLE(2)] "[amp-analytics/transport] Response unparseable or failed to send image request https://securepubads.g.doubleclick.net/pagead/adview?ai=CDKJ5CwV0Zeu6HsuUmsMPqPCS6Aqg8ebGdPeyyIaCEgoQASCT4NEqYL8FoAGk45e5KcgBAqkCm0gfkdMbYT7gAgCoAwHIAwiqBIgDT9B80iJLaB2nn9k0V_eIReqrNwOcNWUeS1GCJzQoPAjR9Q71gAslnT9cdsx67Z6cgFw-YKZ0vj3AZdzJqJ0ElZzbm2bQI1AgblNRflQJlhRprslhMsh7wn-TVXRtYHYEkffnt9jzzInWup3Z8FHoomAquox-wnif5gXrybweps_TNAecqW8dma3eABvSXbK_xOKnAIM0m-dDWJxX0xYJ-s5k8DHGE6bjlhI4GC6gbT_u4KF8p4kMY4CquOjCrB3fahAaeca-Y8lWf513rnYwJxRBLe9vEFgH41Q3yOvyz1-F9JKsctNevip3cixQAKvuMiVUOxp-JsAytJgnFIkE2sQ9-U2n500anWXJ0eMhQtdknUyNwSUr8CFZaugTnMfeQAxcikm1mBQ-etWEi8JfDeqvNTbESj6o1MJvLW1YILHfCkYsHe45YmvsJ4bdH9GzUGIO8PU-6c4ArUyn6vW8Z5QNae8VgSCv_lznNIlBcxosOTMrjNT_ALtLFKhv04nHMqm0x7x0FBfABMmVweq5BOAEAYgF28L5nk2gBgKAB6Sb6JgEqAfZtrECqAeOzhuoB5PYG6gH7paxAqgH_p6xAqgH1ckbqAemvhvYBwHyBwQQrbEK0ggdCIBhEAEYHTICigI6AoBASL39wTpY2sroj9mBgwOaCXVodHRwczovL3d3dy5hbHV4ZS5jb20vc2ctZW4vd2VkZGluZy1yaW5nL2NhdGVnb3J5L2FjcmVkby8_dXRtX3NvdXJjZT1nb29nbGVfZ2RuJnV0bV9tZWRpdW09YWRfbnBfbmImdXRtX2NhbXBhaWduPWltcHKACgPICwGiDBAqDgoM5LSxAu61sQK1uLEC2gwQCgoQ8PfC0IDLjNYYEgIBA-INEwjblumP2YGDAxVLimYCHSi4BK3YEwPQFQGYFgGAFwGyFx4KHAgAEhRwdWItMDY0MjA2OTE4ODkwNjk5MBiuiBA&sigh=TrINWyEX0dA&uach_m=%5B%5D&ase=2&nis=ATTRIBUTION_REPORTING_STATUS&cid=CAQSPADICaaN6YAK3J_cDVE9RWjKGkSEj8kXVBhVXAMgugCkbU7-QYhFGMqt5Oi8Br_S7h4co7J7dM4kIPoo7hgB&cbvp=2", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141123.736:INFO:CONSOLE(2)] "[amp-analytics/transport] Response unparseable or failed to send image request https://securepubads.g.doubleclick.net/pagead/adview?ai=C1wVZCwV0Zf-bMf7LmsMPnYqC0ASg8ebGdJevyIaCEgoQASCT4NEqYL8FoAGk45e5KcgBAqkCm0gfkdMbYT7gAgCoAwHIAwiqBIoDT9AFrauGemDivwOrFDFWF-PnWbfv5vCVXfMNqTr6tASnURffftn9vkOYm8sgTW1KgdDgaaRKIdMJ4w75LTJ8IsXJmGWAm53gEbJkCGw488Ei0uOYYhKPEGpE1CnkiJQ22oVVE7e8I46twLzrMJtSdx2bB91DbBbeCL0m6d4_jvlBbs532GEPSk2_dv450UjoPUBI5kowXeHCETgZTonvMR728N0m5Or_A_Syv4jyI_2X80zQ4Br74mOKmit_0wYFuj-7V61sEgPd7viXZQuc1rJTizhjqbbv_z6DezzDwL0duklYOU3xJKv3XPlmfs3gnU8oGh3hGtB2K6OqWWukUkLIuLN1twZC8AyuivFjIuUHOvHWTTHpiu-JFIDYci6XjLZRbD77dNa3I40-ZlYfqdtjNEDaY3Kx7uswPCIDk47obaE-59LM6ah5qx5TRtaN1SfOrn9DdF-XWR0imXpeV8jbUIAAWtfkSYENTItJu6X0Ce34h5gsAGEeZWmTgKEZqQuqhp_rQZNMEcAEyZXB6rkE4AQBiAXbwvmeTaAGAoAHpJvomASoB9m2sQKoB47OG6gHk9gbqAfulrECqAf-nrECqAfVyRuoB6a-G9gHAfIHBBC1uAbSCB0IgGEQARgdMgKKAjoCgEBIvf3BOlj_9PuP2YGDA5oJdWh0dHBzOi8vd3d3LmFsdXhlLmNvbS9zZy1lbi93ZWRkaW5nLXJpbmcvY2F0ZWdvcnkvYWNyZWRvLz91dG1fc291cmNlPWdvb2dsZV9nZG4mdXRtX21lZGl1bT1hZF9ucF9uYiZ1dG1fY2FtcGFpZ249aW1wcoAKA8gLAaIMECoOCgzktLEC7rWxArW4sQLaDBAKChDgwuyav_qvnFASAgED4g0TCMqq_I_ZgYMDFf6lZgIdHYUAStgTA9AVAZgWAYAXAbIXHgocCAASFHB1Yi0wNjQyMDY5MTg4OTA2OTkwGK6IEA&sigh=5LSzqt42-S4&uach_m=%5B%5D&ase=2&nis=ATTRIBUTION_REPORTING_STATUS&cid=CAQSPADICaaN5SuwplcKsubKgih5-rCcCFBTSk_83otslF22kRQvs2Z6sfUdgC7t7bceK-bgbCgu-e24_YJfYxgB&cbvp=2", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/141124.215:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/141218.330:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141218.330:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/141218.331:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141218.331:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141218.331:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/141218.331:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/141218.334:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141218.339:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141218.343:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141218.347:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/141221.368:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/141224.462:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/141225.087:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141225.087:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141225.087:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141225.087:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141225.321:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141225.559:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312060101/pubads_impl.js?cb=31080021 (10)
+[1209/141225.603:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312060101/pubads_impl.js?cb=31080021 (10)
+[1209/141225.608:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141225.609:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312060101/pubads_impl.js?cb=31080021 (10)
+[1209/141226.146:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/141226.811:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/143314.163:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143314.163:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143314.163:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143314.163:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143314.163:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143314.163:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143314.167:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143314.172:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143314.177:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143314.181:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143317.178:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/143319.445:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143319.445:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143319.445:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143319.445:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143319.445:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143319.445:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143319.449:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143319.454:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143319.460:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143319.465:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143320.315:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/143321.011:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143321.011:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143321.011:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143321.186:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143321.302:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143321.574:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143321.578:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js?cb=31079991 (10)
+[1209/143321.582:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js?cb=31079991 (10)
+[1209/143321.625:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js?cb=31079991 (10)
+[1209/143322.187:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143322.460:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/143322.843:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/143325.569:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/143326.098:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143327.933:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143327.960:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143328.188:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143328.376:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143328.474:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/143328.475:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143328.478:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/143328.499:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/143329.069:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143329.751:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/143612.258:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143612.258:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143612.258:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143612.258:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143612.258:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143612.258:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143612.262:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143612.267:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143612.271:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143612.274:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143615.293:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/143618.399:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/143619.021:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143619.021:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143619.021:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143619.088:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143619.258:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143619.538:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312050101/pubads_impl.js?cb=31079992 (10)
+[1209/143619.545:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143619.559:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312050101/pubads_impl.js?cb=31079992 (10)
+[1209/143619.607:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312050101/pubads_impl.js?cb=31079992 (10)
+[1209/143620.154:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143620.611:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/143822.995:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143822.995:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/143822.995:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143822.995:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143822.995:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/143822.995:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/143822.999:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143823.004:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143823.008:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143823.012:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/143826.032:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/143829.111:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/143829.789:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143829.789:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143829.789:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143829.789:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143830.013:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143830.154:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/143830.250:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/143830.276:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/143830.295:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143830.790:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/143831.054:INFO:CONSOLE(2)] "Powered by AMP ⚡ HTML – Version 2310301456000 https://forums.hardwarezone.com.sg/threads/what-languages-will-you-like-to-learn.6950225/page-2", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/143831.166:INFO:CONSOLE(2)] "Powered by AMP ⚡ HTML – Version 2310301456000 https://forums.hardwarezone.com.sg/threads/what-languages-will-you-like-to-learn.6950225/page-2", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/143831.326:INFO:CONSOLE(2)] "[amp-analytics/transport] Response unparseable or failed to send image request https://securepubads.g.doubleclick.net/pagead/adview?ai=C2ksjZwt0ZZrDFd_KmsMP0MmC2Aeg8ebGdIe2yIaCEgoQASCT4NEqYL8FoAGk45e5KcgBAqkCm0gfkdMbYT7gAgCoAwHIAwiqBJEDT9CyNucQpmsSifmGRUlAwQ8yirfj3SaLH2MxSBXaKJU4vH6vj9kuBwU5ab3osatCxV9mMEMu2Vxdk6cTzYSSkjCTNfoiQ7nyyK0bHYMG-ASljBbpv7DqMXi7NOUZh_ymfELct8xHCmGxFNloJS0IPaURZAFMbhOm0KnleWmosEHHumUMbw5Pn5Ny90ZxxJ29QVZqyuEZ82JHsM0G6fSWKFMYh2t9pIdj_OUQ7YnFPJkRMFkkveBywTV-zOIUn01S3IBtJGyvKpuArJoftHFsnTqp2vbZ5Xoplnktz4aD2QItaz0ClkY2URvUB5xv6PfzqxAL63_VfppSuj1H8griXL_-PPobBVb23aA-9WDjRNvmrSOZKtX9GZCCuaV4kbFqVCrvGeeDWq1NRz1BZ7L4RCHGw4_q2Ak8UfIbJ0Thilfc5CWaRSoX39aB3hj19rJvPfT_tVbyat0e6FvYGSpuZNbtnDqsXXEZdfbikzqqPqccbNLIv6SJx_Y93VHsVosgjuSw2tJcd0hJP27n-3zV7XjABMeprYq_BOAEAYgF28L5nk2gBgKAB6Sb6JgEqAfZtrECqAeOzhuoB5PYG6gH7paxAqgH_p6xAqgH1ckbqAemvhvYBwHyBwQQ65kI0ggdCIBhEAEYHTICigI6AoBASL39wTpYrLqEmN-BgwOaCXVodHRwczovL3d3dy5hbHV4ZS5jb20vc2ctZW4vd2VkZGluZy1yaW5nL2NhdGVnb3J5L2FjcmVkby8_dXRtX3NvdXJjZT1nb29nbGVfZ2RuJnV0bV9tZWRpdW09YWRfbnBfbmImdXRtX2NhbXBhaWduPWltcHKACgPICwGiDBgqFgoU5LSxAu61sQK1uLEC5LSxAu61sQLaDBAKChDguYn4v-fc5EISAgED4g0TCNX8hJjfgYMDFV-lZgId0KQAe9gTA9AVAZgWAYAXAbIXHgocCAASFHB1Yi0wNjQyMDY5MTg4OTA2OTkwGK6IEA&sigh=OeagEtzyiC4&uach_m=%5B%5D&ase=2&nis=ATTRIBUTION_REPORTING_STATUS&cid=CAQSPADICaaNUW9HdLk-4YO4VkphiMXehWDQMM4qEPEd8mkBP6d7zPKtXIo__RBiH5dn62a5IdlV6YyEN1aCYBgB&cbvp=2", source: https://cdn.ampproject.org/rtv/012310301456000/amp4ads-v0.js (2)
+[1209/143831.650:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/144459.112:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144459.121:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144504.140:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144504.140:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144514.199:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144514.200:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144534.253:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/144534.272:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/152604.842:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/152604.842:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[1209/152604.842:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/152604.842:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/152604.842:ERROR:disk_cache.cc(205)] Unable to create cache
+[1209/152604.842:ERROR:gpu_disk_cache.cc(676)] Gpu Cache Creation failed: -2
+[1209/152604.843:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/152604.849:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/152604.853:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/152604.858:WARNING:leveldb_database.cc(123)] Unable to open C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata: IO error: C:\Users\srini\OneDrive - Singapore Polytechnic\Documents\GitHub\botbuster\backend\scraper_cookies\Default\shared_proto_db\metadata/MANIFEST-000001: Unable to create sequential file (ChromeMethodBFE: 7::NewSequentialFile::1)
+[1209/152607.863:ERROR:service_worker_storage.cc(2016)] Failed to delete the database: Database IO error
+[1209/152611.036:INFO:CONSOLE(86)] "hidden", source: https://forums.hardwarezone.com.sg/js/hwz/hwz_age_gating.js (86)
+[1209/152612.192:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152612.192:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152612.192:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152612.192:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152612.545:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152612.817:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/152613.048:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152613.137:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/152613.240:INFO:CONSOLE(10)] "[GPT] Using deprecated googletag.encryptedSignalProviders. Please use googletag.secureSignalProviders instead.", source: https://securepubads.g.doubleclick.net/pagead/managed/js/gpt/m202312040101/pubads_impl.js (10)
+[1209/152613.836:ERROR:cert_issuer_source_aia.cc(34)] Error parsing cert retrieved from AIA (as DER):
+ERROR: Couldn't read tbsCertificate as SEQUENCE
+ERROR: Failed parsing Certificate
+
+[1209/152614.862:INFO:CONSOLE(298)] "Country1SG", source:  (298)
+[1209/183617.158:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/183617.272:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/183617.277:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/183619.886:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/183619.906:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/204602.930:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/204602.961:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/204604.663:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/204604.714:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/204609.673:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.
+[1209/204609.736:WARNING:dns_config_service_win.cc(583)] Failed to read DnsConfig.

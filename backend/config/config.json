@@ -17,12 +17,12 @@
             }
          },
          "Writer": {
-            "target": "https://enterprise-api.writer.com/content/organization/639760/detect",
+            "target": "https://enterprise-api.writer.com/content/organization/572452/detect",
             "body_key": "input",
             "data_type": "string",
             "headers": {
                "accept": "application/json",
-               "Authorization": "3wfE2AUhKP8aLHPCRIoZUzR25ID-0I0dbTVfU_hbfEEQJFkr-knX_6AE-bNe7ttvXyrJUWz9NibjsRHuiAlNwY-nhF7XK0VnGEzYshp4e77dQ3cGmr9D-1lqXVTEINdG",
+               "Authorization": "hoqxluhz0knHgwpS2yKKcZSsYC5FZNJd2ZwhsUXH0rXtKALF-cnZFZiPpEUViA89xiPAPB_hGpmP-UWcxnMLU7BwxAYecOWzS1m99ld6ImzqKo9qCvEOPsMBx5QTmX33",
                "content-type": "application/json"
             },
             "body": {
@@ -35,7 +35,7 @@
             "data_type": "string",
             "headers": {},
             "body": {
-               "key": "KYPSCA0A68U5DZQKLBQV7G8NH2Y34WL9",
+               "key": "K038CIZV4FT1TGIQOBFEHJT65KNLXJSY",
                "text": "",
                "sent_scores": true
             }
@@ -250,14 +250,16 @@
          ],
          "func": "sms"
       },
-      "forums.hardwarezone.com.sg": {
+      "forums.hardwarezone.com.sg\n": {
          "elements": [
             "h4",
             "div.bbWrapper"
          ],
-         "func": "gws",
-         "url": "*",
-         "splitter": "/"
+         "settings": [
+            "",
+            50
+         ],
+         "func": "sms"
       }
    }
 }
