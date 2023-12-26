@@ -39,17 +39,6 @@
                "text": "",
                "sent_scores": true
             }
-         },
-         "Hugging Face": {
-            "target": "https://piratexx-ai-content-detector.hf.space/run/predict",
-            "body_key": "data",
-            "data_type": "list",
-            "headers": {},
-            "body": {
-               "data": [
-                  ""
-               ]
-            }
          }
       },
       "Misinformation APIs": {
